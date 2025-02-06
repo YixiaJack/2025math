@@ -1,0 +1,180 @@
+\chapter[Honors Theory of Probability ]{Honors Theory of Probability}
+\section[Lecture 1 (02-03) -- {Introduction to Probability}]{Lecture 1 (02-03)Introduction to Probability}
+Office Hour: Wed 12:30-1:30pm,Fri 3:30-4:30pm W910
+\begin{itemize}
+    \item Homework: weekly
+    \item Grades: 5\% participation, 15\% homework, 40\% midterm, final group project(Max 4 people a group,presetation 20\%, Final report 20\% 10 pages)
+\end{itemize}
+
+\subsection{Intro}
+
+Why do we need modern theory of probability?
+\begin{example}[]{}
+    \begin{itemize}
+        \item Coin flip 7 times, what is P[first outcome and fifth outcome are Head]?
+    \\sol: \[\Omega=(x1,x2,x3,x4,x5,x6,x7)\]\[ A=(x1,x2,x3,x4,x5,x6,x7),x1=x5=H\]\[P(A)=\frac{|\Omega|}{|A|}=\frac{1}{4} \] 
+        \item Stock Price (mathematically,geometric Browmion motion, STochastic process, such that $t \rightarrow S_t$ is continuous but nowehere differentiable)
+     \\What is P[$S_T \geq 100$]? 
+     \[\Omega= C[0,T]=\{\text{continuous function}, f[0,T] \rightarrow R\}\]
+     \[A=\{f \in C[0,T] | f(t) \geq 100\}\]
+     \\requires measure theory that defines P[$S_T \geq 100$]
+     \\In modern Prob, Probability Space:($\Omega,F,P$), $\Omega$ is sample space, $F$ is $\sigma$-algebra(meaningful subset of $\sigma$), $P$ is probability measure($P:F\rightarrow[0,1]$).
+    \end{itemize}
+    \end{example}
+Topics covered:
+\begin{itemize}
+    \item Probability space, $\sigma$-algebra, measure ,Conditional Probability and Independence
+    \item Random variables (measurable functions),distribution
+    \item Expectation (Lebesgue integral),Conditional distribution and expectation, functionos of random variables, Radom-Nikodym Derivative
+    \item Random walks
+    \item generating functions, characteristic functions
+    \item Branching processes
+    \item Convergence of random variables, Law of large numbers, Morte-Carlo Method
+    \item Central Limit Theorem
+    \item Time permitting: Large deviations, Markov Chains
+\end{itemize}
+
+
+
+\subsection{Probability Space}
+($\Omega,F,P$)
+\begin{example}[Coinflip and Stock Price]{}
+    \begin{itemize}
+        \item Coin flip infinite times, \[\Omega=\{(x1,x2,\cdots),x_i=H , T\}\]
+        \\ Let $A$ be the event of $10^6$ consecutive Tails, 
+        \[ 
+            A=\bigcup_{i=1}^{+\infty}\{x_i=x_{i+1}=\cdots=x_{i+10^6-1}=0,(x_i \in \Omega)\} 
+             \]
+        \\$P[A]=1$
+        \item Discrete Stock Price model, t=0,1,2,$\cdots$,T
+        \\T is maturing time, time step $\Delta t$ $\ll$ $T$
+        
+        \[ N=\frac{T}{\Delta t}
+        \] \[ \text{price go} \begin{cases} \nearrow \text{by factor}: e^{\sigma \sqrt{\Delta t}}\\\searrow \text{by factor}:e^{-\sigma \sqrt{\Delta t}}
+        \end{cases} \]
+        \[\Omega=\{(x_1,x_2,\cdots,x_N),x_i=0 \text{ or }1\}\]
+        \\Stock price at time t: $\forall \omega \in \Omega$
+        \[ S_N(\omega)=S_0e^{\sum_{i=1}^{N}x_i{\sigma \sqrt{\Delta t}}{e^{(N-\sum_{i=1}^{N}x_i)(-\sigma \sqrt{\Delta t})}}}\]
+        \[S: \Omega \rightarrow R (\text{Random Variable})\]
+        \\Event: return at T is positive but not more than 10\%:
+        \[\{\omega \in \Omega:S_N(\omega)\in(S_0,1.1S_0]\}\]
+    \end{itemize}
+\end{example}
+  \begin{example}[Gambling]{}
+    \begin{itemize}
+        \item Gambling:\begin{itemize}
+            \item start with \{0,1,2,$\cdots$\} each time bet an interger amount
+            \item if amount of money =0, stays at 0
+            \\wealth process: $\Omega-\{0,1,2,\cdots\} \times \{0,1,2,\cdots\} \times \cdots$
+            \\wealth after time n: (random variable) $X_n: \Omega \rightarrow N, (x_1,x_2,...x_n) \rightarrow x_n$
+            \\$(X_n) $is a Markov Chain (future only depends on present state, but not the past) 
+            \begin{align}
+                &\text{Event: \{State j is reached from state i\}}
+                \\&=\{\omega \in \Omega: \exists n \in N, X_0(\omega)=i,X_{n}(\omega)=j\}
+                \\&=\bigcup_{m=1}^{+\infty}\{\omega\in\Omega:X_o(\omega)=i,X_n(\omega)=j\}
+            \end{align}
+          
+        \end{itemize}
+        
+    \end{itemize}
+    \end{example}
+
+
+\section{Lecture 2}
+in practice, want $ P $ to be closed under $\bigcap ,\bigcup, ^c $
+\begin{definition}[]{}
+Let $A $ be a collection of subsets of $ \Omega   $ , $A$ ia an algebra iff:
+\begin{itemize}
+\item $ \Omega \in A $
+\item if A,B$\in A$ then A$\bigcap$ B $\in A$
+\item if A$\in A$ then A$^c \in A$
+\end{itemize} 
+\end{definition}
+\begin{remark}[]{}
+if A,B$ \in A \rightarrow$ A $\bigcap$ B$ \in A$, because A$ \bigcap $ B = (A$^c \bigcup$  B$^c)^c$ 
+
+\end{remark}
+\textbf{Fact:} 
+\begin{itemize}
+\item $ P $($ \Omega $ )(powerset)=\{A:A $\subset \Omega \} $ is an algebra
+\item smallest algebra/trivial algebra: $ \{\emptyset,\Omega \} $
+\item Let $ A_1,A_2 $ be two algebras of $ \Omega $ $$
+    A_1 \bigcap A_2 =\{ B\in \Omega:B\in A_1 \text{   and   }B \in A_2\}
+$$ 
+$$
+    \text{if} {(A_j)}_{j\in J} \text{is a family of algebras, then} \bigcap_{j\in J}A_j \text{is an algebra}
+$$ 
+\item Let $\mathcal{E} $ be any collection of subsets of $ \Omega $ 
+$$
+    a(\mathcal{E})=\bigcap_{A \subset \mathcal{E}}A \text{    is an algebra}
+$$
+\\in fact, $a(\mathcal{E})$ is the smallest algebra containing $\mathcal{E}$
+\\It is called the algebra generated by $\mathcal{E}$
+\item Let $ A \subset \Omega$ ,$ \mathcal{E}=\{A\} $ 
+\\Then$$
+    a(\mathcal{E})=\{A,A^c,\Omega,\emptyset\}
+$$ 
+\textbf{Proof:}$$
+a(\mathcal{E}) \subset f
+$$ 
+\\notice that $ f $ is an algebra since $ f\subset \mathrm{E} $, therefore $ f \subset a(\mathcal{E}) $ because $ a(\mathcal{E}) $ is the smallest algebra containing $ \mathrm{E} $.
+\\Another direction($f\subset a(\mathcal{E}) \subset f$): $$
+    A\in a(\mathrm{E}), A^c \in a(\mathrm{E})
+$$ 
+\item $\pi =\{A_1,A_2,\cdots ,A_n\}$:$ \Omega=\bigcup_{i=1}^{n}A_i,A_i\bigcap A_j=\emptyset $ 
+Then:$$
+    a(\pi)=\{\bigcup_{i\in I}A_i,for I\subset {1,2,\cdots, n}\}=\text{    finite disjoint union of   } {(A_i)}_{i=1}^{n}
+$$ 
+\item Let A be an algebra of $\mathbb{R}$
+\\Let $ X:\Omega \rightrightarrows $ be a function 
+\\Then \{$X^-1(A),A\in A$ is an algebra of $ \Omega $ \}
+\\hint: $X^-1(A\bigcup B)=(X^-1(A))\bigcup (X^-1(B))$
+\item $\Omega = \mathbb{R}$, $\mathrm{E} = \{\text{left open right closed intervals}\} = 
+\begin{cases}
+    (a,b], & -\infty \leq a < b < +\infty \\
+    (a,+\infty), & -\infty \leq a
+\end{cases}$
+\\Then a($\mathrm{E}$)="finite disjioint union of elements in $\mathrm{E}$"
+\\=\{$ I_1\bigcup\cdots\bigcup I_k,I_j \in \mathrm{E} , I_j \bigcup I_j =\emptyset $ (f)\}
+\\hint: $ f \subset a(\mathrm{E}) strightforward $ 
+\\$ a(\mathrm{E}) \subset f $ 
+\begin{itemize}
+\item$ f  $ is an algebra
+\item $ \mathrm{E} \subset  $ , since $ a(\mathrm{E}) $ is the smallest algebra containing $ \mathrm{E} $, $ a(\mathrm{E}) \subset f $
+\end{itemize}
+\end{itemize}
+\begin{definition}[$ \sigma-algebra $ ]{}
+A $ \sigma-algebra $ ($ \sigma-field $) A is an collection of subsets of $ \Omega $ such that
+\begin{itemize}
+\item $ \Omega \in A $
+\item if $ A_1,A_2,\cdots \in A $ then $ \bigcup_{i=1}^{+\infty}A_i \in A $
+\item if $ A \in A  $, then $ A^c \in A $ 
+\end{itemize}
+\end{definition}
+\begin{remark}[]{}
+if  if $ A_1,A_2,\cdots \in A $ then $ \bigcap_{i=1}^{+\infty}A_i \in A $
+\\$ \sigma $ -algebra represents the collection of information determined by partial derivatives
+\end{remark}
+\begin{example}{}{}
+\begin{itemize}
+\item coinflips infinity many times$$
+    \Omega=\{(x_1,x_2,\cdots )x_i=0,1\}={(0,1)}^{\infty}
+$$ 
+\\After observing first outcome, $ f_1=\{\emptyset,\Omega,A_0,A_1\} $
+\\Where $A_0=\{(0,x_2,x_3,\cdots),x_i=0,1\},A_1=\{(1,x_2,x_3,\cdots),x_i=0,1\} $
+\\After observing second outcome, $ f_2=\{\emptyset,\Omega,A_0,A_1,A_00,A_01,A_10,A_11\} $
+\\Where $A_{00}=\{(0,0,x_3,x_4,\cdots),x_i=0,1\},A_{01}=\{(0,1,x_3,x_4,\cdots),x_i=0,1\} \cdots$
+\\After observing first n outcomes, $$ f_n=\{\emptyset,\Omega,{(A_j)}_{j\in {(\sigma 1)}^n} \text{and finite disjioint unions}\}$$
+\end{itemize}
+\end{example}
+\begin{proposition}{}{}
+\begin{itemize}
+\item intersection of $ \sigma $-algebras is a $ \sigma $-algebra
+\item Let $ \mathrm{E} $ be a collecion of subsets of $ \Omega $ 
+$$
+    \sigma(\mathrm{E})=\bigcap_{f \supset \mathrm{E}}f \text{    is a smallest   } \sigma \text{-algebra that contains} \mathrm{E}
+$$ 
+\item For any collection $\mathrm{E}$, we have $a(\mathrm{E}) \subset \sigma(\mathrm{E})$
+\item For any collection $\mathrm{E}$, we have $\sigma(a(\mathrm{E})) \subset \sigma(\mathrm{E})$
+\end{itemize}
+\end{proposition}

@@ -1,0 +1,53 @@
+\documentclass{package/fancy-book}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+%%%%%%%%%% Default Package %%%%%%%%%%%%%
+\usepackage{package/color-env}
+%%%%%%%%%% %%%%%%%%%%%%%%% %%%%%%%%%%%%%
+%%%%%%%%%% Required Packages %%%%%%%%%%%%%
+\usepackage{background}
+\usepackage[object=vectorian]{pgfornament} %% used in title.tex
+\usepackage{calligra} %%% (optional) to make the Title text beautiful 
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lipsum}  %% for dummy text 
+\usepackage{amssymb,amsmath,amsfonts}  %%% for maths
+\usepackage{physics}  %%% for partial derivatives
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%% Optional Packages %%%%%%%
+\usepackage{lettrine} %% for nice looking 
+\usepackage{GoudyIn} %% first Letter of the paragraph
+
+\renewcommand{\LettrineFontHook}{\color{black}\GoudyInfamily{}}
+\LettrineTextFont{\itshape}
+\setcounter{DefaultLines}{3}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fourier-orns}
+
+\newcommand{\ornamento}{\vspace{2em}\noindent \textcolor{darkgray}{\hrulefill~ \raisebox{-2.5pt}[10pt][10pt]{\leafright \decofourleft 
+\decothreeleft  \aldineright \decotwo \floweroneleft \decoone   \floweroneright 
+\decotwo \aldineleft\decothreeright \decofourright \leafleft} ~  \hrulefill \\ \vspace{2em}}}
+%%%% Bibliography %%%%%%%%%
+% Required packages are included in notes class
+% Can be tweaked in the notes.cls file itself
+
+\addbibresource{resource/references.bib}
+
+\begin{document}
+
+\include{title.tex}
+
+\newpage
+
+\backgroundsetup{contents={}} %% to remove background and watermark from other pages
+\tableofcontents
+
+%\newpage
+\include{complex/w1.tex}
+\include{htop/w1.tex}
+\include{pde/w1.tex}
+\include{algo/w1.tex}
+\end{document}

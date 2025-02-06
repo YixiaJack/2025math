@@ -1,0 +1,244 @@
+\chapter[Partial Differential Equations]{Partial Differential Equations}
+
+\section[Lecture 1 (02-03) -- {What are the PDEs?}]{Lecture 1 (02-03)Initial and Boundary Conditions}
+
+\subsection{What are the PDEs?}
+\begin{align}
+    \label{eq1} \pdv{u}{t}=\pdv[2]{u}{x}+\pdv[2]{u}{y}-u 
+    \\ u=u(x,y,t)
+\end{align}
+\eqref{eq1} is a second order PDE
+ 
+
+\subsection{Classical solutions}
+To simplify, we consider here equations of one unknown function $u$ of one or more variable
+\\By a solution we mean a sufficiently smooth function $u$ that satisfies the PDE at every point of the domain of its definition($D$).
+\\Sometimes, we will have to impose some boundary conditions on the domain $D$.
+\\$C^n=\{u:D \rightarrow R:$ n-times continuous differentiable w.r.t all variables  \} $n$ is the order of the equation
+\begin{example}{1}{}
+    \begin{itemize}
+        \item Heat equation: \[\pdv{u}{t}=\pdv[2]{u}{x}\]
+        \[u=u(x,t)\]
+        \[(t,x) \in D \subset R^2\]
+        \[u(t,x), \pdv{u}{t}(t,x),\pdv{u}{x}(t,x),\pdv[2]{u}{x}(t,x),\pdv[2]{u}{t}(t,x)\]
+        \[n=2\]
+        \[\pdv{u}{x}{t}=\pdv{u}{t}{x} \in C^2\]
+        \[u \in C^2(D)\]
+        \item Some Solution:
+        \[u(t,x)=t+\frac{x^2}{2},D=R^2\]
+        \[u(t,x)=\frac{e^{-\frac{x^2}{4t}}}{2\sqrt{\pi t}},D=\{(t,x):t>0\}\]
+        \[u(t,x)=e^{-t+ix}=e^{-t}cos(x)+ie^{-t}sin(x),D=R^2\]
+    \end{itemize}
+\end{example}
+\subsection{Initial and Boundary Conditions}
+What is Initial data?
+\\$u(0,x)=u_0(x)$
+\\
+\\What are Boundary Conditions?
+rigurous definition of Boundary
+\begin{itemize}
+    \item Dirichlet Boundary Condition: $u(t,x)|_{\partial{D}}=g(t,x)$
+    \item Neumann Boundary Condition: When the normal derivative of $u$ is specified $\pdv{u}{n}$ where $n$ is the normal to the boundary $\partial(D)$
+    \[\frac{\partial u}{\partial n}(t,x) = g(t,x)\]
+    \item Mixed Boundary Condition: Combination of Dirichlet and Neumann
+\end{itemize}
+\subsection{Linear and Nonlinear waves}
+\subsubsection{Stationary waves}
+\begin{align}
+    \label{eq2} \pdv{u}{t}&=0
+    \\u&=u(t,x)
+\end{align}
+This is a first order linear homogeneuous PDE
+\\Solution of the form $u=u(t)=c, \forall c \in R$
+\\Let's integral \eqref{eq2} :
+\[ 0=\int_{0}^{t}\frac{\partial u}{\partial t}(s,x)ds=u(t,x)-u(0,x)\]
+\\Thus if an initial conditional
+\[u(0,x)=f(x)\]
+\[u(t,x)=f(x), \forall t,x\] 
+Thus for any given $f \in C^1(R)$, we have a solution of \eqref{eq2} and this is a stationary wave
+\\The domain of this solution is $R$ if $f$ is defined everywhere on $R$
+\\Power of domain to change the solution:
+\\Consider the ODE:
+$$\dv{u}{t}=0, D=(-\infty,0)\cup(0,\infty) $$
+\\The solution is:
+\[
+    u(t)=\begin{cases}
+        c_1, t<0
+        \\c_2, t>0
+    \end{cases}
+    \forall c_1,c_2 \in R
+\]
+\\similarly, for the PDE in example \eqref{eq2}:
+$$
+    u(t,x)=\begin{cases}
+        0, x>0
+        \\x^2, x\leq0,t>0
+        \\-x^2, x\leq0,t<0
+    \end{cases}
+$$ 
+it is a $ \mathbb{C}^1 $ solution of \eqref{eq2} on $ \mathbb{R}^2 $ and it is a classical solution.
+
+\section[Lecture 2 (02-05) -- {Transport and Traveling waves}]{Lecture 1 (02-05)Transport and Traveling waves}
+\subsection{uniform transport}
+\begin{equation}
+    \label{eq4} \pdv{u}{t}+c\pdv{u}{x}=0
+\end{equation}
+\begin{equation}
+    \label{eq5} u=u(0,x)=f(x)
+\end{equation}
+$$
+    x\in \mathbb{R},t_0=0,t-t_0=t,c\in \mathbb{R}
+$$ 
+\\\textbf{use change of variable:}  
+$$
+    \xi =x-ct
+$$ 
+$ \xi $ is called characteristic variable
+\\let's look for a solution of \eqref{eq4} under the form $$ u(t,x)=v(t,\xi)=v(t,x-ct) $$ 
+\textbf{use chain rule:}
+$$
+    \pdv{u}{t}=\pdv{v}{t}-c\pdv{v}{\xi}
+$$ 
+$$
+    \pdv{u}{x}=\pdv{v}{\xi}
+$$ 
+Thus:
+$$
+    0=\pdv{u}{t}+c\pdv{u}{x}=\pdv{v}{t}-c\pdv{v}{\xi}+c\pdv{v}{\xi}= \pdv{v}{t}
+$$ 
+\textbf{Conclusion:}$$
+    \pdv{v}{t}=0
+$$ 
+Solution is constant $ v(\xi) $
+$$
+u(t,x)=v(\xi)=v(x-ct)
+$$  
+\begin{proposition}{}{}
+if u solves \eqref{eq4}, then u has the form $u(t,x)=v(x-ct)$ where v is a function of one variable that is $ \mathbb{C}^1 $-smooth.
+\\Acutually, v is satisfying $$
+    u(0,x)=v(x)=f(x)
+$$ 
+\end{proposition}
+\textbf{Conclusion:}
+$$\begin{cases}
+    \pdv{u}{t}+c\pdv{u}{x}=0
+    \\ 
+    u=u(0,x)=f(x)
+\end{cases}$$
+The solution is $$ u(t,x)=f(x-ct) $$ 
+\\$ f(x-ct) $ is a traveling wave solution moving at velocity $ c $:
+\\if c>0, the wave moves to the right
+\\if c<0, the wave moves to the left
+\\if c=0, the wave is stationary 
+\begin{example}{}{}
+$$\begin{cases}
+    \pdv{u}{t}+2\pdv{u}{x}=0
+    \\ 
+    u=u(0,x)=\frac{1}{1+x^2}
+\end{cases}$$
+The solution is $$ u(t,x)=\frac{1}{1+(x-2t)^2} $$
+The lines $ x=ct+k $ are called the characteristic lines for the equation \eqref{eq4}
+\\on the characteristic lines, the solution is always constant
+\\on geometric interpretation, $u(t,x)=f(x-ct)=f(k)$
+\end{example}
+Consider the equation:
+\begin{equation}
+    \label{eq6} \pdv{u}{t}+c\pdv{u}{x}+au=0
+\end{equation}
+where a and c are given numbers.
+\\\textbf{Use change of variable:}
+$$
+    u(t,x)=v(t,\xi)=v(t,x-ct)
+$$ we will get by the same computation
+$$
+    \pdv{v}{t}+av=0
+$$ 
+\\The solution will be$$
+    v(\xi)=e^{-at}f(\xi)
+$$ 
+$$
+    u(t,x)=v(t,\xi)=v(x-ct)=e^{-at}f(x-ct)
+$$ 
+\\So,
+$$
+    \begin{cases}u(t,x)=e^{-at}f(x-ct)\\u(0,x)=f(x)\end{cases}
+$$ 
+\subsection{Nonuniform transport}
+\begin{equation}
+    \label{eq7} \pdv{u}{t}+c(x)\pdv{u}{x}=0
+\end{equation}
+\\In the uniform case(c constant), characteristic line is x=ct+k  (the solution of ODE below)
+$$
+    \dv{x}{t}=c
+$$ 
+\\In the general non-uniform case, we can still define characteristic curves
+$$
+    \frac{d}{dt}x(t)=c(x(t))
+$$ 
+\\Let's show that the solutions of \eqref{eq7} are constants along the characteristic curves (t,x(t))
+\\We need to check that $ u(t,x(t))=h(t) $ is constant of t 
+\\compute the derivative of $ h(t)$ 
+\begin{align*}
+    \frac{d}{dt}h(t) &= \frac{d}{dt}u(t,x(t)) = \pdv{u}{t}(t,x(t))+\pdv{u}{x}(t,x(t))\cdot\dv{x}{t} \\
+    &= \pdv{u}{t}(t,x(t))+c(x(t)) \cdot \pdv{u}{x}(t,x(t)) = 0
+\end{align*}
+h(t) and thus u(t,x(t)) is constant along the characteristic curves
+\begin{definition}{}{}
+The graph of a solutioni of the ODE $$\frac{d}{dt}x(t)=c(x(t))$$ is called a characteristic curve for the transport equation \eqref{eq7} with speed c(x)
+\end{definition}
+Thus at each point (t,x) the slope of the characteristic curve is c(x) (the wave speed)
+\\In the particular case c(x)=c, the characteristic curves are straight lines of slope c
+\\Moreover,
+\\ \eqref{eq7} is an autonomous first order ODE which can be "solved" using the method of separation of variables
+\\Assume that c(x)$ \neq $0 
+\begin{align*}
+    \frac{dx(t)}{dt}&=c(x(t))
+\\\frac{dx}{c(X)}&=dt \rightarrow
+\\ \beta (x)&=\int\frac{dx}{c(x)}=t+k
+\end{align*}
+\\Thus characteristic curves satisfies the implicit equatioin$$\beta(x)=t+k$$
+\\We can find x from the equality using $ \beta^{-1} $(the inverse of $ \beta $) 
+\begin{align*}
+    \beta(x)&=t+k
+    \\ \beta^{-1}\beta(y)&=y
+    \\x(t)&=\beta^{-1}(t+k)
+\end{align*}
+\begin{remark}{}{}
+How to determine where $c(x_0)=0$?
+\\Solve this ODE$$
+    \begin{cases}
+        \frac{dx}{dt}=c(x)
+        \\x(t_0)=x_0
+    \end{cases}
+$$ 
+and $ x(t)=x_0 $ wil be the characteristic curve going through ($t_0,x_0$) 
+\end{remark}
+From the proposition, we know that $ u(t,x(t)) $=constant
+\begin{align*}
+    u(t,x(t))&=v(k)
+    \\&=v(\beta(x(t))-t)
+\end{align*} 
+\\where k is the constant determining the characteristic curve (t,x(t))
+\begin{align*}
+    u(t,x)=v(\xi)
+    \\ \text{where    } \xi=\beta(x)-t
+\end{align*}
+\\which we will call characteristic variable
+\begin{equation}
+    \label{eq8} u(t,x)=v(\beta(x)-t)
+\end{equation}
+\\This formula way fail at points where c vanishes
+\begin{align*}
+    t&=0
+    \\u(0,x)=f(x)&=v(\beta(x)-0)
+    \\f(x)&=v(\beta(x))
+    \\v(\xi)&=f(\beta^{-1}(\xi))
+    \\&=f\cdot \beta^{-1}(\xi)
+    \\u(t,x)&=f\cdot\beta^{-1}(\beta(x)-t)
+\end{align*}
+\\This is the formula for the solution of  \eqref{eq7} in the general case
+\\which is:$$\begin{cases}
+\pdv{u}{t}+c(x)\pdv{u}{x}=0
+\\u(0,x)=f(x)
+\end{cases}
+$$ 

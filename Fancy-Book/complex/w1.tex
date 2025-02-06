@@ -1,0 +1,144 @@
+\chapter[Functions of Complex Variables]{Functions of Complex Variables}
+\section[Lecture 1 (02-03) -- {Complex numbers}]{Lecture 1 (02-03)Complex numbers}
+
+\subsection{Introduction}
+
+You know the sets $$ (R,+,\times ) and (Q,+,\times) $$
+$ Q(\sqrt{2})=\{a+b\sqrt{2} | a,b \in Q\} $ $Q(\sqrt{2})$, they are infinite sets.
+
+
+\begin{definition}{Fields}{}
+    We say that a set $F$ together with two binary operations, called addition $+$,$F \times F \to F$, and multiplication $\times$, $F \times F \to F$ satisfying: 
+    \begin{itemize}
+        \item associativity $(a+b)+c=a+(b+c)$
+        \item commutativity  $a+b=b+a,ab=ba$
+        \item existence of identities\\there is a $O \in F$ such that $a+O=a$ for all $a \in F$\\there is a $1 \in F$ such that $a \times 1=a$ for all $a \in F$
+        \item existence of inverses \\for every $a \in F$ there is a $b \in F$ such that $a+b=O$\\for every $a \in F$ there is a $b \in F$ such that $a \times b=1$
+        \item distributivity\\$a \times (b+c)=a \times b+a \times c$
+    \end{itemize}
+    \end{definition}
+
+\begin{example}{Fields}{}
+    \begin{itemize}
+        \item For every prime number $p$, and $n \geq 0$,$n \in N$, there is a field ($F_{p^n},+,\times$) with $p^n=q$ elements (cardinality $q$).
+        \item (C,+,x) is a field
+    \end{itemize}
+    \end{example}
+Question: ($R^d,+$),$d\geq 2$, is there a multiplication, $\times$ such that ($R^d,+,x$) is a field?
+\begin{itemize}
+    \item $R^2$ , sclar product, $x \cdot y=x_1y_1+x_2y_2 \in R$ is not a field because $R^2 \times R^2 \rightarrow R$.
+    \item cross product, not satisfying Definition 1 and 5.
+    \item d=2, there is a good defination of multiplication, $(R^2,+,\times)\cong (C,+,\times)$.
+\end{itemize}
+\begin{lemma}{1}{}
+    Consider the vector space $(R^2,+)$
+    \\Define the multiplication:
+    $(a,b) \times (c,d) = (ac-bd,ad+bc)$
+    \\Then $(R^2,+,\times)$ is a field.
+    \end{lemma}
+Proof: 
+\begin{itemize}
+    \item You can check that $\times$ is commutative and satisfies associativity and distributivity.
+    \item We can check $(1,0)$ is a multiplication identity.
+    \item also if $(a,b) \neq (0,0)$, then $$(a,b) \times (\frac{a}{a^2+b^2} ,\frac{-b}{a^2+b^2})=(\frac{a^2+b^2}{a^2+b^2} ,\frac{-ab+ab}{a^2+b^2})=(1,0)$$
+\end{itemize}
+
+\section[Lecture 2 (02-05) -- {Complex numbers}]{Lecture 2 (02-05)Complex numbers}
+
+\subsection{The algebra of complex numbers}
+It is important to classify sets:
+\\in  Set Theory: bijection
+\\in Topology: homeomorphism
+\\For \textbf{Fields}: isomorphism
+\begin{definition}{isomorphism}{}
+   We say that fields $F$ and $F'$ are isomorphic if there exists a funtion $$i:F \rightarrow F'$$ which is a bijection and preserve the binary operations  $$i(a+b)=i(a)+i(b)$$ and $$i(ab)=i(a)i(b)$$.
+   \\i is called an isomorphism and we write $F \cong F'$
+    \end{definition}
+\textbf{Comments:}
+\\There is a unque field up to isomorphism of order (its cardinality)$$
+    p^n: F_{p^n}
+$$ 
+\begin{definition}{subfield}{}
+Given a field (F,+,x), we say that (E,+,x) is a subfield of (F,+,x) if E $\subset$ F and the addition of multiplication of E is the same addition and multiplication of F. 
+\end{definition}
+\begin{example}{subfield}{}
+$$
+    Q \subset R
+$$ 
+$$
+    Q\subset Q(\sqrt{2}) \subset R \subset R^2
+$$ 
+\end{example}
+\begin{definition}{complex number}{}
+Let F be a field such that:\begin{itemize}
+\item R is a subfield of F
+\item there is an element $i \in F$ which is the root of the equation $$ x^2+1=0 (i^2=-1)$$
+\end{itemize}
+Then we define the field of complex numbers $ C $ as $$C=\{x\in F:x=\alpha +i\beta ,\alpha, \beta \in R \}$$
+\end{definition}
+\textbf{Comments:}  
+\begin{itemize}
+    \item We need to show that there is at least one field $ F $ satisfying these properties.
+    \\ \textbf{Actually, $ (F,+,\times) =(R,+,\times)$ satisfies these properties.}
+    \item $ R'=\{x\in R:x=(\alpha ,0),\alpha \in R\} \cong R \rightarrow $ R is a subfield of $ R^2 $ .
+    \item Define $ i:=(0,1)\in R^2 $ $$
+        (a,b)\times (c,d):=(ac-bd,ad+bc) 
+    $$  Then, $$
+        i^2={(0,1)}^2=(0,1)\times (0,1)=(-1,0)
+    $$ 
+\end{itemize}
+\begin{example}{exercise}{}
+Set of $ 2\times 2 $  real matrices of the form 
+$$
+    \begin{pmatrix}
+        a & b\\
+        -b & a
+    \end{pmatrix}, a,b \in R $$
+    \\This set together with the standard addition and multiplication of matrices is a field and it is isomorphic to $ (R^2,+,\times) $ . 
+\\$ F=R^2,C=R^2 $ 
+\end{example}
+\textbf{Comments:}  
+\\It turns out that any defination of $ C $ is unique (up to isomorphisms).
+\begin{lemma}{}{}
+Let $ F $ and $ F' $ be two fields satisfying the properties of the definition of complex numbers, then call $\mathbb{C} and \mathbb{C}'$ the corresponding complex number fields.
+\\Then $ \mathbb{C} \cong \mathbb{C}' $.
+\end{lemma}
+\textbf{Proof:}
+\\Call $ i \in $ $\mathbb{C}$ and $ i' \in  \mathbb{C}' $the square roots $ -1 $.
+\\Then:
+    $$
+        f: \mathbb{C} \rightarrow \mathbb{C}' \text{  defined as  } f(\alpha +i\beta)=\alpha +i'\beta \text{  is an isomorphism}
+    $$ 
+$$
+    z=\alpha +i\beta, z'=\alpha '+i'\beta', w=\gamma  +i\delta , w'=\gamma '+i'\delta'
+$$ 
+\begin{lemma}{}{}
+Consider the vetor space $ (\mathbb{R},+)$.Then any multiplication '$ \times $' defined in this vector space which transforms it into a field $ (\mathbb{R},+,\times) $ ,is such that $ (\mathbb{R},+,\times) \cong \mathbb{C} $.  
+
+\end{lemma}
+\textbf{Proof:}
+\\Consider the elements$$
+    (1,0) \text{    and   } j=(0,1) \in \mathbb{R}^2
+$$ 
+\\Then any elemnt of $ \mathbb{R}^2 $ can be written as$ \alpha +j\beta ,\alpha ,\beta \in \mathbb{R}$
+\\Then$$
+    j^2=a+jb, a,b \in \mathbb{R}
+$$ Then,
+$$
+    j^2-jb=a, j^2-2\frac{jb}{2}=a \rightarrow j^2-2\frac{jb}{2}+\frac{b^2}{4}=a+\frac{b^2}{4}
+$$ 
+\begin{equation}
+    {(j+\frac{b}{2})}^2=a+\frac{b^2}{4}  \label{eq3}
+\end{equation}
+\textbf{Define:}$ i=\frac{j-\frac{b}{2}}{\sqrt{a+\frac{b^2}{4}}} $ 
+\\\textbf{Claim:}
+$$
+    a+\frac{b^2}{4}<0
+$$ 
+If:$$
+    a+\frac{b^2}{4} \geq 0
+$$ 
+\\Then \eqref{eq3} can be written as
+
+$$ \rightarrow ((j-\frac{b}{2})+\sqrt{a+\frac{b^2}{4}})((j-\frac{b}{2})-\sqrt{a+\frac{b^2}{4}})=0$$ 
+\\either $$ j-\frac{b}{2}=\sqrt{a+\frac{b^2}{4}} ,j-\frac{b}{2}=-\sqrt{a+\frac{b^2}{4}}$$ 

@@ -1,0 +1,41 @@
+\chapter[Algorithm]{Algorithm}
+\section[Lecture 1 (02-03) -- {Asymptotic bounds and big O}]{Lecture 1 (02-03)Asymptotic bounds and big O}
+\begin{definition}[big-Theta notation(=)]{}
+    Let $f,g: N \rightarrow R^+$, we say that $f(n)=\Theta(g(n))$ if there $\exists$  $a,b>0$ and $n_0\in \mathbb{N}$such that $a\cdot g(n) \leq f(n) \leq b\cdot g(n)$ for all $n >n_0$.
+    \end{definition}
+    Intuitively, $f(n) = \Theta(g(n))$ means that $f(n)$ grows as fast as $g(n)$ up to a constant when $n$ tends to infinity.
+
+    Examples: $3n = \Theta(n)$, $2n^2 + 7n = \Theta(n^2)$, $\ln n^2 = \Theta(\log n)$
+\begin{definition}[big-O notation($\leqq$)]{}
+    Let $f,g: N \rightarrow R^+$, we say that $f(n)=O(g(n))$ if $\exists$ $n_0\in \mathbb{N} $ and $b>0$  such that $f(n) \leq b \cdot g(n)$ for all $n > n_0$.
+    \\ $\lim_{n \rightarrow \infty}sup \frac{f(n)}{g(n)} < + \infty $   
+\end{definition}
+\begin{definition}[big-Omega notation($\geq$)]{}
+    Let $f,g: N \rightarrow R^+$, we say that $f(n)=\Omega(g(n))$ if $\exists$ $n_0\in \mathbb{N} $ and $a>0$  such that $a\cdot g(n)\leq  f(n)  $ for all $n > n_0$.
+\\ $\lim_{n \rightarrow \infty}inf \frac{f(n)}{g(n)} >0$
+\end{definition}
+\begin{remark}{}{}
+    $$f(n)=\Theta(g(n)) \Leftrightarrow f(n)=O(g(n)) \text{ and } f(n)=\Omega(g(n))$$
+$$f(n)=O(g(n)) \Leftrightarrow g(n)=\Omega(f(n))$$
+\end{remark}
+\begin{definition}[ittle-o notation(<)]{}
+    We write $f(n)=o(g(n))$ if for any $b>0$ there $\exists$ $n_0\in\mathbb{N}$ such that $f(n)<b\cdot g(n)$ for all $n>n_0$.
+    \end{definition}
+\begin{definition}[little-omega notation(>)]{}
+    We write $f(n)=\omega(g(n))$ if for any $a>0$ there $\exists n_0\in\mathbb{N}$ such that $a\cdot g(n)<f(n)$ for all $n>n_0$.
+    
+\end{definition}
+\begin{remark}{}{}
+    $f(n)=o(g(n))\Rightarrow f(n)=O(g(n))$ and $f(n)\neq\Theta(g(n))$
+
+$f(n)=\omega(g(n))\Rightarrow f(n)=\Omega(g(n))$ and $f(n)\neq\Theta(g(n))$
+
+$f(n)=\omega(g(n))\Leftrightarrow g(n)=\omega(f(n))$
+
+\end{remark}
+$$
+    n^{1+\mathrm{e}} , nlog(n) , e \to 0
+$$ 
+\begin{theorem}{}{}
+Any Algorithm has to check at least log(n+1) entries of the sorted array for searching an element in the worst case
+\end{theorem}
