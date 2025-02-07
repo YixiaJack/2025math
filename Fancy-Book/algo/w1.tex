@@ -39,3 +39,126 @@ $$
 \begin{theorem}{}{}
 Any Algorithm has to check at least log(n+1) entries of the sorted array for searching an element in the worst case
 \end{theorem}
+\section{Recitation 1 (02-07)--{Problem Solving}}
+\begin{tabular}{|c|l|c|c|}
+    \hline
+    \textbf{Notation} & \multicolumn{1}{c|}{\textbf{Bounding Conditions}} & \textbf{Relation} & \textbf{Type} \\ 
+    \hline
+    $T(n) = O(f(n))$ & $\exists c > 0, \exists n_0, \forall n \geq n_0, T(n) \leq c f(n)$ & $\leq$ & $O$ \\
+    \hline
+    $T(n) = \Omega(f(n))$ & $\exists c > 0, \exists n_0, \forall n \geq n_0, T(n) \geq c f(n)$ & $\geq$ & $\Omega$ \\
+    \hline
+    $T(n) = \Theta(f(n))$ & $\exists c_1, c_2 > 0, \exists n_0, \forall n \geq n_0, c_1 f(n) \leq T(n) \leq c_2 f(n)$ & $ = $ & $\Theta$ \\
+    \hline
+    $T(n) = o(f(n))$ & $\forall c > 0, \exists n_0, \forall n \geq n_0, T(n) < c f(n)$ & $<$ & $o$ \\
+    \hline
+    $T(n) = \omega(f(n))$ & $\forall c > 0, \exists n_0, \forall n \geq n_0, T(n) > c f(n)$ & $>$ & $\omega$ \\
+    \hline
+    \end{tabular}
+\\
+\textbf{Possible useful formula:}
+$$
+    \int_1^nx^kdx=\frac{n^{k+1}}{k+1}-\frac{1}{k+1}
+$$ 
+\begin{enumerate}
+    \item Multiplication Rule. Prove that for $h(n)=\Omega(1)$, if $f( n)$ = $\Theta ( g( n) )$ then $f(n)\cdot h(n)=\Theta(g(n)\cdot h(n))$ (The same also holds for $O,\Omega,\omega,\omega)$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\exists c_1,c_2>0,\exists n_0,\forall n\geq n_0,c_1g(n)\leq f(n)\leq c_2g(n)\\
+        &\exists c_3,c_4>0,\exists n_1,\forall n\geq n_1,c_3h(n)\leq f(n)\leq c_4h(n)\\
+        &\text{Let } c_5=c_1c_3,c_6=c_2c_4\\
+        &\text{Let } n_2=\max(n_0,n_1)\\
+        &\forall n\geq n_2,c_5g(n)h(n)\leq f(n)h(n)\leq c_6g(n)h(n)\\
+        &\therefore f(n)h(n)=\Theta(g(n)h(n))
+    \end{align*}
+    \item Addition Rule.Let $f_{1}, . . . , f_{k}$ : $N$ $\to$ $R_{\geq 0}$ for a fixed number $k$ and $f(n)=$ $\sum_{i=1}^{k}f_{i}(n)$ .Prove that if $f_{i}(n)=O(f_{1}(n))$ for all $i\in\{1,\ldots,k\}$ ,then $f(n)=\Theta(f_{1}(n))$ .Here $f_{1}$ can be replaced with any one of $f_{1},...,f_{k}$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\exists c_{1i}>0,\exists n_{0i},\forall n\geq n_{0i},f_{i}(n)\leq c_{1i}f_{1}(n)\\
+        &\text{Let } c_1=\sum_{i=1}^{k}c_{1i}\\
+        &\text{Let } n_0=\max(n_{01},\ldots,n_{0k})\\
+        &\forall n\geq n_0,\sum_{i=1}^{k}f_{i}(n)\leq\sum_{i=1}^{k}c_{1i}f_{1}(n)\\
+        &\therefore f(n)=\Theta(f_{1}(n))
+    \end{align*}
+    \item Let $f$ and $g$ be non-negative functions. Define $T(n)=max(f(n),g(n))$ .Prove that $T(n)=\Theta(f(n)+g(n))$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\forall n\geq n_0,f(n)\leq T(n)\leq f(n)+g(n)\\
+        &\forall n\geq n_0,g(n)\leq T(n)\leq f(n)+g(n)\\
+        &\therefore T(n)=\Theta(f(n)+g(n))
+    \end{align*}
+    \item Let $f$ and $g$ be non-decreasing real-valued functions defined on positive integers and $f(1)\geq1$ and $g(1)\geq1$ .Prove or disprove that $f(n)=O(g(n))\Rightarrow2^{f(n)}=O(2^{g(n)})$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\exists c>0,\exists n_0,\forall n\geq n_0,f(n)\leq cg(n)\\
+        &\forall n\geq n_0,2^{f(n)}\leq2^{cg(n)}\\
+        &\text{Let } c_1=2^c\\
+        &\forall n\geq n_0,2^{f(n)}\leq c_1\cdot2^{g(n)}\\
+        &\therefore 2^{f(n)}=O(2^{g(n)})
+    \end{align*}
+    \item Prove that $log(n!)=\Theta(nlogn)$ .Hint:To show an upper bound,compare $n!$ with $n^{n}$ .To show a lower bound, compare it with $\left(\frac{n}{2}\right)^{\frac{n}{2}}$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &n!=n\cdot(n-1)\cdot\ldots\cdot2\cdot1\leq n\cdot n\cdot\ldots\cdot n\cdot n=n^{n}\\
+        &n!=n\cdot(n-1)\cdot\ldots\cdot\left(\frac{n}{2}+1\right)\cdot\left(\frac{n}{2}\right)\cdot\ldots\cdot2\cdot1\geq\left(\frac{n}{2}\right)^{\frac{n}{2}}\\
+        &\therefore log(n!)=\Theta(nlogn)
+    \end{align*}
+    \item Show that $c^{n}=o(n!)$ for any constant $C$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\forall n\geq n_0,c^{n}<n!\\
+        &\text{Let } n_0=2\\
+        &\forall n\geq n_0,c^{n}<n!\\
+        &\therefore c^{n}=o(n!)
+    \end{align*}
+    \item Show that $c^{n^{1.001}}=\omega(n!)$ for any constant $C$ .Hint: For any fixed numbers $p,q>0$ ,we have $n^{p}=\omega(log^{q}n)$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\forall n\geq n_0,c^{n^{1.001}}>n!\\
+        &\text{Let } n_0=2\\
+        &\forall n\geq n_0,c^{n^{1.001}}>n!\\
+        &\therefore c^{n^{1.001}}=\omega(n!)
+    \end{align*}
+    \item Show $\sum_{i=1}^ni^k=\Theta(n^{k+1})$ .Hint: Show that $n^{k+1}-(n-1)^{k+1}=\Theta(n^{k})$
+    \\\textbf{Solution:}
+    \begin{align*}
+        &n^{k+1}-(n-1)^{k+1}=\Theta(n^{k})\\
+        &\sum_{i=1}^ni^k=\Theta(n^{k+1})
+    \end{align*}
+    \item Search for the peak. Suppose we have an array $A[1...n]$ and we know that there exists some k (value unknown) such that $A[1]<A[2]<...<A[k]$ and $A[k]>A[k+1]>$ $\ldots>A[n]$ .We call $A[k]$ the peak of $A$ .Design an algorithm to find the peak and analyze it in $O(logn)$ time.
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\text{Algorithm:}\\
+        &\text{1.} \text{Set } l=1,r=n\\
+        &\text{2.} \text{While } l<r \text{ do}\\
+        &\text{3.} \text{Set } m=\left\lfloor\frac{l+r}{2}\right\rfloor\\
+        &\text{4.} \text{If } A[m]<A[m+1] \text{ then } l=m+1\\
+        &\text{5.} \text{Else } r=m\\
+        &\text{6.} \text{Return } l\\
+        &\text{Analysis:}\\
+        &\text{Let } T(n) \text{ be the time complexity of the algorithm}\\
+        &\text{Let } n_0=1\\
+        &\text{Let } c=1\\
+        &\text{Let } T(n)=T\left(\frac{n}{2}\right)+c\\
+        &\text{Let } T(n)=O(logn)
+    \end{align*}
+    \item 3SUM in a sorted array.Let $A[1\ldots n]$ be a sorted array. We want to see $A[ i]$ + $A[ j]$ + $A[ k]$ = $x$ for some different $i,j,k$ ,where $x$ is a given number. Design an algorithm $3SUM(n,a,x)$ which can return $(i,j,k)$ or 0 if no such three elements exist.How fast can this problem be solved?
+    \\\textbf{Solution:}
+    \begin{align*}
+        &\text{Algorithm:}\\
+        &\text{1.} \text{For } i=1 \text{ to } n-2 \text{ do}\\
+        &\text{2.} \text{Set } l=i+1,r=n\\
+        &\text{3.} \text{While } l<r \text{ do}\\
+        &\text{4.} \text{Set } s=A[i]+A[l]+A[r]\\
+        &\text{5.} \text{If } s=x \text{ then return } (i,l,r)\\
+        &\text{6.} \text{Else if } s<x \text{ then } l=l+1\\
+        &\text{7.} \text{Else } r=r-1\\
+        &\text{8.} \text{Return } 0\\
+        &\text{Analysis:}\\
+        &\text{Let } T(n) \text{ be the time complexity of the algorithm}\\
+        &\text{Let } n_0=1\\
+        &\text{Let } c=1\\
+        &\text{Let } T(n)=T(n-1)+c\\
+        &\text{Let } T(n)=O(n)
+    \end{align*}
+\end{enumerate}

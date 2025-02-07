@@ -142,3 +142,73 @@ $$
 
 $$ \rightarrow ((j-\frac{b}{2})+\sqrt{a+\frac{b^2}{4}})((j-\frac{b}{2})-\sqrt{a+\frac{b^2}{4}})=0$$ 
 \\either $$ j-\frac{b}{2}=\sqrt{a+\frac{b^2}{4}} ,j-\frac{b}{2}=-\sqrt{a+\frac{b^2}{4}}$$ 
+
+\section[Recitation 1(02-07)]{Complex numbers}
+The field of rationals $ \mathcal{Q} $ is the fractional field of the integral domian $ \mathcal{Z} $.
+\\With the metrice \begin{align*}{}{}
+d(x,y)=|x-y|
+\\|x|=max\{x,-x\}, \forall x, y \in \mathcal{R}
+\end{align*}
+\\The fielf $\mathcal{Q}$ is not a complete ,metrice space.
+\\Its completion $\mathbb{R}$, nevertheless is not algebraically closed.
+\\For instance, $ f(x)=x^2+1 $, doesn't split in $ \mathbb{R} $.
+\\So we define the spliting field for $ f(x) $ over $ \mathbb{R} $ 
+\\i.e. the smallest field extension of $ \mathbb{R} $ such that $ f(x) $ has roots.
+\\
+\\Consider the principle ideal $ <f(x)> $ in $ \mathbb{R}[x] $ 
+\\since $ f(x) $ is irreducible, then $ <f(x)> $ si a maximal ideal.
+\\Then the quotient ring $ \mathbb{C}=\frac{\mathbb{R}[x]}{<f(x)>} $  is a field!   
+\\which is the spilting field of $f(x)$
+\\* The field $ \mathbb{C} $ has no further spilting extensions! All polynomials in $ \mathbb{C}[x] $ split in $ \mathbb{C} $.
+\\So as soon as we forced one polynomial. $ f(x)=x^2+1 $ to have roots, we in fact imposed that all polynomials have roots.
+\\
+\\\textbf{Topology:}
+\\ The Topology of $ \mathbb{C} $ is isomorphic to $ \mathbb{R}^2 $. 
+\\Thus $ \mathbb{C} $ is locally compact, but not compact space.
+\\The Alexandroff compactification says that we can add a point at infinity to $ \mathbb{C} $ so that $ \mathbb{C}\cup\{\infty\} $  compact.
+\begin{definition}{}{Alexandroff compactification}
+\begin{itemize}
+\item A set $ U\supseteq \mathbb{C}\cup\{\infty\} $ is an open neighborhood of $ \infty $ if $ U=\mathbb{C}\cup \{\infty\}\ K $ When $ K \supseteq \mathbb{C} $ .
+\end{itemize}
+\end{definition}
+$\mathbb{C}\cup\{\infty\}$ is called the Riemann sphere.
+\begin{definition}{}{Holomorphic Functions}
+\\A function $ f:\Omega\rightarrow \mathbb{C} $ is holomorphic where $ \Omega \supseteq \mathbb{C} $ is holomorphic iff:
+\begin{align*}{}{}
+\lim_{z\rightarrow z_0}\frac{f(z)-f(z_0)}{z-z_0}=f'(z_0) \text{ exists}, \forall z_0 \in \Omega
+\\f(z)=f(x,y)=u(x,y)+iv(x,y),where z=x+iy \in \Omega
+\\u(z)=Re(f(z)),v(z)=Im(f(z))
+\end{align*}
+\end{definition}
+$ f:\Omega \rightarrow \mathbb{C} $ being holomorphic of course implies that $ u,v:\Omega \rightarrow \mathbb{R}^2 $ differentiable.
+\\If we take $ f(z_0)=z_0=0 $ and we write 
+$$
+    \pdv{}{z}=\frac{1}{2}(\pdv{}{x}-i\pdv{}{y}), \pdv{}{\bar{z}}=\frac{1}{2}(\pdv{}{x}+i\pdv{}{y})
+$$ 
+\\Then,
+$$
+    \frac{f(x)-f(z_0)}{z-z_0}=\frac{f(z)}{z}={(\pdv{f}{z})}_{(z_0=0)}+\frac{\bar{z}}{z}{(\pdv{f}{\bar{z}})}_{(z_0=0)}+o(z)
+$$ 
+\\For real $ z\rightarrow 0 $ , we have $ \frac{\bar{z}}{z}=1 $  , and for purely imaginary $ z\rightarrow 0 $ , we have $ \frac{\bar{z}}{z}=-1 $.
+\\we have to restrict $\pdv{f}{z}=0$
+\\\textbf{Cauchy-Riemann equations:}
+$$\begin{cases}
+    \pdv{u}{x}=\pdv{v}{y}
+    \\\pdv{u}{y}=-\pdv{v}{x}
+\end{cases}$$
+$$
+    f'(z)=\pdv{f}{z}=(\pdv{u}{x}+i\pdv{v}{x})(x,y), where z=x+iy \in \Omega
+$$ 
+\\Nevertheless, $ f $ being holomorphic is not equivalent to say $ f $ satisfies the Cauchy-Riemann equations.
+\\Indeed we take $ f(z)=\frac{z^5}{{|z|}^4} \text{  on  } \mathbb{C}\textbackslash \{0\}   $  and $ f(0)=0 $.
+\\We can observe that $ f(z) $ satisfies the Cauchy-Riemann equations on $ \mathbb{C} $ but $ f $ is not even coutinuous at $ z=0 $.
+\\Looman Menchoff Theorrem:
+\begin{theorem}{}{}
+A continuous function $ f:\Omega \cup \mathbb{C} \rightarrow \mathbb{C} $ is holomorphic iff $ f $ satisfies the Cauchy-Riemann equations.
+\end{theorem}
+\begin{align*}{}{}
+\forall f,g \in H(\Omega)
+\\(fg)&=f'g+fg'
+\\(\frac{f}{g})&=\frac{f'g-fg'}{g^2}
+\\(g\circ f)'(z)&=g'(f(z))\cdot f'(z)
+\end{align*}

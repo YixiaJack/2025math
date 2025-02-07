@@ -26,7 +26,12 @@
 \setcounter{DefaultLines}{3}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{fourier-orns}
-
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{enumitem}
+\newcommand*{\circled}[1]{\lower.7ex\hbox{\tikz\draw (0pt, 0pt)%
+    circle (.5em) node {\makebox[1em][c]{\small #1}};}}
+\robustify{\circled}
 \newcommand{\ornamento}{\vspace{2em}\noindent \textcolor{darkgray}{\hrulefill~ \raisebox{-2.5pt}[10pt][10pt]{\leafright \decofourleft 
 \decothreeleft  \aldineright \decotwo \floweroneleft \decoone   \floweroneright 
 \decotwo \aldineleft\decothreeright \decofourright \leafleft} ~  \hrulefill \\ \vspace{2em}}}
