@@ -7,7 +7,7 @@ You know the sets $$ (R,+,\times ) and (Q,+,\times) $$
 $ Q(\sqrt{2})=\{a+b\sqrt{2} | a,b \in Q\} $ $Q(\sqrt{2})$, they are infinite sets.
 
 
-\begin{definition}{Fields}{}
+\begin{definition}[Fields]{}
     We say that a set $F$ together with two binary operations, called addition $+$,$F \times F \to F$, and multiplication $\times$, $F \times F \to F$ satisfying: 
     \begin{itemize}
         \item associativity $(a+b)+c=a+(b+c)$
@@ -18,7 +18,7 @@ $ Q(\sqrt{2})=\{a+b\sqrt{2} | a,b \in Q\} $ $Q(\sqrt{2})$, they are infinite set
     \end{itemize}
     \end{definition}
 
-\begin{example}{Fields}{}
+\begin{example}[Fields]{}
     \begin{itemize}
         \item For every prime number $p$, and $n \geq 0$,$n \in N$, there is a field ($F_{p^n},+,\times$) with $p^n=q$ elements (cardinality $q$).
         \item (C,+,x) is a field
@@ -50,7 +50,7 @@ It is important to classify sets:
 \\in  Set Theory: bijection
 \\in Topology: homeomorphism
 \\For \textbf{Fields}: isomorphism
-\begin{definition}{isomorphism}{}
+\begin{definition}[isomorphism]{}
    We say that fields $F$ and $F'$ are isomorphic if there exists a funtion $$i:F \rightarrow F'$$ which is a bijection and preserve the binary operations  $$i(a+b)=i(a)+i(b)$$ and $$i(ab)=i(a)i(b)$$.
    \\i is called an isomorphism and we write $F \cong F'$
     \end{definition}
@@ -58,10 +58,10 @@ It is important to classify sets:
 \\There is a unque field up to isomorphism of order (its cardinality)$$
     p^n: F_{p^n}
 $$ 
-\begin{definition}{subfield}{}
+\begin{definition}[subfield]{}
 Given a field (F,+,x), we say that (E,+,x) is a subfield of (F,+,x) if E $\subset$ F and the addition of multiplication of E is the same addition and multiplication of F. 
 \end{definition}
-\begin{example}{subfield}{}
+\begin{example}[subfield]{}
 $$
     Q \subset R
 $$ 
@@ -69,7 +69,7 @@ $$
     Q\subset Q(\sqrt{2}) \subset R \subset R^2
 $$ 
 \end{example}
-\begin{definition}{complex number}{}
+\begin{definition}[complex number]{}
 Let F be a field such that:\begin{itemize}
 \item R is a subfield of F
 \item there is an element $i \in F$ which is the root of the equation $$ x^2+1=0 (i^2=-1)$$
@@ -87,7 +87,7 @@ Then we define the field of complex numbers $ C $ as $$C=\{x\in F:x=\alpha +i\be
         i^2={(0,1)}^2=(0,1)\times (0,1)=(-1,0)
     $$ 
 \end{itemize}
-\begin{example}{exercise}{}
+\begin{example}[exercise]{}
 Set of $ 2\times 2 $  real matrices of the form 
 $$
     \begin{pmatrix}
@@ -166,14 +166,14 @@ d(x,y)=|x-y|
 \\ The Topology of $ \mathbb{C} $ is isomorphic to $ \mathbb{R}^2 $. 
 \\Thus $ \mathbb{C} $ is locally compact, but not compact space.
 \\The Alexandroff compactification says that we can add a point at infinity to $ \mathbb{C} $ so that $ \mathbb{C}\cup\{\infty\} $  compact.
-\begin{definition}{}{Alexandroff compactification}
+\begin{definition}[Alexandroff compactification]{}
 \begin{itemize}
-\item A set $ U\supseteq \mathbb{C}\cup\{\infty\} $ is an open neighborhood of $ \infty $ if $ U=\mathbb{C}\cup \{\infty\}\ K $ When $ K \supseteq \mathbb{C} $ .
+\item A set $ U\supseteq \mathbb{C}\cup\{\infty\} $ is an open neighborhood of $\{ \infty \}$ if $ U=\mathbb{C}\cup \{\infty\}\ K $ When $ K \supseteq \mathbb{C} $ .
 \end{itemize}
 \end{definition}
 $\mathbb{C}\cup\{\infty\}$ is called the Riemann sphere.
-\begin{definition}{}{Holomorphic Functions}
-\\A function $ f:\Omega\rightarrow \mathbb{C} $ is holomorphic where $ \Omega \supseteq \mathbb{C} $ is holomorphic iff:
+\begin{definition}[Holomorphic Functions]{}
+A function $ f:\Omega\rightarrow \mathbb{C} $ is holomorphic where $ \Omega \subseteq \mathbb{C} $ is holomorphic iff:
 \begin{align*}{}{}
 \lim_{z\rightarrow z_0}\frac{f(z)-f(z_0)}{z-z_0}=f'(z_0) \text{ exists}, \forall z_0 \in \Omega
 \\f(z)=f(x,y)=u(x,y)+iv(x,y),where z=x+iy \in \Omega
@@ -197,13 +197,12 @@ $$\begin{cases}
     \\\pdv{u}{y}=-\pdv{v}{x}
 \end{cases}$$
 $$
-    f'(z)=\pdv{f}{z}=(\pdv{u}{x}+i\pdv{v}{x})(x,y), where z=x+iy \in \Omega
+    f'(z)=\pdv{f}{z}=(\pdv{u}{x}+i\pdv{v}{x})(x,y), \text{where } z=x+iy \in \Omega
 $$ 
 \\Nevertheless, $ f $ being holomorphic is not equivalent to say $ f $ satisfies the Cauchy-Riemann equations.
 \\Indeed we take $ f(z)=\frac{z^5}{{|z|}^4} \text{  on  } \mathbb{C}\textbackslash \{0\}   $  and $ f(0)=0 $.
 \\We can observe that $ f(z) $ satisfies the Cauchy-Riemann equations on $ \mathbb{C} $ but $ f $ is not even coutinuous at $ z=0 $.
-\\Looman Menchoff Theorrem:
-\begin{theorem}{}{}
+\begin{theorem}[Looman Menchoff Theorrem]{}
 A continuous function $ f:\Omega \cup \mathbb{C} \rightarrow \mathbb{C} $ is holomorphic iff $ f $ satisfies the Cauchy-Riemann equations.
 \end{theorem}
 \begin{align*}{}{}

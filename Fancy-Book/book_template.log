@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  7 FEB 2025 13:39
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  7 FEB 2025 16:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1109,10 +1109,25 @@ Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
  (./book_template.aux (./title.aux) (./complex/w1.aux
 
-LaTeX Warning: Label `Fields' multiply defined.
+LaTeX Warning: Label `' multiply defined.
 
 
-LaTeX Warning: Label `subfield' multiply defined.
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
 
 
 LaTeX Warning: Label `' multiply defined.
@@ -1482,10 +1497,10 @@ LaTeX Warning: Command \textbackslash invalid in math mode on input line 203.
 
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 206.
+(mdframed)              on input line 205.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 208.
+(mdframed)              on input line 207.
 ) [7]
 \openout2 = `htop/w1.aux'.
 
@@ -1629,30 +1644,32 @@ Package mdframed Info: mdframed detected package amsthm
 (mdframed)              on input line 224.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 225.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 236.
+(mdframed)              on input line 226.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 237.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 243.
+(mdframed)              on input line 238.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 244.
+Package mdframed Info: Not enough space on this page on input line 244.
  [13]
+Package mdframed Info: Not enough space on this page on input line 244.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 253.
+(mdframed)              on input line 254.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 261.
+(mdframed)              on input line 262.
  [14]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 305.
+(mdframed)              on input line 306.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 313.
+(mdframed)              on input line 314.
  [15]) [16]
 \openout2 = `pde/w1.aux'.
 
@@ -1779,7 +1796,17 @@ Overfull \hbox (20.86792pt too wide) in paragraph at lines 43--60
 [] 
  []
 
-[24] [25] [26]) [27] (./book_template.aux (./title.aux) (./complex/w1.aux) (./htop/w1.aux) (./pde/w1.aux) (./algo/w1.aux))
+
+Overfull \hbox (3.8289pt too wide) detected at line 83
+[]
+ []
+
+[24] [25] [26]
+Overfull \hbox (67.5016pt too wide) detected at line 182
+[]
+ []
+
+[27]) [28] (./book_template.aux (./title.aux) (./complex/w1.aux) (./htop/w1.aux) (./pde/w1.aux) (./algo/w1.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2020/03/25>
@@ -1792,18 +1819,18 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `book_template.out' has not changed.
-(rerunfilecheck)             Checksum: DB33DAAEE71D7F8DF94477DD2B685FD9;5350.
+(rerunfilecheck)             Checksum: E6D2B74955C5A1363CD96B662208D6C0;5590.
 Package logreq Info: Writing requests to 'book_template.run.xml'.
 \openout1 = `book_template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36145 strings out of 474773
- 732772 string characters out of 5757725
- 2616427 words of memory out of 5000000
- 57574 multiletter control sequences out of 15000+600000
+ 36137 strings out of 474773
+ 732650 string characters out of 5757725
+ 2616325 words of memory out of 5000000
+ 57566 multiletter control sequences out of 15000+600000
  651047 words of font info for 98 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  119i,21n,123p,682b,4068s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on book_template.pdf (28 pages).
+Output written on book_template.pdf (29 pages).

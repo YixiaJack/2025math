@@ -63,72 +63,87 @@ $$
 \begin{enumerate}
     \item Multiplication Rule. Prove that for $h(n)=\Omega(1)$, if $f( n)$ = $\Theta ( g( n) )$ then $f(n)\cdot h(n)=\Theta(g(n)\cdot h(n))$ (The same also holds for $O,\Omega,\omega,\omega)$
     \\\textbf{Solution:}
-    \begin{align*}
-        &\exists c_1,c_2>0,\exists n_0,\forall n\geq n_0,c_1g(n)\leq f(n)\leq c_2g(n)\\
-        &\exists c_3,c_4>0,\exists n_1,\forall n\geq n_1,c_3h(n)\leq f(n)\leq c_4h(n)\\
-        &\text{Let } c_5=c_1c_3,c_6=c_2c_4\\
-        &\text{Let } n_2=\max(n_0,n_1)\\
-        &\forall n\geq n_2,c_5g(n)h(n)\leq f(n)h(n)\leq c_6g(n)h(n)\\
-        &\therefore f(n)h(n)=\Theta(g(n)h(n))
+    \begin{align*}  
+        &\text{Since } f(n)=\Theta(g(n)), \exists c_1,c_2>0,\exists n_0 \text{ such that }&\\
+        &c_1g(n)\leq f(n)\leq c_2g(n),\forall n\geq n_0&\\
+         &\text{Since } h(n)=\Omega(1),\text{ there exist constants }c_3>0 \text{ and } n_1 \text{ such that } &\\       
+        &h(n)\geq c_3, \forall n\geq n_1&\\
+        &\text{Combining the two, we have: }&\\
+        &c_1g(n)h(n)\leq f(n)h(n)\leq c_2 g(n)h(n)&\\
+        &\text{Therefore } f(n)h(n)=\Theta(g(n)h(n))&
     \end{align*}
     \item Addition Rule.Let $f_{1}, . . . , f_{k}$ : $N$ $\to$ $R_{\geq 0}$ for a fixed number $k$ and $f(n)=$ $\sum_{i=1}^{k}f_{i}(n)$ .Prove that if $f_{i}(n)=O(f_{1}(n))$ for all $i\in\{1,\ldots,k\}$ ,then $f(n)=\Theta(f_{1}(n))$ .Here $f_{1}$ can be replaced with any one of $f_{1},...,f_{k}$
     \\\textbf{Solution:}
     \begin{align*}
-        &\exists c_{1i}>0,\exists n_{0i},\forall n\geq n_{0i},f_{i}(n)\leq c_{1i}f_{1}(n)\\
-        &\text{Let } c_1=\sum_{i=1}^{k}c_{1i}\\
-        &\text{Let } n_0=\max(n_{01},\ldots,n_{0k})\\
-        &\forall n\geq n_0,\sum_{i=1}^{k}f_{i}(n)\leq\sum_{i=1}^{k}c_{1i}f_{1}(n)\\
-        &\therefore f(n)=\Theta(f_{1}(n))
+        &\text{Since }f_i(n)=O(f_1(n)),\text{ there exist constants }c_i \text{ and } n_0 \text{ such that }&\\
+        &f_i(n)\leq c_i f_1(n),\forall n\geq n_0&\\
+        &\text{Therefore, }&\\
+        &\sum_{i=1}^{k}f_i(n)\leq\sum_{i=1}^{k}c_i f_1(n)=Cf_1(n) \text{ where }C=\sum_{i=1}^{k}c_i &\\
+        &\text{Additionally, there exists at least one }f_j(n)=\Omega(f_1(n)),\text{so }\sum_{i=1}^{k}f_i(n)=\Theta(f_1(n))&\\
     \end{align*}
     \item Let $f$ and $g$ be non-negative functions. Define $T(n)=max(f(n),g(n))$ .Prove that $T(n)=\Theta(f(n)+g(n))$
     \\\textbf{Solution:}
     \begin{align*}
-        &\forall n\geq n_0,f(n)\leq T(n)\leq f(n)+g(n)\\
-        &\forall n\geq n_0,g(n)\leq T(n)\leq f(n)+g(n)\\
-        &\therefore T(n)=\Theta(f(n)+g(n))
+        &\text{Since } max(f(n),g(n))\leq f(n)+g(n),\text{ we have } T(n)=O(f(n)+g(n))&\\
+        &\text{Also, } f(n)+g(n)\leq 2max(f(n),g(n)),\text{ so } T(n)=\Omega(f(n)+g(n))&\\
+        &\text{Therefore, } T(n)=\Theta(f(n)+g(n))&
     \end{align*}
     \item Let $f$ and $g$ be non-decreasing real-valued functions defined on positive integers and $f(1)\geq1$ and $g(1)\geq1$ .Prove or disprove that $f(n)=O(g(n))\Rightarrow2^{f(n)}=O(2^{g(n)})$
     \\\textbf{Solution:}
     \begin{align*}
-        &\exists c>0,\exists n_0,\forall n\geq n_0,f(n)\leq cg(n)\\
-        &\forall n\geq n_0,2^{f(n)}\leq2^{cg(n)}\\
-        &\text{Let } c_1=2^c\\
-        &\forall n\geq n_0,2^{f(n)}\leq c_1\cdot2^{g(n)}\\
-        &\therefore 2^{f(n)}=O(2^{g(n)})
+        &\text{Since } f(n)=O(g(n)),\text{ there exists a constant }c>0 \text{ and } n_0 \text{ such that }&\\
+        &f(n)\leq c\cdot g(n),\forall n\geq n_0&\\
+        &\text{Therefore, }&\\
+        &2^{f(n)}\leq2^{c\cdot g(n)}&\\
+        &\text{Since }2^{c}\text{ is constant, we conclude that } 2^{f(n)}=O(2^{g(n)})&
     \end{align*}
     \item Prove that $log(n!)=\Theta(nlogn)$ .Hint:To show an upper bound,compare $n!$ with $n^{n}$ .To show a lower bound, compare it with $\left(\frac{n}{2}\right)^{\frac{n}{2}}$
     \\\textbf{Solution:}
     \begin{align*}
-        &n!=n\cdot(n-1)\cdot\ldots\cdot2\cdot1\leq n\cdot n\cdot\ldots\cdot n\cdot n=n^{n}\\
-        &n!=n\cdot(n-1)\cdot\ldots\cdot\left(\frac{n}{2}+1\right)\cdot\left(\frac{n}{2}\right)\cdot\ldots\cdot2\cdot1\geq\left(\frac{n}{2}\right)^{\frac{n}{2}}\\
-        &\therefore log(n!)=\Theta(nlogn)
+        &\text{We know that: }&\\
+        &log(n!)=log(1)+log(2)+\ldots+log(n)&\\
+        &\text{Since }log(n) \text{ is increasing, the sum can be bounded by:}&\\
+        &log(n!)\leq \sum_{k=1}^{n}log(n)=nlog(n)&\\
+        &\text{From the bound, we can use the fact that }log(k)\geq log(\frac{n}{2}) \text{ for all } k\geq2&\\
+        &\text{Hence, we can sum the lower half of the terms to get:}&\\
+        &log(n!)\geq \sum_{k=\frac{n}{2}}^{n}log(k)\geq \sum_{k=\frac{n}{2}}^{n}log(\frac{n}{2})=\frac{n}{2}log(\frac{n}{2})&\\
     \end{align*}
     \item Show that $c^{n}=o(n!)$ for any constant $C$
     \\\textbf{Solution:}
     \begin{align*}
-        &\forall n\geq n_0,c^{n}<n!\\
-        &\text{Let } n_0=2\\
-        &\forall n\geq n_0,c^{n}<n!\\
-        &\therefore c^{n}=o(n!)
+        &\text{We need to prove that }&\\
+        &\lim_{n\rightarrow\infty}\frac{c^n}{n!}=0&\\
+        &\text{Using the recursive relation:}&\\
+        &\frac{c^n}{n!}=\frac{c^{n-1}}{(n-1)!}\times \frac{c}{n}&\\
+        &\text{As }n\rightarrow\infty, \frac{c}{n}\rightarrow0,\text{ Thus, }&\\
+        &\lim_{n\rightarrow\infty}\frac{c^n}{n!}=0&\\
     \end{align*}
     \item Show that $c^{n^{1.001}}=\omega(n!)$ for any constant $C$ .Hint: For any fixed numbers $p,q>0$ ,we have $n^{p}=\omega(log^{q}n)$
     \\\textbf{Solution:}
     \begin{align*}
-        &\forall n\geq n_0,c^{n^{1.001}}>n!\\
-        &\text{Let } n_0=2\\
-        &\forall n\geq n_0,c^{n^{1.001}}>n!\\
-        &\therefore c^{n^{1.001}}=\omega(n!)
+        &\text{We need to prove that }&\\
+        &\lim_{n\rightarrow\infty}\frac{c^{n^{1.001}}}{n!}=\infty&\\
+        &\text{Taking the algorithm, we have:}&\\
+        &log(\frac{c^{n^{1.001}}}{n!})=n^{1.001}log(c)-log(n!)&\\
+        &\text{Since }log(n!)\approxeq nlogn,\text{ and }n^1.001 \text{ grows faster than }nlogn,\text{ we conclude that }&\\
+        &\lim_{n\rightarrow\infty}log(\frac{c^{n^{1.001}}}{n!})=\infty&\\
+        &\text{So,}\lim_{n\rightarrow\infty}\frac{c^{n^{1.001}}}{n!}=\infty&\\
+        &\text{Therefore, }c^{n^{1.001}}=\omega(n!)&
     \end{align*}
     \item Show $\sum_{i=1}^ni^k=\Theta(n^{k+1})$ .Hint: Show that $n^{k+1}-(n-1)^{k+1}=\Theta(n^{k})$
     \\\textbf{Solution:}
     \begin{align*}
-        &n^{k+1}-(n-1)^{k+1}=\Theta(n^{k})\\
-        &\sum_{i=1}^ni^k=\Theta(n^{k+1})
+        &\text{Upperbound: Since }i^k\leq n^k,\text{we have}&\\
+        &\sum_{i=1}^ni^k\leq \sum_{i=1}^nn^k=n^{k+1}&\\
+        &\text{Lowerbound: Using the integral approximation }&\\
+        &\sum_{i=1}^{n}i^k\geq \int_{1}^{n}x^kdx=\frac{n^{k+1}}{k+1}-\frac{1}{k+1}&\\
+        &\text{Therefore, }&\\
+        &\sum_{i=1}^{n}i^k=\Theta(n^{k+1})&\\
     \end{align*}
     \item Search for the peak. Suppose we have an array $A[1...n]$ and we know that there exists some k (value unknown) such that $A[1]<A[2]<...<A[k]$ and $A[k]>A[k+1]>$ $\ldots>A[n]$ .We call $A[k]$ the peak of $A$ .Design an algorithm to find the peak and analyze it in $O(logn)$ time.
     \\\textbf{Solution:}
     \begin{align*}
-        &\text{Algorithm:}\\
+        &\text{Use Binary Search Algorithm:}\\
         &\text{1.} \text{Set } l=1,r=n\\
         &\text{2.} \text{While } l<r \text{ do}\\
         &\text{3.} \text{Set } m=\left\lfloor\frac{l+r}{2}\right\rfloor\\
@@ -145,20 +160,24 @@ $$
     \item 3SUM in a sorted array.Let $A[1\ldots n]$ be a sorted array. We want to see $A[ i]$ + $A[ j]$ + $A[ k]$ = $x$ for some different $i,j,k$ ,where $x$ is a given number. Design an algorithm $3SUM(n,a,x)$ which can return $(i,j,k)$ or 0 if no such three elements exist.How fast can this problem be solved?
     \\\textbf{Solution:}
     \begin{align*}
-        &\text{Algorithm:}\\
-        &\text{1.} \text{For } i=1 \text{ to } n-2 \text{ do}\\
-        &\text{2.} \text{Set } l=i+1,r=n\\
-        &\text{3.} \text{While } l<r \text{ do}\\
-        &\text{4.} \text{Set } s=A[i]+A[l]+A[r]\\
-        &\text{5.} \text{If } s=x \text{ then return } (i,l,r)\\
-        &\text{6.} \text{Else if } s<x \text{ then } l=l+1\\
-        &\text{7.} \text{Else } r=r-1\\
-        &\text{8.} \text{Return } 0\\
-        &\text{Analysis:}\\
-        &\text{Let } T(n) \text{ be the time complexity of the algorithm}\\
-        &\text{Let } n_0=1\\
-        &\text{Let } c=1\\
-        &\text{Let } T(n)=T(n-1)+c\\
-        &\text{Let } T(n)=O(n)
+        &\text{fix one element A[i], then use two pointers on the remaining array to find } A[j]+A[k]=x-A[i]\\
+        &\text{The time complexity is }O(n^2)\\
+        &\textbf{Algorithm 3SUM(n,a,x):}\\
+        &\text{Input: Array A of n intergers, integer x}\\
+        &\text{Output: indices i,j,k such that A[i]+A[j]+A[k]=x or return "No solution" if no such triplet exists}\\
+        &\text{for i=0 to n-1 do}\\
+        &\text{    //Avoid duplicates by skipping repeated elements}\\
+        &\text{    if i>0 and A[i]==A[i-1]}\\
+        &\text{        continue}\\
+        &\text{    left=i+1,right=n-1}\\
+        &\text{    while left<right do}\\
+        &\text{        sum=A[i]+A[left]+A[right]}\\
+        &\text{        if sum==x}\\
+        &\text{            return i,left,right //Found the triplet}\\
+        &\text{        if sum<x}\\
+        &\text{            left=left+1 //increase the sum by moving left pointer to the right}\\
+        &\text{        else}\\
+        &\text{            right=right-1 //decrease the sum by moving right pointer to the left}\\
+        &\text{return "No solution" //no such triplet exists}\\
     \end{align*}
 \end{enumerate}
