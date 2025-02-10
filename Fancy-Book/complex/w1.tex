@@ -211,3 +211,83 @@ A continuous function $ f:\Omega \cup \mathbb{C} \rightarrow \mathbb{C} $ is hol
 \\(\frac{f}{g})&=\frac{f'g-fg'}{g^2}
 \\(g\circ f)'(z)&=g'(f(z))\cdot f'(z)
 \end{align*}
+\section{Lecture 3 (02-10) -- {Algebraic Structure of Complex numbers}}
+\subsection{Algebraic Structure of Complex numbers}
+\begin{lemma}[]{}
+Consider $ (\mathbb{R}^2,+) $ as a vector space. Then any definition of multiplication on $ \mathbb{R}^2 $ compatible with the vector space structure, which transforms $ \mathbb{R}^2 $ into a field, defines a field isomorphism with $ \mathbb{C} $.
+
+\end{lemma}
+\textbf{Comments:}
+\\The assumption that the multiplication is compatible with the vector space structure means that the scalar multiplication coincides with the field multiplication in the following space.
+$$
+    (\mathbb{R}^2,+,\times)
+$$ 
+and $ 1\in \mathbb{R} $ is the multiplicative identity 
+\\then$$
+ au=(a1)\times u, a\in \mathbb{R}   
+$$ 
+Let $ L=\{a1: a\in \mathbb{R}\} $
+\\Then $ L $ is isomorphic with $ \mathbb{R} $ 
+\\The addition in $ \mathbb{R}^2 $ as a vector space coincides with the addition in $ \mathbb{R}^2  $ as a field.
+\\\textbf{Proof of the Lemma:}
+\\Essentially we have to find a $ i \in \mathbb{R}^2 $ such that $ i^2=-1 $ 
+\\Since $ \mathbb{R}^2 $ is a two-dimentional vector space , if we pick any $ j\in \mathbb{R}^2\backslash L $ 
+\\We know that $ 1,j,j^2 $ must be linearly dependent.
+\\Then thus must exist $ a,b\in \mathbb{R} $ such that $ aj^2+bj+c1=0 $ 
+\\Then, \begin{align*}{}{}
+a(j^2)+2\frac{b}{2a}j+c=0\\
+a{(j+\frac{b}{2a})}^2+c-a{(\frac{b}{2a})}^2=0\\
+{(j+\frac{b}{2a})}^2=\frac{1}{a}(-c+a{(\frac{b}{2a})}^2)
+\end{align*}
+Necesaarily, $ -c+a{(\frac{b}{2a})}^2<0 $
+\\Define 
+$$
+    i=\frac{\sqrt{a}(j+\frac{b}{2a})}{\sqrt{-a{(\frac{b}{2a})}^2+c}}
+$$
+\subsection{Square roots} 
+Every complex number has a square root.
+\\Also we can write the 2 square roots in a quite explicit way(related to fundamental theorem of algebra).
+\begin{lemma}[]{}
+$$ \sqrt{\alpha+i\beta}=\pm(\sqrt{\frac{\alpha+\sqrt{\alpha^2+\beta^2}}{2}}+\frac{\beta}{|\beta|}\sqrt{\frac{-\alpha+\sqrt{\alpha^2+\beta^2}}{2}}) $$ 
+\end{lemma}
+\textbf{Proof:}
+\\(Notation for complex numbers: $ \alpha+i\beta,x+iy,\cdots $)
+\\We need to find $ z=x+iy $ such that $ z^2={(x+iy)}^2\alpha+i\beta $ 
+\\So $ x^2-y^2=\alpha, 2xy=\beta $ 
+\\Now,
+$$
+    (x^2+y^2)^2=(x^2-y^2)^2+4x^2y^2=\alpha^2+\beta^2
+$$ 
+So, \begin{align*}{}{}
+x^2+y^2&=\sqrt{\alpha^2+\beta^2}\\
+x^2-y^2&=\alpha\\
+\Rightarrow x^2&=\frac{\alpha+\sqrt{\alpha^2+\beta^2}}{2}\\
+y^2&=\frac{-\alpha+\sqrt{\alpha^2+\beta^2}}{2}\\
+x&=\pm\sqrt{\frac{\alpha+\sqrt{\alpha^2+\beta^2}}{2}}\\
+y&=\pm\sqrt{\frac{-\alpha+\sqrt{\alpha^2+\beta^2}}{2}}\\
+\sqrt{\alpha+i\beta}&=\pm(\sqrt{\frac{\alpha+\sqrt{\alpha^2+\beta^2}}{2}}+\frac{\beta}{|\beta|}\sqrt{\frac{-\alpha+\sqrt{\alpha^2+\beta^2}}{2}})
+\end{align*} 
+\begin{definition}[Algebraic Extension]{}
+Let $ F $ be a field and $ E $ be a subfield of $ F $.
+\\We say that $ x\in F $ is algebraic in the field $ E $ if x satisfies the following equation: 
+\begin{align*}{}{}
+a_nx^n+a_{n-1}x^{n-1}+\cdots+a_1x+a_0=0 \text{ for } a_n,a_{n-1},\cdots,a_1\in E, an\neq 0
+\end{align*}
+if every $ x\in F $ is algebraic in $ E $, then we say that $ F $ is an algebraic extension of $ E $.
+\\We say that a field $ F $ is algebraically closed if it does not have any strictly larger algebraic extension.
+\\A field containing $ F $ is called an algebraic closure if it is a closed algebraic extension of $ F $ . 
+\end{definition}
+\textbf{Comments:}
+\begin{itemize}
+\item $ \mathbb{R} $ is not an algebraic extension of $ \mathbb{Q} $.
+\\If this was true, then every real number would be a root of a polynomial with rational coefficients:
+$$
+    q_nx^n+q_{n-1}x^{n-1}+\cdots+q_1x+q_0=0 \text{ (an algebraic number)}
+$$  
+So the cardinality of the set of algebraic numbers is countable (trancsendental unmbers are real numbers which are not algebraic, e and $ \pi $ for example ).
+\item $ Q(\sqrt{2})=\{q+\sqrt{2}q',q,q'\in Q\}$ is algebraic over $ Q $.
+\item $ \mathbb{R} $ is not algebraically closed. 
+\item The fundamental theorem of algebra states that any nonconstant polynomial with complex coefficients has at least one complex root.
+\\ Actually this is equivalent to saying that all the roots of such a polynomial are complex.
+\item The field of complex numbers is algebraically closed.
+\end{itemize}

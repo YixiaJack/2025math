@@ -242,3 +242,156 @@ From the proposition, we know that $ u(t,x(t)) $=constant
 \\u(0,x)=f(x)
 \end{cases}
 $$ 
+\section{Nonlinear transport and shocks}
+Nonlinear transport equation:
+\begin{equation}
+   \label{eq9} \pdv{u}{t}+u\pdv{u}{x}=0
+\end{equation}
+characteristic equation:
+\begin{equation}
+    \label{eq10}\dv{x(t)}{t}=u(t,x(t)),\text{ x(t) is the characteristic curve} 
+\end{equation}
+Let's show that u the solution of \eqref{eq9} is constant along the characteristic curves x(t)
+\\we need to check that $ h(t)=u(t,x(t)) $ is constant of t
+\begin{align*}{}{}
+\frac{d}{dt}h(t)&=\pdv{u}{t}(t,x(t))+\pdv{u}{x}(t,x(t))\cdot\dv{x}{t}\\
+&=\pdv{u}{t}(t,x(t))+u(t,x(t))\cdot u(t,x(t))\\
+&=0 (\text{ by }\eqref{eq9})
+\end{align*}
+As u is constant along the characteristic curves, it must be of the form function of characteristic variable:
+\begin{align*}{}{}
+    \xi=x-ut
+\end{align*}
+\begin{equation}
+    \label{eq11} u(t,x)=f(x-tu(t,x))
+\end{equation}
+\begin{example}[]{}
+ Suppose the initial data is:
+ $$
+    f(\xi)=\alpha \xi+\beta
+ $$ 
+ Then \eqref{eq11} becomes:
+ \begin{align*}{}{}
+ u=\alpha(x-tu)+\beta 
+ \end{align*} 
+ \begin{equation}
+        \label{eq12} u(t,x)=\frac{\alpha x+\beta}{1+\alpha t}
+ \end{equation} 
+ As far as $ 1+dt\neq 0 $, the graoh of the solution is line 
+ \\If $ \alpha>0 $ ,\begin{align*}{}{}
+ u(t,x)\rightarrow 0\\
+ t\rightarrow +\infty
+ \end{align*} 
+If $ \alpha<0 $ , then the solution blows up as $ t\rightarrow -\frac{1}{\alpha} $
+since $ \dot{x}=u(t,x(t)) $
+\\As u(t,x(t))is a constant ,
+\begin{align*}{}{}
+u(t,x(t))&=u(0,x(0))\\
+&=u(0,y)\\
+&=f(y)
+\end{align*}
+Our characteristic ODE is:
+\begin{align*}{}{}
+\dot{x}&=f(x)\\
+\Rightarrow x(t)&=tf(y)+y\\
+\Rightarrow u(t,x(t))&=u(t,tf(y)+y)\\
+&=u(0,y)\\
+&=f(y), \forall t\\
+u(t,tf(y)+y)&=f(y) \forall t, y\\
+u(t,x)&=f(y)\\
+x&=tf(y)+y
+\end{align*}
+I find $ y\in \mathbb{R} $
+Suppose let $ f(y)=y $
+\begin{align*}{}{}
+x=ty+y,y=\frac{x}{t+1}\\
+\Rightarrow u(t,x)=f(y)=y=\frac{x}{t+1}\\
+\Rightarrow u(t,x)=\frac{x}{t+1}
+\end{align*}  
+\end{example}
+Shocks:
+\subsection{The wave equation:d'Alembert's formula}
+\begin{equation}
+    \label{eq13} \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}
+\end{equation}
+Thus we have two families of solutions of the wave equation:
+\begin{align*}{}{}
+u(t,x)&=p(x-ct)\\
+u(t,x)&=q(x+ct), \forall p,q\in \mathbb{C}^2
+\end{align*}
+Any linear combination of these solutions is still a solution of \eqref{eq13}:
+$$
+    u(t,x)=p(x-ct)+q(x+ct),c>0
+$$ 
+\begin{theorem}[]{}
+Every solution to \eqref{eq13} can be written in the form \begin{equation}
+    \label{eq14} u(t,x)=p(x-ct)+q(x+ct), \forall p,q\in \mathbb{C}^2
+\end{equation}
+\end{theorem}
+\textbf{Proof:}
+\begin{align*}{}{}
+    \xi &=x-ct\\
+    \eta&=x+ct\\
+    x=\frac{\xi+\eta}{2}&,t=\frac{\eta-\xi}{2c}\\
+    u(t,x)&=u(\frac{\eta-\xi}{2c},\frac{\xi+\eta}{2})\\
+    \text{so, }u(t,x)&=v(\xi,\eta)\\
+    \text{Lets find a PED for v: }\\
+    \pdv{u}{t}&=c(-\pdv{v}{\xi}+\pdv{v}{\eta})\\
+    \pdv[2]{u}{t}&=c^2(\pdv[2]{v}{\xi}-2\pdv{v}{\xi}{\eta}+\pdv[2]{v}{\eta})\\
+    \pdv[2]{u}{x}&=c^2(\pdv[2]{v}{\xi}+2\pdv{v}{\xi}{\eta}+\pdv[2]{v}{\eta})\\
+    0&=\square u=\pdv[2]{u}{t}-c^2\pdv[2]{u}{x}\\
+    &=-4c^2\pdv{v}{\xi}{\eta}=0\\
+    \Leftrightarrow \pdv{v}{\xi}{\eta}&=0\\
+    \frac{\partial}{\partial \xi}\frac{\partial v}{\partial \eta}v&=0\\
+    \Leftrightarrow \frac{\partial w}{\partial \xi}&=0\\
+    \Leftrightarrow w(\xi,\eta)&=w(\eta)\\
+    \Leftrightarrow w=r(\zeta )\\
+    \text{where } \zeta \text{ is an arbitary function of }\eta\\
+    w=\pdv{v}{\eta}=r(\zeta )\\
+    \text{Integrating we get: }\\
+\end{align*}
+Now we want to solve the initial value problem \eqref{eq14}:
+\begin{align*}{}{}
+u(t,x)&=p(x-ct)+q(x+ct)\\
+u(0,x)&=p(x)+q(x)=f(x)\\
+\pdv{u}{t}(0,x)&=-cp'(x)+cq'(x)=g(x)\\
+&\begin{cases}
+    p'(x)+q'(x)&=f(x)\\
+    -cp'(x)+cq'(x)&=g(x)
+\end{cases}\\
+2p'(x)&=f(x)+\frac{g(x)}{c}\\
+p(x)&=\frac{1}{2}f(x)-\frac{1}{2c}\int_{0}^{x}g(z)dz+a\\
+&\text{where a is an integration constant}\\
+q(x)&=f(x)-p(x)\\
+&=\frac{1}{2}+\frac{1}{2c}\int_{0}^{x}g(z)dz-a\\
+u(t,x)&=p(\xi)+q(\eta)\\
+&=\frac{f(\xi)+f(\eta)}{2}-\frac{1}{2c}\int_{0}^{\xi}g(z)dz+\frac{1}{2c}\int_{0}^{\eta}g(z)dz\\
+&=\frac{f(\xi)+f(\eta)}{2}+\frac{1}{2c}\int_{\eta}^{\xi}g(z)dz
+\end{align*}
+\textbf{This is called d'Alembert's solution to the IVP \eqref{eq14}}
+\begin{theorem}[d'Alembert's solution]{}
+The solution of the problem:
+\begin{align*}{}{}
+\pdv[2]{u}{t}&=c^2\pdv[2]{u}{x}\\
+u(0,x)&=f(x)\\
+\pdv{u}{t}(0,x)&=g(x),x\in \mathbb{R}
+\end{align*}
+is given by:
+$$
+    u(t,x)=\frac{f(x+ct)+f(x-ct)}{2}+\frac{1}{2c}\int_{x-ct}^{x+ct}g(z)dz, \forall f\in \mathbb{C}^2, g\in \mathbb{C}^1
+$$ 
+\end{theorem}
+\textbf{External forcing:}
+$$
+    \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}+F(x,t)
+$$ 
+F is a given nice function:
+\begin{align*}{}{}
+u(0,x)&=0\\
+\pdv{u}{t}(0,x)&=0\\
+\xi&=x-ct\\
+\eta&=x+ct\\
+u(t,x)&=v(\xi,\eta)\\
+\square u &=F(t,x)=F(\frac{\eta-\xi}{2c},\frac{\eta+\xi}{2})=-4c^2\pdv{v}{\xi}{\eta}\\
+\pdv{v}{\xi}(\xi,\eta)-\pdv{v}{\xi}(\xi,\eta)&=r(\eta)-r(\xi)\\
+\end{align*}

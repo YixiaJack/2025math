@@ -5,26 +5,33 @@
 \contentsline {section}{\numberline {1.2}Lecture 2 (02-05) -- {Complex numbers}}{3}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}The algebra of complex numbers}{3}{subsection.1.2.1}%
 \contentsline {section}{\numberline {1.3}Recitation 1(02-07)}{6}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Honors Theory of Probability }{8}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Lecture 1 (02-03) -- {Introduction to Probability}}{8}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Intro}{8}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Probability Space}{9}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}Lecture 2 (02-05) -- {Algebra}}{10}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}algebra and $\sigma $-algebra}{10}{subsection.2.2.1}%
-\contentsline {section}{\numberline {2.3}Recitation 1 (02-07) -- {Problem Solving (Algebra)}}{13}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Basic Set Theory}{13}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Limits of Sets}{13}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Exercise}{14}{subsection.2.3.3}%
-\contentsline {chapter}{\numberline {3}Partial Differential Equations}{17}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{17}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{17}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{17}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{18}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{18}{subsection.3.1.4}%
-\contentsline {subsubsection}{Stationary waves}{18}{section*.2}%
-\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Transport and Traveling waves}}{19}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}uniform transport}{19}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{20}{subsection.3.2.2}%
-\contentsline {chapter}{\numberline {4}Algorithm}{23}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{23}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{24}{section.4.2}%
+\contentsline {section}{\numberline {1.4}Lecture 3 (02-10) -- {Algebraic Structure of Complex numbers}}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Algebraic Structure of Complex numbers}{7}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Square roots}{8}{subsection.1.4.2}%
+\contentsline {chapter}{\numberline {2}Honors Theory of Probability }{10}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Lecture 1 (02-03) -- {Introduction to Probability}}{10}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Intro}{10}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Probability Space}{11}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Lecture 2 (02-05) -- {Algebra}}{12}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}algebra and $\sigma $-algebra}{12}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Recitation 1 (02-07) -- {Problem Solving (Algebra)}}{15}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Basic Set Theory}{15}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Limits of Sets}{15}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Exercise}{16}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Lecture 3 (02-10)}{18}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Content and Measure}{19}{subsection.2.4.1}%
+\contentsline {chapter}{\numberline {3}Partial Differential Equations}{22}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{22}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{22}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{22}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{23}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{23}{subsection.3.1.4}%
+\contentsline {subsubsection}{Stationary waves}{23}{section*.2}%
+\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Transport and Traveling waves}}{24}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}uniform transport}{24}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{25}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Nonlinear transport and shocks}{27}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{29}{subsection.3.3.1}%
+\contentsline {chapter}{\numberline {4}Algorithm}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{33}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{34}{section.4.2}%
