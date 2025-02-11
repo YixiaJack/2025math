@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.5)  12 FEB 2025 02:21
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.5)  12 FEB 2025 02:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1943,6 +1943,10 @@ Package mdframed Info: Not enough space on this page on input line 289.
 
 
 [28]
+Overfull \hbox (9.30931pt too wide) in paragraph at lines 290--290
+[]\T1/lmr/bx/sc/14.4 Lecture 3 (02-10)-Nonlinear trans-port and shocks 
+ []
+
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 313.
@@ -2092,7 +2096,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `book_template.out' has not changed.
-(rerunfilecheck)             Checksum: 48B925EE6DFE7BD5FCF79D714A8E5CAC;7190.
+(rerunfilecheck)             Checksum: 7BDA8C9BDF29427179EDCCBA1180D841;7292.
 Package logreq Info: Writing requests to 'book_template.run.xml'.
 \openout1 = `book_template.run.xml'.
 
@@ -2100,7 +2104,7 @@ Package logreq Info: Writing requests to 'book_template.run.xml'.
 Here is how much of TeX's memory you used:
  36425 strings out of 473840
  735121 string characters out of 5733402
- 2639022 words of memory out of 50000000
+ 2639418 words of memory out of 50000000
  58766 multiletter control sequences out of 15000+600000
  651815 words of font info for 98 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191

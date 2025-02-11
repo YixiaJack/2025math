@@ -30,7 +30,7 @@
 \contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{24}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}uniform transport}{24}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{26}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Nonlinear transport and shocks}{29}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{29}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{31}{subsection.3.3.1}%
 \contentsline {chapter}{\numberline {4}Algorithm}{36}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{36}{section.4.1}%
