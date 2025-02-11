@@ -76,10 +76,15 @@ $$
         \\-x^2, x\leq0,t<0
     \end{cases}
 $$ 
-it is a $ \mathbb{C}^1 $ solution of \eqref{eq2} on $ \mathbb{R}^2 $ and it is a classical solution.
-
-\section[Lecture 2 (02-05) -- {Transport and Traveling waves}]{Lecture 1 (02-05)Transport and Traveling waves}
+it is a $ \mathbb{C}^1 $ solution of \eqref{eq2} on $ \mathbb{R}^2\backslash\{(0,x):x\leq0\} $, so it is not a function of x alone\\
+Actually, it is not hard to check that if u is a clasical solution to \eqref{eq2}, defined on domain $ D\subset\mathbb{R}^2 $ whose intersection with any horizontal line $D_a=D\cap\{(t,a):t\in \mathbb{R}\},\forall a\in \mathbb{R}  $ is either empty or a connected interval, then $ u(t,x)=f(x) $ is only a function of x.
+\begin{figure}[H]
+    \centering
+    \includegraphics[height = 0.4\textwidth, width = 0.5\textwidth]{resource/1.png}
+\end{figure}
+\section[Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}]{Lecture 1 (02-05)Transport and Traveling waves}
 \subsection{uniform transport}
+Let us consider the linear, homogeneuous first order PDE:
 \begin{equation}
     \label{eq4} \pdv{u}{t}+c\pdv{u}{x}=0
 \end{equation}
@@ -184,10 +189,14 @@ $$
 \end{align*}
 h(t) and thus u(t,x(t)) is constant along the characteristic curves
 \begin{definition}{}{}
-The graph of a solutioni of the ODE $$\frac{d}{dt}x(t)=c(x(t))$$ is called a characteristic curve for the transport equation \eqref{eq7} with speed c(x)
+The graph of a solution of the ODE $$\frac{d}{dt}x(t)=c(x(t))$$ is called a characteristic curve for the transport equation \eqref{eq7} with speed c(x)
 \end{definition}
 Thus at each point (t,x) the slope of the characteristic curve is c(x) (the wave speed)
-\\In the particular case c(x)=c, the characteristic curves are straight lines of slope c
+\\Thus, we proved:
+\begin{proposition}{}{}
+The solutions to the linear transport equation \eqref{eq7} are constant along the characteristic curves
+\end{proposition}
+In the particular case c(x)=c, the characteristic curves are straight lines of slope c
 \\Moreover,
 \\ \eqref{eq7} is an autonomous first order ODE which can be "solved" using the method of separation of variables
 \\Assume that c(x)$ \neq $0 
@@ -242,6 +251,42 @@ From the proposition, we know that $ u(t,x(t)) $=constant
 \\u(0,x)=f(x)
 \end{cases}
 $$ 
+\begin{example}{}{}
+Let us apply the method of characteristics to solve the nonuniform transport equation:
+$$
+    \pdv{u}{t}+\frac{1}{x^2+1}\pdv{u}{x}=0
+$$ 
+The characteristic curves are the graphs of the solutions of the ODE:
+$$
+    \dv{x}{t}=\frac{1}{x^2+1}
+$$ 
+\begin{align*}
+    \Rightarrow \beta(x)&=\int(x^2+1)dx\\
+    &=\frac{x^3}{3}+x\\
+    &=t+k
+\end{align*}
+It is not particularly helpful to find x(t) form this equation.\\
+characteristic variable $ \xi $ is given by $ \xi=\frac{x^3}{3}+x-t $ and the general solution is of the form
+$$
+    u=v(\frac{x^3}{3}+x-t)
+$$  
+where v is any $ \mathbb{C}^1 $ function.\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[height = 0.4\textwidth, width = 0.5\textwidth]{resource/2.png}
+    \caption{Characteristic curves for $u_t+(x^2+1)^{-1}u_x=0$}
+	\label{img:chcurve}
+\end{figure}
+In the case of the initial condition:
+$$
+    u(0,x)=\frac{1}{1+{(x+3)}^2}
+$$  
+The solution looks as follows:
+\begin{figure}[H]
+    \centering
+    \includegraphics[height = 0.4\textwidth, width = 0.5\textwidth]{resource/3.png}
+\end{figure}
+\end{example}
 \section{Nonlinear transport and shocks}
 Nonlinear transport equation:
 \begin{equation}
@@ -308,13 +353,83 @@ x=ty+y,y=\frac{x}{t+1}\\
 \Rightarrow u(t,x)=f(y)=y=\frac{x}{t+1}\\
 \Rightarrow u(t,x)=\frac{x}{t+1}
 \end{align*}  
+which agrees with \eqref{eq12} for $ \alpha=1,\beta=0 $\\
+There is a problem with this construction that becomes clear when considering the following example:
+$$
+    u(0,x)=f(x)=\frac{1}{2}\pi-tan^{-1}(x)
+$$ 
+\begin{figure}[H]
+	\centering
+	\includegraphics[height = 0.4\textwidth, width = 0.5\textwidth]{resource/cline.png}
+	\caption{Characteristic lines for $
+    u(0,x)=\frac{1}{2}\pi-tan^{-1}(x)
+$ }
+	\label{img:cline}
+\end{figure}
+Two characteristic lines that are not parallel must cross and the value of the solution is supposed to be equal the slope of the characteristic line passing through the point.\\
+At a crossing point, the solution will have to be equal to two different values, one corresoponding to each characteristic line.\\
+While mathematically, such a multiply valued solutions are possible, they are physically untenbale.\\
+One needs to decide which (if any) of the possible values is the physically appropriate.\\
 \end{example}
-Shocks:
 \subsection{The wave equation:d'Alembert's formula}
+Let us consider the 1D wave equation:
 \begin{equation}
     \label{eq13} \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}
 \end{equation}
-Thus we have two families of solutions of the wave equation:
+where c>0 is a given constant\\
+the wave speed, the initial data are of the form:
+\begin{equation}
+    \label{eq14} u(0,x)=f(x),\pdv{u}{t}(0,x)=g(x)
+\end{equation}
+The initial value problem is to find a $ \mathbb{C}^2 $ function that solves \eqref{eq13} and satisfies \eqref{eq14}\\
+In this section, we will consider only the 1D case posed on the whole line R\\
+Let us define the wave operator:
+$$
+    \square =\pdv[2]{}{t}-c^2\pdv[2]{}{x}
+$$ 
+Thus the wave equation becomes:
+$$
+    \square u=0
+$$
+In analogy with the elementary factorization
+$$
+    t^2-c^2x^2=(t-cx)(t+cx)
+$$ 
+We can write 
+$$
+    \square=(\pdv{}{t}-c\pdv{}{x})(\pdv{}{t}+c\pdv{}{x})
+$$
+Now, if
+\begin{equation}
+     \label{eq15}(\pdv{}{t}+c\pdv{}{x})u=0
+\end{equation}
+then u is automatically a solution of the wave equation, because
+$$
+    \square u=(\pdv{}{t}-c\pdv{}{x})(\pdv{}{t}+c\pdv{}{x})u=0
+$$
+Clearly, \eqref{eq15} is a transport equation with constant wave speed c, and its solutions are traveling waves with speed c:
+$$
+    u(t,x)=p(\xi)=p(x-ct)
+$$
+where p is an arbitrary function.\\
+If $ p\in \mathbb{C}^2,u(t,x) $ is a classical solution of the wave equation \eqref{eq13}.\\
+The factorization of $ \square $ can be written in the reverse order:
+$$
+    \square=(\pdv{}{t}+c\pdv{}{x})(\pdv{}{t}-c\pdv{}{x})
+$$
+Solving the transport equation:
+$$
+    (\pdv{}{t}-c\pdv{}{x})u=0
+$$
+with -c instead of c, we get:
+$$
+    u(t,x)=q(x+ct)
+$$ 
+where q is an arbitrary function.\\
+the solution represent traveling waves moving to the left with constant speed c>0\\
+If $ q\in \mathbb{C}^2$, we get a second family of solutions to the wave equation.\\
+Thus there are both left and right traveling-wave solution,\\
+Thus, we have two families of solutions of the wave equation:
 \begin{align*}{}{}
 u(t,x)&=p(x-ct)\\
 u(t,x)&=q(x+ct), \forall p,q\in \mathbb{C}^2
@@ -325,7 +440,7 @@ $$
 $$ 
 \begin{theorem}[]{}
 Every solution to \eqref{eq13} can be written in the form \begin{equation}
-    \label{eq14} u(t,x)=p(x-ct)+q(x+ct), \forall p,q\in \mathbb{C}^2
+    \label{eq16} u(t,x)=p(x-ct)+q(x+ct), \forall p,q\in \mathbb{C}^2
 \end{equation}
 \end{theorem}
 \textbf{Proof:}
@@ -350,7 +465,7 @@ Every solution to \eqref{eq13} can be written in the form \begin{equation}
     w=\pdv{v}{\eta}=r(\zeta )\\
     \text{Integrating we get: }\\
 \end{align*}
-Now we want to solve the initial value problem \eqref{eq14}:
+Now we want to solve the initial value problem \eqref{eq16}:
 \begin{align*}{}{}
 u(t,x)&=p(x-ct)+q(x+ct)\\
 u(0,x)&=p(x)+q(x)=f(x)\\
