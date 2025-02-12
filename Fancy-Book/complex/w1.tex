@@ -291,3 +291,75 @@ So the cardinality of the set of algebraic numbers is countable (trancsendental 
 \\ Actually this is equivalent to saying that all the roots of such a polynomial are complex.
 \item The field of complex numbers is algebraically closed.
 \end{itemize}
+\section{Lecture 4 (02-12) -- {Conjugation and absolute value}}
+\begin{definition}[Complex Conjugation]{}
+Given a complex number $z=x+iy \in \mathbb{C}$, we define its complex conjugation $ \bar{z}=x-iy $ This transformation is called complex conjugation. 
+\end{definition}
+\textbf{Comments:}
+\begin{itemize}
+\item $ \bar{\bar{z}}=z $
+\item  We define the real part of $ z=x+iy $ as $ Re(z)=x=\frac{z+\bar{z}}{2} $ and the imaginary part of z as $ Im(z)=y=\frac{z-\bar{z}}{2i} $ 
+\item  $ \overline{z+w}=\bar{z}+\bar{w}, \bar{zw}=\bar{z}\bar{w} $: complex conjugation defines an isomorphism $ \mathbb{C}\rightarrow\mathbb{C} $  
+\item $\overline{(\frac{z}{w})}=\frac{\bar{z}}{\bar{w}} $
+\item if R is any rational function, then $ \overline{R(z_1,z_2,\cdots,z_n)}=R(\bar{z_z},\bar{z_2},\cdots,\bar{z_n}) $
+\\In particular, \begin{align*}{}{}
+a_nz^n+\cdots+a_1z+a_0=0\\
+\Rightarrow \bar{a_n}\bar{z}^n+\cdots+\bar{a_1}\bar{z}+\bar{a_0}=0
+\end{align*} 
+\end{itemize}
+\begin{definition}[absolute value]{}
+Given a complex number $ z \in \mathbb{C} $, we define its absolute value, denoted by $$ |z|=\sqrt{z\bar{z}} $$
+\end{definition}
+\textbf{Comments:}
+\begin{itemize}
+\item If z is real, then $ \bar{z}=z $
+\item we say that z is purely imaginary if $ Re(z)=0 $, iff $ \bar{z}=-z $ 
+\item Then if z is real, |z| coincides with the traditional definition of absolute value on $\mathbb{R}$
+\item $ z\bar{z}=(x+iy)(x-iy)=x^2-{(iy)}^2=x^2+y^2\geq0 $ 
+\item Vector space (V,+,scalar multiplication) over a field $ \mathbb{F}(Q,R,C) $ 
+\item $ |zw|=|z||w|,|\bar{z}|=|z| $
+\item $ |\frac{z}{w}|=\frac{|z|}{|w|},w\neq0 $
+\item $|z_1z_2\cdots z_n|=|z_1||z_2|\cdots |z_n|  $
+\item ${|z+w|}^2=(z+w)(\bar{z}+\bar{w})={|z|}^2+{|w|}^2+z\bar{w}+\bar{z}w=|z|^2+|w|^2+2Re(z\bar{w}) $
+\item $ {|z+w|}^2+{|z-w|}^2=2{|z|}^2+2{|w|}^2 $ 
+\end{itemize}
+\begin{lemma}[Triangle inequality]{}
+If $ z,w\in \mathbb{C} $ then, $ |z+w|\leq |z|+|w| $  
+\end{lemma}
+\textbf{Proof:}
+\\Note that if $ a=\alpha+i\beta $ then 
+\begin{align*}{}{}
+-|a|\leq Re(a)=\alpha&\leq |a|=\sqrt{\alpha^2+\beta^2}\\
+\Rightarrow {|z+w|}^2=|z|^2+|w|^2+2Re(z\bar{w})&\leq |z|^2+|w|^2+2|z||w|={(|z|+|w|)}^2
+\end{align*}
+\textbf{Comments:}
+\\Assume that z and w are such that $ |z+w|=|z|+|w| $
+$$
+    \Rightarrow |z||w|=Re(z\bar{w}) \Leftrightarrow z\bar{w}\geq 0
+$$ 
+\\We proved that absolute value is a norm (which is a good notion of distance):
+\begin{itemize}
+\item $|z|=0 \Leftrightarrow z=0 \text{ and } |z|\geq0, \forall z\in\mathbb{C}$
+\item $ |az|=|a||z|,\forall a, z \in \mathbb{C} $
+\item $ |z+w|\leq |z|+|w| $
+\item  $(R^d,+,\underbrace{|| \text{ }||}_{\text{Euclidean norm}}) , ||(x_1,\cdots,x_d)||=\sqrt{{x_1}^2+\cdots+{x_d}^2} $
+\end{itemize}
+\begin{lemma}[Cauchy inequality]{}
+If $ z_1,\cdots,z_n,w_1,\cdots,w_n\in\mathbb{C} $ ,
+$$
+    |\sum_{i=1}^{n}z_iw_i|\leq \sqrt{\sum_{i=1}^{n}{|z_i|}^2}\sqrt{\sum_{i=1}^{n}{|w_i|}^2}
+$$ 
+\end{lemma}
+\textbf{Proof:}
+\\Let $ \lambda\in\mathbb{R}  $ and consider
+$$
+    \sum_{i=1}^{n}{|z_i-\lambda w_i|}^2=\sum_{i=1}^{n}{|z_i|}^2-2 Re\bar{\lambda}(\sum_{i=1}^{n}z_i\bar{w_i})+|\lambda|^2\sum_{i=1}^{n}{|w_i|}^2
+$$ 
+Choose
+$$
+    \lambda= \frac{\sum_{i=1}^{n}z_i\bar{w_i}}{\sum_{i=1}^{n}{|w_i|}^2}
+$$ 
+Then,
+$$
+    0\leq \sum_{i=1}^{n}{|z_i|}^2-\frac{{|\sum_{i=1}^{n}z_i\bar{w_i}|}^2}{\sum_{i=1}^{n}{|w_i|}^2}
+$$ 

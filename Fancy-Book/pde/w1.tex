@@ -300,7 +300,7 @@ Let's show that u the solution of \eqref{eq9} is constant along the characterist
 \\we need to check that $ h(t)=u(t,x(t)) $ is constant of t
 \begin{align*}{}{}
 \frac{d}{dt}h(t)&=\pdv{u}{t}(t,x(t))+\pdv{u}{x}(t,x(t))\cdot\dv{x}{t}\\
-&=\pdv{u}{t}(t,x(t))+u(t,x(t))\cdot u(t,x(t))\\
+&=\pdv{u}{t}(t,x(t))+\pdv{u}{x}\cdot u(t,x(t))\\
 &=0 (\text{ by }\eqref{eq9})
 \end{align*}
 As u is constant along the characteristic curves, it must be of the form function of characteristic variable:
@@ -495,18 +495,199 @@ is given by:
 $$
     u(t,x)=\frac{f(x+ct)+f(x-ct)}{2}+\frac{1}{2c}\int_{x-ct}^{x+ct}g(z)dz, \forall f\in \mathbb{C}^2, g\in \mathbb{C}^1
 $$ 
+Note that this formula provides a classical solution if $ f\in \mathbb{C}^2 $ and $ g\in \mathbb{C}^1 $ 
 \end{theorem}
 \textbf{External forcing:}
-$$
-    \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}+F(x,t)
-$$ 
-F is a given nice function:
+\\If a homogeneuous medium is subject to an external force F, then the system is described as:
+\begin{equation}
+   \label{eq17} \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}+F(x,t)
+\end{equation}
+We apply a generalized version of d'Alembert's technique. To simplify,we first impose homogeneuous initial data:
 \begin{align*}{}{}
 u(0,x)&=0\\
 \pdv{u}{t}(0,x)&=0\\
-\xi&=x-ct\\
-\eta&=x+ct\\
-u(t,x)&=v(\xi,\eta)\\
-\square u &=F(t,x)=F(\frac{\eta-\xi}{2c},\frac{\eta+\xi}{2})=-4c^2\pdv{v}{\xi}{\eta}\\
-\pdv{v}{\xi}(\xi,\eta)-\pdv{v}{\xi}(\xi,\eta)&=r(\eta)-r(\xi)\\
 \end{align*}
+We search for a solution in the form  $ u(t,x)=v(\xi,\eta) $ and from the chain rule,we get
+\begin{align*}{}{}
+\pdv{v}{\xi}{\eta} &=\frac{1}{-4c^2}F(\frac{\eta-\xi}{2c},\frac{\eta+\xi}{2})
+\end{align*}
+Intergrating with respect to $ \eta $, we get
+$$
+    \pdv{v}{\xi}(\xi,\eta)-\pdv{v}{\xi}(\xi,\xi)=\frac{1}{-4c^2}\int_{\xi}^{\eta}F(\frac{\zeta-\xi}{2c},\frac{\zeta+\xi}{2})d\zeta
+$$ 
+From the identities:
+$$
+    \pdv{u}{t}=c(-\pdv{v}{\xi}+\pdv{v}{\eta}),\pdv{u}{x}=c(\pdv{v}{\xi}+\pdv{v}{\eta})
+$$ 
+We get:
+\begin{align*}{}{}
+\pdv{v}{\xi}(\xi,\eta)=-\frac{1}{2c}\pdv{u}{t}(\frac{\eta-\xi}{2},\frac{\eta+\xi}{2})+\frac{1}{2c}\pdv{u}{x}(\frac{\eta-\xi}{2},\frac{\eta+\xi}{2})\\
+\end{align*}
+Taking $ \xi=\eta $ :
+$$
+    \pdv{v}{\xi}(\xi,\xi)=-\frac{1}{2c}\pdv{u}{t}(0,\xi)+\frac{1}{2c}\pdv{u}{x}(0,\xi)=0
+$$ 
+because of homogeneuous initial conditions. Thus \eqref{eq17} becomes:
+$$
+    \pdv{v}{\xi}(\xi,\eta)=\frac{1}{-4c^2}\int_{\xi}^{\eta}F(\frac{\zeta-\xi}{2c},\frac{\zeta+\xi}{2})d\zeta
+$$ 
+Now, we integrate this with respect to $ \xi $:
+\begin{align*}{}{}
+-v(\xi,\eta)=v(\eta,\eta)-v(\xi,\eta)=\frac{1}{-4c^2}\int_{\xi}^{\eta}\int_{\xi}^{\zeta}F(\frac{\zeta-\xi}{2c},\frac{\zeta+\xi}{2})d\zeta d\xi\\
+\end{align*}
+since $ v(\xi,\xi)=0 $, Thus:
+\begin{align*}{}{}
+v(\xi,\eta)&=\frac{1}{4c^2}\int_{\xi}^{\eta}\int_{\phi}^{\zeta}F(\frac{\zeta-\phi}{2c},\frac{\zeta+\phi}{2})d\zeta d\phi\\
+&=\frac{1}{4c^2}{\iint}_{T(\xi,\eta)}F(\frac{\zeta-\phi}{2c},\frac{\zeta+\phi}{2})d\zeta d\phi\\
+\end{align*}
+That is the double integral takes place over the triangle$$
+    T(\xi,\eta)=\{(\phi,\zeta):\xi\leq\phi\leq\zeta\leq\eta\}
+$$ 
+Recalling that $ \xi=x-ct $ and $ \eta=x+ct $ and setting $ \phi=y-cs $ and $ \zeta=y+cs $,
+the inequality $ \xi\leq\phi\leq\zeta\leq\eta $   becomes $ x-ct\leq y-cs\leq y+cs\leq x+ct $, \\
+So T($ \xi,\eta $) cna be rewritten as $ D(t,x)=\{(s,y)|x-c(t-s)\leq y\leq x+c(t-s),0\leq s\leq t\} $ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[height = 0.4\textwidth, width = 0.5\textwidth]{resource/4.png}
+    \caption{The Domain of integration $ D(t,x) $}
+\end{figure}
+Using the change of variables $ \frac{\zeta-\phi}{2c}=s $ and $ \frac{\zeta+\phi}{2}=y $ for the double integrals and computing the Jacobian, we get:
+$\det$
+$\begin{pmatrix}
+\pdv{\phi}{y} & \pdv{\phi}{s} \\
+\pdv{\zeta}{y} & \pdv{\zeta}{s}
+\end{pmatrix}$ $=\det$
+$\begin{pmatrix}
+1 & -c \\
+1 & c
+\end{pmatrix}$ $=2c$
+\\Thus,
+\begin{align*}{}{}
+u(t,x)&=\frac{1}{2c}\iint_D(t,x)F(s,y)dsdy\\
+&=\frac{1}{2c}\int_{0}^{t}\int_{x-c(t-s)}^{x+c(t-s)}F(s,y)dyds
+\end{align*}
+is the formula for the solution to the forced wave equation with homogeneuous initial conditioni.\\
+To solve the case of general initial condition, one needs to take the sum of the solution to the forced equation with homogeneuous initial conditions plus the d'Alembert solution to the unforced equation subject to inhomogeneuous boundary conditions.\\
+\section{Lecture 4 (02-12)}
+\begin{theorem}[]{}
+The solution of the problem:
+$$
+    \begin{cases}
+        \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}+F(x,t)\\
+        u(0,x)=f(x)\\
+        \pdv{u}{t}(0,x)=g(x)
+    \end{cases}
+$$ is given by
+\begin{align*}{}{}
+u(t,x)&=\frac{f(x-ct)+f(x+ct)}{2}+\frac{1}{2c}\int_{x-ct}^{x+ct}g(z)dz+\frac{1}{2c}\int_{0}^{t}\int_{x-c(t-s)}^{x+c(t-s)}F(s,y)dyds
+\end{align*}
+The triangle D(t,x) is called the domain of dependence of the point (t,x)
+\end{theorem}
+\begin{example}[]{}
+ $$
+    \pdv[2]{u}{t}=c^2\pdv[2]{u}{x}+sin\omega tsinx,u(0,x)=0,\pdv{u}{t}(0,x)=0
+ $$ 
+ So:\begin{align*}{}{}
+ F(t,x)&=sin\omega tsinx\\
+ u(t,x)&=\frac{1}{2c}\int_{0}^{t}\int_{x-t+s}^{x+t-s}sin\omega ssinydyds\\
+ &=\frac{1}{2}\int_{0}^{t}sin\omega s[cos(x-t+s)-cos(x+t-s)]ds\\
+ &=\begin{cases}
+    \frac{sin\omega t -\omega sint}{1-\omega^2}sinx, \omega\neq 1\\
+    \frac{sint-tcost}{2}sinx, \omega=1
+ \end{cases}
+ \end{align*}
+ When $ \omega\neq1 $ ,the solution is bounded.
+ \\If $ \omega \in Q $ ,then the solution u is periodic in time.\\
+ If $ \omega \in I $ ,then u is quasi-periodic(it never exactly repeats) in time.  \\
+ When $ \omega=1 $ the solution is unbounded. 
+\end{example}
+\subsection{Exercises}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item Supposed u(t,x) is defined for all $(t,x)\in R^2$ and solves $\pdv{u}{t}+2u=0.$\\
+ Prove that $ \lim_{t\rightarrow+\infty}u(t,x)=0  $ for all x \\
+ SOL:
+ \begin{align*}{}{}
+ u(0,x)=f(x)\\
+ u(t,x)=e^{-2t}f(x)\\
+ \lim_{t\rightarrow+\infty}u(t,x)=0
+ \end{align*}
+ \item Let u(t,x) solve the initial value problem $\pdv{u}{t}+u^c=0,u(0,x)=f(x)  $, where f(x) is a bounded $ \mathbb{C}^1 $ function of $ x\in\mathbb{R} $ \\
+ (a): show that if $f(x)\geq 0$ for all x, then u(t,x) is defined for all $ t>0 $, and $ \lim_{t\rightarrow+\infty}u(t,x)=0 $\\
+ (b): On the other hand , if $ f(x)<0 $ , then the solution u(t,x) is not defined for all t>0, but in fact, $ \lim_{t\rightarrow r^{-}}u(t,x)=-\infty,\text{ for some }0<r<\infty $
+ Given x , what is the corresoponding value of r?\\
+ (c):Given f(x) as in part (b), what is the longest time interval $ 0<t<t_\star $ on which u(t,x) is defined for all $ x\in \mathbb{R} $?
+\\SOL:
+\begin{align*}{}{}
+\pdv{u}{t}&=-u^2,u(0,x)=f(x)\\
+\frac{du}{u^2}&=-dt\Rightarrow -\frac{1}{u}=-t-c(x)\\
+\frac{1}{u}&=t+c(x)\Rightarrow u(t,x)=\frac{1}{t+c(x)}\\
+u(0,x)&=f(x)=\frac{1}{c(x)}\\
+u(t,x)&=\frac{1}{t+\frac{1}{f(x)}}=\frac{f(x)}{tf(x)+1}\\
+(a):&f(x)\geq 0\Rightarrow u(t,x) \text{ is defined for any }t\geq0 \text{ and } \lim_{t\rightarrow+\infty}u(t,x)=0\\
+(b):&f(x)<0\Rightarrow \tau(x)=\frac{1}{f(x)} \Rightarrow u(t,x)=\frac{1}{t+\tau(x)}\\ 
+(c): &If f(x)<0,[0,\tau(x))\\
+t_\star&=\inf\{\tau(x):x\in \mathbb{R}\}=inf_{x\in \mathbb{R}}-\frac{1}{f(x)}=-\frac{1}{inf_{x\in \mathbb{R}}f(x)}\\
+\text{So we can have } f(x)&=tan^{-1}(x)\\
+\end{align*}     
+\item Solve the following initial value problem and graph the solution at times t=1,2,and 3:\\
+(a) $u_t-3u_x=0,u(0,x)=e^{-x^2}$
+\\Recall:\begin{align*}{}{}
+\pdv{u}{t}+c\pdv{u}{x}&=0\\
+\text{We knnow that } u(t,x)&=v(\xi)=(x-ct)\\
+\forall v&\in \mathbb{C}^1\\
+u(0,x)&=f(x)=v(x)\\
+\text{Thus }u(t,x)&=f(x-ct)\\
+\end{align*}
+\textbf{In our case:}
+\begin{align*}{}{}
+u(t,x)=f(x+3t)&=e^{-(x+3t)^2}\\
+\end{align*}
+\item Graph some of the characteristic lines for the following equations and write down a formula for the general solution:
+\\(a)$u_t-3u_x=0$,
+\\SOL: The characteristic lines of the equation $\pdv{u}{t}+c(x) \pdv{u}{x}=0$ are the solution of the ODE:$$
+    \dv{x}{t}=c(x)
+$$ 
+In our case $ \dv{x}{t}=-3 \rightarrow x(t)=-3t+k $ 
+\item (a)Prove that if the initial data is bounded,$|f(x)| \leq M $ for all $ x\in\mathbb{R} $,then the solution to the damped transport equation $\pdv{u}{t}+c\pdv{u}{x}+au=0 $ with a>0 satisfies $ u(t,x)\rightarrow 0 $ as $ t\rightarrow\infty $  
+\\(b) Find a solution to it that is defined for all (t,x) but does not satisfy $ u(t,x)\rightarrow0 $ as $ t\rightarrow +\infty $  
+\\SOL: Recall the solution to it with initial condition u(0,x)=f(x) is given by \begin{align*}{}{}
+u(t,x)&=f(x-ct)e^{-at}\\
+|u(t,x)|&=|f(x-ct)|e^{-at}\leq Me^{-at}\\
+\text{(b) }f(x)&=e^{Ax}\\
+u(t,x)&=e^{A(x-ct)-at}=e^{-(Ac+a)t+Ax}\\
+\text{Choose }A\leq -\frac{a}{c}
+\end{align*}
+\item (a) Write down a formula for the general solution to the nonlinear partial differential equation $u_{t}+u_{x}+u^{2}=0$. \\
+(b) Show that if the initial data is positive and bounded, $0\leq u(0,x)=f(x)\leq M$, then the solution exists for all $t>0$, and $u(t,x)\rightarrow 0$ as $t\rightarrow \infty$. \\
+(c) On the other hand, if the initial data is negative somewhere, so $f(x)<0$ at some $x\in\mathbb{R}$, then the solution blows up in finite time: $\lim_{t\rightarrow\tau^{-}}u(t,y)=-\infty$ for some $\tau>0$ and some $y\in\mathbb{R}$.\\
+(d) Find a formula for the earliest blow-up time $\tau_{*}>0$.
+\\SOL: Writing u(t,x) in terms of the characteristic variable $\xi=x-t$ we get:
+$$
+    u(t,x)=v(t,\xi)=u(t,\xi+t)
+$$ 
+Let us find the equation for v:
+\begin{align*}{}{}
+\pdv{v}{t}&=\pdv{u}{t}+\pdv{u}{x}=-u^2=-v^2\\
+\Rightarrow \frac{dv}{v^2}&=-dt \Rightarrow -\frac{1}{v}=-t-c(\xi)\\
+\Rightarrow v(t,\xi)&=\frac{1}{t+c(\xi)}\\
+\Rightarrow u(t,x)&=\frac{1}{t+c(x-t)}\\
+\end{align*}
+Where c is an arbitrary $ \mathbb{C}^1 $ function.\\
+(b): if there is an initial condition $ u(0,x)=f(X) $, then we can determinec(x):\begin{align*}{}{}
+u(0,x)&=f(x)=\frac{1}{c(x)}\\
+\Rightarrow u(t,x)&=\frac{1}{t+\frac{1}{f(x-t)}}=\frac{f(x-t)}{tf(x-t)+1}\\
+\end{align*} 
+If $ 0\leq f(x) $, then $ tf(x-t)+1\neq0 $,so u(t,x) id defined for any t>0.\\
+The function $ \frac{s}{ts+1} $ is increasing in s\\
+Therefore:$$
+    0\leq  u(t,x)\leq \frac{M}{Mt+1}\underbrace{\rightarrow}_{(\text{as } t\rightarrow\infty)} 0 \text{ as } f(x)\leq M
+$$   
+(c): The solution formula implies that, if $ f(x)<0 $ then\begin{align*}{}{}
+u(t,x_\star)&\rightarrow-\infty \\
+\text{ as } t\rightarrow\tau&=-\frac{1}{f(x)}\\
+where x_\star&=x-\frac{1}{f(x)}
+\end{align*} 
+(d): $$
+    \tau_{*}=-\frac{1}{\inf_{x\in \mathbb{R}}f(x)}
+$$ 
+\end{enumerate}

@@ -472,6 +472,136 @@ we can write, using $ A,(A_k)  \in  a(\epsilon) $, $ A=\bigcup_{j=1}^{n}I_j$, wh
 \\Then:\begin{align*}{}{}
 m(A)&=\sum_{j=1}^{n}m(I_j)\\
 &=\sum_{j=1}^{n}\sum_{j=1}^{+\infty}\sum_{k=1}^{n_i}m(I_j\cap J_{ik})\\
-&=\sum_{i=1}^{+\infty}m(\underbrace{\bigcup_{j=1}^{n}I_j}_A\cap (\underbrace{\bigcup_{k=1}^{n_i}J_{i_{jk}}}_{A_i})\\
+&=\sum_{i=1}^{+\infty}m(\underbrace{\bigcup_{j=1}^{n}I_j}_A\cap (\underbrace{\bigcup_{k=1}^{n_i}J_{i_{jk}}}_{A_i}))\\
 &=\sum_{i=1}^{+\infty}m(A_i)
 \end{align*}   
+\section{Lecture 4 (02-12)}
+\begin{align*}{}{}
+\Omega=\mathbb{R},m:\epsilon&\rightarrow[0,+\infty),\text{ such that }\begin{cases}
+    m([a,b])=b-a, \\ m((a,+\infty))=+\infty
+\end{cases}\\
+&\text{extend  m  to } a(\epsilon): \forall A\in a(\epsilon),\\
+\text{if } A=\bigcup_{i=1}^{n}I_j, I_j &\text{ disjioint, } m(A)=\sum_{j=1}^{n}m(I_j)
+\end{align*}
+\textbf{Fact:}
+\\if $ I\in \epsilon $ s.t. $ I=\bigcup_{i=1}{+\infty}I_i,(I_i)\text{ disjoint and }I_j\in\epsilon $
+\\Then \begin{align*}{}{}
+m(I)&=|I|\\
+&=\sum_{i=1}^{+\infty}|I_i|=\bigcup_{i=1}^{+\infty}m(I_i)
+\end{align*}  
+\begin{lemma}[]{}
+we want to prove m is a countably additive content on $(\mathbb{R},a(\epsilon))$\\
+\begin{align*}{}{}
+\text{Let }  A_j\in a(\epsilon),A&=\bigcup_{j=1}^{\infty}\in a(\epsilon),(A_j)\text{ disjoint} \\
+\exists (I_i) \text{ such that } I_i\in\epsilon,\text{ disjoint } A&=\bigcup_{i=1}^{n}I_i\\
+\exists (J_{ij}) \text{ such that } J_{ij}\in\epsilon,\text{ disjoint } A_j&=\bigcup_{k=1}^{j}J_{ik}\\
+m(A)\underbrace{=}_{\text{def}}\sum_{i=1}^{n}m(I_i)&=\sum_{i=1}^{n}m(\bigcup_{j,k}\underbrace{(I_i)\cap(J_{ik})}_{\in\epsilon})\\
+&\underbrace{=}_{\text{fact}}\sum_{i=1}^{n}\sum_{j=1}^{+\infty}\sum_{k=1}^{n_j}m(I_i\cap I_{jk})\\
+&\underbrace{=}_{\text{finite add}}\sum_{j=1}^{+\infty}m(A_j)
+\end{align*}
+\end{lemma}
+\begin{theorem}[]{}
+m extends to a measure on $(\mathbb{R},\sigma(\epsilon)=\mathcal{B}(\mathbb{R}))$ It is the unique measure on $(\mathbb{R},\mathcal{B} (\mathbb{R}))$ such that
+$$
+    m([a,b])=b-a
+$$ 
+\end{theorem}
+\begin{definition}[]{}
+If $ \mu $ is a measure on $ (\Omega,F) $, then $ (\Omega,F,\mu )$ is said to be a measure space \\
+If $ \mu(\Omega)=1 $, then $ (\Omega,F,\mu )$ is said to be a probability space
+\end{definition}
+\begin{lemma}[]{}
+Let ($\Omega,F,\mu$) be a measure space, then:
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item stability: Let $ A_1,A_2,\cdots \in F $, then $ \mu(\bigcup_{i=1}^{+\infty}A_i) \leq \sum_{i=1}^{+\infty}\mu(A_i) $
+ \item continuity from below: Let $ A_1,A_2,\cdots \in F $, $ A_1\subseteq A_2\subseteq \cdots $, then $$ \mu(\bigcup_{i=1}^{+\infty}A_i)=\lim_{i\rightarrow+\infty}\mu(A_i)=\mu(\lim_{i\rightarrow+\infty}A_i) $$
+ \item continuity from above: Let $ A_1,A_2,\cdots \in F $, $ A_1\supseteq A_2\supseteq \cdots $,\\($ \mu(A_i)<+\infty $ we need this for the Counterexample $ A_i=[i,+\infty) $ ) then $$ \mu(\bigcap_{i=1}^{+\infty}A_i)=\lim_{i\rightarrow+\infty}\mu(A_i)=\mu(\lim_{i\rightarrow+\infty}A_i) $$
+  \end{enumerate}
+\end{lemma}
+\textbf{Proof:}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item Let $ B_1=A_1,B_2=A_2\backslash A_1,\cdots,B_n=A_n\backslash \bigcup_{i=1}^{n-1}A_i $,
+ \\Then $ (B_i) $ disjoint, $ \bigcup_{i=1}^{+\infty}A_i=\bigcup_{i=1}^{+\infty}B_i $   
+ $$
+    \mu(\bigcup_{i=1}^{+\infty}A_i)=\mu(\bigcup_{i=1}^{+\infty}B_i)=\sum_{i=1}^{+\infty}\mu(B_i)=\sum_{i=1}^{+\infty}\mu(A_i\backslash\bigcup_{j=1}{i-1}A_j)\leq \sum_{i=1}^{+\infty}\mu(A_i)
+ $$ 
+ \item Let $ B_1=A_1,B_2=A_2\backslash A_1,\cdots,B_n=A_n\backslash A_{n-1}\cdots $, 
+ \begin{align*}
+    \mu(\bigcup_{i=1}^{+\infty}A_i)=\mu(\bigcup_{i=1}^{+\infty}B_i)&=\sum_{i=1}^{+\infty}\mu(B_i)\\
+    &=\mu(A_1)+\sum_{i=2}^{+\infty}(\mu(A_i)- \mu A_{i-1})\\
+    &=\lim_{n\rightarrow+\infty}(\mu(A_1)+\sum_{i=2}^{n}(\mu(A_i)- \mu A_{i-1}))\\
+    &=\lim_{n\rightarrow+\infty}\mu(A_n)
+ \end{align*}
+ \item \begin{align*}{}{}
+ \mu(A_1)-\mu(\bigcap_{i=1}^{+\infty}A_i)&=\mu(A_1\backslash \bigcap_{i=1}^{+\infty}A_i)=\mu(\bigcup_{i=1}^{+\infty}A_1\backslash A_i)\\
+ \text{Since }A_1 \nearrow ,\text{ by 2}: &=\lim_{n\rightarrow+\infty}(\mu(A_1)-\mu(A_i))=\mu(A_1)-\lim_{n\rightarrow+\infty}\mu(A_i)
+ \end{align*} 
+ \end{enumerate}
+ \begin{definition}[$ \sigma $-finite measure ]{}
+ Given a measure space $ (\Omega,F,\mu) $,  $ \mu $ is said to be finite if $ \mu(\Omega)<+\infty $ \\
+ $ \mu $ is $ \sigma $-finite if there exists $ {(E_i)}_{i=1}^{+\infty} $ such that $ \bigcup_{i=1}^{+\infty}E_i\in \Omega$ and $ \mu(E_i)<+\infty $
+ \end{definition}
+ \begin{example}[]{}
+  $(\mathbb{R},\mathcal{B} (\mathbb{R}),m)$ is $ \sigma $-finite
+ \end{example}
+ \begin{definition}[]{}
+ if $ F\in \mathcal{F} $ is such that $ \mu(F)=0 $, then $ F $ is called a $ \mu $-null set 
+ \end{definition}
+ \begin{example}[]{}
+  $ m(\{a\})=0 $ because \begin{align*}{}{}
+  m(\{a\})&=m(\bigcap_{n\geq1}(a-\frac{1}{n},a])=\text{(continuous from above)}\lim_{n\rightarrow+\infty}m((a-\frac{1}{n},a])=0\\
+  m(Q)&=\sum_{q\in Q}m(\{q\})=0
+  \end{align*} 
+ \end{example}
+ \textbf{Recall:}
+ \\Start with $ (R,a(\epsilon),m) $ m is content + countably additive
+ \\extention: $ (R,a(\epsilon),m) \rightarrow (R,\sigma(\epsilon),m) $ m is measure
+ \begin{theorem}[Caratheodory Extention Theorem]{}
+ Let F be an algebra on $ \Omega $ , $ \mu $ be a countably additive content on ($ \Omega,F $), \\
+ If $ \mu $ is $ \sigma $-finite, then $\mu$ extends to a measure on $ (\Omega,\sigma(F)) $
+ \end{theorem}
+ \begin{example}[]{}
+  Let $\epsilon=\begin{cases}
+    (a,b], & -\infty \leq a < b < +\infty \\
+    (a,+\infty),&a\in \mathbb{R}
+  \end{cases}$
+Let $ m_F:a(\epsilon)\rightarrow[0,+\infty) $ be a content, such that $$ m_F([a,b])=F(b)-F(a) , m_F((a,+\infty))=F(+\infty)-F(a) $$
+Where F is a right continuous increasing function on $ \mathbb{R} $, $$ F(\pm \infty)=\lim_{x\rightarrow \pm +\infty}F(x) $$
+Then $ m_F $ is a countably additive content on $ (\mathbb{R},a(\epsilon)) $
+\\By the extension theorem, $ m_F $ extends to a measure on $ (\mathbb{R},\sigma(a(\epsilon))=\sigma(\epsilon)=\mathcal{B} (\mathbb{R})) $ \\
+(F(x)=(x) gives Lebesgue)
+ \end{example}
+ \begin{definition}[Lebesgue-Stieltjes mesures]{}
+ think of $ m_F(A)=\int_{A}\underbrace{dF(x)}_{\text{R-S integral}} $ , F is the distribution function of the measure
+ \end{definition}
+ Uniqueness(Dynkin)
+ \begin{definition}[$ \pi $ and $\lambda  $ system   ]{}
+ Let $ C $ be a collection of sets of $\Omega$\\
+ $ C $ is a $ \pi $-system if:
+ \begin{itemize}
+ \item $ \emptyset\in C $
+ \item $ \forall A,B\in C, A\cup B \in C $ 
+ \end{itemize}
+ C is a $ \lambda $-system if:
+ \begin{itemize}
+ \item $ \Omega\in C $
+ \item if $  A,B\in C, \text{ and }A\subseteq B, \text{ then }B\backslash A \in C $
+ \item if $ A_1,A_2,\cdots \in C, \text{ and }A_1\subseteq A_2\subseteq \cdots, \text{ then }\bigcup_{i=1}^{+\infty}A_i\in C $
+ \end{itemize}
+ \end{definition}
+ \begin{example}[]{}
+  $ \epsilon=\begin{cases}
+    (a,b]\\
+    (a,+\infty)
+  \end{cases} $ is a $ \pi $-system 
+ \end{example}
+ \textbf{Exercise:}
+ if $ C $ is both a $ \pi $-system and a $ \lambda $-system, then it is a $ \sigma $-algebra
+ \begin{lemma}[Dynkins Lemma]{}
+ Let C be a $ \pi $-system, then any $ \lambda $-system containing C also contains the $\sigma(C)$
+ \\\textbf{Hint:} show that any such  $\lambda$-system is also a $\pi$-system
+ \end{lemma}
+ \begin{theorem}[Uniqueness Theorem]{}
+ Let C be a $ \pi $-system, Let $ \mu_1,\mu_2 $ be two finite measures on $ (\Omega,\sigma(C)) $\\
+ Suppose that $ \mu_1(A)=\mu_2(A) $ on $ C $, then $ \mu_1(A)=\mu_2(A) $ on $\sigma(C) $
+ \end{theorem}
