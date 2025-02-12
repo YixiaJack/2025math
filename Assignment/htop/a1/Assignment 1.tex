@@ -189,15 +189,20 @@ Let $\mathcal{F}$ and $\mathcal{G}$ be $\sigma$-fields of subsets of $\Omega$.
   & \text{either $\mathcal{F}$ or $\mathcal{G}$, is not necessarily a $\sigma$-field.}
 \end{align*}
 \begin{proof}
-  \begin{align*}{}{}
-    (a): &\text{Let } A_1, A_2, \ldots \in \mathcal{F}. \text{ Then } A_1^c, A_2^c, \ldots \in \mathcal{F}.\\
-    &\text{Since } \mathcal{F} \text{ is a $\sigma$-field, we have } \bigcup_i A_i \in \mathcal{F}.\\
-    &\text{By De Morgan's Law, } \left(\bigcap_i A_i\right)^c = \bigcup_i A_i^c \in \mathcal{F}.\\
-    &\text{Hence, } \bigcap_i A_i \in \mathcal{F}.\\
-    (b): &\text{Let } A_1, A_2, \ldots \in \mathcal{H}. \text{ Then } A_1, A_2, \ldots \in \mathcal{F} \text{ and } A_1, A_2, \ldots \in \mathcal{G}.\\
-    &\text{Since } \mathcal{F} \text{ and } \mathcal{G} \text{ are $\sigma$-fields, we have } \bigcup_i A_i \in \mathcal{F} \text{ and } \bigcup_i A_i \in \mathcal{G}.\\
+  \begin{align*}
+    (a):& \text{Let } A_1, A_2, \ldots \in \mathcal{F}. \text{ Then } A_1^c, A_2^c, \ldots \in \mathcal{F}. \nonumber\\
+    &\text{Since } \mathcal{F} \text{ is a $\sigma$-field, we have } \bigcup_i A_i \in \mathcal{F}. \nonumber\\
+    &\text{By De Morgan's Law, } \left(\bigcap_i A_i\right)^c = \bigcup_i A_i^c \in \mathcal{F}. \nonumber\\
+    &\text{Hence, } \bigcap_i A_i \in \mathcal{F}. \nonumber\\
+    (b):& \text{1. Since } \Omega \in \mathcal{F} \text{ and } \Omega \in \mathcal{G}, \text{ we have } \Omega \in \mathcal{H}. \nonumber\\
+    &\text{2. } \forall A\in \mathcal{H}, \text{ we have } A \in \mathcal{F} \text{ and } A \in \mathcal{G}, \text{ so } A^c \in \mathcal{F} \text{ and } A^c \in \mathcal{G}, \text{ hence } A^c \in \mathcal{H}. \nonumber\\
+    &\text{3. } \forall A_1, A_2, \ldots \in \mathcal{H}, \text{ we have } A_1, A_2, \ldots \in \mathcal{F} \text{ and } A_1, A_2, \ldots \in \mathcal{G}, \nonumber\\
+    &\quad\text{so } \bigcup_i A_i \in \mathcal{F} \text{ and } \bigcup_i A_i \in \mathcal{G}, \text{ hence } \bigcup_i A_i \in \mathcal{H}. \nonumber\\
+    (c):& \text{Counterexample: Let } \Omega = \{1, 2, 3\}, \mathcal{F} = \{\emptyset, \{1, 2\}, \{3\}, \Omega\}, \mathcal{G} = \{\emptyset, \{1\}, \{2, 3\}, \Omega\}. \nonumber\\
+    &\text{Then } \{1, 2\} \in \mathcal{F} \text{ and } \{1\} \in \mathcal{G}, \text{ but } \{1, 2\} \cup \{1\} =  \{1, 2\} \notin \mathcal{F} \cup \mathcal{G}. \nonumber\\
+    &\text{Hence, } \mathcal{F} \cup \mathcal{G} \text{ is not necessarily a $\sigma$-field.} \nonumber
   \end{align*}
-\end{proof}
+   \end{proof}
 \subsection*{Problem 2}
 Let $A_{1}, A_{2}, \ldots$ be a sequence of events. Define
 
@@ -217,6 +222,34 @@ The events $B$ and $C$ are denoted $\limsup_{n \rightarrow \infty} A_{n}$ and $\
   (c)\quad &A \text{ is an event, i.e. } A \in \mathcal{F},\\
   (d)\quad &\mathbb{P}(A_n) \to \mathbb{P}(A).
   \end{align*}
+\begin{proof}
+  \begin{align*}{}{}
+  (a):&\text{Since by defination: } B = \bigcap_{n} \bigcup_{m \geq n} A_{m} \\
+  \Rightarrow&\text{Suppose } \omega \in B, \text{ then } \omega \in \bigcup_{m \geq n} A_{m} \text{ for all } n \in \mathbb{N} \\
+  &\text{This means for each n, we can find an }m\geq n \text{ such that } \omega \in A_{m} \\
+  &\text{Hence, } \omega \in A_{n} \text{ for infinitely many values of } n \\
+  \Leftarrow&\text{Suppose } \omega \in A_{n} \text{ for infinitely many values of } n, \\
+  &\text{then for each } n, \text{ we can find an } m\geq n \text{ such that } \omega \in A_{m} \\
+  &\text{This means } \omega \in \bigcup_{m \geq n} A_{m} \text{ for all } n \in \mathbb{N} \\
+  &\text{Hence, } \omega \in \bigcap_{n} \bigcup_{m \geq n} A_{m} = B \\
+  (b): \Rightarrow&\text{Suppose } \omega \in C, \text{ then }\exists n \in \mathbb{N} \text{ such that }\omega \in \bigcap_{m \geq n} A_{m} \\
+  &\text{This means }\exists n \in \mathbb{N} \text{ such that }\omega \in A_{m} \text{ for all } m \geq n \\
+  &\text{Hence, }\omega \in A_{n} \text{ for all but finitely many values of } n \\
+  \Leftarrow&\text{Suppose }\omega \in A_{n} \text{ for all but finitely many values of } n, \\
+  &\text{then }\exists n \in \mathbb{N} \text{ such that }\omega \in A_{m} \text{ for all } m \geq n \\
+  &\text{This means }\omega \in \bigcap_{m \geq n} A_{m} \\
+  &\text{Hence, }\omega \in \bigcup_{n} \bigcap_{m \geq n} A_{m} = C \\
+  (c):&\text{Since } A_n \rightarrow A, \text{ so } \lim_{n\rightarrow+\infty}A_n=\limsup_{n\rightarrow+\infty}A_n=\liminf_{n\rightarrow+\infty}A_n\\
+  &\text{So we have } A=B=C\\
+  &\text{Since } B_n \text{ are countable unions of } A_m, \text{ so } B_n \in \mathcal{F} \text{ for all } n \in \mathbb{N} \\
+  &\text{Then, } B = \bigcap_n B_n \in \mathcal{F} \\
+  &\text{Hence, we have } A \in \mathcal{F} \\
+  (d):&\text{Since } C_{n} \subseteq A_{n} \subseteq B_{n},\text{ we have } \mathbb{P}(C_{n}) \leq \mathbb{P}(A_{n}) \leq \mathbb{P}(B_{n}) \\
+  &\text{Since } C_{n} \text{ increases to } C, B_{n} \text{ decreases to } B, \\
+  &\text{ we have } \mathbb{P}(C_{n}) \rightarrow \mathbb{P}(C)=\mathbb{P}(A), \mathbb{P}(B_{n}) \rightarrow \mathbb{P}(B)=\mathbb{P}(A) \\
+  &\text{Hence by squeeze theorem, } \mathbb{P}(A_{n}) \rightarrow \mathbb{P}(A)
+  \end{align*}
+\end{proof}
 \subsection*{Problem 3}
 Let $\mathcal{E}$ be the left open right closed intervals of $\Omega := \mathbb{R}$ defined in class. Write down the algebra generated by $\mathcal{E}$, and prove your result.
 \subsection*{Problem 4}

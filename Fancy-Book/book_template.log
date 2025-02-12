@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  12 FEB 2025 19:18
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  12 FEB 2025 22:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1481,15 +1481,15 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+) [1
+
+
+
+])
 \tf@toc=\write6
 \openout6 = `book_template.toc'.
 
- [1
-
-
-
-] [2]
+ [2]
 \openout2 = `complex/w1.aux'.
 
  (./complex/w1.tex
@@ -1985,6 +1985,31 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 576.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 577.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\pi' on input line 577.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 577.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 577.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\lambda' on input line 577.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 577.
+
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 578.
@@ -2245,16 +2270,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `book_template.out' has not changed.
-(rerunfilecheck)             Checksum: 5F80161021AC1080873CF286A95B48D5;8038.
+(rerunfilecheck)             Checksum: 3E37F6959F0E8272689D148361F6BB13;8429.
 Package logreq Info: Writing requests to 'book_template.run.xml'.
 \openout1 = `book_template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36440 strings out of 474773
- 739077 string characters out of 5757725
- 2623218 words of memory out of 5000000
- 57861 multiletter control sequences out of 15000+600000
+ 36441 strings out of 474773
+ 739090 string characters out of 5757725
+ 2624655 words of memory out of 5000000
+ 57862 multiletter control sequences out of 15000+600000
  651047 words of font info for 98 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  119i,21n,123p,682b,4069s stack positions out of 10000i,1000n,20000p,200000b,200000s

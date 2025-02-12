@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  12 FEB 2025 10:00
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  12 FEB 2025 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -544,7 +544,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [1
 
 ]
-Overfull \hbox (29.04332pt too wide) detected at line 219
+Overfull \hbox (29.04332pt too wide) detected at line 224
 []
  []
 
@@ -555,7 +555,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[2] (./Assignment 1.aux)
+[2]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[3] (./Assignment 1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -566,10 +574,10 @@ Package rerunfilecheck Info: File `"Assignment 1".out' has not changed.
 Here is how much of TeX's memory you used:
  15111 strings out of 474773
  241108 string characters out of 5757725
- 1939839 words of memory out of 5000000
+ 1941839 words of memory out of 5000000
  37045 multiletter control sequences out of 15000+600000
  563770 words of font info for 64 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,13n,79p,547b,350s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,14n,79p,547b,407s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Assignment 1.pdf (2 pages).
+Output written on Assignment 1.pdf (3 pages).

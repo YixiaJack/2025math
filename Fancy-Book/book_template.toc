@@ -19,9 +19,10 @@
 \contentsline {subsection}{\numberline {2.3.1}Basic Set Theory}{18}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Limits of Sets}{18}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}Exercise}{19}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Lecture 3 (02-10)}{21}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Lecture 3 (02-10)--(Content and Measure)}{21}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Content and Measure}{22}{subsection.2.4.1}%
-\contentsline {section}{\numberline {2.5}Lecture 4 (02-12)}{25}{section.2.5}%
+\contentsline {section}{\numberline {2.5}Lecture 4 (02-12)--{Measure and Extension}}{25}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}$ \pi $ and $\lambda $ system }{28}{subsection.2.5.1}%
 \contentsline {chapter}{\numberline {3}Partial Differential Equations}{29}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{29}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{29}{subsection.3.1.1}%
