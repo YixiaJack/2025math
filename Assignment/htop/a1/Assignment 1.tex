@@ -291,7 +291,26 @@ Let $\mathcal{A}$ be a finite algebra on $\Omega$, and we can write $\mathcal{A}
 \item Since $\mathcal{A}$ is an algebra, $\Omega \in \mathcal{A}$.
 \item Since $\mathcal{A}$ is an algebra, if $A_i \in \mathcal{A}$, then $A_i^c \in \mathcal{A}$.
 \item Since $\mathcal{A}$ is an algebra, if $A_i, A_j \in \mathcal{A}$, then $A_i \cup A_j \in \mathcal{A}$.
+\\Let \(\{B_i\}_{i \in I}\) be a countable family of subsets of \(\Omega\), where \(I\) is a countable index set, and each \(B_i \in \mathcal{A}\). Since \(\mathcal{A}\) is finite, the image of the function \(f: I \to \mathcal{A}\) defined by \(f(i) = B_i\) is finite. That is, there are only finitely many distinct sets in \(\{B_i\}_{i \in I}\). Let these distinct sets be \(C_1, C_2, \dots, C_m\), where \(m \leq n\) and \(C_k \in \mathcal{A}\) for all \(k = 1, 2, \dots, m\).
+
+The countable union \(\bigcup_{i \in I} B_i\) can therefore be written as:
+\[
+\bigcup_{i \in I} B_i = C_1 \cup C_2 \cup \cdots \cup C_m.
+\]
+
+Since \(\mathcal{A}\) is an algebra, it is closed under finite unions. By induction:
+\begin{itemize}
+    \item For \(m = 1\), \(C_1 \in \mathcal{A}\).
+    \item Assume \(C_1 \cup C_2 \cup \cdots \cup C_k \in \mathcal{A}\) for some \(m=k \geq 1\).
+    \item Then, (\(C_1 \cup C_2 \cup \cdots \cup C_k) \cup C_{k+1} \in \mathcal{A}\) because \(\mathcal{A}\) is closed under binary unions.
+\end{itemize}
+
+Thus, \(C_1 \cup C_2 \cup \cdots \cup C_m \in \mathcal{A}\), and we conclude:
+\[
+\bigcup_{i \in I} B_i \in \mathcal{A}.
+\]
 
 \end{itemize}
+Therefore, \(\mathcal{A}\) is a \(\sigma\)-algebra.
 \end{proof}
 \end{document}
