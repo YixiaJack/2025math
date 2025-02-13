@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  12 FEB 2025 22:22
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  13 FEB 2025 17:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1730,17 +1730,13 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 97.
 [15]
-Overfull \hbox (21.10214pt too wide) in paragraph at lines 137--142
-[]$\OT1/lmr/m/n/10 
- = \U/msb/m/n/10 R$\T1/lmr/m/n/10 , $\OMS/lmsy/m/n/10 E \OT1/lmr/m/n/10 = \OMS/lmsy/m/n/10 f[]g \OT1/lmr/m/n/10 = []$ 
- []
-
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 157.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 160.
+
 
 Package mdframed Warning: You got a bad break
 (mdframed)                because the last box will be empty
@@ -2278,7 +2274,7 @@ Package logreq Info: Writing requests to 'book_template.run.xml'.
 Here is how much of TeX's memory you used:
  36441 strings out of 474773
  739090 string characters out of 5757725
- 2624655 words of memory out of 5000000
+ 2624651 words of memory out of 5000000
  57862 multiletter control sequences out of 15000+600000
  651047 words of font info for 98 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
