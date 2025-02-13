@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.5)  14 FEB 2025 00:07
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.5)  14 FEB 2025 00:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"Assignment 1"
-(./Assignment 1.tex
+**algo_hw1_v2
+(./algo_hw1_v2.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (c:/texlive/2024/texmf-dist/tex/latex/base/article.cls
@@ -455,29 +455,29 @@ LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
 (Font)                  U/eus/m/n --> U/eus/b/n on input line 33.
 )
 \c@theorem=\count325
- (./Assignment 1.aux)
-\openout1 = `"Assignment 1.aux"'.
+ (./algo_hw1_v2.aux)
+\openout1 = `algo_hw1_v2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 179.
-LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 197.
+LaTeX Font Info:    ... okay on input line 197.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: float package is loaded.
@@ -488,10 +488,10 @@ Package caption Info: End \AtBeginDocument code.
  (c:/texlive/2024/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
-Package hyperref Info: Link coloring ON on input line 179.
- (./Assignment 1.out) (./Assignment 1.out)
+Package hyperref Info: Link coloring ON on input line 197.
+ (./algo_hw1_v2.out) (./algo_hw1_v2.out)
 \@outlinefile=\write3
-\openout3 = `"Assignment 1.out"'.
+\openout3 = `algo_hw1_v2.out'.
 
 
 *geometry* driver: auto-detecting
@@ -528,71 +528,69 @@ Package hyperref Info: Link coloring ON on input line 179.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 181.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 199.
 (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 181.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 199.
  (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [1
 
 ]
-Overfull \hbox (29.04332pt too wide) detected at line 224
-[]
- []
-
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [2]
+File: hw-fig-intersection.jpg Graphic file (type bmp)
+<hw-fig-intersection.jpg>
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [3]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
 (fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
-[4] (./Assignment 1.aux)
+[4] (./algo_hw1_v2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-Package rerunfilecheck Info: File `"Assignment 1".out' has not changed.
-(rerunfilecheck)             Checksum: <no file>.
+Package rerunfilecheck Info: File `algo_hw1_v2.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 15298 strings out of 473840
- 243782 string characters out of 5733402
- 675393 words of memory out of 50000000
- 38143 multiletter control sequences out of 15000+600000
- 564546 words of font info for 65 fonts, out of 8000000 for 9000
+ 15339 strings out of 473840
+ 244478 string characters out of 5733402
+ 670569 words of memory out of 50000000
+ 38175 multiletter control sequences out of 15000+600000
+ 568341 words of font info for 82 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 79i,17n,93p,547b,608s stack positions out of 30000i,4000n,32767p,200000b,20000000s
+ 79i,12n,93p,544b,432s stack positions out of 30000i,4000n,32767p,200000b,20000000s
 
-Output written on Assignment 1.pdf (4 pages).
+Output written on algo_hw1_v2.pdf (4 pages).

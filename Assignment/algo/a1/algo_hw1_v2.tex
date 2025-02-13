@@ -1,0 +1,319 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\homework}[1]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \classname \hfill \mbox{\updatedday} \\
+   \instname \hfill \mbox{\duedate}
+   \rule{6.5in}{0.5mm}
+   \vspace*{-0.1 in}
+}
+
+
+\newcommand{\problem}[1]{\section*{Problem #1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\roman{enumii})}
+\newenvironment{solution}{{\par\noindent\it Solution.}}{}
+% Left header text: course name/assignment number
+\lhead{CSCI-SHU 220: Algorithms\\Homework 1}
+
+% Right header text: your name
+\rhead{Posted: February 11, 2025\\Due: 11:55pm (Shanghai time), February 25, 2025}
+
+% --- Document starts here ---
+
+\begin{document}
+
+This assignment has a total of $90$ base points and $10$ extra points, and the cap is $90$.
+%Typesetting your solution using \LaTeX\ (by simply editing this tex template) gains $5$ extra points.
+Bonus questions are indicated using the $\star$ mark.
+
+Submission Instructions: Please submit to Gradescope (we will post the link later in the announcements). During submission, you need to \textbf{mark/map the solution to each question}; otherwise, we may apply a penalty. 
+
+Another notice: you only get full credits for the algorithm design questions if your algorithm matches the desirable complexity. If the desirable complexity is not stated, you need to design an algorithm to be as fast as possible.
+
+\textit{Please specify the following information before submission}:
+\begin{itemize}
+    \item Your Name: Yixia Yu
+    \item Your NetID: yy5091
+\end{itemize}
+
+
+\problem{1: Asymptotic analysis [$5 \times 4$ pts]} 
+\begin{enumerate}
+    \item What's the asymptotic relationship between $f(n) = (\log\log n)^{\log n}$ and $g(n) = \log^{\log\log n}n$ and prove it?
+    \item What's the asymptotic relationship between $f(n) = 1 + \frac{1}{2} + \frac{1}{3} + \ldots \frac{1}{n}$ and $g(n) = \sum_{i=1:n} 2^{-\lceil\log i \rceil}$ and prove it?
+    \item Prove that $n! = \omega(n^{0.99n})$.
+    
+    \item In the practice table from the lecture, we have examples of $f$ and $g$ satisfying the following combinations of asymptotic relationships: $\{O, o\}$, $\{\Omega, \omega\}$, and $\{\Theta, O, \Omega\}$. Are there any other possible combinations? For every combination not in the listed three (combination also includes the empty set, or any singleton), construct an example of $f$ and $g$ and prove it.
+    
+    \item What's the asymptotic relationship between $f(n)=n^{0.6}$ and $g(n) = 2^{2^{\lfloor \log\log n \rfloor}}$ and prove it?
+    
+    \end{enumerate}
+    \begin{solution}
+    \textbf{Please write down your solution to Problem 1 here.}
+    \end{solution}
+\problem{2: Finding the maximum/minimum [$10+10^\star$ pts]}
+For an array $A$ of $n$ \textit{different} numbers (not necessarily sorted), we want to find the \textit{largest} number and the \textit{smallest} number in $A$ simultaneously.
+However, we have no access to $A$.
+Instead, we are given an oracle $\textsc{Compare}$ that can be used to compare the numbers in $A$.
+For $i \neq j$, $\textsc{Compare}(i,j)$ returns $i$ if $A[i]>A[j]$ and returns $j$ if $A[j]>A[i]$ (recall that the numbers in $A$ are different by assumption, so we cannot have $A[i]=A[j]$ if $i \neq j$).
+For convenience, let us assume $n$ is even.
+\begin{enumerate}
+    \item Design an algorithm which calls the $\textsc{Compare}$ oracle at most $\frac{3}{2} n - 2$ times and returns a pair $(i_\mathsf{max},i_\mathsf{min})$ such that $A[i_\mathsf{max}]$ (resp., $A[i_\mathsf{min}]$) is the largest (resp., smallest) number in $A$. Give the pseudocode and justify its correctness.
+    %\smallskip \\
+    %(\textbf{Hint:} Divide the numbers in $A$ into $n/2$ groups of size 2, compare the two numbers in each group, and then based on the outcome try to find $i_\mathsf{max},i_\mathsf{min}$ with $n-2$ additional comparisons.)
+    \item[(b)$^\star$] Show that any algorithm has to call the $\textsc{Compare}$ oracle $\frac{3}{2} n - 2$ times in worst case in order to find the largest and smallest numbers in $A$.
+\end{enumerate}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 2 here.}
+\end{solution}
+
+\problem{3: Solving recurrences [$4 \times 5+5$ pts]}
+\begin{enumerate}
+    \item Find big-$\Theta$ bounds for the following recurrences (and show your bounds are correct). For the base case, simply assume $T(n) = 1$ for all $n \leq 2$.
+    \begin{enumerate}
+        \item $T(n)=8T(n/3)+n^{1.5} \log^4 n + 9n$
+        \item $T(n)=T(n-\sqrt{n}) + 6 \log n$
+        \item $T(n)=2T(n/2)+ \frac{n}{\log n}$
+        \item $T(n)= 5\sqrt{n} \cdot T(\sqrt{n}) + 2n$
+    \end{enumerate}
+    \item Recall the Fibonacci sequence $F_0,F_1,F_2,\dots$ defined using the recurrence $F_n = F_{n-1}+F_{n-2}$ with the base case $F_0 = 0$ and $F_1 = 1$. Prove by induction that $\phi^{n-2} \leq F_n < \phi^n$ for all $n \geq 1$, where $\phi = (1+\sqrt{5})/2$.
+    Based on this, further show that $F_n = \Theta(\phi^n)$.
+\end{enumerate}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 3 here.}
+\end{solution}
+\problem{4: Counting intersection points [$10$ pts]}
+Consider two horizontal lines $\ell_0: y = 0$ and $\ell_1:y = 1$ in the plane.
+We have $n$ distinct points $a_1,\dots,a_n$ on $\ell_0$ and $n$ distinct points $b_1,\dots,b_n$ on $\ell_1$.
+Note that the points $a_1,\dots,a_n$ and $b_1,\dots,b_n$ are \textit{not} necessarily sorted by their $x$-coordinates.
+Now for each $i \in \{1,\dots,n\}$, we draw a segment $s_i$ connecting $a_i$ and $b_i$.
+See the figure below for an example of $n = 4$.
+These segments $s_1,\dots,s_n$ may intersect with each other, and for simplicity, we assume no three segments intersect at the same point.
+We aim to count the number of intersection points of $s_1,\dots,s_n$.
+
+Formally, design an algorithm $\textsc{CountInt}(n,A,B)$ where $A[1 \dots n]$ stores the $x$-coordinates of $a_1,\dots,a_n$ and $B[1 \dots n]$ stores the $x$-coordinates of $b_1,\dots,b_n$.
+The algorithm should return the number of intersection points of the segments $s_1,\dots,s_n$, and should have time complexity $O(n \log n)$.
+Describe the basic idea and give the pseudocode.
+Then, justify its correctness and show it runs in $O(n \log n)$ time.
+
+\begin{center}
+    \includegraphics[height=4cm]{hw-fig-intersection.jpg}
+\end{center}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 4 here.}
+\end{solution}
+
+
+\problem{5: 3SUM from 3 arrays [$8$ pts]}
+Given 3 non-empty and sorted arrays $A, B, C$ of integers, each array is of size $N_A$, $N_B$ and $N_C$ respectively. Given an input $a$, output one value from each array such that the sum is equal to $a$. If not found, return $0$. Design the algorithm, prove its correctness and complexity.
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 5 here.}
+\end{solution}    
+\problem{6: Counting context-free grammar words [$7$ pts]}
+Context-free grammar (CFG) is an important concept in CS, and it recursively defines a set of strings/words. You may want to search for CFG and learn about the relevant context. In this problem, we omit many formal definitions and focus on the following grammar:
+
+\begin{enumerate}
+    \item $S \rightarrow D | D + S$
+    \item $D \rightarrow 1D | 2D | 3D | 4D | \ldots |9D |0|1|2|3|\ldots|9$
+\end{enumerate}
+
+The above two rules read as follows: we always start with $S$, and $S$ can either get turned into $D$ or $D+S$. Here, $+$ is a terminal symbol and cannot be transformed into other symbols. For the second rule, $D$ can get transformed into $1D$ or $2D$ or $\ldots$, and all the numbers are terminal symbols. The ``$|$'' essentially means ``or'' for the transformation. A word satisfying the above CFG is a string of terminal symbols that can be generated using the above rules.
+
+Think about what the above grammar represents. Count the number of words satisfying the above CFG of a given length $n$ using recursion.
+
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 6 here.}
+\end{solution}
+
+\problem{7: Search for a root [$10$ pts]}
+Given a continuous function $f : [1,2]\times[1,2] \rightarrow [0,1]$ with the ``bi-monotone'' property: $f(x,y) > f(x',y)$ if $x > x'$ and $f(x,y) > f(x,y')$ if $y > y'$, we want to solve for the root of $f(x,y) = a$ where $a$ is some given value. The only access to $f$ is an oracle such that given $(x,y)$, the oracle returns the value of $f(x,y)$.
+
+Let $R$ be the set of roots, i.e., $f(x^*,y^*) = a$ for any $(x^*,y^*) \in R$. We want to find an approximate solution $(\hat{x},\hat{y})$ such that there exists $(x^*,y^*) \in R$ with $\hat{x} \leq x^* \leq (1+\epsilon) \hat{x}$ and $\hat{y} \leq y^* \leq (1+\epsilon) \hat{y}$ with as few oracle calls as possible. Here, $\epsilon > 0$ is another given parameter indicating the desirable level of accuracy. If there is no root, return $0$.
+
+Design an algorithm $\textsc{FindRoot}(f, a, \epsilon)$, and prove its correctness and complexity (in terms of number of oracle calls). \emph{This problem is a little bit more involved, but it does not require anything beyond the lectures. Suggest working on this after you finish everything else.}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 7 here.}
+\end{solution}
+
+
+\end{document}
