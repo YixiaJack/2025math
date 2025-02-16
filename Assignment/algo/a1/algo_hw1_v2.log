@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.5)  14 FEB 2025 00:29
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.5)  16 FEB 2025 18:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -455,7 +455,8 @@ LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
 (Font)                  U/eus/m/n --> U/eus/b/n on input line 33.
 )
 \c@theorem=\count325
- (./algo_hw1_v2.aux)
+
+No file algo_hw1_v2.aux.
 \openout1 = `algo_hw1_v2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 197.
@@ -485,14 +486,16 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count326
- (c:/texlive/2024/texmf-dist/tex/latex/upquote/upquote.sty
+(c:/texlive/2024/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
 Package hyperref Info: Link coloring ON on input line 197.
- (./algo_hw1_v2.out) (./algo_hw1_v2.out)
 \@outlinefile=\write3
 \openout3 = `algo_hw1_v2.out'.
 
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -576,21 +579,37 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
-[4] (./algo_hw1_v2.aux)
+[4]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
+
+[5] (./algo_hw1_v2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-Package rerunfilecheck Info: File `algo_hw1_v2.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+
+Package rerunfilecheck Warning: File `algo_hw1_v2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `algo_hw1_v2.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 15339 strings out of 473840
- 244478 string characters out of 5733402
- 670569 words of memory out of 50000000
+ 15333 strings out of 473840
+ 244382 string characters out of 5733402
+ 671569 words of memory out of 50000000
  38175 multiletter control sequences out of 15000+600000
  568341 words of font info for 82 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 79i,12n,93p,544b,432s stack positions out of 30000i,4000n,32767p,200000b,20000000s
+ 79i,12n,93p,544b,619s stack positions out of 30000i,4000n,32767p,200000b,20000000s
 
-Output written on algo_hw1_v2.pdf (4 pages).
+Output written on algo_hw1_v2.pdf (5 pages).
