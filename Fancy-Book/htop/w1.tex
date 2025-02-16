@@ -179,7 +179,7 @@ $$
 \\After observing first outcome, $ f_1=\{\emptyset,\Omega,A_0,A_1\} $
 \\Where $A_0=\{(0,x_2,x_3,\cdots),x_i=0,1\},A_1=\{(1,x_2,x_3,\cdots),x_i=0,1\} $
 \\
-\\After observing second outcome, $ f_2=\{\emptyset,\Omega,A_0,A_1,A_00,A_01,A_10,A_11\} $
+\\After observing second outcome, $ f_2=\{\emptyset,\Omega,A_0,A_1,A_{00},A_{01},A_{10},A_{11}\} $
 \\Where $A_{00}=\{(0,0,x_3,x_4,\cdots),x_i=0,1\},A_{01}=\{(0,1,x_3,x_4,\cdots),x_i=0,1\} \cdots$
 \\
 \\After observing first n outcomes, $$ f_n=\{\emptyset,\Omega,{(A_j)}_{j\in {(\sigma 1)}^n} \text{and finite disjioint unions}\}$$
@@ -484,7 +484,7 @@ m(A)&=\sum_{j=1}^{n}m(I_j)\\
 \text{if } A=\bigcup_{i=1}^{n}I_j, I_j &\text{ disjioint, } m(A)=\sum_{j=1}^{n}m(I_j)
 \end{align*}
 \textbf{Fact:}
-\\if $ I\in \epsilon $ s.t. $ I=\bigcup_{i=1}{+\infty}I_i,(I_i)\text{ disjoint and }I_j\in\epsilon $
+\\if $ I\in \epsilon $ s.t. $ I=\bigcup_{i=1}^{+\infty}I_i,(I_i)\text{ disjoint and }I_j\in\epsilon $
 \\Then \begin{align*}{}{}
 m(I)&=|I|\\
 &=\sum_{i=1}^{+\infty}|I_i|=\bigcup_{i=1}^{+\infty}m(I_i)
@@ -605,3 +605,96 @@ Then $ m_F $ is a countably additive content on $ (\mathbb{R},a(\epsilon)) $
  Let C be a $ \pi $-system, Let $ \mu_1,\mu_2 $ be two finite measures on $ (\Omega,\sigma(C)) $\\
  Suppose that $ \mu_1(A)=\mu_2(A) $ on $ C $, then $ \mu_1(A)=\mu_2(A) $ on $\sigma(C) $
  \end{theorem}
+ \section{Recitation 2 (02-14)-Exercise}
+ \subsection*{EX1}
+ Let $ \Omega  $ be a countable set,$$
+    A=\{A\subseteq \Omega:\text{ A is finite , or} A^c \text{ is finite}\}
+ $$  
+  \begin{enumerate}[label=\circled{\arabic*}] 
+  \item show that A is an algebra
+  \item Let $ P:A\rightarrow[0,+\infty) $ that $P(A)=\begin{cases}
+    0, & \text{if A is finite} \\
+    1, & \text{if }A^c\text{ is finite}
+  \end{cases} $
+  \\Is P a content/measure?
+  \\Solution:
+  (1):\begin{itemize}
+  \item $\emptyset \in \mathcal{A}$ because $\emptyset$ is finite 
+  \item $ A\in \mathcal{A} \Rightarrow A^c\in \mathcal{A} $ by defintation
+  \item $ A,B\in \mathcal{A} $
+  \begin{itemize}
+  \item if $ A,B $ are finite, then $ A\cup B $ is finite
+  \item if one of A, B is countably infinite , say B $$
+    (A\cup B)^c=A^c\cap B^c \text{ is finite} \Rightarrow A\cup B\in \mathcal{A}
+  $$ 
+  \end{itemize} 
+  \end{itemize}
+  (2): $ \Omega=\{\omega_1,\omega_2,\cdots\} $ \\
+  Let $ A_i=\{\omega_i\} $ so that $ P(\bigcup_i\{\omega_i\})=P(\Omega)=+\infty $ But $ \sum P(\omega_1)=0 $ 
+  \end{enumerate}
+  \subsection*{EX2}
+  Let $ \Omega $ be an uncountable set, $ A=\{\{\omega\},\omega\in\Omega\} $ , compute $ \sigma(A) $ and justify:
+\\Solution:
+$$
+    \sigma(A)=\{\underbrace{A\subseteq \Omega: A \text{ is countable or }A^c \text{ is countable }}_{f}\}
+$$     
+\begin{proof}
+    \begin{itemize}
+    \item f is a $ \sigma $-algebra 
+     \begin{itemize}
+    \item $\emptyset \in f$ because $\emptyset$ is countable
+    \item $ A\in f \Rightarrow A^c\in f $ by definition
+    \item if $ A_1,A_2,\cdots \in f $ \begin{itemize}
+    \item if $ A_i $ are countable, then $ \bigcup_{i=1}^{+\infty}A_i $ is countable
+    \item if one of $ A_i $ is uncountable, say $ A_1 \text{ then} A_1^c \text{ countable }$, then $ (\bigcup_{i=1}^{+\infty}A_i)^c $ is uncountable
+    \end{itemize}
+    \item $\sigma(A)\subseteq f $ by $ \sigma(A) $ is minimal
+    \item $\sigma(A)\supseteq f $ \begin{itemize}
+    \item if $ A\in f $ countable, $ A=\{\omega_1,\omega_2,\cdots\}= $
+    \item if $ A^c\in f $ countable, then
+    \end{itemize}
+    \end{itemize}
+    \end{itemize}
+\end{proof}
+\subsection*{EX3}
+Let $ \Omega=\mathbb{R} $
+\begin{align*}{}{}
+C_1&=\{(-\infty,b],b\in \mathbb{R}\}\\C_2&=\{(a,b],-\infty\leq a<b<+\infty\}
+\\C_3&=\{(a_1,b_1]\cup(a_2,b_2]\cup(a_3,b_3]\cdots(a_n,b_n],-\infty\leq a_1<b_1\leq a_2<\cdots<b_n<+\infty\}
+\end{align*}
+show that $ \sigma(C_1)=\sigma(C_2)=\sigma(C_3) $
+\\Solution:
+\begin{proof}
+    $ \sigma(C_1)=\sigma(C_2) $ 
+    \begin{itemize}
+    \item $ C_1\subseteq \sigma(C_2) $ because $(-\infty,b]\in \sigma(C_2) \Rightarrow \sigma(C_1)\subseteq\sigma(C_2)$ because $ \sigma(C_1) $ is minimal
+    \item $ C_2\subseteq \sigma(C_1) $ because $ (a,b]=(-\infty,b]\backslash(-\infty ,a]\in \sigma(C_1) \Rightarrow \sigma(C_2)\subseteq\sigma(C_1)$ because $ \sigma(C_2) $ is minimal 
+    \end{itemize}
+\end{proof}
+ \subsection{Special Case:}
+ $ \Omega=\{1,2,\cdots,N\}, F=P(\Omega),P(\{1\})=\cdots=P\{N\}=\frac{1}{N} $
+ \\For event:$ E\in \Omega,P(E)=\frac{|E|}{|\Omega|} $
+ \begin{definition}[Inclusion-Exclusion Principle]{}
+ $P(E_1\cup E_2\cup\cdots\cup E_n)$= $ \sum_{i=1}^{n}P(E_i)-\sum_{i<j}P(E_i\cap E_j)+\sum_{i<j<k}P(E_i\cap E_j\cap E_k)+\cdots+(-1)^{r-1}\sum_{i_1<\cdots<i_r}P(E_{i_1}\cap\cdots\cap E_{i_r})+\cdots+(-1)^{n-1}P(E_1\cap E_2\cap\cdots\cap E_n)$
+ \end{definition}  
+ \begin{remark}[]{}
+  \begin{enumerate}[label=\circled{\arabic*}] 
+  \item Prove by induction
+  \item $ P(E_1\cup E_2\cup\cdots\cup E_n)\leq \sum P(E_i) $ 
+  \\$ P(E_1\cup E_2\cup\cdots\cup E_n)\geq \sum P(E_i)-\sum P(E_i\cup E_j) $
+  \\ $ P(E_1\cup E_2\cup\cdots\cup E_n)\leq \sum P(E_i)-\sum P(E_i\cap E_j)+ \sum P(E_i\cap E_j\cap E_k)$
+  \end{enumerate}
+ \end{remark}
+ \begin{example}[Brithday Problem]{}
+  N people, what is the P[at least two people have the same birthday]?
+  \\Solution:
+    \begin{align*}{}{}
+        \Omega&=\{(x_1,\cdots,x_n,x_i\in\{1,\cdots,365\})\} |\Omega|=365^N \\
+        A^c&=\{(x_1,\cdots,x_N)\in \Omega:x_i\neq x_j\} |A^c|=365\cdot 364\cdots(365-N+1)\\
+        P(A)&=\frac{|A^c|}{|\Omega|}=1\cdots(1-\frac{1}{365})\cdots(1-\frac{N-1}{365})(use 1-x \leq e^{-x})\\
+        &\leq e^{-\sum_{i=0}^{N-1}\frac{i}{365}}\\
+        &=e^{-\frac{N(N-1)}{730}}
+    \end{align*}
+    in fact if N>23, then $P(A^c)<\frac{1}{2}$
+ \end{example}
+

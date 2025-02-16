@@ -363,3 +363,103 @@ Then,
 $$
     0\leq \sum_{i=1}^{n}{|z_i|}^2-\frac{{|\sum_{i=1}^{n}z_i\bar{w_i}|}^2}{\sum_{i=1}^{n}{|w_i|}^2}
 $$ 
+\section{Recitation 2 (02-14)}
+holomorphic functions $ f:U\subseteq \mathbb{C}\rightarrow\mathbb{C} $ s.t.
+$$
+    \lim_{z\rightarrow z_0}\frac{f(z)-f(z_0)}{z-z_0}=f'(z_0),\forall z_0\in U
+$$  
+\begin{definition}[Analytic function]{}
+Let $ f :U\subseteq \mathbb{C}\rightarrow\mathbb{C}$ ,Then $ f(\cdot)  $ is said to be analytic at $ z_0\in U $ if $\exists   \{a_n\}\in\mathbb{C}$ and radius r>0
+such that$$
+    f(z)=\sum_{n=0}^{\infty}a_n{(z-z_0)}^n,\forall z\in U \text{ with } |z-z_0|<r
+$$ 
+where $ r\leq R=\lim_{n\rightarrow+\infty}|a_n|^{-\frac{1}{n}} $ the radius of convergenece 
+\end{definition}
+Notice that if $ f(\cdot) $ is analytic, then it is holomorphic.$ (\Leftrightarrow)$
+$$
+    f'(z)=\pdv{f}{z}=\sum_{n=1}^{\infty}na_n{(z-z_0)}^{n-1},\forall z\in U \text{ with } |z-z_0|<r\leq R =\lim_{n\rightarrow+\infty}(|a_n|^{-\frac{1}{n}})
+$$ 
+Analytic function can be constructed:
+\\ Take a sequence $\{a_n\}\in \mathbb{C}$ and we consider the power series.
+$$
+    f(z)=\sum_{n=0}^{\infty}a_nz^n \text{ with } |z|<R = \lim_{n\rightarrow+\infty}|a_n|^{1\frac{1}{n}}$$ 
+This function f(z) is actually analytic on the disk $ D(o,R)$.
+\\$ \forall z_0\in D(0,R)\text{ and }0<s<R-|z-0| $ Let $ |z-z_0|<s\text{  i.e. }z\in D(z_0,s) $  
+Then,$ |z_0|+|z-z_0|<R $ and we want ot express the f(z) into a desired form.
+\\Note that
+$$
+    \sum_{n=1}^{\infty}\underbrace{(|a_n|+|z-z_0|)^n}_{<R}=\sum_{n=0}^{\infty}|a_n|(\sum_{k=0}^{n}\begin{pmatrix}n\\k\end{pmatrix}|z_0|^{n-k}|z-z_0|^k)<\infty
+$$  
+converges on $ z\in D(z_0,s) $ 
+\\which yields
+$$
+\sum_{n=0}^{\infty}a_n(\sum_{k=0}^{n}\begin{pmatrix}n\\k\end{pmatrix}z_0^{n-k}(z-z_0)^k) \text{ converges absolutely in } D(z_0,s)
+$$ 
+Then we can interchange the order of summation and obtain
+$$
+    f(z)=\sum_{n=0}^{\infty}\sum_{k=0}^{n}a_n\begin{pmatrix}n\\k\end{pmatrix}z_0^{n-k}(z-z_0)^k=f(z)=\sum_{k=0}^{\infty}(\sum_{n=k}^{\infty}a_n\begin{pmatrix}n\\k\end{pmatrix}z_0^{n-k})(z-z_0)^k
+$$ 
+showing f(z) is the sum of a power series on $ D(z_0,s)  $ and is thus analytic at $ \forall z_0\in D(0,R) $
+\begin{definition}[Inverse mapping theorem(local)]{}
+ Take $ f:U\subseteq \mathbb{C}\rightarrow\mathbb{C}  $ analytic, Assume $ z_0\in U $ with $ f'(z_0 )\neq0$
+ \\Then $ f(\cdot) $ is a local isomorphism at $ z_0\in U $ This means that $ \exists W\subseteq U\text{ s.t. }f(\cdot)  $ is injective on W and is thus a bijection from W to f(W)=V.
+ \\And such that $ V\subseteq \mathbb{C} $ and its inverse $ g=f^{-1}:V\rightarrow W $ is also analytic.    
+\end{definition}  
+Indeed, we know $ f:U\rightarrow \mathbb{C} $ is holomorphic. And its Jacobian is nonzero at $ z_0 $
+\\Hence, $ \exists W\subseteq U $ such that f is diffieomorphism from W onto $ f(W)=V\subseteq \mathbb{C} $ 
+\\Since the Jacobian of $ g=f^{-1} $ on V is the inverse of the Jacobian of f on W,by Cauchy-Riemann equations, $ g:V\rightarrow W $  is also holomorphic. 
+\\Assume w.l.o.g. $ f(z_0)=z_0,f'(z_0)=1 $, then, we cna write
+$$
+    f(z)=z-\sum_{n=2}^{\infty}a_n{z}^n,z\in U\cap B_R(0)
+$$  
+Now that f(g(z)) =z,$ \forall z\in V $ on some $ B_\zeta(0) $ we can solve this equation by picking
+$$
+    g(z)=z+\sum_{n=2}^{\infty}b_n{z}^n
+$$   
+with coefficients $ b_n=P_n(a_2,\cdots,a_n,b_1,\cdots,b_{n-1}) $ Here,$ b_n $ is a polynomial with nonnegative coefficients.
+\\Soving this recursively, we show the existence and uniqueness for the power series expansion of the inverse map $ g:V\rightarrow W $
+\\It remains to show that the positive radius of convergence of $g(\cdot)$ 
+\\Select some A>0 sufficiently large such that$$
+    |a_n|\leq A^n,\forall n\geq1 
+$$ 
+Then, we consider the sum$$
+    F(z)=z-\sum_{n=2}^{\infty}A^nz^n=z-\frac{A^2z^2}{1-Az},\forall z\in\mathbb{C} \text{ with }|z|<\frac{1}{A}
+$$ 
+Its inverse G(z) is computed with the form
+$$
+    G(z)=\frac{1+Az-\sqrt{(1+Az)^2-4zA(A+1)}}{2A(A+1)}
+$$ 
+$ G(\cdot) $ is analytic with the expression 
+$$
+    G(z)=z+\sum_{n=2}^{\infty}B_nz^n
+$$ 
+Here $ B_n=P_n(A^2,\cdots,A^n,B_1,\cdots,B_{n-1}) $ where $ P_n $ is the same polynomial with nonnegative coefficients.
+\\Thus $ |a_n|\leq A^n $ implies $ |b_n|\leq B \forall n\in N $   
+\\Thus $g(z)=z+ \sum_{n=2}^{\infty}b_nz^n $ has at least th eradius of convergence as large as that of $ G(\cdot) $ 
+\begin{align*}{}{}
+g'(f(z_0))&\neq0\\
+&=\frac{1}{f'(x)}
+\end{align*}
+\begin{definition}[open mapping theorem]{}
+Take analytic $ f:U\subseteq \mathbb{C}\rightarrow\mathbb{C} $, s.t. f is nonconstant in a neighborhood of z,$ \forall z \in U  $  , then f is an open mapping, i.e. $ \forall V\subseteq Uf(V) $ is open subset in $ \mathbb{C} $
+\end{definition}
+Take any $ z_0\in V V\subseteq U$ and we denote$$
+    f(z)=\sum_{n=0}^{\infty}a_n{(z-z_0)}^n,\forall |z-z-0|<R=\lim_{n\rightarrow+\infty}|a_n|^{-\frac{1}{n}}
+$$ 
+And we let $u(z)=f(z+z_0)-f(z_0)$, then , clearly the power series $$
+    u(z)=\sum_{n=1}^{\infty}a_n{z}^n \text{ has the same radius of convergence } R>0
+$$ 
+Since f(z) is nonconstant in at $ z_0 $ , we can find some $ m\geq1 $ s.t.$$
+    u(z)=\sum_{n=m}^{\infty}a_n{z}^n \text{ with } a_m\neq 0
+$$ 
+If we can show exists analytic function v(z) with $v'(0)\neq0   $ s.t.$ u(z)=v(z)^m $ then the assertion is verified.
+\\And we define $ b_k=\frac{a_{m+k}}{a_m} $ for $ k\geq1 $ and consider the power$$
+    g(z)=\sum_{k=1}^{\infty}b_k{z}^k
+$$ 
+and $u(z)=a^mz^m(1+g(n))$, Now we write $ k(z)=(1+g(z))^\frac{1}{m} -1$ 
+\\then $(1+k(z))^m=1+g(z)$, let$$
+    v(z)=a_m^{\frac{1}{m}}z(1+k(z))=a_m^{\frac{1}{m}}z+a_m^{\frac{1}{m}}zk(z)
+$$ 
+Then we have $v(z)^m=u(z)$ and v(z) is analytic with $v'(0)\neq0$
+\\Hence,$ \exists \text{ open disk } D(0,r) \text{ s.t. } V(D)\supseteq D':=D(o,r')$ 
+\\And then, the image of D' under $ z\rightarrow z^m $ is again an open disk, verifying the assertion.  
