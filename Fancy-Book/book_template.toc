@@ -46,7 +46,7 @@
 \contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{55}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Exercises}{56}{subsection.3.4.1}%
 \contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{59}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Algorithm}{62}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{62}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{63}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Recitation 02}{67}{section.4.3}%
+\contentsline {chapter}{\numberline {4}Algorithm}{63}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{63}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{64}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Recitation 02}{68}{section.4.3}%

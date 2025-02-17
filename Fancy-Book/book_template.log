@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  17 FEB 2025 16:36
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  17 FEB 2025 17:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2362,22 +2362,22 @@ Overfull \hbox (15.1893pt too wide) detected at line 631
 []
  []
 
-[56] [57] [58]
-Underfull \hbox (badness 10000) in paragraph at lines 721--723
-
- []
-
-[59]
-Underfull \hbox (badness 10000) in paragraph at lines 743--757
+[56] [57] [58] [59]
+Underfull \hbox (badness 10000) in paragraph at lines 723--725
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 765--770
+Underfull \hbox (badness 10000) in paragraph at lines 745--759
 
  []
 
-[60]) [61]
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 777--782
+
+ []
+
+[61]) [62]
 \openout2 = `algo/w1.aux'.
 
  (./algo/w1.tex
@@ -2419,7 +2419,7 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 27.
 Package mdframed Info: Not enough space on this page on input line 27.
-[62
+[63
 
 
 
@@ -2448,12 +2448,12 @@ Overfull \hbox (3.8289pt too wide) detected at line 83
 []
  []
 
-[63] [64] [65]
+[64] [65] [66]
 Overfull \hbox (67.5016pt too wide) detected at line 182
 []
  []
 
-[66] [67]) [68] (./book_template.aux (./title.aux) (./complex/w1.aux) (./htop/w1.aux) (./pde/w1.aux) (./algo/w1.aux))
+[67] [68]) [69] (./book_template.aux (./title.aux) (./complex/w1.aux) (./htop/w1.aux) (./pde/w1.aux) (./algo/w1.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2020/03/25>
@@ -2472,12 +2472,12 @@ Package logreq Info: Writing requests to 'book_template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36561 strings out of 474773
- 741814 string characters out of 5757725
- 2627876 words of memory out of 5000000
- 57981 multiletter control sequences out of 15000+600000
+ 36535 strings out of 474773
+ 741372 string characters out of 5757725
+ 2627751 words of memory out of 5000000
+ 57955 multiletter control sequences out of 15000+600000
  655310 words of font info for 99 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 119i,21n,123p,682b,4069s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 119i,21n,123p,1117b,4069s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on book_template.pdf (69 pages).
+Output written on book_template.pdf (70 pages).

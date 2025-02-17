@@ -693,7 +693,9 @@ $$
 \end{enumerate}
 \section{Lecture 5 (02-17)-Exercise}
 \subsection*{Problem 1}
-2.2.17
+2.2.17. (a) Solve the initial value problem $u_t - xu_x = 0$, $u(0,x) = (x^2 + 1)^{-1}$.  
+(b) Graph the solution at times $t=0,1,2,3$.  
+(c) What is $\lim_{t \to \infty} u(t,x)$?
 \begin{solution}
    (a)\\ (1) find characteristic curves by solving$$
         \dv{x}{t}=-x
@@ -717,7 +719,7 @@ $$
 \end{cases} $ 
 \end{solution}
 \subsection*{Problem 2}
-2.2.25
+2.2.25. Suppose that $c(x) \in C^1$ is continuously differentiable for all $x \in \mathbb{R}$. (a) Prove that the characteristic curves of the transport equation (2.16) cannot cross each other. (b) A point where $c(x_*) = 0$ is known as a fixed point for the characteristic equation $\frac{dx}{dt} = c(x)$. Explain why the characteristic curve passing through a fixed point $(t, x_*)$ is a horizontal straight line. (c) Prove that if $x = g(t)$ is a characteristic curve, then so are all the horizontally translated curves $x = g(t + \delta)$ for any $\delta$. (d) True or false: Every characteristic curve has the form $x = g(t + \delta)$, for some fixed function $g(t)$. (e) Prove that each non-horizontal characteristic curve is the graph $x = g(t)$ of a strictly monotone function. (f) Explain why a wave cannot reverse its direction. (g) Show that a non-horizontal characteristic curve starts, in the distant past, $t \to -\infty$, at either a fixed point or at $-\infty$ and ends, as $t \to +\infty$, at either the next-larger fixed point or at $+\infty$.
 \begin{solution}
 (a)\\
 $$\dv{x}{t}=c(x),x(t_0)=x_0$$
@@ -757,7 +759,17 @@ If c(x(t1)>0),c(x(t2))<0, then exists $c(x(t_\star)) $=0, therefore x(t) is a fi
 
 \end{solution}
 \subsection*{Problem 3}
-2.4.11
+2.4.11.(a) Write down an explicit formula for the solution to the initial value problem
+$$\frac{\partial^2 u}{\partial t^2} - 4 \frac{\partial^2 u}{\partial x^2} = 0, \quad u(0,x) = \sin x, \quad \frac{\partial u}{\partial t}(0,x) = \cos x, \quad -\infty < x < \infty, \quad t \geq 0.$$
+
+(b) True or false: The solution is a periodic function of $t$.
+
+(c) Now solve the forced initial value problem
+$$\frac{\partial^2 u}{\partial t^2} - 4 \frac{\partial^2 u}{\partial x^2} = \cos 2t, \quad u(0,x) = \sin x, \quad \frac{\partial u}{\partial t}(0,x) = \cos x, \quad -\infty < x < \infty, \quad t \geq 0.$$
+
+(d) True or false: The forced equation exhibits resonance. Explain.
+
+(e) Does the answer to part (d) change if the forcing function is $\sin 2t$?
 \begin{solution}
     (a)\begin{align*}{}{}
     u(t,x)&=\frac{sin(x-2t)+sin(x+2t)}{2}+\frac{1}{4}(sin(x+2t)-sin(x-2t))\\
@@ -776,7 +788,9 @@ If c(x(t1)>0),c(x(t2))<0, then exists $c(x(t_\star)) $=0, therefore x(t) is a fi
     False, no resonance since the solution is bounded
 \end{solution}
 \subsection*{Problem 4}
-2.4.13
+2.4.13. Let $u(t,x)$ be a classical solution to the wave equation $u_{tt}=c^2 u_{xx}$. The total energy 
+$$E(t) = \int_{-\infty}^{\infty} \frac{1}{2} \left[ \left( \frac{\partial u}{\partial t} \right)^2 + c^2 \left( \frac{\partial u}{\partial x} \right)^2 \right] dx$$
+represents the sum of kinetic and potential energies of the displacement $u(t,x)$ at time $t$. Suppose that $\nabla u \to 0$ sufficiently rapidly as $x \to \pm \infty$; more precisely, one can find $\alpha > \frac{1}{2}$ and $C(t) > 0$ such that $|u_t(t,x)|, |u_x(t,x)| \leq C(t)/|x|^{\alpha}$ for each fixed $t$ and all sufficiently large $|x| \gg 0$. For such solutions, establish the Law of Conservation of Energy by showing that $E(t)$ is finite and constant. Hint: You do not need the formula for the solution.
 \begin{solution}
     We need to show that $ \dv{E(t)}{t}=0 $ 
     \begin{align*}{}{}
