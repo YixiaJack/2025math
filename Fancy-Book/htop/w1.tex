@@ -580,7 +580,7 @@ Then $ m_F $ is a countably additive content on $ (\mathbb{R},a(\epsilon)) $
  $ C $ is a $ \pi $-system if:
  \begin{itemize}
  \item $ \emptyset\in C $
- \item $ \forall A,B\in C, A\cup B \in C $ 
+ \item $ \forall A,B\in C, A\cap B \in C $ 
  \end{itemize}
  C is a $ \lambda $-system if:
  \begin{itemize}
@@ -603,8 +603,30 @@ Then $ m_F $ is a countably additive content on $ (\mathbb{R},a(\epsilon)) $
  \end{lemma}
  \begin{theorem}[Uniqueness Theorem]{}
  Let C be a $ \pi $-system, Let $ \mu_1,\mu_2 $ be two finite measures on $ (\Omega,\sigma(C)) $\\
- Suppose that $ \mu_1(A)=\mu_2(A) $ on $ C $, then $ \mu_1(A)=\mu_2(A) $ on $\sigma(C) $
+ Suppose that $ \mu_1(A)=\mu_2(A) \text{ and }\mu_1(\Omega)=\mu_2(\Omega)$ on $ C $, then $ \mu_1(A)=\mu_2(A) $ on $\sigma(C) $
  \end{theorem}
+ \begin{proof}
+    \begin{align*}{}{}
+    D&=\{A\in\sigma(C):\mu_1(A)=\mu_2(A)\}\\
+\text{We know } &C\in D. \text{ wnat to show D is a } \lambda\text{-system}\\
+\text{If so , by Dynkins Lemma, }&\sigma(C)\subseteq D,\text{ so that }D=\sigma(C)\\
+    \end{align*}
+    Check $ D $ is a $ \lambda $-system:
+    \begin{itemize}
+    \item $ \Omega\in D $ follows from $ \mu_1(\Omega)=\mu_2(\Omega) $
+    \item if $ A,B\in D, A\subseteq B  \rightarrow \mu_1(A)=\mu_2(A),\mu_1(B)=\mu_2(B) \\
+    \mu_1(B\backslash A)=\mu_1(B)-\mu_1(A)=\mu_2(B)-\mu_2(A)=\mu_2(B\backslash A) $\\
+    So, $\Rightarrow B\backslash A\in D$
+    \item if $ A_n\in D $ and $ A_n $ increasing, $ \lim_{n\rightarrow+\infty}A_n=A $\\
+    $$
+        \mu_2(A)=\mu_2\lim_{n\rightarrow+\infty}(A_n)\underbrace{=}_{\text{cont.}}\lim_{n\rightarrow+\infty}\mu_2(A_n)=\lim_{n\rightarrow+\infty}\mu_1(A_n)=\mu_1(A)
+    $$   
+    \end{itemize}
+ \end{proof}
+ \begin{remark}[]{}
+ Also hold for $ \mu_1,\mu_2 ,\sigma$-finite
+ \end{remark}
+
  \section{Recitation 2 (02-14)-Exercise}
  \subsection*{EX1}
  Let $ \Omega  $ be a countable set,$$
@@ -697,4 +719,103 @@ show that $ \sigma(C_1)=\sigma(C_2)=\sigma(C_3) $
     \end{align*}
     in fact if N>23, then $P(A^c)<\frac{1}{2}$
  \end{example}
-
+\section{Lecture 5 (02-19)}
+\textbf{Useful $ \pi $-system that generates B(R):}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $\mathcal{E}=\begin{cases}
+    =\{(a,b],-\infty\leq a<&b<+\infty\}\\
+    =\{(a,+\infty), a&\in R\}
+ \end{cases}$
+ \item $ \mathcal{E}_1=\{(a,b],-\infty\leq a<b<+\infty\} $ 
+ \item $ \mathcal{E}_2=\{(a,b),-\infty\leq a<b\leq+\infty\}$ 
+ \item $ \mathcal{E}_{\text{open}}=\{A\in R,A \text{ open }\} $
+ \item $ \mathcal{E}_{\text{closed}}=\{A\in R,A \text{ closed }\}  $ 
+ \item $ \mathcal{E}_{\text{half}}  =\{(-\infty,b],b\in \mathbb{R}\} $
+ \end{enumerate}
+ easy to check $ \pi $-system
+ \\Note: \begin{itemize}
+ \item A open iff $ \forall x\in A,\exists \mathcal{E}_x>0, \text{ s.t. } (x-\mathcal{E}_2,x+\mathcal{E}_2)\subseteq A$ 
+ \item A closed iff $ A^c $ open
+ \end{itemize} 
+ \begin{proof}
+    (2)\begin{align*}{}{}
+    \mathcal{E}_1&\subseteq \sigma(\mathcal{E}) \Rightarrow \sigma(\mathcal{E}_1)\subseteq \sigma(\mathcal{E})\\
+    \mathcal{E}&\subseteq \sigma(\mathcal{E}_1),(a,+\infty)=\bigcup_{n\geq1}\underbrace{(a,a+n]}_{\mathcal{E}_1}\in \sigma(\mathcal{E}_1)\\
+    \Rightarrow &\sigma(\mathcal{E})\subseteq \sigma(\mathcal{E}_1)
+    \end{align*}
+    (3)\begin{align*}{}{}
+        \mathcal{E}_1&\subseteq \sigma(\mathcal{E}_2): (a,b]=\bigcap_{n\geq1}\underbrace{(a,b+\frac{1}{n})}_{\mathcal{E}_2}\in \sigma(\mathcal{E}_2)\\
+        \mathcal{E}_2&\subseteq \sigma(\mathcal{E}_1): (a,b)=\bigcup_{n\geq1}\underbrace{(a,b-\frac{1}{n})}_{\mathcal{E}_2}\in \sigma(\mathcal{E}_2)\\
+    \end{align*}
+    (4)\begin{align*}{}{}
+    \mathcal{E}_2\subseteq \mathcal{E}_{\text{open}}\Rightarrow \sigma(\mathcal{E}_2)\subseteq \sigma(\mathcal{E}_{open})\\
+    \end{align*}
+    \textbf{Fact:}
+    \\ every open set $ A\subseteq \mathbb{R},A=\bigcup{i=1}^{+\infty}(\underbrace{(x_i-\mathcal{E}_i,x_i+\mathcal{E}_i)}_{\mathcal{E}_2}\in\sigma(\mathcal{E}_2)) $ 
+    \\$ \Rightarrow \mathcal{E}_{open}\subseteq \sigma(\mathcal{E}_2)\Rightarrow \sigma(\mathcal{E}_{open})\subseteq \sigma(\mathcal{E}_2) $ \\
+    (e)\\
+    \begin{align*}{}{}
+    A \text{ open } &\Leftrightarrow A^c \text{ closed implies }\\
+    \mathcal{E}_{\text{closed}}&\subseteq \sigma(\mathcal{E}_{\text{open}})\Rightarrow \sigma(\mathcal{E}_{\text{closed}})\subseteq \sigma(\mathcal{E}_{\text{open}})\\
+    \mathcal{E}_{\text{open}}&= \sigma(\mathcal{E}_{\text{closed}})
+    \end{align*}
+ \end{proof}
+ \begin{example}[mismatch]{}
+  N men and N hats\\
+  P[no one finds his own hats]=?
+    \\Solution:
+   \\$ E_i=\{i^{th} \text{ letter in } i^{th} \text{envelope}\}$
+   \\Want to compute $ P(\bigcap_{i=1}^{n}E_i^c)=1-P(\bigcup_{i=1}^{n}E_i) $
+   By inclusion-exclusion:\begin{align*}{}{}
+    P(\bigcup_{i=1}^{n}E_i)&=\sum_{i=1}^{n}P(E_i)-\sum_{i<j}P(E_i\cap E_j)+\cdots+(-1)^{n-1}P(\sum_{i=1}^{n}E_{i1}\cap\cdots\cap E_{ir})\\
+    P(\sum_{i=1}^{n}E_{i1}\cap\cdots\cap E_{ir})&=\frac{|E_{i1}\cap\cdots\cap E_{ir}|}{|\Omega|}=\frac{(n-r)!}{n!}\\
+    \sum_{i_1<\cdots<i_r}P(E_{i1}\cap\cdots\cap E_{ir})&=\binom{n}{r}\frac{(n-r)!}{n!}=\frac{1}{r!}\\
+    P(\bigcup_{i=1}^{n}E_i)&=1-\frac{1}{2!}+\frac{1}{3!}+\cdots+(-1)^{N-1}\frac{1}{N!}\\
+    P(\bigcap_{i=1}^{n}E_i^c)&\rightarrow1-\frac{1}{e}
+   \end{align*}
+ \end{example}
+ \textbf{Exercise:}\begin{itemize}
+ \item Circle: 10 couples, \\
+ P[no couple sit next to each other]=?
+ \item Texas Holder:\\
+ P[Sraight]=?
+ P[Full House]=?
+ sol: \begin{align*}{}{}
+ |\Omega|&=\binom{52}{5}  \\
+    |Srtaight|&=10\times(4^5-4)  \\
+    P[Straight]&=\frac{10\times(4^5-4)}{\binom{52}{5}}\approxeq 0.0039\\
+    |Full House|&=13\times\binom{4}{3}\times 12\times\binom{4}{2}  \\
+    P[Full House]&=\frac{13\times\binom{4}{3}\times 12\times\binom{4}{2}}{\binom{52}{5}}\approxeq 0.0014
+ \end{align*} 
+\end{itemize}
+Conditional Probability:\\
+"If the event B has occurred, what is the probability of event A?" $ P[A\backslash B] $ 
+\\N experiment: natural $$
+    P[A\backslash B]=\frac{\text{number of occurance of both A and B}}{\text{ number of occurance of B}}=\frac{P[A\cap B]}{P[B]}
+$$ 
+\begin{definition}[]{}
+If $ P[B]>0 $, then the conditional probability of A given B is $ P[A\backslash B]=\frac{P[A\cap B]}{P[B]} $.
+\end{definition}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item 2 kids \begin{itemize}
+ \item $ P[\text{two boys}\backslash\text{at least one boy}]=? $ 
+ \item $ P[\text{two boys}\backslash\text{younger kid is boy}]=? $ 1/2
+ \item $ P[\text{two boys}\backslash\text{at least one boy born on Tuesday}]=? $
+ \end{itemize}
+ (1)
+ \begin{align*}{}{}
+ A&=\{BB\},B=\{BG,GB,BB\}\\
+P[A\backslash B]&=\frac{P[A\cap B]}{P[B]}=\frac{P[A]}{P[B]}=\frac{1/4}{3/4}=\frac{1}{3}\\
+ \end{align*}
+ (3)
+ \begin{align*}{}{}
+ \Omega&=\{B_iB_j,B_iG_j,G_iB_j,G_iG_j,i,j=1,\cdots,7\}\\
+ A&=\{B_iB_j,i,j=1,\cdots,7\}\\
+ B&=\{B_2B_j,B_iB_2,B_2G_j,i,j=1,\cdots,7\} \text{ 13+14 elements}\\
+ A\cap B&=\{B_2B_j,B_iB_2,i,j=1,\cdots,7\} \text{ 13 elements}\\
+    P[A\backslash B]&=\frac{13}{27}
+ \end{align*}
+ \end{enumerate}
+\end{example}
+ 

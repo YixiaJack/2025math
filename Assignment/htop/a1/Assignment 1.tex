@@ -177,131 +177,140 @@
 % --- Document starts here ---
 
 \begin{document}
-\homework{1}
+\subsection*{Problem 1}
+Let $\mathcal{F}$ and $\mathcal{G}$ be $\sigma$-fields of subsets of $\Omega$.
+\begin{align*}
+(a)\quad& \text{Use elementary set operations to show that $\mathcal{F}$ is closed under}\\
+  & \text{countable intersections; that is, if $A_1, A_2, \ldots$ are in $\mathcal{F}$,}\\
+  & \text{then so is $\bigcap_i A_i$.}\\
+(b)\quad& \text{Let $\mathcal{H} = \mathcal{F} \cap \mathcal{G}$ be the collection of subsets of $\Omega$ lying}\\
+  & \text{in both $\mathcal{F}$ and $\mathcal{G}$. Show that $\mathcal{H}$ is a $\sigma$-field.}\\
+(c)\quad& \text{Show that $\mathcal{F} \cup \mathcal{G}$, the collection of subsets of $\Omega$ lying in}\\
+  & \text{either $\mathcal{F}$ or $\mathcal{G}$, is not necessarily a $\sigma$-field.}
+\end{align*}
+\begin{proof}
+  \begin{align*}
+    (a):& \text{Let } A_1, A_2, \ldots \in \mathcal{F}. \text{ Then } A_1^c, A_2^c, \ldots \in \mathcal{F}. \nonumber\\
+    &\text{Since } \mathcal{F} \text{ is a $\sigma$-field, we have } \bigcup_i A_i \in \mathcal{F}. \nonumber\\
+    &\text{By De Morgan's Law, } \left(\bigcap_i A_i\right)^c = \bigcup_i A_i^c \in \mathcal{F}. \nonumber\\
+    &\text{Hence, } \bigcap_i A_i \in \mathcal{F}. \nonumber\\
+    (b):& \text{1. Since } \Omega \in \mathcal{F} \text{ and } \Omega \in \mathcal{G}, \text{ we have } \Omega \in \mathcal{H}. \nonumber\\
+    &\text{2. } \forall A\in \mathcal{H}, \text{ we have } A \in \mathcal{F} \text{ and } A \in \mathcal{G}, \text{ so } A^c \in \mathcal{F} \text{ and } A^c \in \mathcal{G}, \text{ hence } A^c \in \mathcal{H}. \nonumber\\
+    &\text{3. } \forall A_1, A_2, \ldots \in \mathcal{H}, \text{ we have } A_1, A_2, \ldots \in \mathcal{F} \text{ and } A_1, A_2, \ldots \in \mathcal{G}, \nonumber\\
+    &\quad\text{so } \bigcup_i A_i \in \mathcal{F} \text{ and } \bigcup_i A_i \in \mathcal{G}, \text{ hence } \bigcup_i A_i \in \mathcal{H}. \nonumber\\
+    (c):& \text{Counterexample: Let } \Omega = \{1, 2, 3\}, \mathcal{F} = \{\emptyset, \{1, 2\}, \{3\}, \Omega\}, \mathcal{G} = \{\emptyset, \{1\}, \{2, 3\}, \Omega\}. \nonumber\\
+    &\text{Then } \{1, 2\} \in \mathcal{F} \text{ and } \{1\} \in \mathcal{G}, \text{ but } \{1, 2\} \cup \{1\} =  \{1, 2\} \notin \mathcal{F} \cup \mathcal{G}. \nonumber\\
+    &\text{Hence, } \mathcal{F} \cup \mathcal{G} \text{ is not necessarily a $\sigma$-field.} \nonumber
+  \end{align*}
+   \end{proof}
+\subsection*{Problem 2}
+Let $A_{1}, A_{2}, \ldots$ be a sequence of events. Define
 
-This assignment has a total of $90$ base points and $10$ extra points, and the cap is $90$.
-%Typesetting your solution using \LaTeX\ (by simply editing this tex template) gains $5$ extra points.
-Bonus questions are indicated using the $\star$ mark.
+$$B_{n}=\bigcup_{m=n}^{\infty} A_{m}, \quad C_{n}=\bigcap_{m=n}^{\infty} A_{m}$$
 
-Submission Instructions: Please submit to Gradescope (we will post the link later in the announcements). During submission, you need to \textbf{mark/map the solution to each question}; otherwise, we may apply a penalty. 
+Clearly $C_{n} \subseteq A_{n} \subseteq B_{n}$. The sequences $\left\{B_{n}\right\}$ and $\left\{C_{n}\right\}$ are decreasing and increasing respectively with limits
 
-Another notice: you only get full credits for the algorithm design questions if your algorithm matches the desirable complexity. If the desirable complexity is not stated, you need to design an algorithm to be as fast as possible.
+$$\lim B_{n}=B=\bigcap_{n} B_{n}=\bigcap_{n} \bigcup_{m \geq n} A_{m}, \quad \lim C_{n}=C=\bigcup_{n} C_{n}=\bigcup_{n} \bigcap_{m \geq n} A_{m}$$
 
-\textit{Please specify the following information before submission}:
+The events $B$ and $C$ are denoted $\limsup_{n \rightarrow \infty} A_{n}$ and $\liminf_{n \rightarrow \infty} A_{n}$ respectively. Show that
+\begin{align*}
+  (a)\quad &B=\{\omega \in \Omega: \omega \in A_{n} \text{ for infinitely many values of }n\},\\
+  (b)\quad &C=\{\omega \in \Omega: \omega \in A_{n} \text{ for all but finitely many values of }n\},\\
+  &\text{We say that the sequence }\{A_n\} \text{ converges to } A = \lim A_n
+  \text{ if } B \text{ and } C \text{ are the same set } A.\\
+  &\text{Suppose that } A_n \to A \text{ and show that}\\
+  (c)\quad &A \text{ is an event, i.e. } A \in \mathcal{F},\\
+  (d)\quad &\mathbb{P}(A_n) \to \mathbb{P}(A).
+  \end{align*}
+\begin{proof}
+  \begin{align*}{}{}
+  (a):&\text{Since by defination: } B = \bigcap_{n} \bigcup_{m \geq n} A_{m} \\
+  \Rightarrow&\text{Suppose } \omega \in B, \text{ then } \omega \in \bigcup_{m \geq n} A_{m} \text{ for all } n \in \mathbb{N} \\
+  &\text{This means for each n, we can find an }m\geq n \text{ such that } \omega \in A_{m} \\
+  &\text{Hence, } \omega \in A_{n} \text{ for infinitely many values of } n \\
+  \Leftarrow&\text{Suppose } \omega \in A_{n} \text{ for infinitely many values of } n, \\
+  &\text{then for each } n, \text{ we can find an } m\geq n \text{ such that } \omega \in A_{m} \\
+  &\text{This means } \omega \in \bigcup_{m \geq n} A_{m} \text{ for all } n \in \mathbb{N} \\
+  &\text{Hence, } \omega \in \bigcap_{n} \bigcup_{m \geq n} A_{m} = B \\
+  (b): \Rightarrow&\text{Suppose } \omega \in C, \text{ then }\exists n \in \mathbb{N} \text{ such that }\omega \in \bigcap_{m \geq n} A_{m} \\
+  &\text{This means }\exists n \in \mathbb{N} \text{ such that }\omega \in A_{m} \text{ for all } m \geq n \\
+  &\text{Hence, }\omega \in A_{n} \text{ for all but finitely many values of } n \\
+  \Leftarrow&\text{Suppose }\omega \in A_{n} \text{ for all but finitely many values of } n, \\
+  &\text{then }\exists n \in \mathbb{N} \text{ such that }\omega \in A_{m} \text{ for all } m \geq n \\
+  &\text{This means }\omega \in \bigcap_{m \geq n} A_{m} \\
+  &\text{Hence, }\omega \in \bigcup_{n} \bigcap_{m \geq n} A_{m} = C \\
+  (c):&\text{Since } A_n \rightarrow A, \text{ so } \lim_{n\rightarrow+\infty}A_n=\limsup_{n\rightarrow+\infty}A_n=\liminf_{n\rightarrow+\infty}A_n\\
+  &\text{So we have } A=B=C\\
+  &\text{Since } B_n \text{ are countable unions of } A_m, \text{ so } B_n \in \mathcal{F} \text{ for all } n \in \mathbb{N} \\
+  &\text{Then, } B = \bigcap_n B_n \in \mathcal{F} \\
+  &\text{Hence, we have } A \in \mathcal{F} \\
+  (d):&\text{Since } C_{n} \subseteq A_{n} \subseteq B_{n},\text{ we have } \mathbb{P}(C_{n}) \leq \mathbb{P}(A_{n}) \leq \mathbb{P}(B_{n}) \\
+  &\text{Since } C_{n} \text{ increases to } C, B_{n} \text{ decreases to } B, \\
+  &\text{ we have } \mathbb{P}(C_{n}) \rightarrow \mathbb{P}(C)=\mathbb{P}(A), \mathbb{P}(B_{n}) \rightarrow \mathbb{P}(B)=\mathbb{P}(A) \\
+  &\text{Hence by squeeze theorem, } \mathbb{P}(A_{n}) \rightarrow \mathbb{P}(A)
+  \end{align*}
+\end{proof}
+\subsection*{Problem 3}
+Let $\mathcal{E}$ be the left open right closed intervals of $\Omega := \mathbb{R}$ defined in class. Write down the algebra generated by $\mathcal{E}$, and prove your result.
+\\We have $\mathcal{E} = \{\text{left open right closed intervals}\} = 
+\begin{cases}
+    (a,b], & -\infty \leq a < b < +\infty \\
+    (a,+\infty)
+\end{cases}$
+\begin{align*}a(\mathcal{E})&=\text{  "finite disjioint union of elements in }\mathcal{E}"
+  \\&=\underbrace{\{ I_1\cup\cdots\cup I_k;I_j \in \mathcal{E} , \text{ and } I_i \cap I_j =\emptyset \}}_f
+  \end{align*}
+\begin{proof}
+  Denote the collection of finite disjioint union of elements in $ \mathcal{E} $  by $ f $ 
+  \begin{itemize}
+    \item $ f \subseteq a(\mathcal{E}) $ 
+    \begin{itemize}
+    \item Since $a(\mathcal{E})$ is an algebra containing $\mathcal{E}$, it is closed under finite unions.
+    \item Any element of $f$ is a finite disjoint union of intervals from $\mathcal{E}$, hence belongs to $a(\mathcal{E})$.
+    \item Thus, $f \subseteq a(\mathcal{E})$
+    \end{itemize}
+    \item $ a(\mathcal{E}) \subseteq f $ 
+    \begin{itemize}
+    \item we need to prove that $ f  $ is an algebra
+    \begin{itemize}
+    \item since $\Omega =\mathbb{R}=(-\infty,+\infty)$, choose $I_1 =(-\infty,a],I_2=(a,+\infty) \in \mathcal{E}$, then $I_1\cup I_2 = \Omega \in f$
+    \item for $\forall I_i,I_j\in f , I_i\cup I_j\in f $ by defination
+    \item for $\forall (a,b]\in f, \text{ we have }{(a,b]}^c=(-\infty,a]\cup(b,+\infty) \in f$
+    \\ for $\forall (a,+\infty)\in f, \text{ we have }(a,+\infty)^c=(-\infty,a] \in f$
+    \end{itemize}
+    \item since $ \mathcal{E}\subseteq f $ , $f\text{ is an algebra and } a(\mathcal{E}) $ is the smallest algebra containing $ \mathcal{E} $, \\
+    Hence, $ a(\mathcal{E}) \subseteq f $
+    \end{itemize}
+    \end{itemize}
+\end{proof}
+\subsection*{Problem 4}
+Let $\Omega$ be a sample space. Show that any finite algebra on $\Omega$ is a $\sigma-$algebra.
+\begin{proof}
+Let $\mathcal{A}$ be a finite algebra on $\Omega$, and we can write $\mathcal{A} = \{A_1, A_2, \ldots, A_n\}$. 
 \begin{itemize}
-    \item Your Name: %  (put your name here)
-    \item Your NetID: % (put your NetID here)
+\item Since $\mathcal{A}$ is an algebra, $\Omega \in \mathcal{A}$.
+\item Since $\mathcal{A}$ is an algebra, if $A_i \in \mathcal{A}$, then $A_i^c \in \mathcal{A}$.
+\item Since $\mathcal{A}$ is an algebra, if $A_i, A_j \in \mathcal{A}$, then $A_i \cup A_j \in \mathcal{A}$.
+\\Let \(\{B_i\}_{i \in I}\) be a countable family of subsets of \(\Omega\), where \(I\) is a countable index set, and each \(B_i \in \mathcal{A}\). Since \(\mathcal{A}\) is finite, the image of the function \(f: I \to \mathcal{A}\) defined by \(f(i) = B_i\) is finite. That is, there are only finitely many distinct sets in \(\{B_i\}_{i \in I}\). Let these distinct sets be \(C_1, C_2, \dots, C_m\), where \(m \leq n\) and \(C_k \in \mathcal{A}\) for all \(k = 1, 2, \dots, m\).
+
+The countable union \(\bigcup_{i \in I} B_i\) can therefore be written as:
+\[
+\bigcup_{i \in I} B_i = C_1 \cup C_2 \cup \cdots \cup C_m.
+\]
+
+Since \(\mathcal{A}\) is an algebra, it is closed under finite unions. By induction:
+\begin{itemize}
+    \item For \(m = 1\), \(C_1 \in \mathcal{A}\).
+    \item Assume \(C_1 \cup C_2 \cup \cdots \cup C_k \in \mathcal{A}\) for some \(m=k \geq 1\).
+    \item Then, (\(C_1 \cup C_2 \cup \cdots \cup C_k) \cup C_{k+1} \in \mathcal{A}\) because \(\mathcal{A}\) is closed under binary unions.
 \end{itemize}
 
+Thus, \(C_1 \cup C_2 \cup \cdots \cup C_m \in \mathcal{A}\), and we conclude:
+\[
+\bigcup_{i \in I} B_i \in \mathcal{A}.
+\]
 
-\problem{1: Asymptotic analysis [$5 \times 4$ pts]} 
-
-\begin{enumerate}
-\item What's the asymptotic relationship between $f(n) = (\log\log n)^{\log n}$ and $g(n) = \log^{\log\log n}n$ and prove it?
-\item What's the asymptotic relationship between $f(n) = 1 + \frac{1}{2} + \frac{1}{3} + \ldots \frac{1}{n}$ and $g(n) = \sum_{i=1:n} 2^{-\lceil\log i \rceil}$ and prove it?
-\item Prove that $n! = \omega(n^{0.99n})$.
-
-\item In the practice table from the lecture, we have examples of $f$ and $g$ satisfying the following combinations of asymptotic relationships: $\{O, o\}$, $\{\Omega, \omega\}$, and $\{\Theta, O, \Omega\}$. Are there any other possible combinations? For every combination not in the listed three (combination also includes the empty set, or any singleton), construct an example of $f$ and $g$ and prove it.
-
-\item What's the asymptotic relationship between $f(n)=n^{0.6}$ and $g(n) = 2^{2^{\lfloor \log\log n \rfloor}}$ and prove it?
-
-\end{enumerate}
-\begin{solution}
-\textbf{Please write down your solution to Problem 1 here.}
-\end{solution}
-
-\problem{2: Finding the maximum/minimum [$10+10^\star$ pts]}
-For an array $A$ of $n$ \textit{different} numbers (not necessarily sorted), we want to find the \textit{largest} number and the \textit{smallest} number in $A$ simultaneously.
-However, we have no access to $A$.
-Instead, we are given an oracle $\textsc{Compare}$ that can be used to compare the numbers in $A$.
-For $i \neq j$, $\textsc{Compare}(i,j)$ returns $i$ if $A[i]>A[j]$ and returns $j$ if $A[j]>A[i]$ (recall that the numbers in $A$ are different by assumption, so we cannot have $A[i]=A[j]$ if $i \neq j$).
-For convenience, let us assume $n$ is even.
-\begin{enumerate}
-    \item Design an algorithm which calls the $\textsc{Compare}$ oracle at most $\frac{3}{2} n - 2$ times and returns a pair $(i_\mathsf{max},i_\mathsf{min})$ such that $A[i_\mathsf{max}]$ (resp., $A[i_\mathsf{min}]$) is the largest (resp., smallest) number in $A$. Give the pseudocode and justify its correctness.
-    %\smallskip \\
-    %(\textbf{Hint:} Divide the numbers in $A$ into $n/2$ groups of size 2, compare the two numbers in each group, and then based on the outcome try to find $i_\mathsf{max},i_\mathsf{min}$ with $n-2$ additional comparisons.)
-    \item[(b)$^\star$] Show that any algorithm has to call the $\textsc{Compare}$ oracle $\frac{3}{2} n - 2$ times in worst case in order to find the largest and smallest numbers in $A$.
-\end{enumerate}
-
-\begin{solution}
-\textbf{Please write down your solution to Problem 2 here.}
-\end{solution}
-
-\problem{3: Solving recurrences [$4 \times 5+5$ pts]}
-\begin{enumerate}
-    \item Find big-$\Theta$ bounds for the following recurrences (and show your bounds are correct). For the base case, simply assume $T(n) = 1$ for all $n \leq 2$.
-    \begin{enumerate}
-        \item $T(n)=8T(n/3)+n^{1.5} \log^4 n + 9n$
-        \item $T(n)=T(n-\sqrt{n}) + 6 \log n$
-        \item $T(n)=2T(n/2)+ \frac{n}{\log n}$
-        \item $T(n)= 5\sqrt{n} \cdot T(\sqrt{n}) + 2n$
-    \end{enumerate}
-    \item Recall the Fibonacci sequence $F_0,F_1,F_2,\dots$ defined using the recurrence $F_n = F_{n-1}+F_{n-2}$ with the base case $F_0 = 0$ and $F_1 = 1$. Prove by induction that $\phi^{n-2} \leq F_n < \phi^n$ for all $n \geq 1$, where $\phi = (1+\sqrt{5})/2$.
-    Based on this, further show that $F_n = \Theta(\phi^n)$.
-\end{enumerate}
-
-\begin{solution}
-\textbf{Please write down your solution to Problem 3 here.}
-\end{solution}
-
-\problem{4: Counting intersection points [$10$ pts]}
-Consider two horizontal lines $\ell_0: y = 0$ and $\ell_1:y = 1$ in the plane.
-We have $n$ distinct points $a_1,\dots,a_n$ on $\ell_0$ and $n$ distinct points $b_1,\dots,b_n$ on $\ell_1$.
-Note that the points $a_1,\dots,a_n$ and $b_1,\dots,b_n$ are \textit{not} necessarily sorted by their $x$-coordinates.
-Now for each $i \in \{1,\dots,n\}$, we draw a segment $s_i$ connecting $a_i$ and $b_i$.
-See the figure below for an example of $n = 4$.
-These segments $s_1,\dots,s_n$ may intersect with each other, and for simplicity, we assume no three segments intersect at the same point.
-We aim to count the number of intersection points of $s_1,\dots,s_n$.
-
-Formally, design an algorithm $\textsc{CountInt}(n,A,B)$ where $A[1 \dots n]$ stores the $x$-coordinates of $a_1,\dots,a_n$ and $B[1 \dots n]$ stores the $x$-coordinates of $b_1,\dots,b_n$.
-The algorithm should return the number of intersection points of the segments $s_1,\dots,s_n$, and should have time complexity $O(n \log n)$.
-Describe the basic idea and give the pseudocode.
-Then, justify its correctness and show it runs in $O(n \log n)$ time.
-
-\begin{center}
-    \includegraphics[height=4cm]{hw-fig-intersection.jpg}
-\end{center}
-
-\begin{solution}
-\textbf{Please write down your solution to Problem 4 here.}
-\end{solution}
-
-
-\problem{5: 3SUM from 3 arrays [$8$ pts]}
-Given 3 non-empty and sorted arrays $A, B, C$ of integers, each array is of size $N_A$, $N_B$ and $N_C$ respectively. Given an input $a$, output one value from each array such that the sum is equal to $a$. If not found, return $0$. Design the algorithm, prove its correctness and complexity.
-
-\begin{solution}
-\textbf{Please write down your solution to Problem 5 here.}
-\end{solution}
-
-
-\problem{6: Counting context-free grammar words [$7$ pts]}
-Context-free grammar (CFG) is an important concept in CS, and it recursively defines a set of strings/words. You may want to search for CFG and learn about the relevant context. In this problem, we omit many formal definitions and focus on the following grammar:
-
-\begin{enumerate}
-    \item $S \rightarrow D | D + S$
-    \item $D \rightarrow 1D | 2D | 3D | 4D | \ldots |9D |0|1|2|3|\ldots|9$
-\end{enumerate}
-
-The above two rules read as follows: we always start with $S$, and $S$ can either get turned into $D$ or $D+S$. Here, $+$ is a terminal symbol and cannot be transformed into other symbols. For the second rule, $D$ can get transformed into $1D$ or $2D$ or $\ldots$, and all the numbers are terminal symbols. The ``$|$'' essentially means ``or'' for the transformation. A word satisfying the above CFG is a string of terminal symbols that can be generated using the above rules.
-
-Think about what the above grammar represents. Count the number of words satisfying the above CFG of a given length $n$ using recursion.
-
-
-\begin{solution}
-\textbf{Please write down your solution to Problem 6 here.}
-\end{solution}
-
-\problem{7: Search for a root [$10$ pts]}
-Given a continuous function $f : [1,2]\times[1,2] \rightarrow [0,1]$ with the ``bi-monotone'' property: $f(x,y) > f(x',y)$ if $x > x'$ and $f(x,y) > f(x,y')$ if $y > y'$, we want to solve for the root of $f(x,y) = a$ where $a$ is some given value. The only access to $f$ is an oracle such that given $(x,y)$, the oracle returns the value of $f(x,y)$.
-
-Let $R$ be the set of roots, i.e., $f(x^*,y^*) = a$ for any $(x^*,y^*) \in R$. We want to find an approximate solution $(\hat{x},\hat{y})$ such that there exists $(x^*,y^*) \in R$ with $\hat{x} \leq x^* \leq (1+\epsilon) \hat{x}$ and $\hat{y} \leq y^* \leq (1+\epsilon) \hat{y}$ with as few oracle calls as possible. Here, $\epsilon > 0$ is another given parameter indicating the desirable level of accuracy. If there is no root, return $0$.
-
-Design an algorithm $\textsc{FindRoot}(f, a, \epsilon)$, and prove its correctness and complexity (in terms of number of oracle calls). \emph{This problem is a little bit more involved, but it does not require anything beyond the lectures. Suggest working on this after you finish everything else.}
-
-\begin{solution}
-\textbf{Please write down your solution to Problem 7 here.}
-\end{solution}
-
-
+\end{itemize}
+Therefore, \(\mathcal{A}\) is a \(\sigma\)-algebra.
+\end{proof}
 \end{document}

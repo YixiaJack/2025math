@@ -691,3 +691,100 @@ where x_\star&=x-\frac{1}{f(x)}
     \tau_{*}=-\frac{1}{\inf_{x\in \mathbb{R}}f(x)}
 $$ 
 \end{enumerate}
+\section{Lecture 5 (02-17)-Exercise}
+\subsection*{Problem 1}
+2.2.17
+\begin{solution}
+   (a)\\ (1) find characteristic curves by solving$$
+        \dv{x}{t}=-x
+    $$
+    \begin{align*}{}{}
+    x(t)=x_0e^{-t}
+\end{align*}
+    (2) find u from the information that u(t,x) is constant along the characteristics:$$
+        u(t,x(t))=u(0,x(0))=f(x(0))
+    $$  
+    \begin{align*}{}{}
+    u(t,x_0e^{-t})&=f(x_0)=\frac{1}{x_0^2+1}\\
+    \text{Denote } x&=x_0e^{-t}\Rightarrow x_0=e^tx\\
+    u(t,x)&=\frac{1}{e^{2t}x^2+1}\\
+    &=\frac{e^{-2t}}{x^2+e^{-2t}}\\
+    \end{align*}
+(b)t=0,1,2,3\\
+(c) $ \lim_{t\rightarrow+\infty}u(t,x)=\begin{cases}
+    0, x\neq 0\\
+    1, x=0
+\end{cases} $ 
+\end{solution}
+\subsection*{Problem 2}
+2.2.25
+\begin{solution}
+(a)\\
+$$\dv{x}{t}=c(x),x(t_0)=x_0$$
+If $ x_1(t),x_2(t) $ are characteristic curves that cross each other at $ (t_0,x_0) $   then they both solve the same Cauchy problem.
+\\By uniqueness, we have $ x_1(t)=x_2(t) $ for all t
+\\(b)\\
+We know that $ x_\star $ is a zero of C:$ C(x_\star)=0 $ Let's consider the following problem:$$
+    \begin{cases}
+        \dv{x}{t}=c(x)\\
+        x(0)=x_\star
+    \end{cases}
+$$  
+So, $ x(t)=x_\star $\\
+(c) \\
+If g(t) is a characteristic curve$$
+    \frac{d}{dt}g(t)=c(g(t))
+$$ 
+Then \begin{align*}{}{}
+g(t+\delta)=g_\delta(t) \text{ is also characteristic}\\
+\end{align*}
+since it satisfies $$
+    \frac{d}{dt}g_\delta(t)=c(g_\delta(t))
+$$ since c does not depend on t
+\\(d)\\
+False: If c admit a zero and $c\neq 0$,then $ \exists $ single g such that any characteristicis of the form $ g(t+\delta) $.\\
+In deed, the fixed point solution and non-fixed point solutioins are not given with the same g.  
+\\(e)\\
+To determine the monotonicity of g, we need to check the sign of g'(t).\\
+it is always >0 or<0 in between the horizontal lines.\\
+Then g'(t)=c(g(t)).\\
+If $ \exists t_1 \text{ and }t_2$ so that $ g'(t_1)>0 \text{ and }g'(t_2) <0$ then $ \exists t_\star$ between $ t_1,t_2 $ s,t, $c(g(t_\star)) $=0, therefore x(t) is a fixed point solution and the graph should be a horizontal line\\
+(f)\\
+c(x(t)) is the soeed of the wave   \\
+Reformultion: Can the function c(x(t)) change its sign along a fixde characteristic curve?\\
+If c(x(t1)>0),c(x(t2))<0, then exists $c(x(t_\star)) $=0, therefore x(t) is a fixed point solution and the graph should be a horizontal line\\
+(g)\\
+
+\end{solution}
+\subsection*{Problem 3}
+2.4.11
+\begin{solution}
+    (a)\begin{align*}{}{}
+    u(t,x)&=\frac{sin(x-2t)+sin(x+2t)}{2}+\frac{1}{4}(sin(x+2t)-sin(x-2t))\\
+    &=\frac{1}{4}sin(x-2t)+\frac{3}{4}sin(x+2t)
+    \end{align*}
+    (b)\\
+    T s.t. u(t+T,x)=u(t,x)\\
+    $T=\pi$\\
+    (c)\\
+    \begin{align*}{}{}
+    u(t,x)&=\frac{1}{4}sin(x-2t)+\frac{3}{4}sin(x+2t)+\frac{1}{4}\sum_{0}^{t}\sum_{x-2(t-s)}^{x+2(t-s)}cos2sdyds\\
+    &=\frac{1}{4}sin(x-2t)+\frac{3}{4}sin(x+2t)+\frac{1}{4}(1-cos2t)
+    \end{align*}
+    (d)\\
+    resonance:unbounded\\
+    False, no resonance since the solution is bounded
+\end{solution}
+\subsection*{Problem 4}
+2.4.13
+\begin{solution}
+    We need to show that $ \dv{E(t)}{t}=0 $ 
+    \begin{align*}{}{}
+    \frac{d}{dt}E(t)&=\frac{d}{dt}\int_{-\infty}^{+\infty}\frac{1}{2}[(\pdv{u}{t})^2+c^2(\pdv{u}{x})^2]dx\\
+    &=\int_{-\infty}^{+\infty}[(\pdv{u}{t})\cdot\pdv[2]{u}{t}+c^2(\pdv{u}{x})\pdv{u}{x}{t}]dx\\
+    &=c^2\int_{-\infty}^{+\infty}[(\pdv{u}{t})\cdot\pdv[2]{u}{x}+(\pdv{u}{x})\pdv{u}{x}{t}]dx\\
+    &=c^2\int_{-\infty}^{+\infty}1\cdot \frac{\partial}{\partial x}(\pdv{u}{t}\cdot \pdv{u}{x})dx \text{ integration by parts}\\
+    &=-c^2\int_{-\infty}^{+\infty} \underbrace{\frac{\partial}{\partial x}1}_{=0}\cdot(\pdv{u}{t}\cdot \pdv{u}{x})dx +0 (\text{boundary terms})\\
+    &=0
+    \end{align*}
+\end{solution}

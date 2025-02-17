@@ -463,3 +463,87 @@ $$
 Then we have $v(z)^m=u(z)$ and v(z) is analytic with $v'(0)\neq0$
 \\Hence,$ \exists \text{ open disk } D(0,r) \text{ s.t. } V(D)\supseteq D':=D(o,r')$ 
 \\And then, the image of D' under $ z\rightarrow z^m $ is again an open disk, verifying the assertion.  
+\section{Lecture 5 (02-17) -- {The geometric representation of complex numbers}}
+\begin{definition}[Euler's formula]{}
+$$
+    e^{i\theta}=cos\theta+isin\theta,\theta\in\mathbb{R}
+$$
+\end{definition}
+Stereographic projection:
+\subsection{Geometric multiplication}
+\begin{align*}{}{}
+a&=(\alpha, \beta)=\alpha+i\beta\\
+&=rcos\theta+irsin\theta\\
+&=r(cos\theta+isin\theta)\\
+r=|a|&=\sqrt{\alpha^2+\beta^2}\\
+cos\theta&=\frac{\alpha}{r},sin\theta=\frac{\beta}{r}\\
+sin\theta&=\frac{\beta}{r}
+\end{align*}
+\begin{definition}[argument of a complex number]{}
+Given $ a\in C $ and its polar representation$$
+    a=r(cos\theta+isin\theta)
+$$ 
+we call $ \theta $ the argument of a and denote it by $$ \theta=arg(a) $$
+\end{definition}
+\begin{lemma}[]{}
+Let $ a_1=r_1(cos\theta_1+isin\theta_1)\text{ and }a_2=r_2 (cos\theta_2+isin\theta_2)$ \\
+arg($ a_1a_2 $)=arg($ a_1 $)+arg($ a_2 $)
+\end{lemma}
+\textbf{Proof:}
+\begin{align*}{}{}
+a_1a_2&=r_1r_2(cos\theta_1+isin\theta_1) (cos\theta_2+isin\theta_2)\\
+&=r_1r_2(cos\theta_1cos\theta_2-sin\theta_1sin\theta_2+isin\theta_1cos\theta_2+icos\theta_1sin\theta_2)\\
+&=r_1r_2(cos(\theta_1+\theta_2)+isin(\theta_1+\theta_2))
+\end{align*}
+\textbf{Comments:}
+\begin{itemize}
+\item we will later define the function $ e^z ,z\in \mathbb{C}$\\
+We will show that $ e^{z_1}e^{z_2}=e^{z_1+z_2} $\\
+And also $ e^{i\theta}=cos\theta+isin\theta $\\
+Then $ a_1a_2=r_1r_2e^{i\theta_1}e^{i\theta_2}=r_1r_2e^{i(\theta_1+\theta_2)} $   
+\end{itemize}
+\subsection{The binomial equation}
+\begin{align*}{}{}
+(a+b)^n&=\sum_{k=0}^{n}\begin{pmatrix}n\\k\end{pmatrix}a^{n-k}b^k\\
+&=\sum_{k=0}^{n-1}\frac{n!}{k!(n-k)!}a^{n-k}b^k
+\end{align*}
+Note that if $a=a=r(cos\theta+isin\theta)$\\
+Then for $ n\geq0 $ and we want to check it is true for $ n=-1 \text{ and } n\in Z$
+\begin{align*}{}{}
+a^n&=r^n(cosn\theta+isinn\theta)\\
+a^{-1}&=\frac{1}{r(cos\theta-isin\theta)}\\
+&=r^{-1}\frac{cos\theta-isin\theta}{(cos\theta+isin\theta)(cos\theta-isin\theta)}\\
+&=r^{-1}(cos\theta-isin\theta)\\
+&=r^{-1}(cos(-\theta)+isin(-\theta))
+\end{align*}
+\begin{lemma}[de Maivre]{}
+\begin{align*}{}{}
+    {(\cos\theta-i\sin\theta)}^n=\cos(n\theta)-i\sin(n\theta)
+\end{align*}
+\end{lemma}
+\subsection{Roots of complex numbers}
+\begin{align*}{}{}
+-1=1(\cos\pi+i\sin\pi)\\
+1=(-1)^2=(\cos\pi+i\sin\pi)^2=\cos2\pi+i\sin2\pi\\
+\end{align*}
+\textbf{Cube roots of 1:}
+\begin{align*}{}{}
+z^3-1=0\\
+z^3-1=(z-1)(z^2+z+1)=0\\
+\Delta=1-4=-3<0\\
+z_1=\cos\frac{2\pi}{3}+i\sin\frac{2\pi}{3}\\
+z_2=\cos\frac{4\pi}{3}+i\sin\frac{4\pi}{3}
+\end{align*}
+\begin{lemma}[]{}
+Let $ a\in \mathbb{C} $ and $ n\geq1 $ , Then the equation$$
+    z^n=a,a=r(\cos\theta+i\sin\theta)
+$$ has only n distinct solutions.(called the n-th roots of a) given by
+$$
+    a=r^{\frac{1}{n}}(\cos\frac{\theta+2k\pi}{n}+i\sin\frac{\theta+2k\pi}{n}),k=0,1,\cdots,n-1
+$$ 
+\end{lemma}
+\begin{proof}
+    \begin{align*}{}{}
+    z=e(\frac{\theta+2k\pi}{n}+i\sin\frac{\theta+2k\pi}{n}),\text{ where } e^n=r\\
+    \end{align*}
+\end{proof}
