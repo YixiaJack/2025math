@@ -293,13 +293,44 @@ Show that $\sigma(\mathcal{C}_1) = \sigma(\mathcal{C}_2) = \sigma(\mathcal{C}_3)
 \begin{proof}
     $ \sigma(C_1)=\sigma(C_2) $ 
     \begin{itemize}
-    \item $ C_1\subseteq \sigma(C_2) $ because $(-\infty,b]\in \sigma(C_2) \Rightarrow \sigma(C_1)\subseteq\sigma(C_2)$ because $ \sigma(C_1) $ is minimal
-    \item $ C_2\subseteq \sigma(C_1) $ because $ (a,b]=(-\infty,b]\backslash(-\infty ,a]\in \sigma(C_1) \Rightarrow \sigma(C_2)\subseteq\sigma(C_1)$ because $ \sigma(C_2) $ is minimal 
+    \item $ C_1\subseteq \sigma(C_2) $ \\Since $(-\infty,b]\in \sigma(C_2)$\\So, $\sigma(C_1)\subseteq\sigma(C_2)$ because $ \sigma(C_1) $ is minimal
+    \item $ C_2\subseteq \sigma(C_1) $ 
+    \\Writing $ (a,b]=(-\infty,b]\backslash(-\infty ,a]$ \\Since$  (-\infty,b]\text{ and }(-\infty ,a] $ are in $ C_1 $, we have (a,b]$\in \sigma(C_1) $\\So, $ \sigma(C_2)\subseteq\sigma(C_1)$ because $ \sigma(C_2) $ is minimal 
     \end{itemize}
     $ \sigma(C_2)=\sigma(C_3) $ 
-    \begin{itemize}
-        \item $ C_2\subseteq \sigma(C_3) $
-        \item $ C_2\supseteq \sigma(C_3) $ 
-        \end{itemize}
+      
+  \begin{itemize}
+    \item \emph{\(\sigma( \mathcal{C}_2)\subseteq \sigma(\mathcal{C}_3)\):}  
+    Let \((a,b] \in \mathcal{C}_2\). Notice that for any \(x\in\mathbb{R}\), the set \((-\infty,x]\) is closed. Hence, both \((-\infty,b]\) and \((-\infty,a]\) belong to \(\mathcal{C}_3\). 
+    \\Writing
+    $(a,b] = (-\infty,b] \setminus (-\infty,a],$
+    we conclude that \((a,b]\) is an element of \(\sigma(\mathcal{C}_3)\). Therefore, 
+    $\mathcal{C}_2 \subseteq \sigma(\mathcal{C}_3).$ 
+    \\So $ \sigma( \mathcal{C}_2)\subseteq \sigma(\mathcal{C}_3)\ $ because $ \sigma(C_2) $ is minimal
+    \item\emph{\( \sigma(\mathcal{C}_3) \subseteq \sigma(\mathcal{C}_2)\):}  
+    Every open set \( U \subset \mathbb{R} \) can be written as
+$
+U = \bigcup_{n=1}^\infty I_n,
+$
+\\where each \( I_n \) is an open interval. For any open interval \( I_n = (a,b) \), we have
+\[
+(a,b) = \bigcup_{m=1}^\infty \left(a+\frac{1}{m}, b\right].
+\]
+Thus,
+\[
+U = \bigcup_{n=1}^\infty \bigcup_{m=1}^\infty \left(a_n+\frac{1}{m}, b_n\right],
+\]
+showing that \( U \) is a countable union of half–open intervals of the form \((a,b]\). \\Hence,
+$
+U \in \sigma(\mathcal{C}_2),
+$
+where 
+$
+\mathcal{C}_2 = \{ (a,b] : a,b \in \mathbb{R} \}.
+$
+\\So we have $ U^c\in \sigma(\mathcal{C}_2)$ ,where $ U^c= \mathcal{C}_3$ \\
+Therefore, \( \sigma(\mathcal{C}_3) \subseteq \sigma(\mathcal{C}_2) \) because $ \sigma(C_3) $ is minimal
+
+\end{itemize}
 \end{proof}
 \end{document}
