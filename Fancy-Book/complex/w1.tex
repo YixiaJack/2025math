@@ -547,3 +547,57 @@ $$
     z=e(\frac{\theta+2k\pi}{n}+i\sin\frac{\theta+2k\pi}{n}),\text{ where } e^n=r\\
     \end{align*}
 \end{proof}
+\section{Lecture 6 (02-19) -- {Riemann sphere}}
+\begin{definition}[stereographic projection]{}
+We will define a mapping bwtween the Riemann sphere and the extended complex plane $ \mathbb{C}\cup\{\infty\} $ called the stereographic projection.
+\end{definition}
+Riemann sphere has radius 1
+\begin{align*}{}{}
+z&=a(x_1+ix_2),a\in\mathbb{R}\\
+&=\frac{x_1+ix_2}{1-x_3}
+\end{align*}
+\begin{definition}[stereographic projection]{}
+we define the stereographic projection as the mapping$$
+    S:S-\{(0,0,1)\}\rightarrow \mathbb{C}$$
+    and $$
+    S(x_1,x_2,x_3)=\frac{x_1+ix_2}{1-x_3}
+    $$ 
+\end{definition}
+\textbf{Comments:}
+We can extend the domain of the stereographic projection to all of S if we add a point "$ \infty $ " to $ \mathbb{C} $ and define $ \bar{\mathbb{C}}=\mathbb{C}\cup\{\infty\} $ extended complex plane,$$
+    S(0,0,1)=\infty
+$$   
+\begin{itemize}
+\item $ S:S\rightarrow\bar{\mathbb{C}} $ is a bijection 
+\item It is possible to define a topology ( this is the collection of open sets) on $ \bar{\mathbb{C}} $ s.t. its restriction to $ \mathbb{C} $ coincides with the open sets in $ \mathbb{C} $
+\end{itemize}
+\begin{align*}{}{}
+z=\frac{x_1+ix_2}{1-x_3}\\
+|z|^2=\frac{x_1^2+x_2^2}{(1-x_3)^2}=\frac{1-x_3^2}{(1-x_3)^2}=\frac{1+x_3}{1-x_3}\\
+\rightarrow (1-x_3)|z|^2=1+x_3\\
+\rightarrow x_3=\frac{|z|^2-1}{|z|^2+1}\\
+z+\bar{z}=2\frac{x_1}{1-x_3}\\
+x_1=\frac{(z+\bar{z})(1-x_3)}{2}\\
+x_1=\frac{z+\bar{z}}{|z|^2+1}\\
+x_2=\frac{z-\bar{z}}{i(|z|^2+1)}
+\end{align*}
+Consider a circle on S:
+$$
+    \alpha_1x_1+\alpha_2x_2+\alpha_3x_3=\alpha_0 
+$$ show that this is the general equation of a circle on the Riemann sphere.
+\begin{align*}{}{}
+\alpha_1^2+\alpha_2^2+\alpha_3^2&=1,\alpha_1,\alpha_2,\alpha_3\in\mathbb{R}\\
+\end{align*}
+We want to find the locus of this circle in $ \mathbb{C} $ under S.
+\begin{align*}{}{}
+\Leftarrow \alpha_1(z+\bar{z})-i\alpha_2(z-\bar{z})+\alpha_3(|z|^2-1)=2\alpha_0(|z|^2+1), z=x+iy\\
+2\alpha_1x+2\alpha_2y+\alpha_3(x^2+y^2-1)=\alpha_0(x^2+y^2+1)\\
+(\alpha_3-\alpha_0)(x^2+y^2)+2\alpha_1x+2\alpha_2y=\alpha_0+\alpha_3\\
+\end{align*}
+For $ \alpha_3\neq\alpha_0 $, this is the equation of a circle in $ \mathbb{C} $
+\\For $ \alpha_3=\alpha_0 $, this is the equation of a line in $ \mathbb{C} $
+\\\textbf{Comments:}    
+\\Formula for the distance between two points $ z,z'\in\mathbb{C}$ in S:$$
+    d(z,z')=||S^{-1}(z)-S^{-1}(z')||_2=\frac{2|z-z'|}{\sqrt{(1+|z|^2)(1+|z'|^2)}}
+$$  
+This notion of distance is a metric which is equivalent to the metric in $ \mathbb{C} $ included by the Euclidean norm.

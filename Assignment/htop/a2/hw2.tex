@@ -180,7 +180,26 @@
 \subsection*{Problem 1}
 Show that the assumption that $\mathbb{P}$ is countably additive is equivalent to the assumption that $\mathbb{P}$ is continuous. That is to say, show that if a function $\mathbb{P} : \mathcal{F} \rightarrow [0, 1]$ satisfies $\mathbb{P}(\emptyset) = 0$, $\mathbb{P}(\Omega) = 1$, and $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$ whenever $A, B \in \mathcal{F}$ and $A \cap B = \emptyset$, then $\mathbb{P}$ is countably additive (in the sense of satisfying Definition (1.3.1b)) if and only if $\mathbb{P}$ is continuous (in the sense of Lemma (1.3.5)).
 \begin{proof}
-    
+    \begin{itemize}
+    \item $\Rightarrow$ Suppose $\mathbb{P}$ is countably additive. \\
+    Suppose w.l.o.g. that $ \{A_n\}_{n=1}^{+\infty} $ be any increasing sequence of events\\
+    and $ A_1\subset A_2\cdots $ \\
+    Let $ A=\bigcup_{n=1}^{\infty}A_n $\\
+    Let $ B_1=A_1,B_2=A_2\backslash A_1,\cdots B_n=An\backslash A_{n-1} $ and they are all disjoint\\
+    Then $$ A=\bigcup_{n=1}^{\infty}B_n= \bigcup_{n=1}^{\infty}A_n$$\\  
+    For every n, we have $ A_n=\bigcup_{k=1}^{n}B_k $\\
+    By countable additivity, we have $ \mathbb{P}(A_n)=\sum_{k=1}^{n}\mathbb{P}(B_k) $\\
+    Then, we have $ \mathbb{P}(A)=\mathbb{P}(\bigcup_{k=1}^{\infty}B_k)=\sum_{k=1}^{\infty}\mathbb{P}(B_k) $\\
+    So, $$\lim_{n\to\infty}\mathbb{P}(A_n)= \lim_{n\to\infty}\sum_{k=1}^{n}\mathbb{P}(B_k)=\sum_{k=1}^{\infty}\mathbb{P}(B_k)=\mathbb{P}(A)$$
+    Thus, $\mathbb{P}$ is continuous from below. (similarly we can prove that $\mathbb{P}$ is continuous from above by assuming decreasing $ \{A_n\}_{n=1}^{+\infty} $)\\
+    \item $\Leftarrow$ Suppose $\mathbb{P}$ is continuous.\\
+    $\text{Let } \left\{ A_{n} \right\}_{n=1}^{\infty} \text{ be a sequence of pairwise disjoint sets in } \mathcal{F}.$
+     Define $ B_{n} = \bigcup_{k=1}^{n} A_{k}.$\\Then $ \left\{ B_{n} \right\}_{n=1}^{\infty}$ is an increasing sequence with $ \bigcup_{n=1}^{\infty} B_{n} = \bigcup_{n=1}^{\infty} A_{n}.$ \\By continuity,
+     $\mathbb{P}\left( \bigcup_{n=1}^{\infty} A_{n} \right) = \lim_{n \to \infty} \mathbb{P}(B_{n}).$
+Since the $A_{n}$ are pairwise disjoint,$\mathbb{P}(B_{n}) = \sum_{k=1}^{n} \mathbb{P}(A_{k}).$
+\\Thus,$$\mathbb{P}\left( \bigcup_{n=1}^{\infty} A_{n} \right) = \lim_{n \to \infty} \sum_{k=1}^{n} \mathbb{P}(A_{k}) = \sum_{n=1}^{\infty} \mathbb{P}(A_{n}).$$
+This shows that $\mathbb{P}$ is countably additive.
+    \end{itemize}
 \end{proof}
 \subsection*{Problem 2}
 The 'ménages' problem poses the following question. Some consider it to be desirable that men and women alternate when seated at a circular table. If n heterosexual couples are seated randomly according to this rule, show that the probability that nobody sits next to his or her partner is
@@ -189,9 +208,35 @@ $$\frac{1}{n!}\sum_{k=0}^{n}(-1)^k\frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!$$
 
 You may find it useful to show first that the number of ways of selecting k non-overlapping pairs of adjacent seats is $\binom{2n-k}{k}2n(2n-k)^{-1}$.
 \begin{proof}
-    
-\end{proof}
-\subsection*{Problem 3}
+    Assume we have \(n\) couples labelled \(1,2,\dots,n\). Define
+\[
+A_k = \{\text{couple } k \text{ sits together}\}.
+\]
+For any chosen \(k\)-tuple \((i_1,i_2,\dots,i_k)\), we wish to count 
+\[
+\mathbb{N}\Bigl(\bigcap_{j=1}^k A_{i_j}\Bigr).
+\]
+
+To eliminate rotational symmetry, choose a couple not among \(\{i_1,\dots,i_k\}\) (say the one with the smallest index not chosen) and fix its man in seat 1. Since men and women alternate, the problem reduces to selecting \(k\) non-overlapping adjacent seat pairs from \(2n\) seats. This is equivalent to choosing \(k\) “compressed” positions from \(2n-k\) spots, which can be done in
+\[
+\binom{2n-k-1}{k}\text{ ways}.
+\]
+
+Next, assign the \(k\) couples to these pairs in \(k!\) ways. The remaining \(n-k-1\) men and \(n-k\) women are arranged in \((n-k-1)! (n-k)!\) ways. Including the initial factor \(2n\) from the possible choices before fixing, we have
+\[
+\mathbb{N}\Bigl(\bigcap_{j=1}^k A_{i_j}\Bigr) = 2n\,\binom{2n-k-1}{k}\,k!\,(n-k-1)!(n-k)!.
+\]
+Using the inclusion--exclusion principle, the probability that no couple sits together is
+\[
+\mathbb{P}\Bigl(\bigcap_{j=1}^n A_j^c\Bigr) = 1-\mathbb{P}\Bigl(\bigcup_{j=1}^n A_j\Bigr)
+=\sum_{k=0}^n (-1)^k \binom{n}{k}\,\mathbb{P}\Bigl(\bigcap_{j=1}^k A_{i_j}\Bigr).
+\]
+Substituting the count and dividing by the total number of arrangements, we obtain
+\[
+\mathbb{P}\Bigl(\bigcap_{j=1}^n A_j^c\Bigr) = \frac{1}{n!}\sum_{k=0}^n (-1)^k \frac{2n}{2n-k}\binom{2n-k}{k}(n-k)!.
+\]
+ \end{proof}
+    \subsection*{Problem 3}
 \textbf{The probabilistic method}. 10 per cent of the surface of a sphere is coloured blue, the rest is red.
 Show that, irrespective of the manner in which the colours are distributed, it is possible to inscribe a cube in S with all its vertices red.
 \begin{proof}
@@ -211,7 +256,25 @@ $$\begin{aligned}
 & \mathbb{P}(\text { straight flush }) \simeq 0.000015 .
 \end{aligned}$$
 \begin{proof}
-    
+    \begin{align*}{}{}
+        |\Omega|&=\binom{52}{5}  \\
+        |1\text{ pair}|&=13\times\binom{4}{2}\times\binom{12}{3}\times4^3  \\
+        P[1\text{ pair}]&=\frac{13\times\binom{4}{2}\times\binom{12}{3}\times4^3}{\binom{52}{5}}\approxeq 0.423\\[1ex]
+           |Straight|&=10\times(4^5-4)  \\
+           P[Straight]&=\frac{10\times(4^5-4)}{\binom{52}{5}}\approxeq 0.0039\\[1ex]
+           |4\text{ of a kind}|&=13\times(52-4)  \\
+              P[4\text{ of a kind}]&=\frac{13\times48}{\binom{52}{5}}\approxeq 0.00024\\[1ex]
+              |2\text{ pairs}|&=\binom{13}{2}\times\binom{4}{2}^2\times11\times4  \\
+              P[2\text{ pairs}]&=\frac{\binom{13}{2}\times\binom{4}{2}^2\times11\times4}{\binom{52}{5}}\approxeq 0.0475\\[1ex]
+                |Flush|&=4\times\binom{13}{5} -4\times10 \\
+                P[Flush]&=\frac{4\times\binom{13}{5} -4\times10}{\binom{52}{5}}\approxeq 0.0020\\[1ex]
+              |3\text{ of a kind}|&=13\times\binom{4}{3}\times\binom{12}{2}\times4^2  \\
+                P[3\text{ of a kind}]&=\frac{13\times\binom{4}{3}\times\binom{12}{2}\times4^2}{\binom{52}{5}}\approxeq 0.021\\[1ex]
+           |Full House|&=13\times\binom{4}{3}\times12\times\binom{4}{2}  \\
+           P[Full House]&=\frac{13\times\binom{4}{3}\times12\times\binom{4}{2}}{\binom{52}{5}}\approxeq 0.0014\\[1ex]
+           |Straight flush|&=10\times 4\\
+           P[Straight flush]&=\frac{10\times 4}{\binom{52}{5}}\approxeq 0.000015
+        \end{align*} 
 \end{proof}
 \subsection*{Problem 5}
 Let $m$ be Lebesgue measure on [0,1], and $0 \leq a \leq b \leq c \leq d \leq 1$ such that $a+d \geq b+c$. Give an example of a sequence of sets $A_1, A_2, \cdots$ in [0,1], such that $m(\liminf_n A_n) = a$, $\liminf_n m(A_n) = b$, $\limsup_n m(A_n) = c$ and $m(\limsup_n A_n) = d$.
@@ -228,6 +291,15 @@ $$\begin{aligned}
 
 Show that $\sigma(\mathcal{C}_1) = \sigma(\mathcal{C}_2) = \sigma(\mathcal{C}_3)$.
 \begin{proof}
-    
+    $ \sigma(C_1)=\sigma(C_2) $ 
+    \begin{itemize}
+    \item $ C_1\subseteq \sigma(C_2) $ because $(-\infty,b]\in \sigma(C_2) \Rightarrow \sigma(C_1)\subseteq\sigma(C_2)$ because $ \sigma(C_1) $ is minimal
+    \item $ C_2\subseteq \sigma(C_1) $ because $ (a,b]=(-\infty,b]\backslash(-\infty ,a]\in \sigma(C_1) \Rightarrow \sigma(C_2)\subseteq\sigma(C_1)$ because $ \sigma(C_2) $ is minimal 
+    \end{itemize}
+    $ \sigma(C_2)=\sigma(C_3) $ 
+    \begin{itemize}
+        \item $ C_2\subseteq \sigma(C_3) $
+        \item $ C_2\supseteq \sigma(C_3) $ 
+        \end{itemize}
 \end{proof}
 \end{document}

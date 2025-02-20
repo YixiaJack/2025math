@@ -802,3 +802,160 @@ represents the sum of kinetic and potential energies of the displacement $u(t,x)
     &=0
     \end{align*}
 \end{solution}
+\section{Lecture 6 (02-19)--{Fourier Series}}
+\subsection*{Problem 5}
+2.4.15
+\begin{solution}
+    \begin{align*}{}{}
+    E(t)&=\int_{-\infty}^{+\infty} \left[ \left( \frac{\partial u}{\partial t} \right)^2 + c^2 \left( \frac{\partial u}{\partial x} \right)^2 \right]dx\\
+    \dv{E(t)}{t}&=\int_{-\infty}^{+\infty}[\pdv{u}{t}\cdot \pdv[2]{u}{t}+c^2\pdv{u}{x}\cdot \pdv{u}{x}{t}]dx\\
+    &=\int_{-\infty}^{+\infty}[c^2(\pdv{u}{t}\cdot \pdv[2]{u}{x}+\pdv{u}{x}\cdot \pdv{u}{x}{t})-a(\pdv{u}{t})^2]dx\\
+    &=c^2\int_{-\infty}^{+\infty}1\cdot \frac{\partial}{\partial x}(\pdv{u}{x}\cdot \pdv{u}{t})dx- a\sum_{-\infty}^{+\infty}(\pdv{u}{t})^2dx\\
+    &\leq 0 \Leftrightarrow \dv{E(t)}{t}\leq 0\\
+    \text{So, } E(t) \text{ is decreasing}
+    \end{align*}
+    We need to prove that there is a unique solution to the problem$\begin{cases}
+    \pdv[2]{u}{t}+a\pdv{u}{t}=c^2\pdv[2]{u}{x}\\
+    u(0,x)=f(x)\\
+    \pdv{u}{t}(0,x)=g(x)
+    \end{cases}$
+    Suppose $ \exists u_1(t,x),u_2(t,x)$\begin{align*}{}{}
+    u(t,x)=u_1(t,x)-u_2(t,x)\\
+    \end{align*}  
+    u satisfies the equation with initial data$$
+        u(0,x)=\pdv{u}{t}(0,x)=0
+    $$ 
+    We need to show that $ u(t,x)=0  \forall  t 0,x  $$$
+        E(0)=\int_{-\infty}^{+\infty}(\pdv{u}{t}(0,x))^2+c^2(\pdv{u}{x}(0,x))^2dx=0
+    $$ 
+    Since E(0)=0, $ \dv{E(t)}{t}\leq0 ,E(t\geq0) \Rightarrow E(t)=0$ 
+    $ \Rightarrow \pdv{u}{t}(t,x)=\pdv{u}{x}(t,x)=E,\forall x,t \Rightarrow u \text{ is constant } \Rightarrow u(t,x)=0$ 
+\end{solution}
+\subsection*{Problem 6}
+2.4.17
+\begin{solution}
+    \begin{align*}{}{}
+    \square&= \pdv[2]{t}-c^2(x)\pdv[2]{x}\\
+    (\pdv{t}+c(x)\pdv{x})(\pdv{t}-c(x)\pdv{x})&=\pdv[2]{t}-c^2(x)\pdv[2]{x}-c(x)c'(x)\pdv{x}\\
+    \end{align*}
+    since $ c'(x)\neq 0 $, the d'Alembert formula does not apply
+\end{solution}
+\subsection{Fourier Series}
+The linear heat equation:
+\begin{equation}
+    \label{eq18}\begin{cases}
+\pdv{u}{t}=\pdv[2]{u}{x}\\
+     \pdv{u}{t}=L[u]
+\end{cases}
+\end{equation}
+\begin{align*}{}{}
+L[u]&=\pdv[2]{u}{x}
+\\L[u+v]&=L[u]+L[v]\\
+L[\alpha u]&=\alpha L[u]
+\end{align*}
+These are true for any functions u and v in $ \mathbb{C}^2 $ \\
+Let us find solutions to  \eqref{eq18} in the form.$$
+    u(t,x)=e^{\lambda t}v(x)
+$$ 
+\begin{align*}{}{}
+\pdv{u}{t}&=\pdv{t}[e^{\lambda t}v(x)]\\
+&=\lambda e^{\lambda t}\\
+L[u]&=L[e^{\lambda t }v]\\
+&=\pdv[2]{x}[e^{\lambda t }v]\\
+&=e^{\lambda t}\pdv[2]{x}v\\
+&=e^{\lambda t}L[v]\\
+\pdv{u}{t}&=L[u]\\
+\end{align*}
+Thus $ u=e^{\lambda t}v $ will be a solution to \eqref{eq18} iff $$
+    L[v]=v''=\lambda v
+$$ 
+\begin{align*}{}{}
+\pdv{u}{t}=\pdv[2]{u}{x},x\in \mathbb{R}
+\end{align*}
+Any nonzero linear combination of these particular solutions is still a solution of \eqref{eq18}\\
+For example$$
+    u(t,x)=c_1e^{-t}\cos{x}+c_2e^{-4t}\sin{2x}+c_3x+c_4
+$$ The heated ring
+\begin{align*}{}{}
+\pdv{u}{t}&=\pdv[2]{u}{x}\\
+u(t,-\pi)&=u(t,\pi)\\
+\pdv{u}{x}(t,-\pi)&=\pdv{u}{x}(t,\pi)\\
+u(0,x)&=f(x)\\
+u(t,x)&=e^{\lambda t}v(x)\\
+v''&=\lambda v\\
+v(-\pi)&=v(\pi),v'(-\pi)=v'(\pi)\\
+\end{align*}
+find $ \lambda $ and v(x)\\
+case 1: $ \lambda=\omega^2>0 $\\
+\begin{align*}{}{}
+v(x)&=ae^{\omega x}+be^{-\omega x},\forall a,b\in\mathbb{R}\\
+ae^{\omega \pi}+be^{-\omega \pi}&=ae^{-\omega \pi}+be^{\omega \pi}\\
+a\omega e^{-\omega \pi}-b\omega e^{\omega \pi}&=a\omega e^{\omega \pi}-b\omega e^{-\omega \pi}\\
+\omega &\neq0\\
+e^{\omega \pi}(b-a)+(a-b)e^{-\omega \pi}&=0\\
+(e^{\omega \pi}-e^{-\omega \pi})(b-a)&=0\\
+\Leftrightarrow \underbrace{(e^{2\omega \pi}-1)}_{\neq 0}(b-a)&=0\\
+\Rightarrow a&=b \text{ and } a=-b\\
+\Rightarrow a=b&=0 \Rightarrow v(x)=0
+\end{align*}
+case 2: $ \lambda=0 $\\
+\begin{align*}{}{}
+v''&=0\\
+v(x)=a+bx,\forall a,b\in\mathbb{R}\\
+a-b\pi&=a+b\pi\\
+\Rightarrow b&=0,\forall a\in \mathbb{R}\\
+\text{Thus } v(x)&=a\\
+u(t,x)&=e^{\lambda t}v(x)=a
+\end{align*}
+case 3: $ \lambda=-\omega^2<0 $\\
+\begin{align*}{}{}
+v''&=\lambda v\\
+v(x)&=a\cos{\omega x}+b\sin{\omega x},\forall a,b\in\mathbb{R}\\
+a\cos{\omega \pi}-b\sin{\omega \pi}&=a\cos{\omega \pi}+b\sin{\omega \pi}\\
+a\sin{\omega \pi}+b\cos{\omega \pi}&=-a\sin{\omega \pi}+b\cos{\omega \pi}\\
+2b\sin{\omega \pi}&=0,2a\sin{\omega \pi}=0\\
+\text{If } \sin{\omega \pi}&\neq0 \\
+\text{then } a&=b=0\text{ If } \sin{\omega \pi}= 0 \\
+ \Rightarrow \forall a, b\in \mathbb{R}, \omega&=1,2,\cdots \\
+ v(x)&=a\cos{kx}+b\sin{kx} \forall a,b\in \mathbb{R}\\
+ \text{With } \lambda&=-k^2\\
+ u_k(t,x)&=e^{-k^2t}(\cos{kx})\\
+ u'_k(t,x)&=e^{-k^2t}(\sin{kx})\\
+\end{align*}
+By Fourier:
+\begin{align*}{}{}
+u(t,x)=\frac{a_0}{2}+\sum_{k=1}^{\infty}[a_ke^{-k^2t}\cos{kx}+b_ke^{-k^2t}\sin{kx}]\\
+\end{align*}
+With coefficients $ a_k,b_k $,the parameters $ a_k,b_k $ are fixed such that$$
+    u(0,x)=f(x)
+$$ 
+\subsection{Fourier Series 2}
+We introduce $ L^2 $-inner product for continuous functions on the interval $ [-\pi.\pi] $  
+$$
+    <f,g>=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)g(x)dx
+$$ 
+Basic properties of the inner product:
+\begin{itemize}
+\item symmetry: $ <f,g>=<g,f> $
+\item bilinearity: $ <\alpha f_1+\beta f_2,g>=\alpha<f_1,g>+\beta<f_2,g> $
+\item positivity: $ <f,f> > 0 \text{ if } f\neq0 ,\text{ and } <0,0>=0 $
+\end{itemize}
+The associated norm ($ L^2 $-norm) is defined by $$ ||f||=\sqrt{<f,f>} $$
+\begin{lemma}[]{}
+The trigonometric functions $ 1,\cos{x},\sin{x},\cos(2x),\sin(2x),\cdots $ 
+satisfies the relations \begin{align*}{}{}
+<\cos(kx),\cos(lx)>&=<\sin(kx),\sin(lx)>=0,\forall k\neq l \text{ integers}\\
+<\cos(ux),\sin(lx)>&=0,\forall u,l\\
+||1||&=\sqrt{2}\\
+||\cos(kx)||&=||\sin(kx)||=1,\forall k \neq0\\
+f\perp g &\Leftrightarrow <f,g>=0
+\end{align*}
+\end{lemma}
+\begin{align*}{}{}
+f(x)&=\frac{a_0}{2}+\sum_{k=1}^{\infty}[a_k\cos{kx}+b_k\sin{kx}]\\
+<f,\cos(lx)>&=\frac{a_0}{2}<1,\cos(lx)>+\sum_{k=1}^{\infty}[a_k<\cos{kx},\cos{lx}>+b_k<\sin{kx},\cos{lx}>]\\
+&=a_l<\cos{lx},\cos{lx}>\\
+&=a_l\\
+b_l&=<f,\sin(lx)>
+\end{align*}
+ 

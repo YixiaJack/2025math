@@ -719,7 +719,7 @@ show that $ \sigma(C_1)=\sigma(C_2)=\sigma(C_3) $
     \end{align*}
     in fact if N>23, then $P(A^c)<\frac{1}{2}$
  \end{example}
-\section{Lecture 5 (02-19)}
+\section{Lecture 5 (02-17)}
 \textbf{Useful $ \pi $-system that generates B(R):}
  \begin{enumerate}[label=\circled{\arabic*}] 
  \item $\mathcal{E}=\begin{cases}
@@ -817,5 +817,82 @@ P[A\backslash B]&=\frac{P[A\cap B]}{P[B]}=\frac{P[A]}{P[B]}=\frac{1/4}{3/4}=\fra
     P[A\backslash B]&=\frac{13}{27}
  \end{align*}
  \end{enumerate}
+\end{example}
+\section{Lecture 6 (02-19)-{Conditional Probability}}
+\begin{definition}[Law of total probability]{}
+    $$
+    P[A|B]=\frac{P[A\cap B]}{P[B]}
+    $$ 
+ $$P[A]=P[A|B]\cdot P[B]+P[A|B^c]P[B^c]$$
+ More generally, Let $(B_i)_{i=1}^{n}$ be a partition of $\Omega$ (i.e. $B_i\cap B_j=\emptyset$ and $\bigcup_{i=1}^{n}B_i=\Omega$), then:
+    $$P[A]=\sum_{i=1}^{n}P[A|B_i]P[B_i]$$
+\end{definition}
+\textbf{Proof:} 
+\begin{align*}{}{}
+P[A]=P[A\cap B]+P[A\cap B^c]&=P[A|B]P[B]+P[A|B^c]P[B^c]\\
+\end{align*}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item draw balls randomly from box A(3B2W) to B(4B3W) ,then draw from B randomly,P[The second draw is Black]
+ \\By Law of total probability: P=P[2nd Black|1st Black]P[1st Black]+P[2nd Black|1st White]P[1st White]\\
+ =$ \frac{5}{8}\times \frac{3}{5}+\frac{1}{2}\times\frac{2}{5}=\frac{23}{40} $ 
+ \end{enumerate}
+\end{example}
+\textbf{Reverse Question:}  
+\\If A happens, which $ B_i $ is the most likely? \textbf{Bayes' Formula:}
+$$
+    P[B_i|A]=\frac{P[B_i\cap A]}{P[A]}=\frac{P[A|B_i]P[B_i]}{\sum_{i=1}^{n}P[A|B_i]P[B_i]}
+$$ 
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item Covid Test:\begin{itemize}
+ \item false negative:P[negative|infected]=0.05
+ \item false positive:P[positive|not infected]=0.01
+ \end{itemize}
+ Suppose 5\% of the population are infected, then P[infected|positive]=?
+ \\\begin{solution}
+   $$ P[V|P]=\frac{P[P|V]P[V]}{P[P|V]P[V]+P[P|V^c]P[V^c]}=\frac{5}{6}$$
+ \end{solution}
+ \item Prisoner parados:A,B,C
+ \end{enumerate}
+\end{example}
+\begin{definition}[Independence]{}
+\begin{align*}{}{}
+P[A|B]=P[A]
+\end{align*} then we say A and B are independent
+\\Two events A and B are independent iff $$
+    P[A\cap B]=P[A]P[B]
+$$ 
+(A,B independent $\Rightarrow A^c,B$ independent)
+\end{definition}
+\begin{definition}[Multiple events Independence]{}
+The events $A_1,A_2,\cdots,A_n$ are independent iff $$
+    P[A_{1}\cap A_{2}\cap\cdots\cap A_{n}]=P[A_1]P[A_{2}]\cdots P[A_{n}]$$
+Notice: Stronger than the condition$
+    P[A\cap B]=P[A]P[B]
+$ (pairwise independence)
+\end{definition}
+\begin{example}[pairwise independence<Independence]{}
+ $ x_1,x_2,x_3 $ are coin flips:
+ \begin{align*}{}{}
+ P(x_i=1)&=P(x_i=0)=\frac{1}{2}\\
+ A_1&=\{x_2=x_3\},A_2=\{x_1=x_3\},A_3=\{x_1=x_2\}\\
+ P[A_i]&=\frac{1}{2},P[A_i\cap A_j]=P[x_1=x_2=x_3]=\frac{1}{4}=P[A_i]P[A_j]\text{ pairwise independent}\\
+    P[A_1\cap A_2\cap A_3]&=P[x_1=x_2=x_3]=\frac{1}{4} \text{ not independent}
+ \end{align*}
+\end{example}
+\begin{example}[Independence]{}
+ Independent trials, each with success probability p, fail probability 1-p\\
+ $P_{n,m}[\underbrace{\text{ first n success }}_{A_{n,m}}$ occured before first m failures]=?
+ \begin{solution}
+    (Pascal)\\
+By Law of total probability: \begin{align*}
+    P[A_{n,m}]&=P[A_{n,m}|\text{ 1st success }]P[1\text{st success}]+P[A_{n,m}|\text{ 1st failure }]P[1\text{st failure}]  \\
+&=P[A_{n-1,m}]\cdot P+P[A_{n,m-1}]\cdot (1-P)\\
+\Rightarrow P_{n,m}&=P_{n-1,m}\cdot P+P_{n,m-1}\cdot (1-P)\\
+\text{Boundary condition:}P_{0,m}&=(1-P)^m,P_{n,0}=0
+\end{align*}
+Or building generating function
+ \end{solution}
 \end{example}
  
