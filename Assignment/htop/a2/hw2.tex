@@ -240,6 +240,38 @@ Substituting the count and dividing by the total number of arrangements, we obta
 \textbf{The probabilistic method}. 10 per cent of the surface of a sphere is coloured blue, the rest is red.
 Show that, irrespective of the manner in which the colours are distributed, it is possible to inscribe a cube in S with all its vertices red.
 \begin{proof}
+    Let the sphere \(S\) be partitioned into a blue region \(B\) and a red region, with 
+    \[
+    \frac{|B|}{|S|} = 0.1.
+    \]
+    Fix a standard cube inscribed in \(S\) so that its 8 vertices lie on \(S\). For every rotation \(R\) (with \(R\) uniformly distributed over \(\mathrm{SO}(3)\)), denote its vertices by 
+    \[
+    v_1(R), v_2(R), \dots, v_8(R).
+    \]
+    Define the event 
+    \[
+    E_i = \{ R \in \mathrm{SO}(3) \mid v_i(R) \in B \}, \quad i = 1,2,\dots,8.
+    \]
+    Since the distribution of each vertex is uniform on \(S\), we have
+    \[
+    P(E_i) = 0.1 \quad \text{for each } i.
+    \]
+    
+    Suppose for contradiction that every rotation \(R\) results in at least one vertex landing in \(B\). Then
+    \[
+    \mathrm{SO}(3) = \bigcup_{i=1}^{8} E_i.
+    \]
+    By the Inclusion-Exclusion Principle,
+    \[
+    P\Bigl(\bigcup_{i=1}^{8} E_i\Bigr) 
+    \le \sum_{i=1}^{8} P(E_i) 
+    = 8\times 0.1 = 0.8.
+    \]
+    Thus, the probability that a rotation \(R\) yields no vertex in \(B\) is
+    \[
+    P\Bigl(\bigcap_{i=1}^{8} E_i^c\Bigr) = 1 - P\Bigl(\bigcup_{i=1}^{8} E_i\Bigr) \ge 1 - 0.8 = 0.2 > 0.
+    \]
+    This positive probability implies that there exists at least one rotation \(R\) such that none of the vertices fall in the blue region; that is, they all lie in the red region.
     
 \end{proof}
 \subsection*{Problem 4}
@@ -280,6 +312,30 @@ $$\begin{aligned}
 Let $m$ be Lebesgue measure on [0,1], and $0 \leq a \leq b \leq c \leq d \leq 1$ such that $a+d \geq b+c$. Give an example of a sequence of sets $A_1, A_2, \cdots$ in [0,1], such that $m(\liminf_n A_n) = a$, $\liminf_n m(A_n) = b$, $\limsup_n m(A_n) = c$ and $m(\limsup_n A_n) = d$.
 \begin{proof}
     
+    Define
+    \[
+    I = [0,a] \quad \text{and} \quad E = [a,d].
+    \]
+    Let \(\alpha\) be any irrational number(say $ \sqrt{2} $ ) and let \(\{ n\alpha \}\) denote the fractional part of \(n\alpha\). For each \(n\in\mathbb{N}\), set
+    \[
+    X_n =
+    \begin{cases}
+    \displaystyle \left[\,a+(d-a)\{n\alpha\},\; a+(d-a)\{n\alpha\}+(b-a)\,\right], & \text{if } n \text{ is even},\\[1ex]
+    \displaystyle \left[\,a+(d-a)\{n\alpha\},\; a+(d-a)\{n\alpha\}+(c-a)\,\right], & \text{if } n \text{ is odd},
+    \end{cases}
+    \]
+    and define
+    \[
+    A_n = I \cup X_n.
+    \]
+    
+    Then we can have
+    \[
+    m\Bigl(\liminf_{n\to\infty} A_n\Bigr)=a,\quad
+    \liminf_{n\to\infty} m(A_n)=b,\quad
+    \limsup_{n\to\infty} m(A_n)=c,\quad
+    m\Bigl(\limsup_{n\to\infty} A_n\Bigr)=d.
+    \]
 \end{proof}
 \subsection*{Problem 6}
 Let $\Omega = \mathbb{R}$ and consider the following subsets of $\mathcal{P}(\mathbb{R})$:
