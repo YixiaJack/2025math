@@ -893,6 +893,43 @@ By Law of total probability: \begin{align*}
 \text{Boundary condition:}P_{0,m}&=(1-P)^m,P_{n,0}=0
 \end{align*}
 Or building generating function
+\\(Fermat):
+\\\{First n success before first m failure\} 
+\\$ \Leftrightarrow $ \{at least n success in the first m+n-1 trials\} (ex)
+\\$ P[\text{exact k success in n+m-1 trials}]=\binom{n+m-1}{k}p^k(1-p)^{m+n-1-k} $ Binomial distribution
+\\$ \Rightarrow P[\text{at least n success in the first m+n-1 trials}]=\sum_{k=n}^{m+n-1}\binom{n+m-1}{k}p^k(1-p)^{m+n-1-k}  $  
  \end{solution}
 \end{example}
- 
+ \begin{example}[]{}
+  Multiple choice test, m options, p-knows the answer, 1-p random guess\\
+  P[knows the answer|correct]=$ \frac{p}{p+(1-p)(\frac{1}{m})}=\frac{mp}{mp+1-p} $ Bayes
+ \end{example}
+ \begin{example}[]{}
+  Gambler's ruin:
+  \\ bet 1 dollar each time, p-win, 1-p-lose, initial amount of money=$ i\in[0,N] $
+  \\$ P_i[\text{Reach N before reaching 0}]= $  win times=N-i+lose times,
+  Method2: $ p_i=pp_{i+1}+(1-p)p_{i-1} $
+  \\characteristic polynomials: take $p_i=cr^i $
+  \begin{align*}{}{}
+  pr^2-r+(1-p)=0\\
+  r=1,\frac{1-p}{p}\\
+  \text{if }p\neq 1-p,&\text{ then }p_i=c_1+c_2(\frac{1-p}{p})^i\\
+    \text{if }p=1-p,&\text{ then }p_i=c_1+c_2i, c_1,c_2\text{ determined by }p_0 ,p_N
+  \end{align*} 
+ \end{example}
+ One dimentional random walk:
+ \begin{align*}{}{}
+ S_n=S_0+X_1+X_2+\cdots+X_n\\
+    X_i\text{ are i.i.d. } P(X_i=1)=P,P(X_i=-1)=1-P
+    \end{align*}
+    \begin{example}[]{}
+    secretary problem:
+    \\N candidates
+    \\After each interview, immediately make offer or rejection
+    \\what is the best strategy
+    \\maximize $ P[\text{best candidate is offered}] $ 
+    \begin{solution}
+        Not making offer to first r candidate, make an offer to the next candidate that is better than \{1,2,...r\}
+        \\$ P[\text{Best candidate is offered}]=\sum_{i=0}^{N}\underbrace{P[\text{best candidate is i}]}_{\frac{1}{N}}P[\text{Best candidate is offerd|Best candidate=i}] $ 
+    \end{solution}
+    \end{example}

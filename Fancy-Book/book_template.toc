@@ -33,26 +33,26 @@
 \contentsline {subsection}{\numberline {2.6.1}Special Case:}{37}{subsection.2.6.1}%
 \contentsline {section}{\numberline {2.7}Lecture 5 (02-17)}{38}{section.2.7}%
 \contentsline {section}{\numberline {2.8}Lecture 6 (02-19)-{Conditional Probability}}{41}{section.2.8}%
-\contentsline {chapter}{\numberline {3}Partial Differential Equations}{44}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{44}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{44}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{44}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{45}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{45}{subsection.3.1.4}%
-\contentsline {subsubsection}{Stationary waves}{45}{section*.5}%
-\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{46}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}uniform transport}{46}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{48}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{51}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{53}{subsection.3.3.1}%
-\contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{58}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Exercises}{59}{subsection.3.4.1}%
-\contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{62}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Lecture 6 (02-19)--{Fourier Series}}{65}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Fourier Series}{66}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Fourier Series 2}{68}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Algorithm}{70}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{70}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{71}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Recitation 02}{75}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Lecture 2 (02-19) -- {Divide and Conquer}}{76}{section.4.4}%
+\contentsline {chapter}{\numberline {3}Partial Differential Equations}{45}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{45}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{45}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{45}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{46}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{46}{subsection.3.1.4}%
+\contentsline {subsubsection}{Stationary waves}{46}{section*.5}%
+\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{47}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}uniform transport}{47}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{49}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{52}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{54}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{59}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Exercises}{60}{subsection.3.4.1}%
+\contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{63}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Lecture 6 (02-19)--{Fourier Series}}{66}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Fourier Series}{67}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Fourier Series 2}{69}{subsection.3.6.2}%
+\contentsline {chapter}{\numberline {4}Algorithm}{71}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{71}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{72}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Recitation 02}{76}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Lecture 2 (02-19) -- {Divide and Conquer}}{77}{section.4.4}%
