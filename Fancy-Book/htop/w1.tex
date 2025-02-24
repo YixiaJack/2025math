@@ -853,9 +853,35 @@ $$
  \\\begin{solution}
    $$ P[V|P]=\frac{P[P|V]P[V]}{P[P|V]P[V]+P[P|V^c]P[V^c]}=\frac{5}{6}$$
  \end{solution}
- \item Prisoner parados:A,B,C
+ \item Prisoner parados:A,B,C. 2 executed, 1 pardoned.
+ \\A asked :"Please tell me the name of someone else who will be executed"
+ \\Guard:"B will be executed"
+ \\P[A survive|B will be executed]=?
+ \begin{solution}
+    \begin{align*}{}{}
+    P[A|\text{Guard says B}]&=\frac{P[\text{Guard says B}|A]P[A]}{P[\text{Guard says B}|A]P[A]+P[\text{Guard says B}|B]P[B]+P[\text{Guard says B}|C]P[C]}\\
+    &=\frac{\frac{1}{6}}{\frac{1}{6}+0+\frac{1}{3}}=\frac{1}{3}
+    \end{align*}
+\begin{solution}
+    \begin{align*}{}{}
+    \Omega&=\{(\text{survive person,name mentioned by Guard})\}\\
+    &=\begin{cases}
+        (A,B),&\frac{1}{6}\\
+        (A,C),&\frac{1}{6}\\
+        (B,C),&\frac{1}{3}\\
+        (C,B),&\frac{1}{3}\\
+    \end{cases}
+    P[A|B]=\frac{P(A,B)}{P(B)}=\frac{\frac{1}{6}}{\frac{1}{6}+\frac{1}{3}}=\frac{1}{3}
+    \end{align*}
+\end{solution}
+ \end{solution}
+ \item Two envelope problem:X,2X ,switch or not?
+ \begin{itemize}
+ \item 
+ \end{itemize}
  \end{enumerate}
 \end{example}
+\section{Lecture 7 (02-21)-{Independence}}
 \begin{definition}[Independence]{}
 \begin{align*}{}{}
 P[A|B]=P[A]
@@ -923,13 +949,134 @@ Or building generating function
     X_i\text{ are i.i.d. } P(X_i=1)=P,P(X_i=-1)=1-P
     \end{align*}
     \begin{example}[]{}
-    secretary problem:
+        \begin{enumerate}[label=\circled{\arabic*}] 
+            \item secretary problem:
     \\N candidates
     \\After each interview, immediately make offer or rejection
     \\what is the best strategy
     \\maximize $ P[\text{best candidate is offered}] $ 
     \begin{solution}
         Not making offer to first r candidate, make an offer to the next candidate that is better than \{1,2,...r\}
-        \\$ P[\text{Best candidate is offered}]=\sum_{i=0}^{N}\underbrace{P[\text{best candidate is i}]}_{\frac{1}{N}}P[\text{Best candidate is offerd|Best candidate=i}] $ 
+        \\ P[{Best candidate is offered}]\\$=\sum_{i=0}^{N}\underbrace{P[\text{best candidate is i}]}_{\frac{1}{N}}P[\text{Best candidate is offerd|Best candidate=i}] $ 
     \end{solution}
+         \end{enumerate}
     \end{example}
+    \section{Lecture 7 (02-24)-{Random walk}}
+    \begin{definition}[1-dimentional random wlk]{}
+    $ S_n=S_0+x_1+x_2+\cdots+x_n \text{ }(x_i)$ i.d.d(independent+identically distributed)\\
+    $ P(x_i=1)=p,P(x_i=-1)=1-p $
+    \end{definition}
+    Generalization: 2-D(simple) random walk
+    $ S_n=S_0+x_1+x_2+\cdots+x_n \text{ }(x_i)$ i.d.d
+    $$
+        P(x_i=\pm e_1)=P(x_i=\pm e_2)=\frac{1}{4}
+    $$ 
+    P[random walk(starting at (i,j)) exit the boundary through A]=?
+    \\By conditioning, $ P_{i,j}=\frac{1}{4}P_{i+1,j}\frac{1}{4}P_{i-1,j}+\frac{1}{4}P_{i,j-1}+\frac{1}{4}P_{i,j+1} $ \\
+    Boundary condition: $ P_{i,j}=1 $ if $ (i,j)\in A $ , and $ P_{i,j}=0 $ otherwise
+    \\We have \begin{align*}{}{}
+        P_{i,j}&=\frac{1}{4}P_{i+1,j}\frac{1}{4}P_{i-1,j}+\frac{1}{4}P_{i,j-1}+\frac{1}{4}P_{i,j+1}\\
+        \Leftrightarrow &\frac{1}{4}(P_{i+1,j}+P_{i-1,j}-2P_{i,j})+\frac{1}{4}(P_{i,j-1}+P_{i,j+1}-2P_{i,j})&=0\\
+        \Leftrightarrow \Delta P&=0\\
+        \text{Discrete Laplacian on } &Z^2,\\
+        \Delta P(x)&=\sum_{y\approx x}\frac{1}{4}(P(y)-P(x))
+    \end{align*} 
+\subsection{Random Variable and Measurable functions}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item 2 coinflips, $\Omega=\{HH,TT,HT,TH\} ,f=P(\Omega)  $ 
+ X= \#heads,then we may write $ X:\Omega\rightarrow \mathbb{N},X=2\cdot 1_{HH}+1_{HT}+1_{TH} $ 
+ $$
+    P(X\leq x)=P(\{\omega\in \Omega:X(\omega\leq x)\})
+ $$ It is called the distribution function of X (right continuous increasing function)
+ \end{enumerate}
+\end{example}
+\begin{definition}[]{}
+Let $ (\Omega_1, F_1),(\Omega_2, F_2) $ be two measurable space
+\begin{itemize}
+\item A map $ X:\Omega_1\rightarrow\Omega_2 $ is called measurable iff $ \forall A \in F_2,X^{-1}\in F_1 $ , $ X^{-1}=\{\omega\in \Omega_1:X(\omega)\in A\} $ 
+\item if $(\Omega_1, F_1,P)$ is a probability space,then a measurable funtion $ X:\Omega_1\rightarrow\Omega_2 $ is called a random variable
+\item if $(\Omega_2, F_2) =(R,B(R))$ then a measurable function is called a Borel funtion
+\item if $X:(\Omega_1, F_1,P)\rightarrow (R,B(R))$ then X is a R-valued random variable and $$
+    F_X(x)=P(X^{-1}(-\infty,x])=P(X\leq x)
+$$ is called the distribution function of X
+\end{itemize} 
+\end{definition}
+\textbf{Remark:}
+By (a), we know that for any $ B\in B(R) $ we can define $ P(X^{-1}(B)) $  
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item Let $ (\Omega, F,P) $ be a probability space,$ A\in F $ \\
+ Then $ 1_A:\Omega\rightarrow \{0,1\} $ is a random variable, $ 1_A(\omega)=\begin{cases}
+    1, & \text{if }\omega\in A\\
+    0, & \text{if }\omega\in A^c
+ \end{cases} $ 
+ We need to show $ \forall B\in B(R),1_A^{-1}(B)\in F $ \\
+ In fact, $1_A^{-1}(B)=\begin{cases}
+    \emptyset, & \text{if }0,1\notin B\\
+    A, & \text{if }1\in B,0\notin B\\
+    A^c, & \text{if }0\in B,1\notin B\\
+    \Omega, & \text{if }0,1\in B \end{cases}$
+ \end{enumerate}
+\end{example}
+In practice, only need to check the pre-image on a smaller set:
+\begin{proposition}[]{}
+    Let $ (\Omega_1, F_1),(\Omega_2, F_2) $ be two measurable space
+    \\$ \mathcal{E}\subseteq F_2 $ such that $ \sigma(\mathcal{E})=F_2 $
+    \\Then $ X:\Omega_1\rightarrow\Omega_2 $ is measurable if $ \forall A\in \mathcal{E}, X^{-1}(A)\in F_2 $   
+\end{proposition}
+\begin{proof}
+    Let $ G=\{B\subseteq \Omega_2,X^{-1}(B)\in F_1\} $
+    \\Then G is a $ \sigma $-algebra (ex)
+    \\Therefore if $ G\supseteq \mathcal{E}\text{ then }G\supseteq \sigma(\mathcal{E})=F_2 $  
+\end{proof}
+\begin{corollary}
+    Let($\Omega, F $) be a measurable space, then $ X:\Omega\rightarrow R $ is a Borel function iff the following are true.
+    \begin{itemize}
+    \item $\{x<a\}\in F \text{ for } \forall a \in R$
+    \item $\{x\leq a\}\in F \text{ for }  \forall a \in R  $
+    \item $\{x> a\}\in F \text{ for }  \forall a \in R  $  
+    \item $\{x\geq a\}\in F \text{ for } \forall a \in R  $ 
+    \end{itemize}
+\end{corollary}
+\begin{proof}
+    $ \{x<a,a\in\mathbb{R}\}=\{X^{-1}(-\infty, a),a\in\mathbb{R}\} $ 
+    \\suffices to show:$ \mathcal{E}=\{ (-\infty, a),a\in\mathbb{R}\} $ 
+    \\satisfies $ \sigma(\mathcal{E})=B(\mathbb{R}) $
+    \\indeed: \begin{align}
+    [a,+\infty) &=(-\infty,a)^c\in \sigma(\mathcal{E})\\
+[a,b)&=[a,+\infty)\backslash(b,+\infty)=(-\infty,a)^c\backslash(-\infty,b)^c\in \sigma(\mathcal{E})\\
+\Rightarrow \sigma(\mathcal{E})&=B(R)
+    \end{align}
+\end{proof}
+\begin{remark}[]{}
+a R-valued random variable is a function $ X:\Omega\rightarrow\mathbb{R} $ such that $ \forall a\in\mathbb{R},\{X< a\}\in F $
+\end{remark}
+\begin{lemma}[]{}
+A distribution funtion F satisfies:
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $ \lim_{x\rightarrow-\infty}F(x)=0,\lim_{x\rightarrow+\infty}F(x)=1 $ 
+ \item $ F(x)\leq F(y) \text{ if }x\leq y $ 
+ \item F is right continuous,$ F(x+h)\rightarrow F(x) $ as h decreases to 0
+ \end{enumerate}
+\end{lemma}
+\begin{proof}
+   $ F(x)=P(X\leq x)$ (2) is immediate\\
+   (1): Let $ A_n=\{x\leq -n\} $ then by continuous of measure:$ lim_{n\rightarrow+\infty}=\lim_{n\rightarrow+\infty}=P(\bigcap_{n\geq1}A_n)=0 $  
+   \\Then by monotonicity of F, $ lim_{x\rightarrow-\infty}F(x)=0 $
+   \\(3): Let $ B_n=\{X\leq x+\frac{1}{n}\}(\text{decreaing}), $\\ then $ F(x+\frac{1}{n})=P(B_n) \underbrace{\rightarrow}_{n\rightarrow+\infty,cont.}P(\bigcap_{n\geq1}B_n)=P(X\leq  x)=F(x) $ 
+   \\again use F increasing to conclude 
+\end{proof}
+\begin{lemma}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $F(y)-F(x)=P(x<X\leq y),\forall x\leq y$
+ \item $ F(x)-\lim_{h\rightarrow+\infty}F(x-h)=P(X=x) $
+ \item $ B_n=\{x-\frac{1}{n}<X\leq x\}(\text{decreaing}) $,Then $ \bigcap_{n\geq1}B_n=\{X=x\} $
+ \\$\Rightarrow F(x)-F(x-\frac{1}{n})=P(B_n)\underbrace{\rightarrow}_{n\rightarrow+\infty}P(X=x)$ \\again use F increasing to conclude
+    \end{enumerate}
+\end{lemma}
+Naturally: 
+\begin{itemize}
+\item (absolute) continuous random variable
+\item discrete random variable
+\end{itemize}

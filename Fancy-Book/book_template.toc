@@ -1,58 +1,65 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Functions of Complex Variables}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Lecture 1 (02-03) -- {Complex numbers}}{3}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Introduction}{3}{subsection.1.1.1}%
-\contentsline {section}{\numberline {1.2}Lecture 2 (02-05) -- {Complex numbers}}{4}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}The algebra of complex numbers}{4}{subsection.1.2.1}%
-\contentsline {section}{\numberline {1.3}Recitation 1(02-07)}{7}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Lecture 3 (02-10) -- {Algebraic Structure of Complex numbers}}{8}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Algebraic Structure of Complex numbers}{8}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Square roots}{9}{subsection.1.4.2}%
-\contentsline {section}{\numberline {1.5}Lecture 4 (02-12) -- {Conjugation and absolute value}}{11}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Recitation 2 (02-14)}{13}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Lecture 5 (02-17) -- {The geometric representation of complex numbers}}{15}{section.1.7}%
-\contentsline {subsection}{\numberline {1.7.1}Geometric multiplication}{16}{subsection.1.7.1}%
-\contentsline {subsection}{\numberline {1.7.2}The binomial equation}{16}{subsection.1.7.2}%
-\contentsline {subsection}{\numberline {1.7.3}Roots of complex numbers}{17}{subsection.1.7.3}%
-\contentsline {section}{\numberline {1.8}Lecture 6 (02-19) -- {Riemann sphere}}{18}{section.1.8}%
-\contentsline {chapter}{\numberline {2}Honors Theory of Probability }{20}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Lecture 1 (02-03) -- {Introduction to Probability}}{20}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Intro}{20}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Probability Space}{21}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}Lecture 2 (02-05) -- {Algebra}}{22}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}algebra and $\sigma $-algebra}{22}{subsection.2.2.1}%
-\contentsline {section}{\numberline {2.3}Recitation 1 (02-07) -- {Problem Solving (Algebra)}}{25}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Basic Set Theory}{25}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Limits of Sets}{25}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Exercise}{26}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Lecture 3 (02-10)--(Content and Measure)}{28}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Content and Measure}{29}{subsection.2.4.1}%
-\contentsline {section}{\numberline {2.5}Lecture 4 (02-12)--{Measure and Extension}}{32}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}$ \pi $ and $\lambda $ system }{35}{subsection.2.5.1}%
-\contentsline {section}{\numberline {2.6}Recitation 2 (02-14)-Exercise}{36}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Special Case:}{37}{subsection.2.6.1}%
-\contentsline {section}{\numberline {2.7}Lecture 5 (02-17)}{38}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Lecture 6 (02-19)-{Conditional Probability}}{41}{section.2.8}%
-\contentsline {chapter}{\numberline {3}Partial Differential Equations}{45}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{45}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{45}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{45}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{46}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{46}{subsection.3.1.4}%
-\contentsline {subsubsection}{Stationary waves}{46}{section*.5}%
-\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{47}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}uniform transport}{47}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{49}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{52}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{54}{subsection.3.3.1}%
-\contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{59}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Exercises}{60}{subsection.3.4.1}%
-\contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{63}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Lecture 6 (02-19)--{Fourier Series}}{66}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Fourier Series}{67}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Fourier Series 2}{69}{subsection.3.6.2}%
-\contentsline {chapter}{\numberline {4}Algorithm}{71}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{71}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{72}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Recitation 02}{76}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Lecture 2 (02-19) -- {Divide and Conquer}}{77}{section.4.4}%
+\contentsline {chapter}{\numberline {1}Functions of Complex Variables}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Lecture 1 (02-03) -- {Complex numbers}}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Introduction}{2}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}Lecture 2 (02-05) -- {Complex numbers}}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}The algebra of complex numbers}{3}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}Recitation 1(02-07)}{6}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Lecture 3 (02-10) -- {Algebraic Structure of Complex numbers}}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Algebraic Structure of Complex numbers}{7}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Square roots}{8}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}Lecture 4 (02-12) -- {Conjugation and absolute value}}{10}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Recitation 2 (02-14)}{12}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Lecture 5 (02-17) -- {The geometric representation of complex numbers}}{14}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Geometric multiplication}{15}{subsection.1.7.1}%
+\contentsline {subsection}{\numberline {1.7.2}The binomial equation}{15}{subsection.1.7.2}%
+\contentsline {subsection}{\numberline {1.7.3}Roots of complex numbers}{16}{subsection.1.7.3}%
+\contentsline {section}{\numberline {1.8}Lecture 6 (02-19) -- {Riemann sphere}}{17}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Lecture 7 (02-24) -- {Complex function}}{18}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}analiticity}{19}{subsection.1.9.1}%
+\contentsline {chapter}{\numberline {2}Honors Theory of Probability }{21}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Lecture 1 (02-03) -- {Introduction to Probability}}{21}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Intro}{21}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Probability Space}{22}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Lecture 2 (02-05) -- {Algebra}}{23}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}algebra and $\sigma $-algebra}{23}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Recitation 1 (02-07) -- {Problem Solving (Algebra)}}{26}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Basic Set Theory}{26}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Limits of Sets}{26}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Exercise}{27}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Lecture 3 (02-10)--(Content and Measure)}{29}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Content and Measure}{30}{subsection.2.4.1}%
+\contentsline {section}{\numberline {2.5}Lecture 4 (02-12)--{Measure and Extension}}{33}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}$ \pi $ and $\lambda $ system }{36}{subsection.2.5.1}%
+\contentsline {section}{\numberline {2.6}Recitation 2 (02-14)-Exercise}{37}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Special Case:}{38}{subsection.2.6.1}%
+\contentsline {section}{\numberline {2.7}Lecture 5 (02-17)}{39}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Lecture 6 (02-19)-{Conditional Probability}}{42}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Lecture 7 (02-21)-{Independence}}{43}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Lecture 7 (02-24)-{Random walk}}{45}{section.2.10}%
+\contentsline {subsection}{\numberline {2.10.1}Random Variable and Measurable functions}{46}{subsection.2.10.1}%
+\contentsline {chapter}{\numberline {3}Partial Differential Equations}{49}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{49}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{49}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{49}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{50}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{50}{subsection.3.1.4}%
+\contentsline {subsubsection}{Stationary waves}{50}{section*.5}%
+\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{51}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}uniform transport}{51}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{53}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{56}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{58}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{63}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Exercises}{64}{subsection.3.4.1}%
+\contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{67}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Lecture 6 (02-19)--{Fourier Series}}{70}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Fourier Series}{71}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Fourier Series 2}{73}{subsection.3.6.2}%
+\contentsline {section}{\numberline {3.7}Lecture 7 (02-24)}{74}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Complex Fourier series}{75}{subsection.3.7.1}%
+\contentsline {chapter}{\numberline {4}Algorithm}{77}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{77}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{78}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Recitation 02}{82}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Lecture 2 (02-19) -- {Divide and Conquer}}{83}{section.4.4}%

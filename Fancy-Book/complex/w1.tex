@@ -601,3 +601,69 @@ For $ \alpha_3\neq\alpha_0 $, this is the equation of a circle in $ \mathbb{C} $
     d(z,z')=||S^{-1}(z)-S^{-1}(z')||_2=\frac{2|z-z'|}{\sqrt{(1+|z|^2)(1+|z'|^2)}}
 $$  
 This notion of distance is a metric which is equivalent to the metric in $ \mathbb{C} $ included by the Euclidean norm.
+\section{Lecture 7 (02-24) -- {Complex function}}
+Analysis of complex functions:differentiable,etc
+$ R\rightarrow R,R\rightarrow C, C\rightarrow R, C\rightarrow C $ 
+\\$  C\rightarrow C $ :continuity, differentiability$ \Leftrightarrow $analiticity
+\\twice differentiability,$ \infty $ differentiability($ C^{\infty}(\mathbb{R}) $)
+\begin{definition}[analiticity]{}
+$f(x+h)=\sum_{n=0}^{\infty}\frac{h^n}{n!}f^{(n)}(x)$
+\end{definition} 
+\begin{definition}[continuity]{}
+Consider a funtion f:$ C\rightarrow C $, then we say f has a limit L when x tends to a ,written as$$
+    \lim_{z\rightarrow a}f(z)=L
+$$  
+if $ \forall \epsilon>0,\exists \delta $ s.t. $ |f(z)-L|<\epsilon\text{ whenever } |z-a|<\delta  $
+\\we say that f is continuous at a if $ \lim_{z\rightarrow a}f(z)=f(a) $
+\\we say that f is continuous if it is continuous at every point where it is defined.
+\end{definition} 
+\textbf{Comments:}
+This defination of continuity is the standard defination of continuity in a topology space. In this case, the topological space is$$
+    (C,T)\rightarrow (C,T) \Leftrightarrow \text{ f is continuous iff } f^{-1}(0)\text{ is open in } 0\in T \text{ open}
+$$ T is the subset of C which are open sets: a union of open balls $ B(z,r)=\{z'\in C,|z-z'|<v\} $ 
+\subsection{analiticity}
+\begin{definition}[differentiability and analiticity]{}
+Given $ f:C\rightarrow C $ we say that f is differentiable at $ a\in C $ if the limit exists: $$
+    \lim_{h\rightarrow0}\frac{f(a+h)-f(a)}{h}=\lim_{z\rightarrow a}\frac{f(z)-f(a)}{z-a}=f'(a)
+$$   
+We say that f is analytic if it is differentiable at every point where it is defined.
+\end{definition}
+\textbf{Comments:}
+In general, we will assume that the set of point where $f: C\rightarrow C $ is defined is an open set ($ O=\bigcup B(x,\epsilon_x) $ )
+\\In particular, this is being assumed in the defination grown above.
+\\If f is differentiable at a, then f is continuous at a.
+\begin{align*}{}{}
+f(z+h)-f(z)&=\frac{f(z+h)-f(z)}{h}h\\
+\rightarrow |f(z+h)-f(z)|&\leq \underbrace{|\frac{f(z+h)-f(z)}{h}}_{|f'(z)|}\underbrace{||h|}_{\rightarrow0}
+\end{align*}
+Of course f'(z) when it exists is called the derivative of f at z.\\
+$ f:C\rightarrow C $  f is differentiable at $ z=x+iy $ 
+\begin{align*}{}{}
+f(z)=u(x,y)+iv(x,y)
+\end{align*}
+Then \begin{align*}{}{}
+f'(z)&=\lim_{h\in \mathbb{R}\rightarrow0}\frac{f(z+h)-f(z)}{h}\\
+&=\lim_{h\rightarrow0}\frac{u(x+h,y)+iv(x+h,y)-u(x,y)-iv(x,y)}{h}\\
+&=\lim_{h\rightarrow0}\frac{u(x+h,y)-u(x,y)}{h}+i\lim_{h\rightarrow0}\frac{v(x+h,y)-v(x,y)}{h}\\
+&=\pdv{u}{x}+i\pdv{v}{x}
+\end{align*}  
+On the other hand,
+\begin{align*}{}{}
+    f'(z)&=\lim_{k\rightarrow0}\frac{f(z+ik)-f(z)}{ik}\\
+    &=\lim_{k\rightarrow0}\frac{u(x,y+k)+iv(x,y+k)-u(x,y)+iv(x,y)}{ik}\\
+&=\frac{1}{i}\pdv{u}{y}+\pdv{v}{y}\\
+&=\pdv{v}{y}-i\pdv{u}{y}
+\end{align*} 
+\begin{lemma}[Cauchy-Riemann equations]{}
+Assume that $ f:C\rightarrow C $ is differentiable at z=x+iy with f=u+iv,Then$$
+    \pdv{u}{x}=\pdv{v}{y}\text{ and }\pdv{u}{y}=-\pdv{v}{x}
+$$ 
+\end{lemma}
+\textbf{Comments:}
+Assume that the existence of f'(z) lets me differentiate again $ u_x,u_y,v_x,v_y $. Then,
+$$
+    \Delta u=\pdv[2]{u}{x}+\pdv[2]{u}{y}=\pdv{u}{x}{y}-\pdv{u}{y}{x}=0
+$$ and$$
+    \Delta v=\pdv[2]{v}{x}+\pdv[2]{v}{y}=\pdv{v}{x}{y}-\pdv{v}{y}{x}=0
+$$ 
+u and v should be harmonic.

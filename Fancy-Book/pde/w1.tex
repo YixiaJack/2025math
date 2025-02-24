@@ -958,4 +958,100 @@ f(x)&=\frac{a_0}{2}+\sum_{k=1}^{\infty}[a_k\cos{kx}+b_k\sin{kx}]\\
 &=a_l\\
 b_l&=<f,\sin(lx)>
 \end{align*}
- 
+\section{Lecture 7 (02-24)}
+\begin{definition}[]{}
+The Fourier series of a function $ f:[-\pi,\pi]\rightarrow\mathbb{R} $ is
+$$
+    f\approx \frac{a_0}{2}+\sum_{k=1}^{\infty}[a_k\cos{kx}+b_k\sin{kx}]
+$$ where $ a_k=<f,\cos(kx)>,b_k=<f,\sin(kx)>,k=1,2,\cdots $ 
+\end{definition}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item f(x)=x
+ \begin{align*}{}{}
+ a_k=0,b_k=\frac{2}{k}(-1)^{k+1}\\
+ \text{Therefore },x\approx 2(\sin{x}-\frac{1}{2}\sin{2x}+\frac{1}{3}\sin{3x}-\cdots)
+ \end{align*}
+ \end{enumerate}
+\end{example}
+\begin{definition}[Piecewise continuous function]{}
+A function $ f:[a,b]\rightarrow\mathcal{R} $ is piecewise continuous if it is defined and countinuous except possibily at finite number of points 
+\end{definition}
+\begin{proposition}[even and odd function]{}
+If f is even,then $ b_k=0 $ 
+\\If f is odd, then $ a_k=0 $ 
+\end{proposition}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item \begin{align*}{}{}
+ f(x)=|x|,\text{ even }\\
+ a_k=\begin{cases}
+    0, & \text{ if } k \text{ is even}\\
+    -\frac{4}{\pi k^2}, & \text{ if } k \text{ is odd}
+ \end{cases}
+ \end{align*}
+ by theorem, this series converges to the $ 2\pi $ periodic extension of |x|
+ \begin{align*}{}{}
+ \text{Let }x=0,\text{ we have}\\
+ \frac{\pi^2}{8}=\sum_{k=0}^{\infty}\frac{1}{(2k+1)^2}
+ \end{align*} 
+ \item computing $ \sum_{k=1}^{\infty}\frac{1}{k^2}=S $
+ \begin{align*}{}{}
+ \frac{S}{4}&=\sum_{k=1}^{\infty}\frac{1}{(2k)^2}\\
+ \frac{3}{4}S&=S-\frac{S}{4}=\sum_{k=0}^{\infty}\frac{1}{(2k+1)^2}=\frac{\pi^2}{8}\\
+    S&=\frac{\pi^2}{6}
+ \end{align*} 
+ \end{enumerate}
+\end{example}
+\subsection{Complex Fourier series}
+Euler formulas:
+\begin{align*}{}{}
+e^{-ikx}&=\cos(kx)-i\sin(kx)\\
+\cos(kx)&=\frac{1}{2}(e^{ikx}+e^{-ikx})\\
+\sin(kx)&=\frac{1}{2i}(e^{ikx}-e^{-ikx})
+\end{align*}
+For any $ f,g:[-\pi,\pi]\rightarrow C $ \\
+$ L^2 $-Hermitian inner product defined by$$
+    <f,g>=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)\overline{g(x)}dx
+$$  where $ \overline{g(x)} $ is the complex conjugate of g(x)\\
+$ L^2 $-Hermitian norm is defined by$$
+    ||f||=\sqrt{<f,f>}$$
+Direct computation shows that$$
+        <e^{ikx},e^{iex}>=\begin{cases}
+            1, & \text{ if } k=e\\
+            0, & \text{ if } k\neq e
+        \end{cases}$$
+and $$
+    ||e^{ikx}||=1
+$$ 
+If f is a given continuous (or piecewise continuous) complex function\\
+then$$
+    f \approx \sum_{k=-\infty}^{\infty}c_ke^{ikx}
+$$ with $ c_k=<f,e^{ikx}> $
+\\It is easy to see that\begin{align*}{}{}
+a_k&=c_k+c_{-k}\\
+b_k&=i(c_k-c_{-k})\\
+c_k&=\frac{1}{2}(a_k-ib_k)\\
+c_{-k}&=\frac{1}{2}(a_k+ib_k)\\
+k&=0,1,2,\cdots
+\end{align*}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item Let $ \sigma $ be the step function$$
+    \sigma(x)=\begin{cases}
+        1, & \text{ if } x>0\\
+        0, & \text{ if } x<0
+    \end{cases}
+ $$  
+ then $$
+    c_k=\begin{cases}
+        \frac{1}{\pi i k}, & \text{ if k odd}\\
+        \frac{1}{2}, & \text{ if } k=0\\
+        0,& \text{ if k even} 
+    \end{cases}
+ $$ 
+ $$
+    \sigma(x)\approx \frac{1}{2}-\sum_{k=1}^{\infty}\frac{1}{\pi i k}e^{ikx}
+ $$ 
+ \end{enumerate}
+\end{example}
