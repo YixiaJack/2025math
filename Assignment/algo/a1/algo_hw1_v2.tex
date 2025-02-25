@@ -373,7 +373,60 @@ $$\frac{n}{2} + \left(\frac{n}{2}-1\right) + \left(\frac{n}{2}-1\right) = \frac{
             So we have $ T((m^2)=T(m-0.5)^2)+12\log m -0.25 $ \\
             Let $S(m)=T(m^2)$\\
             So we have $S(m)=S(m-0.5)+12\log m -0.25$\\
-            By master theorem, we have 
+            Since the step is 0.5, we have $S(m)=\Theta(m\log m)$\\
+            So we have $T(n)=\Theta(\sqrt{n}\log \sqrt{n})=\Theta(\sqrt{n}\log n)$
+            \item By recursion tree, the i-th layer has the sum $ \frac{n}{\log \frac{n}{i}} $ and we have $\log n -1 $ layers 
+            \\So we have $T(n) = \sum_{i=0}^{\log n-1} \frac{n}{\log n - i}$
+
+            Let $j = \log n - i$. We have
+            \begin{align*}
+            T(n) &= \sum_{i=0}^{\log n-1} \frac{n}{\log n - i} \\
+            &= \sum_{j=\log n}^{1} \frac{n}{j} \cdot (-1)  \\
+            &= n \sum_{j=1}^{\log n} \frac{1}{j} 
+            \end{align*}
+            
+  we observe that:
+            
+            \begin{align*}
+            \int_{1}^{\log n} \frac{1}{x}\,dx < \sum_{j=1}^{\log n} \frac{1}{j} < 1 + \int_{1}^{\log n} \frac{1}{x}\,dx
+            \end{align*}
+            
+            This gives us:
+            \begin{align*}
+            \ln(\log n) < \sum_{j=1}^{\log n} \frac{1}{j} < 1 + \ln(\log n)
+            \end{align*}
+            
+            In fact, it can be shown that as $n$ grows large:
+            \begin{align*}
+            \sum_{j=1}^{\log n} \frac{1}{j} = \ln(\log n) + \gamma + O\left(\frac{1}{\log n}\right)
+            \end{align*}
+            
+            where $\gamma \approx 0.57721$ is the Euler-Mascheroni constant.
+            
+            Therefore, the original sum has the asymptotic behavior:
+            \begin{align*}
+            T(n) &= n \sum_{j=1}^{\log n} \frac{1}{j} \\
+            &= n \cdot (\ln(\log n) + \gamma + o(1)) \\
+            &= n\ln(\log n) + \gamma n + o(n) \\
+            &= \Theta(n\log\log n)
+            \end{align*}
+            
+            Thus, $T(n) = \Theta(n\log\log n)$.
+            \item Let $ n=2^m,S(m)=T(2^m)=T(n) $, then we have
+            $$
+                S(m)=5\cdot 2^{m/2}\cdot S(m/2)+2^{m+1}
+            $$ 
+            Divide both sides by $2^{m}$, we have
+            \begin{align*}{}{}
+            \frac{S(m)}{2^{m}}&=5\cdot \frac{S(m/2)}{2^{-m/2}}+2\\
+            \text{Let }P(m)&=\frac{S(m)}{2^{m}}\\
+            P(m)&=5\cdot P(m/2)+2\\
+            \text{By master theorem, we have }a&=5, b=2, f(m)=2\\
+            \text{Since }f(m)&=O(m^{\log_2 5-\epsilon}) \text{ for } \epsilon=1\\
+            \text{we have }P(m)&=\Theta(m^{\log_2 5})\\
+            \text{So, }S(m)&=\Theta(2^m\cdot m^{\log_2 5})\\
+            \text{Thus, }T(n)&=\Theta(n\cdot (\log n)^{\log_2 5})\\
+            \end{align*}
         \end{enumerate}
         \item 
     \end{enumerate}
