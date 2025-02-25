@@ -289,32 +289,66 @@ For convenience, let us assume $n$ is even.
     %(\textbf{Hint:} Divide the numbers in $A$ into $n/2$ groups of size 2, compare the two numbers in each group, and then based on the outcome try to find $i_\mathsf{max},i_\mathsf{min}$ with $n-2$ additional comparisons.)
     
     \item[(b)$^\star$] Show that any algorithm has to call the $\textsc{Compare}$ oracle $\frac{3}{2} n - 2$ times in worst case in order to find the largest and smallest numbers in $A$.
-\begin{algorithm}
-        %\textsl{}\setstretch{1.8}
-        \renewcommand{\algorithmicrequire}{\textbf{Input:}}
-        \renewcommand{\algorithmicensure}{\textbf{Output:}}
-        \caption{Finding the maximum/minimum}
-        \label{alg1}
-        \begin{algorithmic}[1]
-            \STATE Initialization:$\left\{ {s_{k,t}^1} \right\},\left\{ {\omega _{k,t}^1} \right\},\lambda _t^1,n \leftarrow 0$
-            \STATE  ${s_{r,t}}\left( \omega  \right) = \int_0^{ + \infty } {{s_r}\left( \tau  \right){w_h}\left( {t - \tau } \right)} \exp \left( {j\omega \tau } \right)d\tau $   (via STFT)
-            \REPEAT
-            \STATE $n \leftarrow n + 1$
-            \STATE Update $ s_{k,t}^{n + 1} $ based on Equation~(\ref{eqn_8})
-            \STATE Update $\omega _{k,t}^{n + 1}$ based on Equation~(\ref{eqn_9})
-            \STATE Update $\lambda _t^{n + 1} $ based on Equation~(\ref{eqn_10})
-            \UNTIL $\sum\limits_{k=1}^P  {{{\left\| {s_{k,t}^{n + 1}\left( \omega  \right) - s_{k,t}^n\left( \omega  \right)} \right\|_2^2} \mathord{\left/
-                        {\vphantom {{\left\| {s_{k,t}^{n + 1}\left( \omega  \right) - s_{k,t}^n\left( \omega  \right)} \right\|_2^2} {\left\| {s_{k,t}^n\left( \omega  \right)} \right\|_2^2}}} \right.
-                        \kern-\nulldelimiterspace} {\left\| {s_{k,t}^n\left( \omega  \right)} \right\|_2^2}}}  < \varepsilon $  
-            \STATE   Update ${s_k}\left( t \right)$ based on Equation~(\ref{eqn_11_12})  (via ISTFT)
-            \ENSURE  $(i_\mathsf{max},i_\mathsf{min})$
-        \end{algorithmic}  
-    \end{algorithm}
-    \smallskip \\
+
 \end{enumerate}
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 2 here.}
+    \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+            \STATE Initialize empty lists: \texttt{CandidatesMax} and \texttt{CandidatesMin}
+            \FOR{$i=1$ to $n-1$ step 2}
+                \IF{\textsc{Compare}$(i, i+1)$ = $i$}
+                    \STATE Append $i$ to \texttt{CandidatesMax}
+                    \STATE Append $i+1$ to \texttt{CandidatesMin}
+                \ELSE
+                    \STATE Append $i+1$ to \texttt{CandidatesMax}
+                    \STATE Append $i$ to \texttt{CandidatesMin}
+                \ENDIF
+            \ENDFOR
+            \STATE $i_\mathsf{max} \gets$ \texttt{CandidatesMax}[0]
+            \FOR{each index $j$ in \texttt{CandidatesMax}}
+                \IF{\textsc{Compare}$(j, i_\mathsf{max})$ = $j$}
+                    \STATE $i_\mathsf{max} \gets j$
+                \ENDIF
+            \ENDFOR
+            \STATE $i_\mathsf{min} \gets$ \texttt{CandidatesMin}[0]
+            \FOR{each index $j$ in \texttt{CandidatesMin}}
+                \IF{\textsc{Compare}$(j, i_\mathsf{min})$ = $i_\mathsf{min}$}
+                    \STATE $i_\mathsf{min} \gets j$
+                \ENDIF
+            \ENDFOR
+            \ENSURE $(i_\mathsf{max}, i_\mathsf{min})$
+        \end{algorithmic}
+        \caption{Find the maximum and minimum indices in array $A$ using at most $\frac{3n}{2} - 2$ comparisons}
+        \end{algorithm}
+        \begin{proof}
+            Let us define two sets:
+\begin{itemize}
+    \item $MAX$: set of elements that could still be the maximum
+    \item $MIN$: set of elements that could still be the minimum
+\end{itemize}
+
+Initially, all $n$ elements belong to both $MAX$ and $MIN$. To determine the maximum and minimum, the algorithm must eliminate $n-1$ elements from $MAX$ and $n-1$ elements from $MIN$, for a total of $2n-2$ eliminations.
+
+The crucial insight is that a single comparison can eliminate at most 2 elements, one from each set. Specifically:
+\begin{itemize}
+    \item When $\textsc{Compare}(i,j)$ returns $i$, we can eliminate $j$ from $MAX$ and $i$ from $MIN$.
+    \item When $\textsc{Compare}(i,j)$ returns $j$, we can eliminate $i$ from $MAX$ and $j$ from $MIN$.
+\end{itemize}
+
+However, this maximum efficiency (eliminating 2 elements per comparison) is only possible when both elements being compared are in $MAX \cap MIN$. Once an element has been eliminated from one set but remains in the other, comparing it can only eliminate at most one element.
+
+The optimal strategy involves first pairing up the elements and comparing each pair. After $\frac{n}{2}$ such comparisons:
+\begin{itemize}
+    \item $\frac{n}{2}$ elements (the winners) remain in $MAX$ but are eliminated from $MIN$
+    \item $\frac{n}{2}$ elements (the losers) remain in $MIN$ but are eliminated from $MAX$
+\end{itemize}
+
+At this point, we've eliminated $\frac{n}{2}$ elements from each set, with $\frac{n}{2}$ elements remaining in each. To determine the maximum, we need to eliminate $\frac{n}{2}-1$ more elements from $MAX$, requiring at least $\frac{n}{2}-1$ additional comparisons. Similarly, determining the minimum requires eliminating $\frac{n}{2}-1$ more elements from $MIN$, needing at least $\frac{n}{2}-1$ more comparisons.
+
+Therefore, the total number of comparisons is at least:
+$$\frac{n}{2} + \left(\frac{n}{2}-1\right) + \left(\frac{n}{2}-1\right) = \frac{3n}{2} - 2$$
+                \end{proof}
 \end{solution}
 
 \problem{3: Solving recurrences [$4 \times 5+5$ pts]}
@@ -331,7 +365,18 @@ For convenience, let us assume $n$ is even.
 \end{enumerate}
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 3 here.}
+    \begin{enumerate}
+        \item
+       \begin{enumerate}
+            \item  By master theorem, we have $a=8, b=3, f(n)=n^{1.5} \log^4 n + 9n$. Since $f(n)=O(n^{\log_3 8-\epsilon})$ for $\epsilon=0.5$, we have $T(n)=\Theta(n^{\log_3 8})$.
+            \item Let $m=\sqrt{n}$, then we have $T(m^2)=T(m^2-m)+12\log m$. \\
+            So we have $ T((m^2)=T(m-0.5)^2)+12\log m -0.25 $ \\
+            Let $S(m)=T(m^2)$\\
+            So we have $S(m)=S(m-0.5)+12\log m -0.25$\\
+            By master theorem, we have 
+        \end{enumerate}
+        \item 
+    \end{enumerate}
 \end{solution}
 \problem{4: Counting intersection points [$10$ pts]}
 Consider two horizontal lines $\ell_0: y = 0$ and $\ell_1:y = 1$ in the plane.
