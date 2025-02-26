@@ -428,7 +428,13 @@ $$\frac{n}{2} + \left(\frac{n}{2}-1\right) + \left(\frac{n}{2}-1\right) = \frac{
             \text{Thus, }T(n)&=\Theta(n\cdot (\log n)^{\log_2 5})\\
             \end{align*}
         \end{enumerate}
-        \item 
+        \item When $n=1$, we have $F_n=1$ and $\phi^{n-2}=\frac{2}{1+\sqrt{5}}$.\\
+        So we have $\phi^{n-2} \leq F_n < \phi^n$ for $n=1$.\\
+        Assume that $\phi^{n-2} \leq F_n < \phi^n$ for $n=k$, \\
+        then we have $F_{k+1}=F_k+F_{k-1}<\phi^k+\phi^{k-1}=\phi^{k-1}(\phi+1)=\phi^{k-1}\phi^2=\phi^{k+1}$\\
+        And $F_{k+1}=F_k+F_{k-1}>\phi^{k-2}+\phi^{k-1}=\phi^{k-2}(\phi+1)=\phi^{k-2}\phi^2=\phi^{k}$
+        So we have $\phi^{n-2} \leq F_n < \phi^n$ for all $n \geq 1$\\
+        Since $\phi^{n}\cdot \underbrace{\phi^{-2}}_{constant} \leq F_n < \phi^n$ for all $n \geq 1$, we have $F_n = \Theta(\phi^n)$
     \end{enumerate}
 \end{solution}
 \problem{4: Counting intersection points [$10$ pts]}

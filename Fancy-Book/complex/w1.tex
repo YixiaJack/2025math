@@ -660,10 +660,80 @@ Assume that $ f:C\rightarrow C $ is differentiable at z=x+iy with f=u+iv,Then$$
 $$ 
 \end{lemma}
 \textbf{Comments:}
-Assume that the existence of f'(z) lets me differentiate again $ u_x,u_y,v_x,v_y $. Then,
+\begin{itemize}
+\item Assume that the existence of f'(z) lets me differentiate again $ u_x,u_y,v_x,v_y $. Then,
 $$
     \Delta u=\pdv[2]{u}{x}+\pdv[2]{u}{y}=\pdv{u}{x}{y}-\pdv{u}{y}{x}=0
 $$ and$$
     \Delta v=\pdv[2]{v}{x}+\pdv[2]{v}{y}=\pdv{v}{x}{y}-\pdv{v}{y}{x}=0
 $$ 
 u and v should be harmonic.
+\item The existence of f'(z) implies the existence of $ u_x,u_y,v_x,v_y $ 
+\begin{itemize}
+\item  $ f'(z)=\pdv{u}{x}+i\pdv{v}{x}=\pdv{v}{y}+i\pdv{v}{x}=\pdv{u}{y}-i\pdv{u}{y} $
+\item  $ |f'(z)|^2=(\pdv{u}{x})^2+(\pdv{u}{y})^2=(\pdv{v}{y})^2+(\pdv{v}{x})^2 $ 
+\end{itemize}
+\end{itemize}
+
+\section{Lecture 8 (02-26)--{polynomial}}
+\begin{definition}[harmonic function]{}
+We say that a function $ u:R^d\rightarrow R ,d\geq1$ is harmonic if it satisfies the Laplace equation$$
+    \Delta u=\pdv[2]{u}{x}+\pdv[2]{u}{y}=0$$
+\end{definition}
+\textbf{Comments:}
+Weyl's Lemma(PDE):
+\\If u is a function that is weakly harmonic, $$
+    \int u \Delta \phi dx=0 ,\forall \phi \text{ smooth}
+$$ 
+Then u is pointwise harmonic and infinitely differentiable.
+\begin{lemma}[]{}
+Assume that u and v are functions which have continuous first order partial derivatives, and that satisfy the Cauchy-Riemann equations\\
+Then $f=u+iv $ is analytic, with a continuous derivative $f'(z)$
+\end{lemma}
+\textbf{Proof:}
+The fact that u and v have continuous partial derivative implies that $ f=(u,v) $ is differentiable$$
+    \frac{f(x+h,y+k)-f(x,y)}{h+ik}=\pdv{f}{x}h+\pdv{f}{y}ik+\mathcal{E}(h,k)\text{ (goes to 0 faster than h+ik)}
+$$  
+\subsection{polynomials}
+The polynomial functions will give us some framework which will enable us to develop some efficient integration techniques.
+\\Two concepts will be important: singularities and zeros of functions.
+\\ a is a zero of f if $ f(a)=0 $
+\\ a is a singularity of f if f is not defined at a.
+\textbf{Comments:}
+\begin{itemize}
+\item The constant function $ f:C\rightarrow C f(z)=constant$ is analytic
+\item The function $ f(z)=z $ is analytic$$
+    f'(z)=\lim_{h\rightarrow0}\frac{f(z+h)-f(z)}{h}=1
+$$ 
+\item $ f(z)=z^2 $ and $ f'(z)=\lim_{h\rightarrow\infty}\frac{(z+h)^2-h^2}{h}=2z $
+\item Similarly, using the binomial theorem, you can show that $ (z^n)'=nz^{n-1} $ 
+\item You can check that the product or the sum of analytic functions is analytic  
+\end{itemize}
+\begin{lemma}[]{}
+Every polyomial $ P:C\rightarrow C $ ,$$
+    P(z)=a_0+a_1z+\cdots+a_nz^n,a_n\neq 0
+$$  is analytic.
+\\Futhermore,
+$$
+    P'(z)=a_1+2a_2z+\cdots+na_nz^{n-1}
+    $$
+\end{lemma}
+\textbf{Comments:}
+We will prove later the fundamental theorem of algebra which states that every complex polynomial has at least one root in C.
+\\Then given the polynomial P(z) of degree n (which means that $ P(z)=a_0+a_1z+\cdots+a_nz^n,a_n\neq 0$)
+can be written as$$
+    P(z)=(z-\alpha_1)Q(z),\text{ where } Q \text{ is a polynomial of degree n-1}
+$$
+Repeating this argument for Q, and so on, $$
+    P(z)=(z-\alpha_1)(z-\alpha_2)\cdots(z-\alpha_n)
+$$ where $ \alpha_1,\cdots,\alpha_n $ are the roots of P, which are not necessarily distinct.
+$$
+    P(z)=(z-\alpha_1)^{h_1}(z-\alpha_2)^{h_2}\cdots(z-\alpha_k)^{h_k},\sum_{i=1}^{k}h_i=n,1\leq k\leq n
+$$ 
+\begin{definition}[]{}
+Given a polynomial P written in that form with distinct roots $ \alpha_1,\cdots,\alpha_k $, $ 1\leq k\leq n $
+\\we call $ h_i ,1\leq i \leq k$ the order of the zero $ \alpha_i $, when $ h_i=1 $ we will say that $ \alpha_i $ is simple.  
+\end{definition}
+\begin{theorem}[Luca's theorem]{}
+If all the zeros of a polynomial P lies in a half-plane H, then all the zeros of $ P'(z) $ lies in the same half plane. 
+\end{theorem}

@@ -1055,3 +1055,160 @@ k&=0,1,2,\cdots
  $$ 
  \end{enumerate}
 \end{example}
+\section{Lecture 8 (02-26)--Fourier Series}
+\subsection*{Problem 1}
+2.2.13
+\begin{solution}
+    Hint:$$
+        D=\{(x,t)\in R^2:x,t\geq 0\}
+    $$ find $ u=u(t,\xi) $ 
+\end{solution}
+\subsection{Differentiation and integration of Fourier series}
+In general the integral of periodic functions is not periodic,eg:f(x)=1\\
+\begin{lemma}[]{}
+if f is $ 2\pi $-periodic and piecewise continuous function, then $$
+    g(x)=\int_{0}^{x}f(y)dy
+$$ is also $ 2\pi $-periodic iff$$
+    \int_{-\pi}^{\pi}f(x)dx=0
+$$ 
+\end{lemma}
+\begin{theorem}[]{}
+if f is piecewise continuous and has zero mean on [$ -\pi,\pi $],then its fourier series:
+$$
+    f(x)\approx \sum_{k=1}^{\infty}[a_k\cos{kx}+b_k\sin{kx}]
+$$ can be integrated term by term 
+\begin{align*}{}{}
+g(x)=\int_{0}^{x}f(y)dy&\approx m+ \sum_{k=1}^{\infty}\frac{1}{k}[a_k\sin{kx}-b_k\cos{kx}]\\
+\text{where }m&=\frac{1}{2\pi}\int_{-\pi}^{\pi}g(x)dx (\text{ integration by parts})
+\end{align*}
+\end{theorem}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $ f(x)=x $
+ \begin{align*}{}{}
+    \int_{-\pi}^{\pi}f(x)dx=0\\
+    x \approx 2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k}\sin{kx}\\  
+    \frac{x^2}{2}\approx \frac{\pi^2}{6}-2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k^2}\cos{kx} \\
+    \bar{f}  \text{ theorem at }  x=0\\
+    0=\frac{\pi^2}{6}-2\sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k^2}\\
+    \sum_{k=1}^{\infty}\frac{1}{k^2}=\frac{\pi^2}{12}
+ \end{align*} 
+ \end{enumerate}
+\end{example}
+\begin{theorem}[]{}
+if f is piecewise $ C^2 $ and $ 2\pi $-periodic extension and$$
+    f(x)\approx \sum_{k=1}^{\infty}[a_k\cos{kx}+b_k\sin{kx}]
+$$ then $$
+    f'(x)\approx \sum_{k=1}^{\infty}kb_k\cos{kx}-ka_k\sin{kx}=\sum_{k=-\infty}^{\infty}ikc_ke^{ikx}
+$$ (computing <f'(x),cos(kx)> using integration by parts)
+\end{theorem}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $ f(x)=|x| $
+ \begin{align*}{}{}
+ \frac{d}{dx}|x|&=\text{sign}(x)\\
+ &=\begin{cases}
+    1, & \text{ if } x>0\\
+    -1, & \text{ if } x<0
+    \end{cases}\\
+ \end{align*}
+ We know the fourier series of |x|,$$
+    sign(x)\approx \frac{4}{\pi}(\sin(x)+\frac{1}{3}\sin{3x}+\frac{1}{5}\sin{5x}+\cdots)
+ $$ 
+ \end{enumerate}
+\end{example}
+\subsection{change of scale}
+\begin{align*}{}{}
+2\pi\rightarrow2l \\
+y\in[-\pi,\pi]\rightarrow x\in[-l,l]\\
+x=\frac{l}{\pi}y\\
+f:[-l,l]\rightarrow\mathbb{R} \text{ piecewise continuous }\\
+\end{align*} 
+\begin{definition}[]{}
+\begin{align*}{}{}
+f\approx\frac{a_0}{2}+\sum_{k=1}^{\infty}[a_k\cos{\frac{k\pi}{l}x}+b_k\sin{\frac{k\pi}{l}x}]\\
+\end{align*}
+Fourier series of f where$$
+    a_k=\frac{1}{l}\int_{-l}^{l}f(x)\cos{\frac{k\pi}{l}x}dx$$ $$
+    b_k=\frac{1}{l}\int_{-l}^{l}f(x)\sin{\frac{k\pi}{l}x}dx
+$$ All results seen before remain valid in this more general setting$$
+    f:[a,b]\rightarrow\mathbb{R}
+$$ \begin{align*}{}{}
+l=\frac{b-a}{2}\\
+\bar{f}:\mathbb{R}\rightarrow\mathbb{R}\\
+b-a \text{ periodic }
+\end{align*}
+\end{definition}
+\subsection{Convergence of Fourier series}
+A sequence of functions $ v_n $ converges pointwise to a function $ v_\star $ on a set $ I\subset R $ if$$
+    \lim_{n\rightarrow\infty}v_n(x)=v_\star(x),\forall x\in I
+$$ 
+\begin{align*}{}{}
+\Leftrightarrow \text{For any } \epsilon>0,\forall x\in I,\exists N=N(\epsilon,x) \text{ such that } |v_n(x)-v_\star(x)|<\epsilon \forall n\geq N
+\end{align*}
+A sequence of functions $ v_n $ converges uniformly to a function $ v_\star $ on a set $ I\subset R $ if for any $ \epsilon>0,\exists N=N(\epsilon) $ such that$$
+    |v_n(x)-v_\star(x)|<\epsilon,\forall x\in I
+$$ 
+uniform convergence eg:\begin{align*}{}{}
+v_n(x)=\frac{1}{n}\sin(x)\\
+v_n\rightarrow0 \text{ uniformly}\\
+|v_n(x)-0|=\frac{1}{n}|\sin(x)|\\
+n>N(\epsilon)=[\frac{1}{\epsilon}]+1
+\end{align*}
+uniform convergence $ \Leftrightarrow \sup_{x\in I}$
+\\Recall that if a sequence of continuous functions $ v_n $ on I converges to $ v_\star $ uniformly, then $ v_\star:I\rightarrow R $ is continuous on I 
+\begin{align*}{}{}
+\text{If } U_N(x)\rightarrow U_\star(x) \text{ pointwise on some set I, we say that the series converges pointwise if }\\
+U_N(x)\rightarrow U_\star(x) \text{ uniformly on I}\\
+\end{align*}  
+We say that the series converges uniformly\\
+In particular if $ U_n(x) $ are continuous on a set I and the series converges uniformly ,\\
+then the sum is continuous function
+\begin{theorem}[Weiezstrass m-test]{}
+Let $ I\subset\mathbb{R} $ $$
+    |u_k(x)|\leq M_k,\forall x\in I,k\geq1
+$$ 
+where $ M_k\geq0 $ are numbers such that $ \sum_{k=1}^{\infty}m_k<\infty $ 
+\\Then the series $ \sum_{k=1}^{\infty}u_k(x) $ is uniformly convergent to a function on I.
+\\In particular, if $ u_k(x) $ are continuous on I, then $ f:I\rightarrow\mathbb{R} $  is continuous on I 
+\end{theorem}
+\begin{proposition}[]{}
+If $ \sum_{k=1}^{\infty}u_k $ converges uniformly on an interval $ I\subset \mathbb{R} $ then,$$
+    \int_{0}^{x}(\sum_{k=1}^{\infty}u_k(y))dy=\sum_{k=1}^{\infty}\int_{0}^{x}u_k(y)dy
+$$ 
+\end{proposition}
+\begin{proposition}[]{}
+Suppose $\sum_{k=1}^{\infty}u_k(x)$ converges pointwise on an interval $I\subset R  $ and $ u_k $ are all $ C^1 $ functions on I with $ \sum_{k=1}^{\infty}u_k' $ convergent uniformly.
+\\Then$ (\sum_{k=1}^{\infty}u_k)' $ exists and we have the equality $$
+(\sum_{k=1}^{\infty}u_k)'=\sum_{k=1}^{\infty}u_k'
+$$     
+\end{proposition}
+For$$
+f \approx \sum_{k=-\infty}^{\infty}c_ke^{ikx}
+$$ 
+x-real variable
+\begin{align*}{}{}
+|e^{ikx}|=1\\
+|c_ke^{ikx}|=|c_k| =M_k,\forall x\in\mathbb{R}
+\end{align*}
+\begin{theorem}[]{}
+Let the Fourier coefficients of f satisfies the condition$$
+  \sum_{k=-\infty}^{\infty}|c_k|<\infty
+$$ then the Fourier series of f converges uniformly to a continuous function $ \bar{f} $ with same coefficients $ c_k=<f,e^{ikx}>=<\bar{f},e^{ikx}> $  
+\end{theorem}
+\begin{proof}
+    The Fourier series of $$
+        f\approx\sum_{k=-\infty}^{\infty}c_ke^{ikx}
+    $$ as $\sum_{k=-\infty}^{\infty}|c_k|<\infty$
+    \\This series satisfies the conditions of the Weierstrass m-test with $ M_k=|c_k| ,u_k(x)=c_ke^{ikx}$
+    \begin{align*}{}{}
+    \Rightarrow \sum_{k=-\infty}^{\infty}c_ke^{ikx}= \bar{f} (x)
+    \end{align*}
+    converges uniformly to a  function $ \bar{f}:\mathbb{R}\rightarrow\mathbb{R} $ periodic continuous
+    \\Warning: f is not necessarily equal to $ \bar{f} $
+\end{proof}
+\begin{corollary}
+    If f is $ 2\pi $  periodic and piecewise $ C^1 $  and f is continuous on the interval$$
+       [a,b]\subset [-\pi,\pi]
+    $$ ,then the Fourier series of f converge uniformly to f on any closed subinterval $(a+\delta,b-\delta) \text{ for }0<\delta<\frac{b-a}{2} $ 
+\end{corollary}
