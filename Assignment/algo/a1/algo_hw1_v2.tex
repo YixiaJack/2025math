@@ -456,7 +456,75 @@ Then, justify its correctness and show it runs in $O(n \log n)$ time.
 \end{center}
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 4 here.}
+Observing that for every points on $ l_1 \text{ and } l_0 $ , we will have one intersection point when comparing k-th points (from left to right) on $ l_1 \text{ and } l_0 $ and have i>j for $ a_i \text{ and } b_j $ because under this condition, $b_i>b_j \text{ and } a_i<a_j   $ 
+\\So the idea is to merge sort on $ a_1,a_2,\cdots,a_n $ and $ b_1,b_2,\cdots,b_n $ to get the sorted position from them, then compare each index with corresponding postion's index of $ b_1,b_2,\cdots,b_n $ to get the number of intersection points.
+\begin{algorithm}[H]
+    \caption{Count Intersection Points}
+    \begin{algorithmic}[1]
+    \STATE \textbf{Function} \textsc{CountInt}$(n, A, B)$
+    \STATE Create pairs $P_A[1...n]$ where $P_A[i] = (A[i], i)$ for $i = 1$ to $n$
+    \STATE Create pairs $P_B[1...n]$ where $P_B[i] = (B[i], i)$ for $i = 1$ to $n$
+    \STATE \textsc{MergeSort}$(P_A, 1, n)$ \COMMENT{Sort by first element}
+    \STATE \textsc{MergeSort}$(P_B, 1, n)$ \COMMENT{Sort by first element}
+    \STATE Create arrays $I[1...n]$ and $J[1...n]$
+    \FOR{$i = 1$ to $n$}
+    \STATE $I[i] \gets $ second element of $P_A[i]$
+    \STATE $J[i] \gets $ second element of $P_B[i]$
+    \ENDFOR
+    \STATE $count \gets 0$
+    \FOR{$i = 1$ to $n$}
+    \IF{$J[i] > I[i]$}
+    \STATE $count \gets count + 1$
+    \ENDIF
+    \ENDFOR
+    \RETURN $count$
+    \end{algorithmic}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+    \caption{Merge Sort}
+    \begin{algorithmic}[1]
+    \STATE \textbf{Function} \textsc{MergeSort}$(P, left, right)$
+    \IF{$left < right$}
+    \STATE $mid \gets \lfloor(left + right)/2\rfloor$
+    \STATE \textsc{MergeSort}$(P, left, mid)$
+    \STATE \textsc{MergeSort}$(P, mid+1, right)$
+    \STATE \textsc{Merge}$(P, left, mid, right)$
+    \ENDIF
+    \end{algorithmic}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+    \caption{Merge}
+    \begin{algorithmic}[1]
+    \STATE \textbf{Function} \textsc{Merge}$(P, left, mid, right)$
+    \STATE Create temporary arrays $L[1...(mid-left+1)]$ and $R[1...(right-mid)]$
+    \STATE Copy $P[left...mid]$ to $L$ and $P[mid+1...right]$ to $R$
+    \STATE $i \gets 1, j \gets 1, k \gets left$
+    \WHILE{$i \leq (mid-left+1)$ AND $j \leq (right-mid)$}
+    \IF{$L[i].first \leq R[j].first$}
+    \STATE $P[k] \gets L[i]$
+    \STATE $i \gets i + 1$
+    \ELSE
+    \STATE $P[k] \gets R[j]$
+    \STATE $j \gets j + 1$
+    \ENDIF
+    \STATE $k \gets k + 1$
+    \ENDWHILE
+    \WHILE{$i \leq (mid-left+1)$}
+    \STATE $P[k] \gets L[i]$
+    \STATE $i \gets i + 1$
+    \STATE $k \gets k + 1$
+    \ENDWHILE
+    \WHILE{$j \leq (right-mid)$}
+    \STATE $P[k] \gets R[j]$
+    \STATE $j \gets j + 1$
+    \STATE $k \gets k + 1$
+    \ENDWHILE
+    \end{algorithmic}
+    \end{algorithm}
+\textbf{Correctness:} The algorithm sorts the points on $l_0$ and $l_1$ by their $x$-coordinates. For every points on $ l_1 \text{ and } l_0 $ , we will have one intersection point when comparing k-th points (from left to right) on $ l_1 \text{ and } l_0 $ and have i>j for $ a_i \text{ and } b_j $ because under this condition, $b_i>b_j \text{ and } a_i<a_j   $ 
+\\\textbf{Complexity:} The algorithm sorts the points on $l_0$ and $l_1$ by their $x$-coordinates in $O(n\log n)$ time. Then, it compares the indices of the sorted points in $O(n)$ time. Thus, the total time complexity is $O(n\log n)$.
 \end{solution}
 
 
@@ -464,7 +532,35 @@ Then, justify its correctness and show it runs in $O(n \log n)$ time.
 Given 3 non-empty and sorted arrays $A, B, C$ of integers, each array is of size $N_A$, $N_B$ and $N_C$ respectively. Given an input $a$, output one value from each array such that the sum is equal to $a$. If not found, return $0$. Design the algorithm, prove its correctness and complexity.
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 5 here.}
+    \begin{algorithm}[H]
+        \caption{3SUM from 3 arrays}
+        \begin{algorithmic}[1]
+        \STATE \textbf{Function} {FindTriplet}{$A, B, C, a$}
+            \STATE  $NA \gets \text{length}(A)$
+            \STATE  $NB \gets \text{length}(B)$
+            \STATE  $NC \gets \text{length}(C)$
+            \FOR{$i = 1$ to $NA$}
+                \STATE  $target \gets a - A[i]$
+                \STATE $j \gets 1$
+                \STATE  $k \gets NC$
+                \WHILE{$j \leq NB$ \textbf{and} $k \geq 1$}
+                    \STATE $s \gets B[j] + C[k]$
+                    \IF{$s = target$}
+                    \RETURN $(A[i], B[j], C[k])$
+                    \ELSIF{$s < target$}
+                        \STATE  $j \gets j + 1$
+                    \ELSE
+                        \STATE $k \gets k - 1$
+                    \ENDIF
+                \ENDWHILE
+            \ENDFOR
+            \RETURN $0$
+        \end{algorithmic}
+        \end{algorithm}
+    \textbf{Correctness:}\\ 
+    The algorithm is correct because it systematically fixes each candidate from array A and uses a correctly implemented two-pointer method on two sorted arrays B and C to find complementary pairs that sum to the required value. This ensures that, if a valid triplet exists, it will be found.     
+\\\textbf{Complexity:}\\
+The algorithm iterates through the elements of array A, and for each element, it uses a two-pointer method to find a pair in arrays B and C that sum to the target value. The two-pointer method takes $O(N_B + N_C)$ time, and since the algorithm iterates through all elements of array A, the total time complexity is $O(N_A(N_B + N_C))$.
 \end{solution}    
 \problem{6: Counting context-free grammar words [$7$ pts]}
 Context-free grammar (CFG) is an important concept in CS, and it recursively defines a set of strings/words. You may want to search for CFG and learn about the relevant context. In this problem, we omit many formal definitions and focus on the following grammar:
@@ -480,7 +576,26 @@ Think about what the above grammar represents. Count the number of words satisfy
 
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 6 here.}
+        \begin{algorithm}[H]
+        \caption{f(n):Counting context-free grammar words }
+        \begin{algorithmic}[1]
+            \STATE \textbf{Function:} g(n)
+            \IF{\(n = 1\)}
+                \RETURN 10 
+            \ELSE
+                \RETURN \(9 \times g(n-1)\) 
+            \ENDIF
+        \STATE \textbf{Function:} f(n)
+            \IF{\(n = 1\)}
+                \RETURN g(1) 
+            \ENDIF
+            \STATE result \(\gets\) g(n) \COMMENT{Case 1: \(S \rightarrow D\).}
+            \FOR{\(i \gets 1\) \TO \(n-2\)}
+                \STATE result \(\gets\) result + g(i) \(\times\) f(n-i-1) \COMMENT{Case 2: \(S \rightarrow D + S\) }
+            \ENDFOR
+            \RETURN result
+        \end{algorithmic}
+        \end{algorithm}
 \end{solution}
 
 \problem{7: Search for a root [$10$ pts]}
@@ -491,7 +606,52 @@ Let $R$ be the set of roots, i.e., $f(x^*,y^*) = a$ for any $(x^*,y^*) \in R$. W
 Design an algorithm $\textsc{FindRoot}(f, a, \epsilon)$, and prove its correctness and complexity (in terms of number of oracle calls). \emph{This problem is a little bit more involved, but it does not require anything beyond the lectures. Suggest working on this after you finish everything else.}
 
 \begin{solution}
-\textbf{compute value using binary search}
+    \begin{algorithm}[H]
+        \caption{FindRoot: Approximate a solution $(x,y)$ for $f(x,y)=a$}
+        \begin{algorithmic}[1]
+            \STATE \textbf{Function:} FindRoot(f, a, $\epsilon$)
+            \IF{\(f(1,1) > a \text{ or } f(2,2) < a\)}
+                \RETURN 0 \COMMENT{No solution exists in $[1,2]\times[1,2]$}
+            \ENDIF
+            \STATE \(x_{\text{low}} \gets 1,\; x_{\text{high}}  \gets 2\)
+            \WHILE{\(x_{\text{high}}  / x_{\text{low}}  > 1+\epsilon\)}
+                \STATE \(x_{\text{mid}}  \gets \sqrt{x_{\text{low}}  \times x_{\text{high}} }\)
+                \IF{\(a < f(x_{\text{mid}}  ,1)\)}
+                    \STATE \(x_{\text{high}} \gets x_{\text{mid}}  \)
+                \ELSIF{\(a > f(x_{\text{mid}}  ,2)\)}
+                    \STATE \(x_{\text{low}}  \gets x_{\text{mid}}  \)
+                \ELSE
+                    \STATE \(x_{\text{high}}  \gets x_{\text{mid}}  \)
+                \ENDIF
+            \ENDWHILE
+            \STATE \(\hat{x} \gets x_{\text{low}} \)
+            \STATE \(y_{\text{low}} \gets 1,\; y_{\text{high}} \gets 2\)
+            \WHILE{\(y_{\text{high}} / y_{\text{low}}> 1+\epsilon\)}
+                \STATE \(y_{\text{mid}} \gets \sqrt{y_{\text{low}} \times y_{\text{high}} }\)
+                \IF{\(f(\hat{x}, y_{\text{mid}} ) < a\)}
+                    \STATE \(y_{\text{low}}\gets y_{\text{mid}} \)
+                \ELSE
+                    \STATE \(y_{\text{high}}  \gets y_{\text{mid}} \)
+                \ENDIF
+            \ENDWHILE
+            \STATE \(\hat{y} \gets y_{\text{low}}\)
+            \RETURN \((\hat{x}, \hat{y})\)
+        \end{algorithmic}
+        \end{algorithm}
+        \textbf{Correctness:} \\
+The algorithm is correct because it uses the strict monotonicity of \( f(x,y) \) in both variables to maintain intervals that always contain a true root. By performing a multiplicative binary search, the algorithm narrows the intervals until the relative error for both the \( x \) and \( y \) coordinates is at most \( 1+\epsilon \). This guarantees that there exists a true solution \( (x^*, y^*) \) with
+\[
+X_{\text{approx}} \le x^* \le (1+\epsilon)X_{\text{approx}} \quad \text{and} \quad
+Y_{\text{approx}} \le y^* \le (1+\epsilon)Y_{\text{approx}},
+\]
+meeting the required approximation condition.
+
+\textbf{Complexity:} \\
+Each binary search (for both \( x \) and \( y \)) reduces the interval multiplicatively, starting from \([1,2]\) (a factor of 2) and ending when the interval ratio is at most \( 1+\epsilon \). This requires 
+\(
+O\bigl(\log_{1+\epsilon}(2)\bigr)
+\)
+iterations, which is approximately \( O(1/\epsilon) \) for small \( \epsilon \). Since each iteration makes a constant number of oracle calls, the total number of oracle calls is \( O(1/\epsilon) \).
 \end{solution}
 
 
