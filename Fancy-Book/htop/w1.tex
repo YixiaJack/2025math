@@ -1217,3 +1217,23 @@ $$
     \end{align*}
     $ P(X\geq n) $ 
 \end{proof}
+\section{Lecture 9 (02-28)-{Expectation}}
+\subsection*{EX1}
+we have offers $ X_1,X_2,\cdots $ continuous R.V. i.i.d
+\\$ T=inf\{n>1,X_n>X_1\} $  Compute $ E[T] $
+\begin{solution}
+    $$
+    E[T]=\sum_{n=2}^{+\infty}nP(T= n)
+    $$
+    By lemma,\begin{align*}{}{}
+        E[T]&=\sum_{n\geq1}P(T\geq n)=\sum_{n\geq1}P(X_1\geq X_2\geq\cdots\geq X_n)=\frac{1}{n-1},n\geq2\\
+        &=+\infty
+    \end{align*}
+\end{solution}
+\subsection*{EX2}
+Independent trials, each with success probability p, fail probability 1-p
+\\Compute P[There is n consecutive successes before m consecutive failures]
+Condition on the first trial: $$
+    P[A]=p\cdot P[A|H]+(1-p)\cdot P[A|T]
+$$ 
+Let $ B=\{HH\cdots H\} $ (n-th)
