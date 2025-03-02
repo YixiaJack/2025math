@@ -321,7 +321,9 @@ For convenience, let us assume $n$ is even.
         \end{algorithmic}
         \caption{Find the maximum and minimum indices in array $A$ using at most $\frac{3n}{2} - 2$ comparisons}
         \end{algorithm}
-        \begin{proof}
+        \textbf{Correctness:}
+        \\The core idea is to reduce the number of candidates for both maximum and minimum in a single pass. By comparing elements pairwise, we guarantee that for each comparison, one element goes to the potential maximum list and the other to the potential minimum list. This effectively halves the number of elements we need to consider in subsequent steps. The separate loops for finding the maximum and minimum among the candidates then efficiently determine the true maximum and minimum indices. The algorithm's correctness stems from the transitivity of the comparison: if a > b and b > c, then a > c. The pairwise comparisons, combined with the subsequent candidate refinement, ensure that the true maximum and minimum are identified.
+      \\ (b) \begin{proof}
             Let us define two sets:
 \begin{itemize}
     \item $MAX$: set of elements that could still be the maximum

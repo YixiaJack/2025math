@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  28 FEB 2025 18:30
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  28 FEB 2025 18:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -609,9 +609,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [6]
-File: hw-fig-intersection.jpg Graphic file (type bmp)
-<hw-fig-intersection.jpg>
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.52023pt, for example:
@@ -620,6 +617,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [7]
+File: hw-fig-intersection.jpg Graphic file (type bmp)
+<hw-fig-intersection.jpg>
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.52023pt, for example:
@@ -675,7 +675,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
-[14] (./algo_hw1_v2.aux)
+[14]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
+
+[15] (./algo_hw1_v2.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -694,6 +702,6 @@ Here is how much of TeX's memory you used:
  37372 multiletter control sequences out of 15000+600000
  567581 words of font info for 83 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,16n,79p,544b,860s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,16n,79p,755b,860s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on algo_hw1_v2.pdf (14 pages).
+Output written on algo_hw1_v2.pdf (15 pages).
