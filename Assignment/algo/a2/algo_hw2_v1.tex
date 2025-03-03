@@ -1,0 +1,361 @@
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  algorithm,algorithmic,fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\homework}[1]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \classname \hfill \mbox{\updatedday} \\
+   \instname \hfill \mbox{\duedate}
+   \rule{6.5in}{0.5mm}
+   \vspace*{-0.1 in}
+}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,arrows,automata}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset { %
+    language=C++,
+    backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+}
+
+
+\newcommand{\problem}[1]{\section*{Problem #1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\roman{enumii})}
+\newenvironment{solution}{{\par\noindent\it Solution.}}{}
+% Left header text: course name/assignment number
+\lhead{CSCI-SHU 220: Algorithms\\Homework 2}
+
+% Right header text: your name
+\rhead{Posted: February 28, 2025\\Due: 11:55pm (Shanghai time), March 14, 2025}
+
+% --- Document starts here ---
+
+
+\begin{document}
+
+This assignment has in total $100$ base points and $10$ extra points, and the cap is $100$.
+Bonus questions are indicated using the $\star$ mark.
+
+Submission Instructions: Please submit to Gradescope. During submission, you need to \textbf{mark/map the solution to each question}; otherwise, we may apply a penalty. 
+
+Another notice: you only get full credits for the algorithm design questions if your algorithm matches the desirable complexity. If the desirable complexity is not stated, you need to design an algorithm to be as fast as possible.
+
+\textit{Please specify the following information before submission}:
+\begin{itemize}
+    \item Your Name: %  (put your name here)
+    \item Your NetID: % (put your NetID here)
+\end{itemize}
+\newpage
+
+\problem{1: Packing heavy unit intervals [$15$ pts]}
+
+Suppose we are given a set $P = \{x_1,\dots,x_n\}$ of $n$ points on the $x$-axis and a positive integer $k$.
+We say an interval on the $x$-axis is \textit{$k$-heavy} if it contains at least $k$ points in $P$.
+We consider \textit{left-open right-closed unit intervals}, i.e., intervals of the form $I = (a,b]$ where $b-a = 1$ (for convenience, below we simply call them \textit{unit intervals}).
+Our goal is to find a maximum number of $k$-heavy unit intervals on the $x$-axis that are \textit{disjoint} from each other.
+For example, if $P = \{-\frac{2}{3},0,\frac{2}{3}\}$ and $k = 1$, then one optimal solution is $I_1 = (-1.6,-0.6]$, $I_2 = (-0.6,0.4]$, $I_3 = (0.5,1.5]$, which consists of three disjoint $k$-heavy unit intervals (note that the optimal solution is not necessarily unique).
+Design a greedy algorithm $\textsc{HeavyInt}(n,P,k)$ to solve this problem, which should output the set of intervals you find.
+First describe your greedy strategy and prove its correctness.
+Then implement your algorithm by giving the pseudocode.
+Your algorithm is supposed to run in $O(n)$ time, assuming the points in $P$ have already been sorted in the left-right order.
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 1 here.}
+\end{solution}
+\newpage
+
+\problem{2: Sorting with arbitrary swaps [$10+10+10^\star$ pts]}
+
+Given an array $A[1 \dots n]$ of distinct numbers, we want to sort it in increasing order.
+However, we are only allowed to change $A$ by swapping two elements (not necessarily adjacent) in $A$.
+Specifically, we are provided an oracle $\textsc{Swap}$.
+If we call $\textsc{Swap}(i,j)$, then $A[i]$ and $A[j]$ will be swapped in $A$.
+
+\begin{enumerate}
+    \item Design a simple algorithm that sorts $A$ by calling the $\textsc{Swap}$ oracle at most $n-1$ times.
+    Describe the basic idea and give the pseudocode, and analyze the number of oracle calls.
+    Your algorithm is supposed to run in $O(n \log n)$ time (and call $\textsc{Swap}$ at most $n-1$ times), assuming each oracle call takes $O(1)$ time.
+    \item Next, we consider the problem of sorting $A$ using \textit{minimum} number of calls of the $\textsc{Swap}$ oracle.
+    Prof. Greed gives the following greedy algorithm for this problem.
+    Let $\#\mathsf{Inv}(A)$ denote the number of inversions in $A$.
+    The algorithm simply repeats the following step until $A$ is sorted: find indices $i,j \in \{1,\dots,n\}$ such that swapping $A[i]$ and $A[j]$ makes $\#\mathsf{Inv}(A)$ decrease the most, and then call $\textsc{Swap}(i,j)$.
+    Give a counterexample for which this algorithm fails to give an optimal solution (and briefly argue why it is a counterexample).
+    To get the full credit, your example should make the algorithm fail no matter how it breaks the ties.
+    \item[(c$^\star$)] Design an algorithm that sorts $A$ using minimum number of $\textsc{Swap}$ calls.
+    Describe the basic idea and give the pseudocode.
+    Prove the correctness of your algorithm (i.e., it successfully sorts $A$ and the number of $\textsc{Swap}$ calls used is minimum).
+    Your algorithm is supposed to run in $O(n^2)$ time or faster.
+\end{enumerate}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 2 here.}
+\end{solution}
+\newpage
+
+\problem{3: Longest doubling subsequence [$15$ pts]}
+Recall that an array (or sequence) $A$ of real numbers is \textit{doubling} if $A[i] \geq 2A[i-1]$ for all $i \geq 2$ (thus any array of length 1 is doubling).
+Given an array $A$, we want to find a longest subsequence of $A$ that is doubling.
+For example, if $A = [7,1,3,8,2,4,5,6,9]$, then a longest doubling subsequence of $A$ is be $[1,2,4,9]$, which is of length $4$.
+Design an algorithm $\textsc{LDS}(n,A)$ that returns a longest doubling subsequence $A'$ of the array $A$ (where $n$ is the size of $A$).
+Describe the basic idea of your algorithm and give the pseudocode.
+Briefly justify its correctness and analyze its time complexity.
+Your algorithm should run in $O(n^2)$ time or faster.
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 3 here.}
+\end{solution}
+\newpage
+
+\problem{4: Removing the numbers optimally [$20$ pts]}
+Given a sequence of (positive) numbers, we want to remove the numbers from the sequence one by one.
+When removing one number $x$, we gain a score equal to $l^2 x r^2$ where $l$ is the number to the left of $x$ in the current sequence ($l = 1$ if $x$ is the leftmost number in the current sequence) and $r$ is the number to the right of $x$ in the current sequence ($r = 1$ if $x$ is the rightmost number in the current sequence).
+For example, suppose the given sequence is $(2,9,12,3)$.
+If we remove $12$ first, the score we gain is $9^2 \times 12 \times 3^2 = 8748$, and the sequence becomes $(2,9,3)$.
+Now if we remove $9$ from the sequence, then the score is $2^2 \times 9 \times 3^2 = 324$, and the sequence becomes $(2,3)$.
+Next if we remove $3$, then the score is $2^2 \times 3 \times 1^2 = 12$, and the sequence becomes $(2)$.
+Finally we remove $2$, and  the score is $1^2 \times 2 \times 1^2 = 2$.
+The total score we gain is $8748+324+12+2 = 9086$.
+Our goal is to find an order to remove the numbers from the given sequence such that the total score we gain is maximized.
+Formally, design an algorithm $\textsc{Remove}(n,A)$ where $A$ is an array of $n$ positive numbers; the algorithm returns the maximum total score we can gain if the given sequence is $A$ (for convenience, you are not required to return the optimal order for removing the numbers).
+Describe the basic idea of your algorithm and give the pseudocode.
+Briefly justify its correctness and analyze its time complexity.
+Your algorithm should run in $O(n^3)$ time or faster.
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 4 here.}
+\end{solution}
+\newpage
+
+\problem{5: Tutorial of Fast Fourier Transform [$10$ pts]}
+This is not really a problem but more like a tutorial. Fast Fourier transform is arguably the most important algorithm in signal processing and has enormous applications in various fields (EE, CS, optics, acoustics, etc). Please watch the video from \url{https://www.youtube.com/watch?v=spUNpyF58BY} about Fourier transform. Even if you are familiar with the concept, the visualizations in the video are unparalleled. It's also highly recommended that you watch other videos from that content maker. Based on the video, answer the following questions:
+
+\begin{enumerate}
+    \item Continuous Fourier transform.
+    \begin{enumerate}
+        \item Considering Fourier transform as a function, what is its domain and range?
+        \item Intuitively explain that if the rotation frequency matches some intrinsic frequency of the input signal, the ``center of mass'' will pop up.
+        \item The examples in the video all have the ``center of mass'' on the x-axis. Should it always be the case?
+    \end{enumerate}
+
+    \item Discrete Fourier transform. In practice, we only have discrete samples of a signal (typically evenly spaced). Let $x_1, \ldots, x_N$ be the $N$ sequential samples of a continuous signal with duration $T$. Write out the equation of the discrete Fourier transform that approximates the continuous version. What's the complexity to compute the transform for one frequency value? 
+
+    \item Discrete Fourier transform continued. Since we only have $N$ samples, it is intuitive that the fastest frequency we can assess is $N/T$ and the slowest is $1/T$. We, therefore, only care about the frequencies in the list $1/T, 2/T, 3/T, \ldots, N/T$. Rewrite the discrete transforms as a function of $k$, where the frequency is $k/T$ (for simplicity, we refer to it as frequency $k$ below).
+    What's the complexity if we want to compute the transform for all $N$ frequency values, i.e., we discretize the ``center of mass'' v.s. frequency figure shown in the video with $N$ evenly-spaced frequency samples as well?
+
+    \item Symmetry. Considering the previous discrete Fourier transform, compute the equation for frequency $k+N$ and compare it with the frequency $k$. You may need to use Euler's formula. 
+    
+    We refer to the relationship as a ``symmetry''. The following is not directly related to the ``symmetry'', but can provide some useful intuitions. 
+    
+    Now, think of the entire transformation into $N$ frequencies as a matrix multiplication. I.e., we have  $N$ samples forming a vector as input, and we have $N$ outputs for the $N$ frequencies. Try to write down a $N \times N$ matrix that performs the transformation.
+
+    \item Fast Fourier Transform. For frequency $k$, separate the calculation into two parts, one part containing the $x_n$'s where $n$ is even and the other part containing the $x_n$'s where $n$ is odd. Now, consider the even (odd) part as a new transform problem with only half of the samples. Indeed, we are using the idea of \textbf{divde-and-conquer}, but how do we save computation? What about the symmetry above? Draft the algorithm to compute discrete Fourier transform in this way and analyze its complexity. For simplicity, you may assume $N$ is a power of $2$.
+\end{enumerate}
+
+\newpage
+\begin{solution}
+\textbf{Please write down your solution to Problem 5 here.}
+\end{solution}
+\newpage
+
+
+\problem{6: Find the common number [$5+5$ pts]}
+We are given a list of integers $x_1, \ldots, x_n$. We know that at least $\lceil n/2 \rceil$ of those numbers have the same value. Unfortunately, you don't have access to the list directly, and the only oracle you have is \textsc{compare($i,j$)}, which tells you if $x_i$ and $x_j$ are equal or not.
+
+\begin{enumerate}
+    \item Design an oracle that finds the common number. The algorithm has to be deterministic. Analyze the correctness and the complexity in terms of the number of \textsc{compare}.
+    \item What if instead of $n/2$, we call any number that appears at least $\lceil n/k \rceil$ as a common number, where $k$ is a constant integer with value $\geq2$. 
+    We aim to find all the common numbers. You can also directly solve this problem, which generalizes the previous one.
+\end{enumerate}
+\begin{solution}
+\textbf{Please write down your solution to Problem 6 here.}
+\end{solution}
+\newpage
+
+
+\problem{7: Monitoring the statistics [$5$ pts]}
+A machine learning student wants to test empirically about sampling Gaussians. The student calls a standard Gaussian sampler at a time, which outputs a real value (e.g., drop one ball down along a very large Galton board). The student then performs sampling repeatedly and wants to keep track of the statistics.
+
+Formally, the student gets $x_t$ coming in a stream, which is generated from a Gaussian sampler. At every time point $t \geq 20$, the student wants to keep a record of three statistics: the 25, 50, and 75 percentiles of all the numbers sampled so far. More precisely, the 25 percentile at time $t$ should return the data point $x$ in $x_1, \ldots, x_t$ with rank $\lfloor 0.25 \times t \rfloor$ (similarly for 50 and 75). Suppose the student performs $T$ sampling in total, what's the total complexity of your algorithm?
+\begin{solution}
+\textbf{Please write down your solution to Problem 7 here.}
+\end{solution}
+\newpage
+
+
+\problem{8: Multi-selection [$5$ pts]}
+We are given a list of integers $x_1, \ldots, x_n$ (not necessarily sorted). We are also given $k$ distinct integer numbers $1\leq i_1, \ldots, i_k \leq n$ (in sorted order), and we want to find the $k$ elements of $x_1, \ldots, x_n$ that have ranks $i_1, \ldots, i_k$. Design the algorithm and analyze its correctness and complexity. Another special requirement here is that $k$ is not a constant, so the complexity of $k$ should also be considered.
+\begin{solution}
+\textbf{Please write down your solution to Problem 8 here.}
+\end{solution}
+
+\end{document}

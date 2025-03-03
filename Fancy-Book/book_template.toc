@@ -44,6 +44,7 @@
 \contentsline {subsection}{\numberline {2.10.1}Random Variable and Measurable functions}{51}{subsection.2.10.1}%
 \contentsline {section}{\numberline {2.11}Lecture 8 (02-26)}{53}{section.2.11}%
 \contentsline {section}{\numberline {2.12}Lecture 9 (02-28)-{Expectation}}{57}{section.2.12}%
+\contentsline {section}{\numberline {2.13}Lecture 10 (03-02)-{Var}}{58}{section.2.13}%
 \contentsline {chapter}{\numberline {3}Partial Differential Equations}{62}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{62}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{62}{subsection.3.1.1}%

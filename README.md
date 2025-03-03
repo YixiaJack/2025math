@@ -1,8 +1,3 @@
-# LaTeX Template
-A LaTeX template for notes and weekly maths assignments.
-Some code snippets taken from stackexchange.
-I hope it servers you well. :smile:
-
-## Overleaf 
-
-Now you can access the template through [Overleaf](https://www.overleaf.com/latex/templates/latex-fancy-book/gpkbpjmhjsqf). 
+# Math notes on PDE, Complex analysis, Honors Theory of Probability
+star the repo if you like it!
+Any questions or discussion contact yy5091@nyu.edu!

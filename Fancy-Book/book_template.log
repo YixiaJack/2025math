@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  3 MAR 2025 19:18
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  3 MAR 2025 22:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2845,86 +2845,74 @@ Package mdframed Info: mdframed detected package amsthm
  [57]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1247.
+(mdframed)              on input line 1248.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1251.
+(mdframed)              on input line 1252.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1258.
+(mdframed)              on input line 1259.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1259--1262
+Underfull \hbox (badness 10000) in paragraph at lines 1260--1263
 
  []
 
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1265.
-
-Package mdframed Warning: You got a bad break
-(mdframed)                because the last box will be empty
-(mdframed)                you have to change it manually
-(mdframed)                by changing the text, the space
-(mdframed)                or something else on input line 1265.
-
-Package mdframed Info: You first box width is to small
- mdframed fixed it
-(mdframed)              on input line 1265.
-[58]
-
-Package mdframed Warning: You got a bad break
-(mdframed)                because the last split box is empty
-(mdframed)                You have to change the settings on input line 1265.
-
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1271.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1275--1276
-
- []
-
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1293.
+(mdframed)              on input line 1266.
 Package mdframed Info: Box was splittet wrong
  starting loop to iterate the splitting point
-(mdframed)              on input line 1293.
-[59]
+(mdframed)              on input line 1266.
+[58]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1272.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1276--1277
+
+ []
+
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1294.
+Package mdframed Info: Box was splittet wrong
+ starting loop to iterate the splitting point
+(mdframed)              on input line 1294.
+[59]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1302.
+(mdframed)              on input line 1295.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1303.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1305.
+(mdframed)              on input line 1304.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1321.
+(mdframed)              on input line 1306.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1326.
+(mdframed)              on input line 1322.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1327.
 
 
 Package mdframed Warning: You got a bad break
 (mdframed)                because the last box will be empty
 (mdframed)                you have to change it manually
 (mdframed)                by changing the text, the space
-(mdframed)                or something else on input line 1326.
+(mdframed)                or something else on input line 1327.
 
 Package mdframed Info: You first box width is to small
  mdframed fixed it
-(mdframed)              on input line 1326.
+(mdframed)              on input line 1327.
 [60]
 
 Package mdframed Warning: You got a bad break
 (mdframed)                because the last split box is empty
-(mdframed)                You have to change the settings on input line 1326.
+(mdframed)                You have to change the settings on input line 1327.
 
 ) [61]
 \openout2 = `pde/w1.aux'.
@@ -3356,16 +3344,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `book_template.out' has not changed.
-(rerunfilecheck)             Checksum: 02A1B52877F30C09510AD30BE448DE21;15390.
+(rerunfilecheck)             Checksum: 599423C952F0CA38D8413E688F105DB1;15568.
 Package logreq Info: Writing requests to 'book_template.run.xml'.
 \openout1 = `book_template.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36923 strings out of 474773
- 750329 string characters out of 5757725
- 2639053 words of memory out of 5000000
- 58343 multiletter control sequences out of 15000+600000
+ 36886 strings out of 474773
+ 749633 string characters out of 5757725
+ 2639410 words of memory out of 5000000
+ 58306 multiletter control sequences out of 15000+600000
  655310 words of font info for 99 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  119i,21n,123p,1117b,4069s stack positions out of 10000i,1000n,20000p,200000b,200000s
