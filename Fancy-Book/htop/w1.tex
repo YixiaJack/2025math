@@ -1236,4 +1236,91 @@ Independent trials, each with success probability p, fail probability 1-p
 Condition on the first trial: $$
     P[A]=p\cdot P[A|H]+(1-p)\cdot P[A|T]
 $$ 
-Let $ B=\{HH\cdots H\} $ (n-th)
+\\Multiple conditioning: $ P(E_1\cap E_2\cdots E_n)=P(E_1)P(E_2|E_1)\cdots P(E_n|E_1\cap\cdots E_n) $ \\
+Let $ B=\{HH\cdots H\} $ (2nd--n-th) $$ P(A|H)=P(B)P(A|H\cap B)+P(B^c)P(A|H\cap B^c)=p^{n-1}\cdot 1+(1-p^{n-1})\cdot P(A|T) $$ 
+Let $ C=\{TT\cdots T\} $ (2nd--m-th) $$ P(A|T)=P(C)P(A|T\cap C)+P(C^c)P(A|T\cap C^c)$$
+Let q=1-p,\begin{align*}{}{}
+P(A|H)=\frac{p^{n-1}}{p^{n-1}+q^{m-1}-p^{n-1}q^{m-1}}\\
+P(A|T)=\frac{(1-q^{m-1})p^{n-1}}{p^{n-1}+q^{m-1}-p^{n-1}q^{m-1}}\\
+P(A)=\frac{p^{n-1}(1-q^{m-1})}{p^{n-1}+q^{m-1}-p^{n-1}q^{m-1}}
+\end{align*}
+\begin{lemma}[change of variable]{}
+Let $ g:R\rightarrow R$ X be a r.v. with probability mass function f ,then $$
+    E[g(x)]=\sum_{x:f(x)>0}g(x)f(x)
+$$ 
+\end{lemma}
+\begin{proof}
+    \begin{align*}{}{}
+    E[g(x)]&=\sum_{y}y\cdot P(g(x)=y)=\sum_{y}\sum_{x:g(x)=y}y\cdot P(X=x)\\
+       &=\sum_{x}g(x)P(X=x)=\sum_{x}g(x)f(x)
+    \end{align*}
+\end{proof}
+\begin{definition}[]{}
+Let $ k\in N $ ,the k-th moment of X is $ mk:= E[X^k] $ as long as the expectation exists\\
+Let $ k\in N $ ,the k-th central moment of X is $ \sigma k:= E[X-E[X]]^k $ as long as the expectation exists\\
+\begin{itemize}
+\item $ \sigma_2=Var (X)=E(X-E[X])^2 $ varience,"deviation fluctuation" from the mean
+\item $ \sigma=\sqrt{Var(X)} $ standard deviation
+\end{itemize}
+\end{definition}
+\textbf{Fact:}
+\begin{itemize}
+\item $ E[aX+bY]=aE[x]+bE[Y] a,b \in R$ \\
+$\rightarrow Var(X)=E(X-E[x])^2=E[X^2]-(E[X])^2$
+\end{itemize}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item Bernoulli(p) $P(X=1)=p,P(X=0)=1-p $\\
+ $ E[X]=1 \cdot P(X=1)=p, Var(X)=p-p^2$
+ \item binomial(n,p) $ P(X=k)=\binom{n}{k}p^k(1-p)^{n-k} $\\
+ $$ E[X]=\sum_{k=0}^{n}kP(x=k)=\sum_{k}k\cdot \binom{n}{k}p^k(1-p)^{n-k}$$
+ Recall $$ (1+x)^n= \sum_{k=0}^n x^k\cdot \binom{n}{k}$$,differentiate both sides w.r.t x, then $$ n(1+x)^{n-1}=\sum_{k=1}^n k\cdot x^{k-1}\cdot \binom{n}{k} $$
+ Let $q=1-p,x=\frac{p}{q}$, then \begin{align*}{}{}
+     E[X]&=\sum_{k=1}^{n}k\cdot \binom{n}{k}(\frac{p}{q})^{k-1}\cdot q^n\cdot \frac{p}{q}\\
+     &= n\cdot \frac{p}{1-p}\cdot (1+\frac{p}{1-p})^{n-1}=np\\
+     Var(X)&=np(1-p)
+    \end{align*}
+    sol n': we have $ X=Y_1+Y_2+\cdots+Y_n $  such that $ Y_i\sim Bernoulli(p) $ and $ Y_i $ independent \begin{align*}{}{}
+    E[X]&=\sum_{i=1}^{n}E[Y_i]=np\\
+    Var(X)&=E[X^2]-(E[X])^2=E(\sum_{i=1}^{n}Y_i)^2-(np)^2\\
+    &=\sum_{i=1}^{n}E[Y_i]^2-2\sum_{i<j}^{n}E[Y_i]E[Y_j]-(np)^2\\
+    &=np+2p^2\frac{n(n-1)}{2}-(np)^2\\
+    &=np(1-p)
+    \end{align*}
+    If x,y are independent, then $ E[XY]=E[X]E[Y] $
+    \\Proof: $$ E[XY]=\sum_{x,y}xyP(X=x,Y=y)=\sum_{x,y}xyP(X=x)P(Y=y)$$ $$=\sum_{x}xP(X=x)\sum_{y}yP(Y=y)=E[X]E[Y] $$
+ \end{enumerate}
+\end{example}
+\begin{definition}[]{}
+If E[XY]=E[X]E[Y], then we say X,Y are uncorrelated\\
+Covariance $$
+    Cov(X,Y)=E[XY]-E[X]E[Y]=E[(X-E[X])(Y-E[Y])]
+$$ 
+Correlation $$
+    \rho(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}
+$$
+\end{definition}
+\begin{lemma}[]{}
+$|\rho(X,Y)|\leq 1,\rho(X,Y)=\pm 1\text{ iff }Y=aX+b \text{ for some }a,b \in \mathbb{R}$
+\end{lemma}
+\begin{proof}
+    \begin{align*}{}{}
+        \rho(X,Y)=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}=\frac{E[(X-E[X])(Y-E[Y])]}{\sqrt{Var(X)Var(Y)}}\\
+        \text{by Cauchy-Schwarz inequality: } |\rho(X,Y)|\leq 1\\
+    \end{align*}
+\end{proof}
+Cauchy-Schwarz inequality: $$
+    |E[XY]|\leq \sqrt{E[X^2]E[Y^2]}
+$$
+\begin{proof}
+    \begin{align*}{}{}
+    \text{Since }0&\leq E[(aX-bY)^2]\forall a,b \in R \Rightarrow a^2E[X^2]+2abE[XY]+b^2E[Y^2]\geq0\\
+    \Rightarrow \frac{1}{4}\Delta&=E[XY]^2-E[X^2]E[Y^2]\leq 0
+    \end{align*}
+\end{proof}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $ X\sim Geometric(p),P(X=k)=(1-p)^{k-1}\cdot p $\\
+ $ E[X]=\frac{1}{p},Var(x)=\frac{1-p}{p^2} $ 
+ \end{enumerate}
+\end{example}

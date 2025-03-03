@@ -180,15 +180,35 @@
 \subsection*{Problem 1}
 Compute $ \sqrt[4]{i} \text{ and } \sqrt[4]{-i} $ 
 \begin{proof}
-    
+    by Euler's formula, we have $$
+        i=e^{i(\frac{\pi}{2}+2k\pi)},k\in\mathbb{Z}
+    $$
+    Suppose $ z^4=i $ ,we have \begin{align*}{}{}
+    z^4&=e^{i(\frac{\pi}{2}+2k\pi)}\\
+    z&=e^{i(\frac{\pi}{8}+\frac{k\pi}{2})}\\
+    z&=\cos(\frac{\pi}{8}+\frac{k\pi}{2})+i\sin(\frac{\pi}{8}+\frac{k\pi}{2}),k\in\{0,1,2,3,\cdots\}
+    \end{align*}
+similarly, we have $$
+    -i=e^{i(\frac{3\pi}{2}+2k\pi)},k\in\mathbb{Z}
+$$
+Suppose $ w^4=-i $ ,we have \begin{align*}{}{}
+    w^4&=e^{i(\frac{3\pi}{2}+2k\pi)}\\
+    w&=e^{i(\frac{3\pi}{8}+\frac{k\pi}{2})}\\
+    w&=\cos(\frac{3\pi}{8}+\frac{k\pi}{2})+i\sin(\frac{3\pi}{8}+\frac{k\pi}{2}),k\in\{0,1,2,3,\cdots\}
+    \end{align*}
 \end{proof}
 \subsection*{Problem 2}
 Solve the quadratic equation $$
     z^2+(\alpha+i\beta)z+\gamma+i\delta=0
 $$ 
-\begin{proof}
-    
-\end{proof}
+\textbf{solution:}
+\\by the quadratic formula, we have 
+\[
+z = \frac{- (\alpha + i \beta) \pm \sqrt{(\alpha + i\beta)^2 - 4(\gamma + i\delta)}}{2}.
+\]
+and \[
+\Delta = (\alpha + i\beta)^2 - 4(\gamma + i\delta).
+\]
 \subsection*{Problem 3}
 Show that the system of all matrices$$
     \begin{pmatrix}
@@ -197,21 +217,163 @@ Show that the system of all matrices$$
     \end{pmatrix}
 $$ with the standard matrix addition and scalar multiplication is isomorphic to $ \mathbb{C} $ 
 \begin{proof}
-    
+    Define the function 
+\[
+\varphi\colon \mathbb{C} \to S,\quad \varphi(a+bi) = \begin{pmatrix} a & b \\ -b & a \end{pmatrix},
+\]
+where $a,b \in \mathbb{R}$ and $i$ is the imaginary unit. Denote the set of all matrices of the form $\begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix}$ by $S$.
+
+\textbf{1. $\varphi$ is Well-Defined and Linear}\\
+For any two complex numbers $z = a+bi$ and $w = c+di$, we have:
+\[
+\varphi(z+w) = \varphi\bigl((a+c)+(b+d)i\bigr) = \begin{pmatrix} a+c & b+d \\ -(b+d) & a+c \end{pmatrix}.
+\]
+On the other hand,
+\[
+\varphi(z) + \varphi(w) = \begin{pmatrix} a & b \\ -b & a \end{pmatrix} + \begin{pmatrix} c & d \\ -d & c \end{pmatrix} = \begin{pmatrix} a+c & b+d \\ -b-d & a+c \end{pmatrix}.
+\]
+Thus, $\varphi(z+w) = \varphi(z) + \varphi(w)$, showing that $\varphi$ preserves addition.
+
+Similarly, for any real scalar $k$,
+\[
+\varphi(kz) = \varphi(ka+kbi) = \begin{pmatrix} ka & kb \\ -kb & ka \end{pmatrix} = k \begin{pmatrix} a & b \\ -b & a \end{pmatrix} = k\,\varphi(z),
+\]
+which shows $\varphi$ is linear with respect to scalar multiplication.
+
+\textbf{2. $\varphi$ Preserves Multiplication}\\
+For $z = a+bi$ and $w = c+di$, note that
+\[
+z\cdot w = (a+bi)(c+di) = (ac-bd) + (ad+bc)i.
+\]
+Then,
+\[
+\varphi(z\cdot w) = \varphi\bigl((ac-bd) + (ad+bc)i\bigr) = \begin{pmatrix} ac-bd & ad+bc \\ -(ad+bc) & ac-bd \end{pmatrix}.
+\]
+Now, compute the product $\varphi(z)\,\varphi(w)$:
+\[
+\varphi(z)\,\varphi(w) = \begin{pmatrix} a & b \\ -b & a \end{pmatrix}\begin{pmatrix} c & d \\ -d & c \end{pmatrix} 
+= \begin{pmatrix} ac-bd & ad+bc \\ -(ad+bc) & ac-bd \end{pmatrix}.
+\]
+Since the two products are equal, $\varphi(z\cdot w) = \varphi(z)\,\varphi(w)$; hence, $\varphi$ preserves multiplication.
+
+\textbf{3. $\varphi$ is Bijective}\\
+\textbf{Injectivity:}  
+Suppose $\varphi(a+bi)=\varphi(c+di)$. Then,
+\[
+\begin{pmatrix} a & b \\ -b & a \end{pmatrix} = \begin{pmatrix} c & d \\ -d & c \end{pmatrix}.
+\]
+By comparing corresponding entries, we get $a = c$ and $b = d$. Therefore, $a+bi = c+di$, and $\varphi$ is injective.
+
+\textbf{Surjectivity:}  
+Take any matrix in $S$ of the form
+\[
+\begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix},
+\]
+where $\alpha, \beta \in \mathbb{R}$. Choosing $z = \alpha + \beta i \in \mathbb{C}$, we observe that
+\[
+\varphi(z) = \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix}.
+\]
+Thus, every element of $S$ has a preimage in $\mathbb{C}$, proving that $\varphi$ is surjective.
+\\Hence, the set
+\[
+S = \left\{ \begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix} : \alpha,\, \beta \in \mathbb{R} \right\}
+\]
+is isomorphic to the field of complex numbers, $\mathbb{C}$.
+
+\[
+{\mathbb{C} \cong S,\quad \varphi(a+bi) = \begin{pmatrix} a & b \\ -b & a \end{pmatrix}}
+\]
+
 \end{proof}
 \subsection*{Problem 4}
 Prove that $$
     |\frac{a-b}{1-\bar{a}b}|=1
 $$ if either |a|=1 or |b|=1
 \begin{proof}
-    
+Suppose that $|a|=1$. Then, we can write $a=e^{i\theta}$.So, we have
+\begin{align*}{}{}
+|\frac{e^{i\theta}-b}{1-e^{-i\theta}b}|=|\frac{e^{i\theta}-b}{1-e^{-i\theta}b}||e^{-i\theta}|=|\frac{e^{-i\theta}e^{i\theta}(e^{i\theta}-b)}{e^{i\theta}-b}|=1
+\end{align*}
+Suppose that $ |b|=1 $  write 
+\(
+b = e^{i\theta} 
+\)
+Then, the expression becomes
+\[
+\frac{a-b}{1-\overline{a}b} = \frac{a-e^{i\theta}}{1-\overline{a}e^{i\theta}}.
+\]
+
+Now, compute the squared moduli of the numerator and denominator.
+
+\textbf{Numerator:}
+\[
+|a-e^{i\theta}|^2 = (a-e^{i\theta})(\overline{a}-e^{-i\theta})
+= |a|^2 - a e^{-i\theta} - e^{i\theta}\overline{a}+1.
+\]
+
+\textbf{Denominator:}
+\[
+|1-\overline{a}e^{i\theta}|^2 = (1-\overline{a}e^{i\theta})(1-a e^{-i\theta})
+= 1 - a e^{-i\theta} - e^{i\theta}\overline{a}+|a|^2.
+\]
+
+Since the two squared moduli are equal, it follows that
+\[
+\left|\frac{a-e^{i\theta}}{1-\overline{a}e^{i\theta}}\right| = \frac{|a-e^{i\theta}|}{|1-\overline{a}e^{i\theta}|} = 1.
+\]
+
+Thus, we conclude that
+\[
+\left|\frac{a-b}{1-\overline{a}b}\right| = 1.
+\]
 \end{proof}
 \subsection*{Problem 5}
 Prove that $$
     |\frac{a-b}{1-\bar{a}b}|<1
 $$ if |a|<1 and |b|<1
 \begin{proof}
-    
+    Write
+\[
+a = r_1e^{i\alpha}, \quad b = r_2e^{i\beta}, \quad \text{with } r_1,r_2<1.
+\]
+Multiplying the numerator and denominator of
+\[
+\frac{a-b}{1-\overline{a}b}
+\]
+by \(e^{-i\alpha}\) (which does not change the modulus), we obtain
+\[
+\frac{a-b}{1-\overline{a}b} = \frac{r_1 - r_2e^{i(\beta-\alpha)}}{1- r_1r_2e^{i(\beta-\alpha)}}.
+\]
+Set
+\[
+\theta = \beta-\alpha,
+\]
+so that
+\[
+\left|\frac{a-b}{1-\overline{a}b}\right| = \left|\frac{r_1 - r_2e^{i\theta}}{1- r_1r_2e^{i\theta}}\right|.
+\]
+Taking the squared modulus gives
+\[
+\left|\frac{r_1 - r_2e^{i\theta}}{1- r_1r_2e^{i\theta}}\right|^2
+=\frac{|r_1 - r_2e^{i\theta}|^2}{|1- r_1r_2e^{i\theta}|^2}
+=\frac{r_1^2 + r_2^2 - 2r_1r_2\cos\theta}{1 + r_1^2r_2^2 - 2r_1r_2\cos\theta}.
+\]
+Since
+\[
+r_1^2 + r_2^2 < 1 + r_1^2r_2^2 \quad\Longrightarrow\quad r_1^2 + r_2^2 - 2r_1r_2\cos\theta < 1 + r_1^2r_2^2 - 2r_1r_2\cos\theta,
+\]
+we conclude that
+\[
+\frac{r_1^2 + r_2^2 - 2r_1r_2\cos\theta}{1 + r_1^2r_2^2 - 2r_1r_2\cos\theta} < 1.
+\]
+That is,
+\[
+\left|\frac{a-b}{1-\overline{a}b}\right|^2 < 1,
+\]
+and hence
+\[
+\left|\frac{a-b}{1-\overline{a}b}\right| < 1.
+\]
 \end{proof}
 \subsection*{Problem 6}
 If $ |a_i|<1,\lambda_i\geq0,i=1,\cdots,n\text{ and }\lambda_1+\cdots+\lambda_n=1 $\\
@@ -219,6 +381,21 @@ Show that$$
     |\lambda_1a_1+\cdots+\lambda_na_n|<1
 $$  
 \begin{proof}
-    
+    Since for each \( i=1,\dots,n \) we have \(|a_i| < 1\) and \(\lambda_i \ge 0\) with
+\[
+\lambda_1+\cdots+\lambda_n=1,
+\]
+by the triangle inequality,
+\[
+\left|\lambda_1a_1+\cdots+\lambda_na_n\right| \le \lambda_1|a_1|+\cdots+\lambda_n|a_n|.
+\]
+Because each \(|a_i|<1\), it follows that
+\[
+\lambda_1|a_1|+\cdots+\lambda_n|a_n| < \lambda_1+\cdots+\lambda_n = 1.
+\]
+Thus, we obtain
+\[
+\left|\lambda_1a_1+\cdots+\lambda_na_n\right| < 1.
+\]
 \end{proof}
 \end{document}

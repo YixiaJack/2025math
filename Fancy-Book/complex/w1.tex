@@ -737,3 +737,73 @@ Given a polynomial P written in that form with distinct roots $ \alpha_1,\cdots,
 \begin{theorem}[Luca's theorem]{}
 If all the zeros of a polynomial P lies in a half-plane H, then all the zeros of $ P'(z) $ lies in the same half plane. 
 \end{theorem}
+\section{Lecture 9 (03-02)}
+\begin{proof}
+    \begin{align*}{}{}
+    P(z)&=(z-\alpha_1)(z-\alpha_2)\cdots(z-\alpha_k)\\
+    &=\prod_{i=1}^{k}(z-\alpha_i)\\
+    P'(z)&=\sum_{i=1}^{k}\prod_{j\neq i}(z-\alpha_j)\\
+    \frac{P'(z)}{P(z)}&=\sum_{i=1}^{k}\frac{1}{z-\alpha_i}
+    \end{align*}
+\end{proof}
+\textbf{Fact:}
+any half Plane H $ \in \mathbb{C} $ is determined by two complex numbers a and b so that $$
+    z\in H \text{ iff }Im(\frac{z-a}{b})<0
+$$ Hint: use the fact that $ \forall a,b\in \mathbb{C},bt+a,t\in \mathbb{R} $ is a line in C.
+\\Assume that $ a_k\in H \text{ and }z \notin H $  then$$
+    Im(\frac{a_k-a}{b})<0 \text{ and } Im(\frac{z-a}{b})\geq 0$$
+    $$
+        \Rightarrow Im(\frac{b}{z-a_k})<0
+    $$ 
+    \begin{align*}{}{}
+    \Rightarrow Im(\frac{z-a_k}{b})=Im(\frac{z-a}{b}+\frac{a-a_k}{b})> 0\\
+    Im(b\frac{P'(z)}{P(z)})=\sum_{k=1}^{n}Im(\frac{b}{z-a_k})<0 \text{ whenever }z\notin H\\
+    \Rightarrow P'(z)\neq 0
+    \end{align*}
+    2.4 Rational functions\\
+    2.5 Power series\\
+    2.6 Exponential,trigonometric function and logarithm\\
+    \subsection{2.4 Rational functions}
+    We will begin the discussion about how to classify singularities:
+    \\f analytic\\
+    singularities: poles(isolated), essential
+    \begin{align*}{}{}
+    P=(z-a)^hQ\\
+    f(z)\approx \frac{g(z)}{(z-a)^h}
+    \end{align*}
+    \begin{definition}[rational function]{}
+    A rational function R is a function of the form$$
+        R(z)=\frac{P(z)}{Q(z)}$$
+        where P and Q are polynomials which do not have common factors.\\
+        Any zeros of Q are called poles of R.\\
+        We say that a pole of R has order h if the corresoponding zero of Q has order h.
+    \end{definition}
+    \textbf{Comments:}
+    \begin{align*}{}{}
+    R'(z)&=\frac{P'(z)Q(z)-P(z)Q'(z)}{Q(z)^2}\\
+    &=\frac{P'(z)}{Q(z)}-P(z)\frac{Q'(z)}{Q(z)^2}
+    \end{align*}
+    Suppose that $ \alpha $ is a pole of R of order h: then \begin{align*}{}{}
+    Q(z)&=(z-\alpha)^hQ_1(z)\\
+    \Rightarrow Q'(z)&=(z-\alpha)^{h-1}Q_2(z), Q_1(\alpha),Q_2(\alpha)\neq 0
+    \end{align*}
+    \begin{align*}{}{}
+    R'(z)=\frac{P'(z)}{Q(z)}-P(z)\frac{Q'(z)}{Q(z)^2}\\
+    \frac{P'(z)}{Q(z)} \text{ has a pole }\alpha \text{ of order h }  (P'(z)\neq 0)\\
+    \end{align*}
+    \begin{lemma}[]{}
+    If R has a pole $ \alpha $ of order h, R' has a pole $ \alpha $ of order h+1
+    \end{lemma}
+    \begin{definition}[pole or zero at infinity]{}
+    Let R be a rational function, Consider the rational function$$
+        R_1(z):=R(\frac{1}{z})
+    $$ 
+    We say R has a zero at infinity of order h if $ R_1 $ has a zero at 0 of order h.\\
+    Similarly, we say that R has a pole at infinity of order h if $ R_1 $ has a pole at 0 of order h. 
+    \end{definition}
+    \textbf{Comments:}
+   R is not defined at infinity. Nevertheless if $$
+    \lim_{z\rightarrow\infty}R(z)=R(\infty)
+   $$ exists, call it $ R(\infty) $ , I can extend the defination of R to $ \bar{\mathbb{C}} $\\
+   In this case, we could say that $ \infty $ is a removable singularity \\
+   If $ R(\infty)=0 $ , the $ \infty $ is a removable singularity which is a zero\\ 
