@@ -807,3 +807,63 @@ $$ Hint: use the fact that $ \forall a,b\in \mathbb{C},bt+a,t\in \mathbb{R} $ is
    $$ exists, call it $ R(\infty) $ , I can extend the defination of R to $ \bar{\mathbb{C}} $\\
    In this case, we could say that $ \infty $ is a removable singularity \\
    If $ R(\infty)=0 $ , the $ \infty $ is a removable singularity which is a zero\\ 
+\section{Lecture 10 (03-05)}
+\begin{lemma}[]{}
+consider a rational function
+\end{lemma}
+\begin{definition}[order of a rational function]{}
+The order of a rational function is equal to the common number of zeros or poles(with repeatition) of R
+\end{definition}
+\textbf{Comments:}
+The order is max\{m,n\}
+\subsection{Power series}
+We will recall some properties of power series.$$
+    f(z)=\sum_{n=0}^{\infty}a_nz^n
+$$ is the context of complex numbers
+\\To study complex power series, we need to develop some topology and some notions of convergence in C.
+\\$ D(\mathbb{C},||) $ this is a normed vector space over C.\begin{itemize}
+\item $ |z|\geq0  $ and $ |z|=0\Leftrightarrow z=0 $
+\item $ |z_1z_2|=|z_1||z_2| $
+\item $ |z_1+z_2|\leq|z_1|+|z_2| $
+\end{itemize} 
+We can then define the concept of limits of sequence$$
+    \lim_{n\rightarrow\infty}a_n=a\Leftrightarrow \lim_{n\rightarrow\infty}|a_n-a|=0
+$$ 
+We will need to construct limits of sequences under the assumption that a sequence is a Cauchy sequence
+\\In Q, it is not true that $$
+    \lim_{n\rightarrow\infty}q_n \text{ exists as a rational number even though it might exists as a real number} 
+$$ 
+Cauchy sequence in C:
+\\We say that \{$ a_n $\} is a Cauchy sequence if $$
+    \lim_{n\rightarrow\infty}\sup_{m\geq n}|a_n-a_m|=0
+$$ 
+\\In R any Cauchy sequence is convergent.
+\begin{definition}[]{}
+A normed vector space is called complete if every Cauchy sequences are convergent.
+\end{definition}
+\begin{itemize}
+\item Q is not complete
+\item R is complete
+\item C is complete
+\item Then to study whether or not a series is convergent, I don't have to necessarily identify its limit.
+\end{itemize}
+\begin{definition}[power series]{}
+A power series is a series of the form$$
+    f(z)=\sum_{n=0}^{\infty}a_nz^n
+$$ where $ a_n\in C $ and z is a complex number or of the form $$
+    f(z)=\sum_{n=0}^{\infty}a_n(z-z_0)^n
+$$ where $ a_n\in C $ and $ z,z_0\in C $
+\\We say that a power series is convergent at z if $$
+    \lim_{n\rightarrow\infty}\sum_{k=0}^{n}a_kz^k \text{ exists}
+$$ otherwise we say the power series is divergent at z.
+\end{definition}
+\textbf{Comments:}  
+\\ A power series is a complex function (not only a complex number)
+\begin{itemize}
+\item Given a sequence of complex functions $ (f_n) $ , we say that it converges pointwise to f if $$
+    \lim_{n\rightarrow\infty}f_n(z)=f(z)
+$$ 
+\item we say that if $ f_n $  converges uniformly to f if $$
+    \lim_{n\rightarrow\infty}\sup_{z\in D}|f_n(z)-f(z)|=0
+$$
+\end{itemize}

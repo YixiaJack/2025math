@@ -1325,3 +1325,95 @@ $$
  $ E[X]=\frac{1}{p},Var(x)=\frac{1-p}{p^2} $ 
  \end{enumerate}
 \end{example}
+\section{Lecture 11 (03-05)-{poisson random variable}}
+Poisson random variable:
+\\Observe the number of customers in the past days, $ X_i $ is the number of customers on day i
+\\How to predict the number of customers tomorrow?
+\begin{itemize}
+\item One may take $ \bar{X_n}=\frac{1}{n}\sum_{i=1}^{n}X_i $ 
+\item n intervals during each interval, at most 1 customers
+\\$\Rightarrow$ number of customers in n intervals is $ Bern(p) $
+\\Take P, s.t. $np=E[X]=\lambda$
+\\number of customer is Binomial($ n,\frac{\lambda}{n} $)\begin{align*}{}{}
+P(X=k)&=\binom{n}{k}\binom{\lambda}{n}^k(1-\frac{\lambda}{n})^{n-k}\\
+&=\frac{n!}{(n-k)!n^k}\frac{\lambda^k}{k!}(1-\frac{\lambda}{n})^{n-k}\\
+&\Rightarrow(n\rightarrow+\infty,k \text{ fixed})\frac{\lambda^k}{k!}e^{-\lambda}
+\end{align*}
+\end{itemize}
+\begin{definition}[]{}
+X is a Poisson(x) is given by probability mass function $$
+    f(k)=\frac{\lambda^k}{k!}e^{-\lambda},k\in N
+$$ 
+\end{definition}
+if $ X\sim Poisson(\lambda) $, then $$
+    E[X]=\sum_{k\in N^+}k\cdot \frac{\lambda^k}{k!}e^{-\lambda}=\lambda \sum_{k=0}^{+\infty}\frac{\lambda^k}{k!}e^{-\lambda}=\lambda e^{\lambda-\lambda}=\lambda
+$$ 
+Continuous r.v.$$
+    F_x(x)=P(X\leq x)=\int_{-\infty}^{x}f(u)du, f(x)=F'_x(x)
+$$ is the probability density function of X\begin{align*}{}{}
+P(x\leq X\leq X+dx)=\int_{x}^{x+dx}f(u)du\approx f(x)dx\\
+\end{align*}
+Expectation: the expectation of a r.v. X is defined by$$
+    E[X]=\int_{-\infty}^{+\infty}xf(x)dx=\int_{-\infty}^{+\infty}xdF_x(x)
+$$ 
+k-th moment:\begin{align*}{}{}
+E[x^k]=\sum_{-\infty}^{+\infty}x^kf(x)dx\\
+Var[x]=E[(X-E[X])^2]=\int_{-\infty}^{+\infty}(x-E[X])^2f(x)dx
+\end{align*}
+Recall if X is a N-valued r.v. then $$
+    E[x]=\sum_{n\in N}P(x\geq n)
+$$ 
+\begin{lemma}[]{}
+if X is a non-negative r,v, with density function f then\begin{align*}{}{}
+E[X]=\int_{0}^{+\infty}P(X> x)dx=\int_{0}^{+\infty}(1-F_x(x))dx
+\end{align*}
+\end{lemma}
+\begin{proof}
+    \begin{align*}{}{}
+    \int_{0}^{+\infty}P(X>x)dx&=\int_{0}^{+\infty}\int_{x}^{+\infty}f(y)dy dx\\
+    &=\int_{0}^{+\infty}\int_{0}^{y}dxf(y)dy=\int_{0}^{+\infty}yf(y)fy=E[X]\\
+    \end{align*}
+\end{proof}
+How to define $ \int xdF_x(x) $ in general?
+\begin{definition}[Lebesgue integral and expectation]{}
+recall Riemann integral $$
+    \sum f(x_i^\star)\Delta x_i\rightarrow \int f(x)dx
+$$ make sense if f has finitely many discontinuities (for $ f=1_Q $ R-I does not exist)
+\\Lebesgue integral:\begin{align*}{}{}
+\{x\in\mathbb{R}:f(x)\in [y_i,y_i+\Delta y_i)\}=f^{-1}([y_i,y_i+\Delta y_i))\\
+\text{idea: }\sum m(f^{-1}([y_i,y_i+\Delta y_i)))\cdot \Delta y_i\rightarrow \int f(x)dx\\
+\int 1_Q(x)dx=0
+\end{align*}
+\end{definition} 
+More generally, given any measure space $ (\Omega, \mathcal{F},\mu) $ and Borel function f 
+\\Define $ \int_\Omega f du $ 
+\\Step1: If $ f=1_A $ ,where $ A\in F $ define $ \int_\Omega f d\mu=\int_\Omega 1_A d\mu=\mu(A) $
+\\Step2: simple functions: \begin{align*}{}{}
+f=\sum_{i=1}^{n}a_i1_{A_i},A_i\in F \text{ and }a_i\geq0,A_i\cap A_j=\emptyset\\
+\text{Define }\int_\Omega f d\mu=\sum_{i=1}^{n}a_i\mu(A_i)
+\end{align*}
+Fact: if f,g are simple function then f+g,fg,max\{f,g\},min\{f,g\} are simple functions
+\begin{proposition}[]{}
+if f,g are simple function, then\begin{itemize}
+\item $ \int_\Omega af d\mu=a  \int_\Omega f d\mu \forall a\in\mathbb{R}$
+\item $ \int_\Omega (f+g)d\mu=\int_\Omega f d\mu+\int_\Omega g d\mu$
+\item if $ f\leq g  $ then $ \int_\Omega f d\mu\leq \int_\Omega g d\mu $
+\end{itemize}
+Step3: approximates non-negative Borel functions by simple functions
+\\Let $ f\geq0 $ Borel, then $ f=\sup_if_i  $ ,where$$
+    f_i=\sum_{k=0}^{i\cdot 2^i}\frac{k-1}{2^i}1_{\{\frac{k-1}{2^i}\leq f<\frac{k}{2^i}\}}+i1_{\{f>i\}}
+$$ $ f_i\geq0 $ are simple and $ \lim_{i\rightarrow\infty}f_i=\sup_if_i =f $ 
+\end{proposition}
+\begin{definition}[]{}
+For every non-negative Borel function f, define $$
+    \int_\Omega f d\mu=\sup_i\int_\Omega f_i d\mu
+$$ Q:if $ f=\sup f_i,f=\sup g_i $ Does $ \sup_i \int f_id\mu=\sup_i \int g_id\mu $? 
+\end{definition}
+Consistency follows from:\\
+Monotone Convergence theorem: For every increasing sequence $ \{f_n\} $ of measurable functions:$$
+    \limsup_n \int_\Omega f_n d\mu=\int_\Omega \limsup_n f_n d\mu
+$$  (If ($ X_n $)) is a sequence of r.v.s, $ X_n\nearrow x $  then $ \lim_{n\rightarrow+\infty} E[X_n]=E[\lim_n X_n]=E[X] $
+\\Assume MCT:\begin{align*}{}{}
+\text{If }f=\sup f_i=\sup g_i\\
+\text{Then } g_i\leq \sup_i f_i
+\end{align*}
