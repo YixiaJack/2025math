@@ -1334,3 +1334,77 @@ s_n=\sum_{k=1}^{n}c_k\phi_k\\
 c_n=<f,\phi_k>
 \end{align*}
 \end{theorem}
+\section{Lecture 10 (03-10)}
+Midterm:3/19  $ 1\rightarrow 3.4 change of scale $ 
+\subsection*{Problem 1}
+3.2.18
+\begin{align*}{}{}
+x^{\frac{1}{3}}&:R\rightarrow R\\
+\text{This is a continuous function}&\Rightarrow\text{ it is piecewise cont.}\\
+\text{piecewise } C^1 &\text{: (limit from right and left are finite)}\\
+f'(x)&=\frac{1}{3}x^{-\frac{2}{3}},x\neq0\\
+\lim_{x\rightarrow0^+}f'(x)&=+\infty\rightarrow\text{ not } C^1,C^2\\
+\end{align*}
+\subsection*{Problem 2}
+3.2.27
+\begin{align*}{}{}
+a_n&=\frac{1}{\pi}\int_{-\pi}^{\pi}e^x\cos{nx}dx\\
+&=\frac{(-1)^n(e^\pi-e6{-\pi})}{\pi(n^2+1)}\\
+&=\frac{2(-1)^n\sinh(\pi)}{\pi(n^2+1)}\\
+b_n&=\frac{2(-1)^{n+1}n\sinh(\pi)}{n^2+1}\\
+\end{align*}
+(b): As $ \bar{f} $ (the periodic extension of f) is continuous, each point converges uniformly to $ \bar{f} $
+\subsection*{Problem 3}
+3.2.34/35
+\begin{align*}{}{}
+f(x) \text{ is odd}\\
+f(x)=-f(-x)\\
+f'(x)=f'(-x)\rightarrow \text{even}\\
+f(x) \text{ is even}\\
+f(x)=f(-x)\\
+\text{constant }f(x) \text{ can be even or odd}\\
+(1+\sin(x))'=\cos(x) \rightarrow\text{ neither}
+\end{align*}
+\subsection*{Problem 4}
+3.2.45
+\begin{align*}{}{}
+\int_{-\pi}^{0} f(x)\cos(kx)dx&=\int_{0}^{\pi} f(x-\pi)\cos(k(x-\pi))dx\\
+&=\int_{0}^{\pi} f(x)\cos(kx)dx\\
+\end{align*}
+(b):
+\begin{align*}{}{}
+f(x+\frac{\pi}{2})&=f(x)\\
+a_k&=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\\
+&=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x+\frac{\pi}{2})\cos(k(x+\frac{\pi}{2}))dx\\
+&=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx+\frac{k\pi}{2})dx\\
+\text{If k is odd } b_k=-b_k=0,a_k=0\\
+\text{If k is even and not divisible by 4 } a_k=-a_k=0,b_k=0 \\
+\text{If k is divisible by 4 } a_k,b_k \text{ can be non-zero}\\
+\end{align*}
+\subsection*{Problem 5}
+3.2.51
+\begin{align*}{}{}
+\sin(x)=\frac{e^{ix}-e^{-ix}}{2i}\\
+\sin^3(x)=(\frac{e^{ix}-e^{-ix}}{2i})^3=\frac{e^{3ix}-3e^{ix}+3e^{-ix}-e^{-3ix}}{-8}\\
+\end{align*}
+\subsection*{Problem 6}
+3.2.55
+\section{Lecture 11 (03-12)}
+\subsection*{Problem 1}
+3.3.2
+\subsection*{Problem 2}
+3.3.6
+\\Fubini's theorem
+\subsection*{Problem 3}
+3.4.3
+\subsection*{Problem 4}
+3.4.9
+\subsection*{Problem 5}
+3.4.1
+\begin{corollary}
+    if $ \{\phi_n\} $ is a complete orthonormal fmaily and all generalized Fourier coefficients $ c_k $ are zero, then f=0
+    \\More generally, $ f,g\in L^2 $  
+\end{corollary}
+\textbf{Proof of BIG Theorem:}
+\\1. geometric series,2.the kernel, intergral is 1.3. consider the difference goes to 0 by bessel's inequality.
+

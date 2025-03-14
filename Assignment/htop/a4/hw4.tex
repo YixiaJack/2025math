@@ -258,7 +258,7 @@ Therefore, the distribution of $U$ conditional on $\{U \in R\}$ is uniform on $R
     Both issues can be addressed by using the generalized inverse function:
     \[ F^{-1}(u) = \inf\{y: F(y) \geq u\} \]
     
-    With this definition, $Y = F^{-1}(X)$ will have distribution function $F$ even when $F$ is not continuous or strictly increasing, provided that $F$ is at least right-continuous and non-decreasing (as any proper distribution function must be).
+    With this definition, $Y = F^{-1}(X)$ will have distribution function $F$ even when $F$ is not continuous or strictly increasing, provided that $F$ is at least right-continuous and non-decreasing.
    \end{proof}
 \subsection*{Problem 3}
 (a) Show that any discrete random variable may be written as a linear combination of indicator variables.
@@ -268,9 +268,9 @@ Therefore, the distribution of $U$ conditional on $\{U \in R\}$ is uniform on $R
     \textbf{(a)}
 
 Let $X$ be a discrete random variable taking values in the countable set $\{x_1, x_2, x_3, \ldots\}$. We can express $X$ as:
-\begin{align}
+\begin{align*}
 X = \sum_{i=1}^{\infty} x_i \mathbf{1}_{\{X = x_i\}}
-\end{align}
+\end{align*}
 
 where $\mathbf{1}_{\{X = x_i\}}$ is the indicator variable for the event $\{X = x_i\}$, defined as:
 \begin{align*}
@@ -293,9 +293,9 @@ Thus, $X$ is indeed a linear combination of indicator variables.
 Let $X$ be any random variable. For each positive integer $m$, we partition the real line into intervals of the form $[k2^{-m}, (k+1)2^{-m})$ for $k \in \mathbb{Z}$ (i.e., all integers from $-\infty$ to $\infty$).
 
 We define the discrete random variable $X_m$ as:
-\begin{align}
+\begin{align*}
 X_m = \sum_{k=-\infty}^{\infty} k2^{-m} I_{k,m}
-\end{align}
+\end{align*}
 
 where $I_{k,m}$ is the indicator function of the event $\{k2^{-m} \leq X < (k+1)2^{-m}\}$.
 
@@ -308,9 +308,9 @@ This construction has the following properties:
 3. For each fixed $\omega$, $X_m(\omega) \leq X(\omega)$ since $X_m(\omega) = k2^{-m}$ when $X(\omega) \in [k2^{-m}, (k+1)2^{-m})$.
 
 4. As $m$ increases, the partition becomes finer and $X_m(\omega)$ becomes a better approximation of $X(\omega)$. Specifically, if $X(\omega) \in [k2^{-m}, (k+1)2^{-m})$, then:
-\begin{align}
+\begin{align*}
 0 \leq X(\omega) - X_m(\omega) < (k+1)2^{-m} - k2^{-m} = 2^{-m}
-\end{align}
+\end{align*}
 
 5. The sequence $\{X_m(\omega)\}_{m=1}^{\infty}$ is increasing for each fixed $\omega$. This is because as $m$ increases, the left endpoints of the intervals in the partition either stay the same or increase to a value closer to $X(\omega)$.
 
@@ -538,7 +538,7 @@ h_0 &= 1 + h_1\\
 h_N &= 0
 \end{align*}
 
-\textbf{Case 1: Symmetric random walk ($p = q = 1/2$)}
+\textbf{Case 1:  ($p = q = 1/2$)}
 
 For $0 < k < N$, the recursive equation becomes:
 \begin{align*}
@@ -562,7 +562,7 @@ Therefore:
 h_k = (N-k)(k+1)
 \end{align*}
 
-\textbf{Case 2: Asymmetric random walk ($p \neq q$)}
+\textbf{Case 2: ($p \neq q$)}
 
 Rearranging the recursive equation:
 \begin{align*}

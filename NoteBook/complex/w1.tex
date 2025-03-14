@@ -867,3 +867,57 @@ $$
     \lim_{n\rightarrow\infty}\sup_{z\in D}|f_n(z)-f(z)|=0
 $$
 \end{itemize}
+\section{Lecture 11 (03-12)--{Exponential, trigonometric functions and logarithm}}
+\begin{align*}{}{}
+\bar{e^z}=e^{\bar{z}}\\
+\bar{e^{ix}}=e^{-ix}\\
+|e^{ix}|^2=e^{ix}e^{-ix}=1\\
+e^{ix}:=R\rightarrow S=\{z:|z|=1\}\\
+\end{align*}
+\begin{definition}[]{}
+Define the trigonometric functions as$$
+    \cos z=\frac{e^{iz}+e^{-iz}}{2},\sin z=\frac{e^{iz}-e^{-iz}}{2i}
+    $$
+\end{definition}
+\textbf{Comments:}
+\begin{itemize}
+\item These definitions, extend the defination of cossine and sine functions, to complex arguments.
+\item Euler's formula:$$
+    e^{iz}=\cos z+i\sin z
+$$ 
+\item From Euler's formula we can have $$
+    \cos(z)^2+\sin(z)^2=1
+$$ 
+\end{itemize}
+\begin{definition}[period of a function]{}
+We say that $ c\in C $ is a period of a complex function f if $$
+    f(z+c)=f(z),\forall z\in C
+$$  
+\end{definition}
+\begin{definition}[]{}
+The smallest positive period of $$
+    e^{iz}
+$$ will be called $ 2\pi $  
+\end{definition}
+Using some analysis including the intermediate value theorem, we can prove that there exists a number $ y_0>0 $ s.t.$$
+    e^{iy_0}=1
+$$  
+\textbf{Comments:}
+\begin{definition}[logarithm]{}
+A logarithm of $ w\in C $ is defined as a root of th eequation$$
+    e^z=w
+$$  denoted by $ z=\log w $
+\end{definition}
+Notice that if z is a logarithm of w, then $$
+    e^{z+2\pi i}=e^z
+$$ $ z+2\pi i $ is also a logarithm of w.
+\\\textbf{Comments:}
+\begin{itemize}
+\item 0 has no logarithm
+\item for $ w\neq0 $ we want to find a $ z=x+iy $ such that $$
+    e^z=w\Rightarrow e^x=|w|
+$$ so\begin{align*}{}{}
+x=\log|w|\\
+\end{align*}
+\end{itemize}
+

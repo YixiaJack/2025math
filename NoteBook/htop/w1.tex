@@ -1417,3 +1417,104 @@ $$  (If ($ X_n $)) is a sequence of r.v.s, $ X_n\nearrow x $  then $ \lim_{n\rig
 \text{If }f=\sup f_i=\sup g_i\\
 \text{Then } g_i\leq \sup_i f_i
 \end{align*}
+\section{Recitation (03-07)}
+\subsection*{Problem 1}
+Let $ X\sim Poisson(\lambda_1),Y\sim Poisson(\lambda_2), independent $ 
+\\Compute the probability mass function of $ X+Y $
+\begin{align*}{}{}
+P(X+Y=n)&=\sum_{k=0}^{n}P(X=k)P(Y=n-k)\\
+&=\sum_{k=0}^{n}\frac{\lambda_1^k}{k!}e^{-\lambda_1}\cdot \frac{\lambda_2^{n-k}}{(n-k)!}e^{-\lambda_2}\\
+&=\frac{e^{-(\lambda_1+\lambda_2)}}{n!}\sum_{k=0}^{n}\binom{n}{k}\lambda_1^k\lambda_2^{n-k}\\
+&=\frac{e^{-(\lambda_1+\lambda_2)}}{n!}(\lambda_1+\lambda_2)^n
+\end{align*}
+\textbf{$ \sum_kf_x(k)f_Y(n-k)=f_X*f_Y $ }
+\subsection*{Problem 2}
+m balls, n boxes, uniform random
+\\Compute the E[number of empty boxes]
+\\number of empty boxes:$ 1_{b_1empty}+\cdots1_{b_nempty} $ 
+\\linearity of expectation: \begin{align*}{}{}
+E[\#]&=\sum_{i=1}^{n}E 1_{b_i empty}\\
+&=nP(\text{box 1 is empty})\\
+&=n(\frac{n-1}{n})^m
+\end{align*} 
+\\Note: \begin{align*}{}{}
+E[X]=\int XdP\\
+E[X]=\int 1_A dP=P(A)
+\end{align*}
+\subsection*{Problem 3}
+Coupon collector: n types of coupons, pick one at random
+\\$ T_n $ =time to complete the collection of n coupons
+\\Compute $ E[T_n] $
+Let $ T_i $ =time to collect the i-th new coupon
+\\$ T_n=T_1+T_2+\cdots+T_n $
+\\$ E[T_1]=1, T_j-T_{j-1}\sim Geo(1-\frac{i-1}{n})$ every trial with success prob:$ 1-\frac{i-1}{n} $
+\begin{align*}{}{}
+E[T_j-T_{j-1}]=\frac{1}{1-\frac{i-1}{n}}\\
+E[T_n]=\sum_{j=1}^{n}E[T_j-T_{j-1}]=n\sum_{j=1}^{n}\frac{1}{j}
+\end{align*} 
+\subsection*{Problem 4}
+Let X be a r.v., $ E[X]=1 $
+\\show that $$ t\in(0,1), P(X>t)>\frac{(1-t)^2}{E[X^2]}$$
+(hint:Cauchy Schwarz)
+\begin{align*}{}{}
+\text{Let }Y&=1_{X>t}\\
+E[\mathbf{1}_{X>t}]=P(X>t)=E[Y]=E[Y^2]\\
+\text{By Cauchy-Schwarz: }E[XY]&\leq \sqrt{E[X^2]E[Y^2]}\\
+E[X^2]E[Y^2]&\geq E[XY]^2=E[X(1-1_{x\leq t})]^2\\
+&=(1-E[X1_{X\leq t}])^2\\
+\geq (1-t)^2
+\end{align*}
+\begin{definition}[Paykey-Zygmund inequality]{}
+    for $ t\in (0,1) $ 
+$$P(Y>tE[Y])\geq (1-t)^2\frac{(E[Y])^2}{E[Y^2]}$$
+second moment method
+\end{definition}
+\section{Lecture 12 (03-10)}
+Midterm March 26
+\begin{definition}[Monetone Convergence Theorem]{}
+ For any increasing sequence of function:$ \{f_n\} $ such that $ \{f_n\} $ is bounded from below 
+\\Then $$
+    \lim_{n\rightarrow+\infty}\int f_n d\mu=\int \lim_{n\rightarrow+\infty}f_n d\mu
+$$ 
+\end{definition}:
+\textbf{Proof:}
+\\Since $ \int f_nd\mu\leq \int  f\mu \forall n\in N $ Then $ \limsup \int f_n d\mu\leq fd\mu $  
+\\\textbf{Fact:}
+\\if $ \phi $ is a simple function, then $ u(A):=\int_{A}d\mu $ defines a measure(ex.)
+\\Take a sequence $ \{\phi_k\} $ of the simple function: $ \phi_k\nearrow f $    
+\\Let $ \alpha\in(0,1) $ Fix a given $ \phi_k $
+\\Let $ A_n=\{f_n>\alpha\phi_k\}=\{\omega\in\Omega:f_n(\omega)>\alpha\phi_k(\omega)\} $
+\\Then $ (A_n)\nearrow  $, and \begin{align*}{}{}
+\lim_{n\rightarrow+\infty}&=\bigcup_{n\geq1}A_n=\{\exists n\in N s.t.f_n>\alpha\phi_k\}\\
+&=
+\end{align*}   
+\section{Lecture 13 (03-12)}
+if $ \nu(A)=\sum_{A}fd\mu $ for some non-negative Borel function f, then f is the Random-Nikodym derivative of $ \mu $ w.r.t. $ \mu $
+\\$ \nu<<\mu $ iff $ A\in F $ s.t.$ \mu(A)=0\Rightarrow \nu(A)=0 $
+\\if $ \mu,\nu $  are $ \sigma $-finite
+\begin{proposition}[Lack of memory]{}
+If $ X\sim Exp(\lambda) $, Then $$
+    P(X>s+t|X>s)=P(X>t)
+$$  
+\end{proposition}   
+\section{Recitation (03-14)}
+\subsection*{Problem 1}
+We know that $ X\sim Exp(\lambda) $,Then $ P(X>t+s|X> s)=P(X>t) $
+\\Identify all distribution that satisfy the lack of memory property.
+\begin{align*}{}{}
+\text{Let }G(t)=P(X>t)\\
+G(t+s)=G(t)G(s)\\
+\text{Let }H(t)=\log G(t)\\
+H(t+s)=H(t)+H(s)\\
+\text{Claim: } \exists \lambda H(t)=\lambda t\\
+\forall k\in Z, H(k)=kH(1)\\
+G(t)=e^{-\lambda t}\\
+\end{align*}
+\subsection*{Problem 2}
+$ (\Omega,F,\mu) $ measure space, X is a integrable borel function, Y is an  simple function 
+\\Show that (1)$$
+    \exists A\in F ,\mu(A)<+\infty ,s.t. \int_\Omega Y d\mu=\int_A Y d\mu
+$$ 
+(1) $$
+    \exists \epsilon>0, \exists A_\epsilon\in F, \mu(A_\epsilon)<+\infty, s.t. |\int_{A_\epsilon} X d \mu-\int_\Omega Xd\mu|<\epsilon
+$$ 
