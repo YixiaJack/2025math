@@ -1518,3 +1518,45 @@ $$
 (1) $$
     \exists \epsilon>0, \exists A_\epsilon\in F, \mu(A_\epsilon)<+\infty, s.t. |\int_{A_\epsilon} X d \mu-\int_\Omega Xd\mu|<\epsilon
 $$ 
+\section{Lecture 14 (03-17)}
+chain rule
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+ \item $ (\Omega, F, P) $ 
+ \end{enumerate}
+\end{example}
+\subsection{Joint distribution}
+Given probability space $ (\Omega_1, F_1, P_1), (\Omega_2, F_2, P_2)$ can define the product space $ (\Omega_1\times\Omega_2, F_1\otimes F_2, P_1\otimes P_2) $ where$$
+    F_1\otimes F_2=\sigma(\{A_1\times A_2:A_1\in F_1,A_2\in F_2\})
+$$  define $$
+    P_1\otimes P_2(A_1\times A_2)=P_1(A_1)P_2(A_2)
+$$ and extend to $ F_1\otimes F_2 $ by Caratheodory extension theorem
+\begin{definition}[Joint distribution]{}
+    Joint distribution of $ X,Y $ is $ F:\mathbb{R}^2\rightarrow[0,1] $ s.t.  $$
+        F(x,y)=P(X\leq x,Y\leq y)
+    $$
+\end{definition}
+\begin{definition}[]{}
+If  X,Y are continuous random variables, then the joint density function $ f:\mathbb{R}^2\rightarrow[0,+\infty) $ is given by\begin{align*}{}{}
+F(x,y)&=\int_{-\infty}^{x}\int_{-\infty}^{y}f(u,v)dudv\\
+f(x,y)&=\frac{\partial^2 F}{\partial x\partial y}
+\end{align*} 
+\end{definition}
+\begin{remark}[]{}
+(1)
+\begin{align*}{}{}
+P[a< X\leq b,c<Y\leq d]&=\int_{a}^{b}\int_{c}^{d}f(u,v)dudv\\
+\end{align*}
+(2):by uniqueness of extension,\begin{align*}{}{}
+B(R^2)=\sigma\{\text{left open right closed cubes in } R^2\}\\
+P((X,Y)\in A)=\int_{A}f(u,v)dudv\text{, for every } A\in B(R^2)\\
+\end{align*}
+\end{remark}
+\begin{align*}{}{}
+    \text{May cover individual distribution from the joint distribution}\\
+    F_X(x)=P(X\leq x)=P(X\leq x,Y\in R)=\int_{-\infty}^{x}\int_{-\infty}^{+\infty}f(u,v)dudv\\
+    f_X(x)=\int_{-\infty}^{+\infty}f(x,v)dv,f_Y(y)=\int_{-\infty}^{+\infty}f(u,y)du
+\end{align*}
+\begin{remark}[]{}
+if X,Y are independent$\Rightarrow F(x,y)=F_X(x)F_Y(y)\Leftrightarrow(cont.) f(x,y)=f_X(x)f_Y(y) $
+\end{remark}
