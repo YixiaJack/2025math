@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  14 MAR 2025 18:32
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  19 MAR 2025 21:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -798,6 +798,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [1
 
 ]
+LaTeX Font Info:    Trying to load font information for TU+zi4 on input line 254.
+LaTeX Font Info:    No file TUzi4.fd. on input line 254.
+
+
+LaTeX Font Warning: Font shape `TU/zi4/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 254.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.52023pt, for example:
@@ -806,6 +813,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [2]
+Missing character: There is no ∪ (U+222A) in font [lmroman9-regular]:mapping=tex-text;!
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.52023pt, for example:
@@ -830,13 +838,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
 [5]
-LaTeX Font Info:    Trying to load font information for TU+zi4 on input line 300.
-LaTeX Font Info:    No file TUzi4.fd. on input line 300.
-
-
-LaTeX Font Warning: Font shape `TU/zi4/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 300.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.52023pt, for example:
@@ -884,7 +885,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
-[11] (./algo_hw2_v1.aux)
+[11]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
+
+[12] (./algo_hw2_v1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -897,12 +906,12 @@ Package rerunfilecheck Info: File `algo_hw2_v1.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27824 strings out of 474773
- 537161 string characters out of 5757725
- 1932839 words of memory out of 5000000
- 49477 multiletter control sequences out of 15000+600000
- 567573 words of font info for 82 fonts, out of 8000000 for 9000
+ 28052 strings out of 474773
+ 539580 string characters out of 5757725
+ 2124839 words of memory out of 5000000
+ 49697 multiletter control sequences out of 15000+600000
+ 569771 words of font info for 92 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,11n,97p,636b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,12n,97p,636b,1859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on algo_hw2_v1.pdf (11 pages).
+Output written on algo_hw2_v1.pdf (12 pages).

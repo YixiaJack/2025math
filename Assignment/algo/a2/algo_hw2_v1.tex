@@ -230,7 +230,66 @@ Then implement your algorithm by giving the pseudocode.
 Your algorithm is supposed to run in $O(n)$ time, assuming the points in $P$ have already been sorted in the left-right order.
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 1 here.}
+    \begin{itemize}
+        \item  Only at points \(a = x_i\) or \(a = x_i-1\) (for \(x_i\in P\)) does the count in \((a,a+1]\) change. Thus, define
+        \[
+        Q = \{x_i-1 : x_i \in P\} \cup \{x_i : x_i \in P\}.
+        \]
+        \item \textbf{Greedy:} Initialize \(L=\min(P)-1\) (the minimum allowed left endpoint) and scan \(Q\) for the smallest candidate \(a \ge L\) such that the count of points in \((a, a+1]\) is at least \(k\). Once such an \(a\) is found, choose that interval, update \(L\) to \(a+1\), and repeat.
+        \item \textbf{Correctness:} By always choosing the leftmost feasible candidate:
+        \begin{itemize}
+            \item Each interval is heavy (i.e. contains at least \(k\) points).
+            \item Intervals do not overlap (since the next interval's left endpoint is at least the previous one's right endpoint).
+            \item An exchange argument shows that shifting intervals left does not reduce their heavy property, ensuring this greedy strategy is optimal.
+        \end{itemize}
+    \end{itemize}
+    
+    \begin{lstlisting}
+    HEAVY-INT(P, k)
+        Input: sorted P = [x1, x2, ..., xn], positive integer k
+        Output: set S of disjoint heavy unit intervals (a, a+1]
+    
+        S <- {}             // Solution set
+        L <- min(P) - 1     // Allowed left endpoint
+        Q <- merge({x - 1 for x in P}, {x for x in P})
+                            // Q is sorted and has at most 2n candidates
+    
+        p_left <- 1, p_right <- 1
+    
+        // Find first candidate a_star >= L with count >= k
+        for each a_candidate in Q where a_candidate >= L do
+            while p_left <= n and P[p_left] <= a_candidate do
+                p_left <- p_left + 1
+            while p_right <= n and P[p_right] <= a_candidate + 1 do
+                p_right <- p_right + 1
+            if (p_right - p_left) >= k then
+                a_star <- a_candidate
+                break
+            end if
+        end for
+        if no candidate found then
+            return S
+    
+        // Greedily select intervals
+        while true do
+            S <- S ∪ { (a_star, a_star+1] }
+            L <- a_star + 1
+            Advance candidate pointer in Q to first a_candidate >= L
+            found <- false
+            for each a_candidate in Q where a_candidate >= L do
+                Update p_left, p_right for a_candidate
+                if (p_right - p_left) >= k then
+                    a_star <- a_candidate
+                    found <- true
+                    break
+                end if
+            end for
+            if not found then
+                break
+        end while
+        return S
+    \end{lstlisting}
+    
 \end{solution}
 \newpage
 

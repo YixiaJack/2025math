@@ -921,3 +921,47 @@ x=\log|w|\\
 \end{align*}
 \end{itemize}
 
+\section{Lecture 12 (03-19)--{Complex integration}}
+\subsection{line integral}
+The integral of a complex function $ f:[a,b]\rightarrow c $ as $$
+    \int_{a}^{b}f(z)dz=\int_{a}^{b}u(x)dx+i\int_{a}^{b}v(x)dx
+$$
+We also proved that $$
+    |\int_{a}^{b}f(t)dt|\leq\int_{a}^{b}|f(t)|dt
+$$ 
+\textbf{Comments:}
+\\We want to define integrals alone a complex curve $$
+    \gamma=\{z(x):\alpha\leq x\leq\beta\}
+$$ 
+\begin{definition}[complex curve]{}
+We say that $ \gamma $ is an arc or curve (also we might use the contour) in the complex plane, if it can be represented as $$
+    \gamma=\{z(t):a\leq x\leq b\}
+$$ where z(t)=x(t)+iy(t) and $x:[a,b]\rightarrow R,y:[a,b]\rightarrow R$ are continuous
+\end{definition}
+\textbf{Comments:}
+\\Peano curve: a continuous curve that fills the square
+\\We say that z is differentiable if z in the representation of the arc is differentiable, so that $$
+    z'(t)=x'(t)+iy'(t)
+$$ We will say that an arc is regular if $ z'(t)\neq 0 $ for all $a\leq t\leq b  $ (this is convenient because then at the point z(t) the arc will have a tangent line with slope argz'(t))
+\\We will also say that an arc is piecewise differentiable (or regular) if the arc is differentiable (regular) at all points except for a finite number of points where itis still continuous and it has right and left derivatives which coincide with the left and right limits of z'(t).
+\begin{definition}[closed and simple arc]{}
+We say that an arc is simple or a Jordan arc if $ z(t_1)=z(t_2) $ only when $ t_1=t_2 $. We say that an arc is closed or a closed curve if its initial point coincides with its final points, so that $ z(\alpha)=z(\beta) $
+\\We define a simple closed arc or Jordan curve as an arc which is simple (except $ z(\alpha)=z(\beta) $ ) and closed.   
+\end{definition} 
+\textbf{Comments:}
+\\A Jordan curve is closed, continuous, 1-1 mapping from [$ \alpha ,\beta$] with $ \alpha\text{ indentified with } \beta  \text{ to } C$
+\\Jordan curve cannot be space-filling
+\\A Jordan curve separate C into the interior and the exterior of the curve.(Jordan curve theorem)
+\\There exists Jordan curve which  have positive area.
+\begin{definition}[Line integral]{}
+Let $ \gamma $ be a piecewise differentiable arc in C, and let f be a complex function defined on $ \gamma $. We define the line integral of f over $ \gamma $ as $$
+    \int_{\gamma}f(z)dz=\int_{a}^{b}f(z(t))z'(t)dt 
+$$
+\end{definition} 
+\textbf{Comments:}
+\\1. This line integral is invariant under a change in the parameterization of the arc.
+\\So if $ z(t):\alpha\leq t\leq \beta $ and $ t=t(\tau), a\leq \tau \leq b$,differentiable, then$$
+\int_{\alpha}^{\beta}f(z(t))z'(t)dt =\int_{a}^{b}f(z(t(\tau)))z'(t(\tau))t'(\tau)d\tau=\int_{a}^{b}f(w(\tau))w'(\tau)d\tau
+$$  where $ w(\tau)=z(t(\tau)) ,t(a)=\alpha,t(b)=\beta$
+\\2.In this discussion arc have an orientation
+
