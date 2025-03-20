@@ -212,8 +212,8 @@ Another notice: you only get full credits for the algorithm design questions if 
 
 \textit{Please specify the following information before submission}:
 \begin{itemize}
-    \item Your Name: %  (put your name here)
-    \item Your NetID: % (put your NetID here)
+    \item Your Name: Yixia Yu
+    \item Your NetID: yy5091
 \end{itemize}
 \newpage
 
@@ -230,33 +230,24 @@ Then implement your algorithm by giving the pseudocode.
 Your algorithm is supposed to run in $O(n)$ time, assuming the points in $P$ have already been sorted in the left-right order.
 
 \begin{solution}
-    \begin{itemize}
-        \item  Only at points \(a = x_i\) or \(a = x_i-1\) (for \(x_i\in P\)) does the count in \((a,a+1]\) change. Thus, define
+       Only at points \(a = x_i\) or \(a = x_i-1\) (for \(x_i\in P\)) does the count in \((a,a+1]\) change. Thus, define
         \[
         Q = \{x_i-1 : x_i \in P\} \cup \{x_i : x_i \in P\}.
         \]
-        \item \textbf{Greedy:} Initialize \(L=\min(P)-1\) (the minimum allowed left endpoint) and scan \(Q\) for the smallest candidate \(a \ge L\) such that the count of points in \((a, a+1]\) is at least \(k\). Once such an \(a\) is found, choose that interval, update \(L\) to \(a+1\), and repeat.
-        \item \textbf{Correctness:} By always choosing the leftmost feasible candidate:
+    \\Initialize \(L=\min(P)-1\) (the minimum allowed left endpoint) and scan \(Q\) for the smallest candidate \(a \ge L\) such that the count of points in \((a, a+1]\) is at least \(k\). Once such an \(a\) is found, choose that interval, update \(L\) to \(a+1\), and repeat.
+\\ \textbf{Correctness:} By always choosing the leftmost feasible candidate:
         \begin{itemize}
             \item Each interval is heavy (i.e. contains at least \(k\) points).
             \item Intervals do not overlap (since the next interval's left endpoint is at least the previous one's right endpoint).
             \item An exchange argument shows that shifting intervals left does not reduce their heavy property, ensuring this greedy strategy is optimal.
         \end{itemize}
-    \end{itemize}
     
     \begin{lstlisting}
     HEAVY-INT(P, k)
-        Input: sorted P = [x1, x2, ..., xn], positive integer k
-        Output: set S of disjoint heavy unit intervals (a, a+1]
-    
-        S <- {}             // Solution set
-        L <- min(P) - 1     // Allowed left endpoint
+        S <- {}            
+        L <- min(P) - 1     
         Q <- merge({x - 1 for x in P}, {x for x in P})
-                            // Q is sorted and has at most 2n candidates
-    
         p_left <- 1, p_right <- 1
-    
-        // Find first candidate a_star >= L with count >= k
         for each a_candidate in Q where a_candidate >= L do
             while p_left <= n and P[p_left] <= a_candidate do
                 p_left <- p_left + 1
@@ -269,8 +260,6 @@ Your algorithm is supposed to run in $O(n)$ time, assuming the points in $P$ hav
         end for
         if no candidate found then
             return S
-    
-        // Greedily select intervals
         while true do
             S <- S ∪ { (a_star, a_star+1] }
             L <- a_star + 1
@@ -315,9 +304,121 @@ If we call $\textsc{Swap}(i,j)$, then $A[i]$ and $A[j]$ will be swapped in $A$.
     Prove the correctness of your algorithm (i.e., it successfully sorts $A$ and the number of $\textsc{Swap}$ calls used is minimum).
     Your algorithm is supposed to run in $O(n^2)$ time or faster.
 \end{enumerate}
-
 \begin{solution}
-\textbf{Please write down your solution to Problem 2 here.}
+    \textbf{Idea:}
+    \begin{itemize}
+      \item Make a copy \(B\) of \(A\) and sort \(B\) (in \(O(n\log n)\) time) so that \(B\) holds the correct (increasing) order.
+      \item Construct a mapping \(T\) that maps each element to its current position in \(A\). For each index \(i\), if \(A[i] \neq B[i]\), then the element that belongs at position \(i\) is currently at position \(T[B[i]]\). Call \(\textsc{Swap}(i, T[B[i]])\) and update the mapping. Each swap places one or two elements in their correct positions.
+    \end{itemize}
+    Since each cycle of misplaced elements of length \(L\) is fixed with \(L-1\) swaps, the total number of swaps is at most \(n-1\).
+    \begin{lstlisting}[language=]
+        FUNCTION MIN_SWAPS(A):
+            n <- LENGTH(A)
+            B <- COPY(A)
+            quicksort(B)
+            T <- EMPTY_MAP
+            FOR i <- 0 TO n-1 DO:
+                T[A[i]] <- i
+            END FOR
+            swaps <- 0
+            FOR i <- 0 TO n-1 DO:
+                IF A[i] != B[i] THEN:
+                    j <- T[B[i]]
+                    SWAP(A[i], A[j])
+                    T[A[i]] <- i
+                    T[A[j]] <- j
+                    swaps <- swaps + 1
+                END IF
+            END FOR
+            RETURN swaps
+        END FUNCTION
+        \end{lstlisting}
+(2)
+\textbf{Counterexample:} Consider the array
+\[
+A = [6,\,4,\,7,\,1,\,5,\,2,\,3]
+\]
+with the target sorted order
+\[
+[1,\,2,\,3,\,4,\,5,\,6,\,7].
+\]
+
+\textbf{Optimal Swap Count}:
+By performing a cycle decomposition:
+\begin{itemize}
+  \item Positions 1, 2, 4, and 6 form a 4-cycle (since $6\to 2$, $2\to4$, $4\to1$, $1\to6$) needing $4-1=3$ swaps.
+  \item Positions 3 and 7 form a 2-cycle (since $7\to3$, $3\to7$) needing $2-1=1$ swap.
+\end{itemize}
+Thus, the optimal total is $3+1=4$ swaps.
+
+\textbf{Greedy Inversion Reduction}:
+The inversion count of \(A\) is 14. A detailed check confirms:
+\begin{itemize}
+  \item Element 6 creates 5 inversions,
+  \item Element 4 creates 3 inversions,
+  \item Element 7 creates 4 inversions,
+  \item Element 5 creates 2 inversions.
+\end{itemize}
+A candidate swap that reduces the inversion count by the most is swapping the elements at positions 1 and 7 (swapping 6 and 3). After the swap,
+\[
+A' = [3,\,4,\,7,\,1,\,5,\,2,\,6],
+\]
+the inversion count drops from 14 to 9 (a decrease of 5 inversions), which is higher than the drop achieved by swaps within a single cycle (typically 3 or less).
+
+\textbf{Global Impact}:
+Despite the significant inversion drop, swapping positions 1 and 7 merges the initial two cycles into one 6-cycle. This new cycle requires
+\[
+6-1=5 \text{ swaps,}
+\]
+and including the applied swap, totals 6 swaps—worse than the optimal 4.
+Thus, even though the (1,7) swap is locally optimal (with the largest inversion reduction), it leads to a globally suboptimal solution. This counterexample shows that relying solely on the maximum inversion drop can force the greedy algorithm into a wrong decision.
+\\(3)
+\textbf{Basic Idea:}  
+The algorithm finds cycles in the permutation of the array. Every element not in its correct position is part of a cycle. For a cycle of length \( k \), exactly \( k - 1 \) swaps are needed. Thus, if the array decomposes into cycles with lengths \( k_1, k_2, \dots, k_m \), the total minimum swaps is 
+\[
+(k_1 - 1) + (k_2 - 1) + \cdots + (k_m - 1)
+\]
+which is equivalent to \( n - m \) where \( n \) is the number of elements and \( m \) is the number of cycles.
+\begin{lstlisting}
+    FUNCTION MIN_SWAPS(arr)
+        n <- LENGTH(arr)
+        visited <- ARRAY of n Booleans (all set to FALSE)
+        pos <- EMPTY HASH MAP
+        FOR i <- 0 TO n - 1 DO
+            pos[arr[i]] <- i
+        END FOR
+        SORT(arr)
+        swaps <- 0
+        FOR i <- 0 TO n - 1 DO
+            IF visited[i] = TRUE OR pos[arr[i]] = i THEN
+                CONTINUE TO NEXT i
+            END IF
+            j <- i
+            cycleSize <- 0
+            WHILE visited[j] = FALSE DO
+                visited[j] <- TRUE
+                j <- pos[arr[j]]  
+                cycleSize <- cycleSize + 1
+            END WHILE
+            IF cycleSize > 0 THEN
+                swaps <- swaps + (cycleSize - 1)
+            END IF
+        END FOR
+        RETURN swaps
+    END FUNCTION
+    \end{lstlisting}
+    \textbf{Correctness Proof:}
+
+    \medskip
+    
+    \textbf{Sorting:}  
+    The algorithm detects cycles in the array's permutation. Every element not in its correct position is part of a cycle of interdependent elements. By traversing each cycle using a \texttt{visited} array, the algorithm places each element into its correct position. When all cycles are processed, the array is fully sorted.
+    
+    \medskip
+    
+    \textbf{Minimal Swap Count:}  
+    For a cycle of length $k$, exactly $k-1$ swaps are necessary because each swap fixes one element, and no cycle can be sorted with fewer than $k-1$ swaps. Since the cycles are disjoint, summing $(k-1)$ over all cycles yields the minimum number of swaps required. This is exactly the count produced by the algorithm.
+    
 \end{solution}
 \newpage
 
@@ -330,8 +431,75 @@ Describe the basic idea of your algorithm and give the pseudocode.
 Briefly justify its correctness and analyze its time complexity.
 Your algorithm should run in $O(n^2)$ time or faster.
 
+
+    
 \begin{solution}
-\textbf{Please write down your solution to Problem 3 here.}
+    Let $A$ be an array of $n$ real numbers. An array is \textit{doubling} if 
+    \[
+    A[i] \geq 2A[i-1] \quad \text{for all } i \ge 2.
+    \]
+    Our goal is to find a longest subsequence $A'$ of $A$ that is doubling. 
+    
+    We define a subproblem for each index $i$ as follows: let $dp[i]$ be the length of the longest doubling subsequence ending at index $i$. The dynamic programming recurrence is given by
+    \[
+    dp[i] = \max\!\Biggl\{ 1,\ \max_{\substack{1 \leq j < i \\ A[i] \geq 2A[j]}} \bigl\{ dp[j] + 1 \bigr\} \Biggr\}.
+    \]
+    Here, the inner maximum considers only those indices $j$ with $1 \leq j < i$ such that the doubling condition $A[i] \ge 2A[j]$ holds. In addition, we maintain an array $pred$ to record the predecessor of each element in the subsequence so that the subsequence can be reconstructed.
+    
+    Once all subproblems are solved, the overall longest doubling subsequence is obtained by selecting the maximum value among all $dp[i]$ and backtracking using the $pred$ array.
+    
+    \section*{Pseudocode}
+    
+    \begin{lstlisting}[language=]
+    FUNCTION LDS(n, A):
+        for i from 1 to n do:
+            dp[i] <- 1
+            pred[i] <- null
+        best <- 1
+        index <- 1
+        for i from 1 to n do:
+            for j from 1 to i-1 do:
+                if A[i] >= 2 * A[j] and dp[j] + 1 > dp[i] then:
+                    dp[i] <- dp[j] + 1
+                    pred[i] <- j
+                end if
+            end for
+            if dp[i] > best then:
+                best <- dp[i]
+                index <- i
+            end if
+        end for
+        S <- empty sequence
+        while index is not null do:
+            prepend A[index] to S
+            index <- pred[index]
+        end while
+        return S
+    END FUNCTION
+    \end{lstlisting}
+
+    \subsection*{Correctness Justification}
+    \begin{itemize}
+        \item For each \(i\), \(dp[i]\) correctly represents the longest doubling subsequence ending at \(A[i]\) considering only predecessors \(j\) with \(A[i] \ge 2A[j]\).
+        \item The recurrence
+        \[
+        dp[i] = \max\!\Biggl\{ 1,\ \max_{\substack{1 \leq j < i \\ A[i] \geq 2A[j]}} \{ dp[j]+1 \} \Biggr\}
+        \]
+        guarantees that \(A[i]\) either starts a new subsequence or extends a valid one.
+        \item The \(\textit{pred}\) array allows correct backtracking to retrieve the subsequence.
+    \end{itemize}
+    
+    \subsection*{Time Complexity Analysis}
+    The algorithm contains a nested loop where:
+    \begin{itemize}
+        \item The outer loop iterates over all \(n\) elements of \(A\).
+        \item For each \(A[i]\), the inner loop iterates over \(j = 1\) to \(i-1\).
+    \end{itemize}
+    Thus, the total number of comparisons is approximately
+    \[
+    \sum_{i=1}^{n} (i-1) = O(n^2).
+    \]
+    Reconstruction of the subsequence requires at most \(O(n)\) time. Overall, the algorithm runs in \(O(n^2)\) time.   
 \end{solution}
 \newpage
 
@@ -351,7 +519,60 @@ Briefly justify its correctness and analyze its time complexity.
 Your algorithm should run in $O(n^3)$ time or faster.
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 4 here.}
+    \subsection*{Algorithm Idea}
+    Extend the input array \(A\) by defining a new array \(B\) as follows:
+    \[
+    B[0] = 1,\quad B[i] = A[i] \text{ for } 1\leq i\leq n,\quad B[n+1] = 1.
+    \]
+    Let \(dp[i][j]\) denote the maximum score obtainable from removing all the numbers in the subarray \(B[i+1 \ldots j-1]\). If \(B[k]\) is the \emph{last} number removed in the interval \((i,j)\), then its removal yields a score
+    \[
+    B[i]^2 \times B[k] \times B[j]^2,
+    \]
+    since \(B[i]\) and \(B[j]\) are then its neighbors. Therefore, the recurrence is:
+    \[
+    dp[i][j] = \max_{i < k < j} \left\{ dp[i][k] + dp[k][j] + B[i]^2 \times B[k] \times B[j]^2 \right\},
+    \]
+    with the base case \(dp[i][i+1] = 0\) (no number to remove).
+    
+    \subsection*{Pseudocode}
+    
+    \begin{lstlisting}[language=]
+    FUNCTION Remove(n, A):
+        B[0] <- 1
+        for i from 1 to n do:
+            B[i] <- A[i]
+        B[n+1] <- 1
+
+        for i from 0 to n do:
+            dp[i][i+1] <- 0
+    
+        for length from 2 to n+1 do:
+            for i from 0 to n+1-length do:
+                j <- i + length
+                dp[i][j] <- 0
+                for k from i+1 to j-1 do:
+                    temp <- dp[i][k] + dp[k][j] + (B[i] * B[i]) * B[k] * (B[j] * B[j])
+                    if temp > dp[i][j] then:
+                        dp[i][j] <- temp
+                    end if
+                end for
+            end for
+        end for
+    
+        return dp[0][n+1]
+    END FUNCTION
+    \end{lstlisting}
+    
+    \subsection*{Correctness Justification}
+    \begin{itemize}
+        \item We define subproblems \(dp[i][j]\) as the maximum score for removing all numbers between \(B[i]\) and \(B[j]\).  
+        \item By assuming \(B[k]\) is the last to be removed in \((i,j)\), its removal score is fixed as \(B[i]^2 \times B[k] \times B[j]^2\), while the optimal scores for the remaining parts are given by \(dp[i][k]\) and \(dp[k][j]\).  
+        \item Maximizing over all choices of \(k\) ensures the optimal solution for each subinterval.
+    \end{itemize}
+    
+    \subsection*{Time Complexity Analysis}
+    There are \(O(n^2)\) subproblems (indexed by pairs \((i,j)\)), and for each subproblem we try \(O(n)\) possible positions \(k\). Hence, the overall time complexity is \(O(n^3)\).
+    
 \end{solution}
 \newpage
 
@@ -382,7 +603,114 @@ This is not really a problem but more like a tutorial. Fast Fourier transform is
 
 \newpage
 \begin{solution}
-\textbf{Please write down your solution to Problem 5 here.}
+    \begin{enumerate}[label=\arabic*.]
+        \item \textbf{Continuous Fourier Transform.}
+        \begin{enumerate}[label=(\alph*)]
+            \item \textbf{Domain and Range.}  
+            The continuous Fourier transform of a signal 
+            \[
+            f(t) \quad (\text{typically in } L^1(\mathbb{R}) \text{ or } L^2(\mathbb{R}))
+            \]
+            is defined as
+            \[
+            \hat{f}(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}dt.
+            \]
+            Here, the transform is a function of the frequency $\omega$. Thus, the domain is $\omega \in \mathbb{R}$ and the range is in $\mathbb{C}$ (i.e., complex numbers).
+    
+            \item \textbf{Center of Mass Intuition.}  
+            Think of the Fourier transform as computing a weighted \emph{center of mass} in the complex plane by summing rotated copies of the signal. When the rotation frequency $\omega$ in $e^{-i\omega t}$ coincides with an intrinsic (or dominant) frequency of the signal, the corresponding complex contributions tend to align. They add mostly in one direction rather than cancelling, so the “center of mass” (i.e., the average of the rotating contributions) will have a large magnitude.
+    
+            \item \textbf{Is the Center of Mass Always on the x-axis?}  
+            Not necessarily. In the examples shown, the center of mass lie on the real axis (x-axis) because it only consider the real part of its fourier transform. In general, the computed value $\hat{f}(\omega)$ is a complex number and may lie anywhere in the complex plane.
+        \end{enumerate}
+        
+        \item \textbf{Discrete Fourier Transform (DFT):}  
+        In practice we have $N$ evenly spaced samples $x_1, \ldots, x_N$ of a continuous signal of duration $T$. One common way to approximate the continuous Fourier transform is to write:
+        \[
+        X(\omega) \approx \Delta t \sum_{n=1}^{N} x_n e^{-i\omega t_n},
+        \]
+        where $\Delta t = T/N$ and $t_n = (n-1)\Delta t$.  
+        To compute the transform for one particular frequency value $\omega$, one must sum over $N$ terms, which takes $O(N)$ time.
+    
+        \item \textbf{Discrete Fourier Transform with Frequency Index $k$.}  
+        Since the fastest frequency we can resolve is roughly $N/T$ (and the slowest is $1/T$), we are interested in the discrete set of frequencies:
+        \[
+        \omega_k = \frac{k}{T},\quad k = 1,2,\ldots, N.
+        \]
+        Rewriting the transform, if we shift indices and (for convenience) let $n = 0,1,\ldots, N-1$ (and similarly for $k$), then
+        \[
+        X[k] = \sum_{n=0}^{N-1} x[n] \, e^{-i2\pi \frac{k\,n}{N}},\quad k = 0,1,\ldots,N-1.
+        \]
+        Computing one such $X[k]$ takes $O(N)$ time. Therefore, to compute all $N$ outputs by evaluating the sum for each $k$, the complexity is $O(N^2)$.
+    
+        \item \textbf{Symmetry.}  
+        First, consider the DFT formula:
+        \[
+        X[k] = \sum_{n=0}^{N-1} x[n] \, e^{-i2\pi \frac{k\,n}{N}}.
+        \]
+        For frequency $k+N$, we have:
+        \[
+        X[k+N] = \sum_{n=0}^{N-1} x[n] \, e^{-i2\pi \frac{(k+N)n}{N}}
+        = \sum_{n=0}^{N-1} x[n] \, e^{-i2\pi \frac{k\,n}{N}}\, e^{-i2\pi n}.
+        \]
+        Since $e^{-i2\pi n} = 1$ for any integer $n$, we conclude:
+        \[
+        X[k+N] = X[k].
+        \]
+        Hence, the DFT is periodic with period $N$.  
+    
+        \medskip
+        Viewing the DFT as a matrix operation, define the $N\times N$ matrix $F$ with entries:
+        \[
+        F_{k,n} = e^{-i2\pi \frac{k\,n}{N}},\quad k,n=0,1,\ldots,N-1.
+        \]
+        Then, if $\mathbf{x} = [x[0], x[1],\ldots,x[N-1]]^T$, the DFT is given by:
+        \[
+        \mathbf{X} = F\, \mathbf{x}.
+        \]
+    
+        \item \textbf{Fast Fourier Transform (FFT).}  
+        The key idea is to split the sum for each frequency into contributions from even and odd-indexed samples. For $k = 0,1,\ldots,N-1$, write:
+        \[
+        \begin{split}
+        X[k] &= \sum_{n=0}^{N-1} x[n]\, e^{-i2\pi \frac{k\,n}{N}} \\
+             &= \sum_{m=0}^{\frac{N}{2}-1} x[2m]\, e^{-i2\pi \frac{k\, (2m)}{N}}
+             + \sum_{m=0}^{\frac{N}{2}-1} x[2m+1]\, e^{-i2\pi \frac{k\,(2m+1)}{N}} \\
+             &= E[k] + e^{-i2\pi \frac{k}{N}}\, O[k],
+        \end{split}
+        \]
+        where
+        \[
+        E[k] = \sum_{m=0}^{\frac{N}{2}-1} x[2m]\, e^{-i2\pi \frac{k\, m}{N/2}},\quad
+        O[k] = \sum_{m=0}^{\frac{N}{2}-1} x[2m+1]\, e^{-i2\pi \frac{k\, m}{N/2}}.
+        \]
+        Notice that both $E[k]$ and $O[k]$ are DFTs of sequences of length $N/2$. By recursively computing these two DFTs and then combining them with the twiddle factors $e^{-i2\pi k/N}$, we avoid redundant computations.  
+    
+        \medskip
+        \textbf{Pseudocode:}
+        \begin{lstlisting}[language=]
+    FUNCTION FFT(x):
+        N <- length(x)
+        if N == 1 then
+            return x
+        end if
+        x_even <- [ x[0], x[2], ..., x[N-2] ]
+        x_odd  <- [ x[1], x[3], ..., x[N-1] ]
+
+        E <- FFT(x_even)
+        O <- FFT(x_odd)
+
+        for k from 0 to N/2 - 1 do:
+            t <- exp(-i * 2*pi*k/N) * O[k]
+            X[k]       <- E[k] + t
+            X[k+N/2]   <- E[k] - t
+        end for
+        return X
+    END FUNCTION
+        \end{lstlisting}
+        
+        Since the recurrence splits the problem into two halves and does $O(N)$ work to combine the halves, the overall complexity of the FFT is $O(N\log N)$.
+    \end{enumerate}
 \end{solution}
 \newpage
 
@@ -396,7 +724,84 @@ We are given a list of integers $x_1, \ldots, x_n$. We know that at least $\lcei
     We aim to find all the common numbers. You can also directly solve this problem, which generalizes the previous one.
 \end{enumerate}
 \begin{solution}
-\textbf{Please write down your solution to Problem 6 here.}
+    \medskip
+    \textbf{Pseudocode:}
+    \begin{lstlisting}[language=]
+    FUNCTION FindMajority(n):
+        candidate_index <- 1
+        count <- 1
+        for i from 2 to n do:
+            if compare(candidate_index, i) then
+                count <- count + 1
+            else
+                count <- count - 1
+                if count == 0 then
+                    candidate_index <- i
+                    count <- 1
+                end if
+            end if
+        end for
+        return candidate_index
+    END FUNCTION
+    \end{lstlisting}
+    
+    \medskip
+    \textbf{Correctness:}  
+    \begin{itemize}[itemsep=2mm]
+        \item \textbf{Elimination:} Whenever two different numbers are encountered, they annihilate each other. Since a majority element appears in at least \(\lceil n/2 \rceil\) positions, it is guaranteed that it is never completely eliminated.
+        \item \textbf{Candidate:} After one pass, the remaining candidate is the majority element.
+    \end{itemize}
+    
+    \textbf{Complexity:}  
+    The algorithm uses one pass over the list and performs one \(\mathtt{compare}\) per iteration, giving a total of \(O(n)\) comparisons.
+    
+    \bigskip
+(2)
+    \\When an element appears at least \(\lceil n/k \rceil\) times (with \(k \ge 2\)) there can be at most \(k-1\)
+    such numbers. We use a \emph{generalized Boyer--Moore algorithm} that maintains a set (or dictionary) of at most \(k-1\) candidate elements with their counts.
+    
+    \medskip
+    \textbf{Pseudocode:}
+    \begin{lstlisting}[language=]
+    FUNCTION FindAllCommon(n, k):
+        Initialize D as an empty set (or dictionary)
+        for i from 1 to n do:
+            found <- False
+            for each candidate in D do:
+                if compare(candidate.index, i) then:
+                    candidate.count <- candidate.count + 1
+                    found <- True
+                    break out of inner loop
+                end if
+            end for
+            
+            if not found then:
+                if size(D) < k - 1 then:
+                    Add candidate with index i and count 1 to D
+                else:
+                    for each candidate in D do:
+                        candidate.count <- candidate.count - 1
+                    end for
+                    Remove all candidates from D with count 0
+                end if
+            end if
+        end for
+    END FUNCTION
+    \end{lstlisting}
+    
+    \medskip
+    \textbf{Correctness:}
+    \begin{itemize}[itemsep=2mm]
+        \item \textbf{Candidate Maintenance:} Any element that occurs at least \(\lceil n/k \rceil\) times must survive the elimination process; since there can be at most \(k-1\) such elements, maintaining \(k-1\) candidates ensures that none of the common numbers are lost.
+        \item \textbf{Verification:} A second pass verifies that each candidate really appears at least \(\lceil n/k \rceil\) times.
+    \end{itemize}
+    
+    \textbf{Complexity:}  
+    \begin{itemize}[itemsep=2mm]
+        \item In the first pass, each new element is compared against at most \(k-1\) candidates. With \(k\) a constant, this is \(O(n)\) comparisons.
+        \item The verification pass takes \(O(n)\) comparisons per candidate, which is again \(O(n)\) overall since there are at most \(k-1\) candidates.
+    \end{itemize}
+    Thus, the total number of comparisons remains \(O(n)\) when \(k\) is a constant.
 \end{solution}
 \newpage
 
@@ -406,15 +811,96 @@ A machine learning student wants to test empirically about sampling Gaussians. T
 
 Formally, the student gets $x_t$ coming in a stream, which is generated from a Gaussian sampler. At every time point $t \geq 20$, the student wants to keep a record of three statistics: the 25, 50, and 75 percentiles of all the numbers sampled so far. More precisely, the 25 percentile at time $t$ should return the data point $x$ in $x_1, \ldots, x_t$ with rank $\lfloor 0.25 \times t \rfloor$ (similarly for 50 and 75). Suppose the student performs $T$ sampling in total, what's the total complexity of your algorithm?
 \begin{solution}
-\textbf{Please write down your solution to Problem 7 here.}
-\end{solution}
+    To compute the 25th, 50th, and 75th percentiles at every time point \( t \) (for \( t \ge 20 \)) in a stream of Gaussian samples, we can use an augmented balanced binary search tree  that supports the following operations:
+    \begin{enumerate}
+        \item \textbf{Insert:} Insert a new sample \( x_t \) in \( O(\log t) \) time.
+        \item \textbf{Select:} Retrieve the element with a given rank (the \( \lfloor 0.25\times t \rfloor\), \( \lfloor 0.50\times t \rfloor\), and \( \lfloor 0.75\times t \rfloor \)-th element) in \( O(\log t) \) time.
+    \end{enumerate}
+    
+    \textbf{Per time step cost:}  
+    At each time \( t \), we:
+    \begin{itemize}
+        \item Insert the new sample: \( O(\log t) \).
+        \item Query three order statistics (for 25th, 50th, and 75th percentiles): \( 3 \times O(\log t) = O(\log t) \) (since constants are ignored).
+    \end{itemize}
+    
+    Thus, each time step takes \( O(\log t) \) time. Over \( T \) total samples, the total cost is:
+    \[
+    \sum_{t=1}^{T} O(\log t) = O(T \log T).
+    \]
+    
+    \textbf{Conclusion:}  
+    The total complexity for processing \( T \) samples and maintaining the required percentiles is \( O(T \log T) \).\end{solution}
 \newpage
 
 
 \problem{8: Multi-selection [$5$ pts]}
 We are given a list of integers $x_1, \ldots, x_n$ (not necessarily sorted). We are also given $k$ distinct integer numbers $1\leq i_1, \ldots, i_k \leq n$ (in sorted order), and we want to find the $k$ elements of $x_1, \ldots, x_n$ that have ranks $i_1, \ldots, i_k$. Design the algorithm and analyze its correctness and complexity. Another special requirement here is that $k$ is not a constant, so the complexity of $k$ should also be considered.
 \begin{solution}
-\textbf{Please write down your solution to Problem 8 here.}
-\end{solution}
+    \textbf{Idea:}  
+    We generalize the idea of Quickselect (or deterministic linear-time selection) and use it to find several order statistics simultaneously. Since the requested ranks are given in sorted order, we can use a divide-and-conquer approach:
+    \begin{itemize}
+        \item Pick one requested rank in the middle, say \(q^*\) (which is \(i_{\lfloor k/2\rfloor+1}\)).
+        \item Use a linear-time selection algorithm to find the element \(p\) with global rank \(r=q^*\).
+        \item Partition the array around \(p\).
+        \item Split the query list into those that need to be found in the left partition (with ranks less than \(r\)) and the right partition (with ranks greater than \(r\); adjusting the ranks by subtracting \(r\)).
+        \item Recurse on each part.
+    \end{itemize}
+    
+    \bigskip
+    \textbf{Pseudocode:}
+    
+    \begin{lstlisting}[language=]
+    FUNCTION MultiSelect(x, n, Q)
+        // x[1..n] is the current list.
+        // Q = {q_1, q_2, ..., q_k} is a sorted list of desired ranks.
+        if Q is empty then
+            return 
+        end if
+        if n is small then
+            sort x; 
+            return { x[q] for each q in Q }.
+        end if
+        let j = floor(|Q|/2) + 1;
+        let q* = Q[j];   // this is the desired rank in x.
+        p = Select(x, n, q*);
+        (L, E, R) = Partition(x, p);
+        r = |L| + 1;
+        result = {}.
+        if r is in Q then
+            add p as the answer for rank r;
+            remove r from Q.
+        end if
+        Q_left = { q in Q such that q < r }.
+        Q_right = { q - r for q in Q such that q > r }.
+        
+        result_left = MultiSelect(L, |L|, Q_left);
+        result_right = MultiSelect(R, |R|, Q_right);
+        
+        return union of result, result_left, and result_right.
+    END FUNCTION
+    \end{lstlisting}
+    
+    \bigskip
+    \textbf{Correctness:}  
+    \begin{itemize}[leftmargin=2cm]
+        \item The algorithm always finds an element \(p\) whose rank \(r\) matches one of the requested queries; the partitioning then correctly separates the remaining queries into those for the left and right parts.
+        \item By induction on the subproblem sizes, the algorithm returns the element with the correct rank for every query.
+    \end{itemize}
+    
+    \bigskip
+    \textbf{Complexity:}  
+    At every recursion level we:
+    \begin{itemize}[leftmargin=2cm]
+        \item Spend \(O(n)\) time to perform selection and partitioning.
+        \item Split the \(k\) queries into two smaller sets.
+    \end{itemize}
+    
+    Since the queries (of amount \(k\)) are split in half (roughly) at every partitioning step, the recursion will have \(O(\log k)\) levels. (In the worst-case when \(k=\Theta(n)\), the running time becomes \(O(n \log n)\), which is the cost of sorting.)
+    Thus, the overall time is
+    \(
+    O(n\log k).
+    \)
+ \end{solution}
 
 \end{document}
