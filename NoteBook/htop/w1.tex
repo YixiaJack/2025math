@@ -1486,8 +1486,41 @@ $$
 \\Let $ A_n=\{f_n>\alpha\phi_k\}=\{\omega\in\Omega:f_n(\omega)>\alpha\phi_k(\omega)\} $
 \\Then $ (A_n)\nearrow  $, and \begin{align*}{}{}
 \lim_{n\rightarrow+\infty}&=\bigcup_{n\geq1}A_n=\{\exists n\in N s.t.f_n>\alpha\phi_k\}\\
-&=
-\end{align*}   
+&=\{sup_nf_n>\alpha \phi k\}=\Omega\\
+\text{Since } \int_{\Omega}f_nd\mu& \geq \int_{A_n}f_nd\mu\geq \alpha\int_{A_n}\phi_kd\mu\\
+\text{send } n&\rightarrow+\infty \liminf \int_{\Omega} f_nd\mu\geq \alpha \lim_{n\rightarrow +\infty}\int_{A_n}\phi_kd\mu=\alpha\int_{\Omega}\phi_kd\mu\\
+\text{Send } \phi_k &\rightarrow f \text{ and } \alpha\rightarrow 1 \text{ to complete the pf }
+\end{align*}
+\begin{proposition}[]{}
+  Let  f, g be Lebesgue measurable. Then \begin{itemize}
+ \item $$
+    \int_{\Omega}af+bgd\mu=a\int_{\Omega}fd\mu+b\int_{\Omega}gd\mu
+ $$ 
+ \item if $ f\leq g $ then $$
+    \int_{\Omega}fd\mu\leq \int_{\Omega}gd\mu
+ $$  
+ \end{itemize}
+\end{proposition}
+\begin{proposition}[]{}
+    f is (Lebesgue) integrable iﬀ |f| is integrable.
+    \\If there exists a function Y, s.t. $|f| \leq Y$, and Y is integrable, then f is integrable.
+\end{proposition}
+\textbf{Proof:}
+\begin{align*}
+    & \text{ Note that } f = f^+ - f^-, \text{ } |f| = f^+ + f^-\\
+    &\text{Therefore } \int_\Omega |f|d\mu < \infty \Leftrightarrow \int_\Omega f^+d\mu < \infty \text{ and } \int_\Omega f^-d\mu < \infty \Leftrightarrow \int_\Omega fd\mu < \infty.\\
+    \\
+    &\text{If } |f| \leq Y, \text{ then } \int_\Omega |f|d\mu \leq \int_\Omega  Y d\mu < \infty \Rightarrow \text{ |f| integrable } \Rightarrow f \text{ integrable.}\\
+    \\
+    &\textbf{eg.} \text{ } (R, B(R), m), \text{ } f(x) = \sin x. \text{ Is } f \text{ Lebesgue integrable?}\\
+    &|f(x)| \leq 1 \Rightarrow \int_{R} |f|dx \geq \sum_k \int_{k\pi+\frac{\pi}{6}}^{(k+1)\pi-\frac{\pi}{6}} |sinx| dx =+\infty\\
+    &\Rightarrow f \text{ is NOT integrable}
+    \end{align*}
+\begin{definition}[]{}\begin{align*}{}{}
+  \text{We say } f& = g \text{ almost everywhere (a.e.) if } \{f \neq g\} \text{ has measure } 0.\\
+ \text{r.v.s. } X& = Y \text{ almost surely (a.s.) if } \mathbb{P}(\{X \neq Y\}) = 0
+\end{align*}
+  \end{definition}
 \section{Lecture 13 (03-12)}
 if $ \nu(A)=\sum_{A}fd\mu $ for some non-negative Borel function f, then f is the Random-Nikodym derivative of $ \mu $ w.r.t. $ \mu $
 \\$ \nu<<\mu $ iff $ A\in F $ s.t.$ \mu(A)=0\Rightarrow \nu(A)=0 $
@@ -1565,3 +1598,15 @@ Sum of random variables
 \begin{proposition}[]{}
 Let X,Y be a cont. r.v.s then $ f_{X+Y}(z)=\int_{-\infty}^{+\infty}f(x,z-x) $ 
 \end{proposition}
+\section{Recitation (03-21)}
+\subsection*{Problem 1}
+Is is possible to have 2 biased dice, such that the sum is uniformly distributed in \{2,3,...12\}?
+\subsection*{Problem 2}
+Flip a fair coin, What is the expected time to see the 1-st occur of HHT?
+\subsection*{Problem 3}
+Let X be a non-negative r.v. show that$$
+    E[X^r]=\int_{0}^{+\infty}rx^{r-1}P(X>x)dx,r>0
+$$ 
+\subsection*{Problem 4}
+Gamma $ (n,\lambda) ,f_{n,\lambda}=\frac{\lambda^nx^{n-1}}{P(n)}e^{-\lambda x}$ ,where $ P(n)=(n-1)! $
+\\Show that if $ X_1,X_2,...,X_n $ is independent $ Exp(\lambda) $ then $ X_1+X_2+\cdots+X_n\sim Gamma(n,\lambda) $  
