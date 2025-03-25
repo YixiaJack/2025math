@@ -1521,43 +1521,651 @@ $$
  \text{r.v.s. } X& = Y \text{ almost surely (a.s.) if } \mathbb{P}(\{X \neq Y\}) = 0
 \end{align*}
   \end{definition}
+  \begin{theorem}
+    If $\mu(A) = 0$, then $\int_A f \, d\mu = 0$ for any measurable function $f$.
+    \end{theorem}
+    
+    \begin{proof}
+    We prove this in three steps:
+    
+    \textbf{Step 1: Simple functions.}
+    
+    For a simple function $s = \sum_{i=1}^n a_i \chi_{E_i}$, where $\chi_{E_i}$ is the characteristic function of set $E_i$:
+    $$\int_A s \, d\mu = \sum_{i=1}^n a_i \mu(A \cap E_i)$$
+    
+    Since $\mu(A) = 0$, we have $\mu(A \cap E_i) \leq \mu(A) = 0$ for any measurable set $E_i$. Therefore, $\mu(A \cap E_i) = 0$.
+    
+    Hence, $\int_A s \, d\mu = \sum_{i=1}^n a_i \cdot 0 = 0$
+    
+    \textbf{Step 2: Non-negative measurable functions.}
+    
+    For any non-negative measurable function $f \geq 0$, there exists an increasing sequence of simple functions $\{s_n\}$ such that $s_n \uparrow f$ pointwise.
+    
+    By the Monotone Convergence Theorem:
+    $$\int_A f \, d\mu = \lim_{n \to \infty} \int_A s_n \, d\mu$$
+    
+    From Step 1, for each $n$, $\int_A s_n \, d\mu = 0$. Therefore, $\int_A f \, d\mu = \lim_{n \to \infty} 0 = 0$
+    
+    \textbf{Step 3: General measurable functions.}
+    
+    For any measurable function $f$, we can decompose it as $f = f^+ - f^-$, where $f^+ = \max(f, 0)$ and $f^- = \max(-f, 0)$ are both non-negative measurable functions.
+    
+    By the linearity of the integral:
+    $$\int_A f \, d\mu = \int_A f^+ \, d\mu - \int_A f^- \, d\mu$$
+    
+    From Step 2, $\int_A f^+ \, d\mu = 0$ and $\int_A f^- \, d\mu = 0$. Therefore, $\int_A f \, d\mu = 0 - 0 = 0$
+    
+    Thus, if $\mu(A) = 0$, then $\int_A f \, d\mu = 0$ for any measurable function $f$.
+    \end{proof}
+    
+    \begin{corollary}
+    If $f = g$ almost everywhere (a.e.), then $\int_\Omega f \, d\mu = \int_\Omega g \, d\mu$.
+    \end{corollary}
+    
+    \begin{proof}
+    Let $E = \{x \in \Omega : f(x) \neq g(x)\}$. Since $f = g$ a.e., we have $\mu(E) = 0$.
+    
+    Consider $h = f - g$. Then $h = 0$ on $\Omega \setminus E$, and $h \neq 0$ only on $E$.
+    
+    Therefore:
+    $$\int_\Omega (f - g) \, d\mu = \int_\Omega h \, d\mu = \int_E h \, d\mu + \int_{\Omega \setminus E} h \, d\mu = \int_E h \, d\mu + 0$$
+    
+    Since $\mu(E) = 0$, by our theorem, $\int_E h \, d\mu = 0$. Thus, $\int_\Omega (f - g) \, d\mu = 0$.
+    
+    By the linearity of the integral:
+    $$\int_\Omega f \, d\mu - \int_\Omega g \, d\mu = \int_\Omega (f - g) \, d\mu = 0$$
+    
+    Therefore, $\int_\Omega f \, d\mu = \int_\Omega g \, d\mu$.
+    \end{proof}
+    \begin{proposition}[]{}
+         Let $(\Omega, \mathcal{F}, \mu)$ be a measure space. Let $f: \Omega \to [0,+\infty)$ be a Borel function.\\
+        
+        Then $\nu(A) = \int_A f\,d\mu$, $\forall A \in \mathcal{F}$, defines a measure.
+        \end{proposition}
+        
+        \begin{definition}[]{}
+          We say $f$ is the Radon-Nikodym derivative (or density) of $\nu$ with respect to $\mu$. Write $f = \frac{d\nu}{d\mu}$.
+        \end{definition}
+        
+        \begin{proof}[Proof of Proposition]
+        \begin{itemize}
+            \item $\nu(\emptyset) = 0$ is obvious.
+            \item Countable additivity: Let $(A_i)_{i=1}^{+\infty}$ be disjoint. Let $A = \cup_{i=1}^{+\infty} A_i$.
+
+Then:
+\begin{align*}
+\nu(A) &= \int_A f\,d\mu \\
+&= \int_{\Omega} f \cdot \mathbf{1}_A \,d\mu \\
+&= \int_{\Omega} f \cdot \left(\lim_{n\to\infty} \sum_{i=1}^{n} \mathbf{1}_{A_i}\right) \,d\mu \\
+&\stackrel{\text{MCT}}{=} \lim_{n\to\infty} \int_{\Omega} f \cdot \left(\sum_{i=1}^{n} \mathbf{1}_{A_i}\right) \,d\mu \\
+&= \lim_{n\to\infty} \sum_{i=1}^{n} \int_{\Omega} f \cdot \mathbf{1}_{A_i} \,d\mu \\
+&= \lim_{n\to\infty} \sum_{i=1}^{n} \int_{A_i} f \,d\mu \\
+&= \lim_{n\to\infty} \sum_{i=1}^{n} \nu(A_i) \\
+&= \sum_{i=1}^{+\infty} \nu(A_i)
+\end{align*}
+            Therefore, $\nu$ is a measure.
+        \end{itemize}
+        \end{proof}
+        \begin{definition}[]{}
+            We say $\nu$ is absolutely continuous with respect to $\mu$ (denoted $\nu \ll \mu$) if for any $A \in \mathcal{F}$ such that $\mu(A) = 0$, then $\nu(A) = 0$.
+            \end{definition}
+            
+            \begin{example}[]{}
+            If $\nu(A) = \int_A f \, d\mu$ for some non-negative Borel function $f$, then $\mu(A) = 0 \Rightarrow \nu(A) = \int_A f \, d\mu = 0$. Therefore, $\nu \ll \mu$.
+            \end{example}
+            \begin{example}[Lebesgue Measure Equivalence]{}
+                $M_{Leb} \ll 2M_{Leb}$ and $2M_{Leb} \ll M_{Leb}$
+                \end{example}
+                \begin{definition}[Lebesgue Measure]{def:lebesgue-measure}
+                    The Lebesgue measure, denoted by $m$ or $\lambda$, is a complete measure on the $\sigma$-algebra of Lebesgue measurable subsets of $\mathbb{R}^n$ that satisfies:
+                    \begin{enumerate}
+                        \item (Normalization) The measure of the unit cube is 1: $m([0,1]^n) = 1$.
+                        \item (Translation invariance) For any measurable set $E$ and any point $x \in \mathbb{R}^n$, $m(E+x) = m(E)$, where $E+x = \{y+x : y \in E\}$.
+                        \item (Countable additivity) For any countable collection $\{E_i\}_{i=1}^{\infty}$ of pairwise disjoint measurable sets, $m(\cup_{i=1}^{\infty} E_i) = \sum_{i=1}^{\infty} m(E_i)$.
+                    \end{enumerate}
+                    \end{definition}
+                    
+                    \begin{theorem}[Properties of Lebesgue Measure]{thm:lebesgue-properties}
+                    The Lebesgue measure has the following properties:
+                    \begin{enumerate}
+                        \item For an interval $[a,b] \subset \mathbb{R}$, $m([a,b]) = b-a$.
+                        \item More generally, for a rectangle $[a_1,b_1] \times \cdots \times [a_n,b_n] \subset \mathbb{R}^n$, $m([a_1,b_1] \times \cdots \times [a_n,b_n]) = \prod_{i=1}^{n} (b_i-a_i)$.
+                        \item For any $c \in \mathbb{R}$ and any measurable set $E \subset \mathbb{R}^n$, $m(cE) = |c|^n m(E)$, where $cE = \{cx : x \in E\}$.
+                        \item There exist subsets of $\mathbb{R}$ that are not Lebesgue measurable.
+                    \end{enumerate}
+                    \end{theorem}
+                \begin{definition}[Equivalent Measures]{}
+                If $\mu \ll \nu$ and $\nu \ll \mu$, then we say $\mu$ and $\nu$ are equivalent (denoted $\mu \sim \nu$).
+                \end{definition}
+                
+                \begin{example}[Dirac Measures and Counting Measure]{}
+                Consider $(\mathbb{N}, \mathcal{P}(\mathbb{N}))$: Dirac measure. For each $k \in \mathbb{N}$, define $\mu_k$ such that 
+                \[
+                \mu_k(A) = 
+                \begin{cases} 
+                1 & \text{if } k \in A \\
+                0 & \text{else}
+                \end{cases}
+                \]
+                
+                Counting measure: $\nu(A) = \sum_{k \in \mathbb{N}} \mu_k(A)$ (= "number of elements in $A$").
+                
+                Therefore, $\mu_k \ll \nu$ for all $k \in \mathbb{N}$, but $\nu \not\ll \mu_k$.
+                \end{example}
+                \begin{theorem}[Radon-Nikodym Theorem]{thm:radon-nikodym}
+                    If $\mu, \nu$ are $\sigma$-finite measures, and $\nu \ll \mu$, then there exists a Borel function $f$, such that
+                    $$\forall A \in \mathcal{F}, \quad \nu(A) = \int_A f \, d\mu.$$
+                    \end{theorem}
+                    
+                    \begin{proposition}[Equivalent Characterization of Absolute Continuity]{prop:abs-cont-equiv}
+                        $\nu \ll \mu \Leftrightarrow \forall \varepsilon > 0, \exists \delta > 0, \text{ s.t. } \forall A \in \mathcal{F}, \text{ with } \mu(A) < \delta \text{ we have } \nu(A) < \varepsilon$.
+                        \end{proposition}
+                        
+                        \begin{proof}
+                        We will prove both directions of the equivalence.
+                        
+                        \textbf{($\Rightarrow$) Necessity:} Suppose $\nu \ll \mu$. We need to show that for any $\varepsilon > 0$, there exists $\delta > 0$ such that for all $A \in \mathcal{F}$ with $\mu(A) < \delta$, we have $\nu(A) < \varepsilon$.
+                        
+                        We will prove this by contradiction. Suppose, contrary to our claim, that there exists some $\varepsilon > 0$ such that for all $n \in \mathbb{N}$, there exists $A_n \in \mathcal{F}$ with $\mu(A_n) < \frac{1}{2^n}$ but $\nu(A_n) \geq \varepsilon$.
+                        
+                        Let us define $B_k = \bigcup_{n=k}^{\infty} A_n$ for each $k \in \mathbb{N}$. Then $\{B_k\}_{k=1}^{\infty}$ forms a decreasing sequence of sets whose limit is $\lim_{k\to\infty} B_k = \bigcap_{k=1}^{\infty} B_k = \liminf_{n\to\infty} A_n$.
+                        
+                        For each $k$, we can estimate:
+                        \begin{align*}
+                        \mu(B_k) &\leq \sum_{n=k}^{\infty} \mu(A_n) \\
+                        &< \sum_{n=k}^{\infty} \frac{1}{2^n} \\
+                        &= \frac{1}{2^{k-1}}
+                        \end{align*}
+                        
+                        Since $A_k \subseteq B_k$ for each $k$, and $\nu(A_k) \geq \varepsilon$, it follows that $\nu(B_k) \geq \varepsilon$ for all $k$.
+                        
+                        Now, let $B = \bigcap_{k=1}^{\infty} B_k$. By the continuity of measure for decreasing sequences:
+                        \begin{align*}
+                        \mu(B) &= \lim_{k\to\infty} \mu(B_k) \\
+                        &\leq \lim_{k\to\infty} \frac{1}{2^{k-1}} \\
+                        &= 0
+                        \end{align*}
+                        
+                        Similarly, by the continuity of measure:
+                        \begin{align*}
+                        \nu(B) &= \lim_{k\to\infty} \nu(B_k) \\
+                        &\geq \varepsilon > 0
+                        \end{align*}
+                        
+                        This gives us a set $B$ with $\mu(B) = 0$ but $\nu(B) \geq \varepsilon > 0$, which contradicts our assumption that $\nu \ll \mu$. Therefore, our original claim must be true.
+                        
+                        \textbf{($\Leftarrow$) Sufficiency:} Suppose that for any $\varepsilon > 0$, there exists $\delta > 0$ such that for all $A \in \mathcal{F}$ with $\mu(A) < \delta$, we have $\nu(A) < \varepsilon$.
+                        
+                        We need to show that $\nu \ll \mu$, that is, for any $A \in \mathcal{F}$ with $\mu(A) = 0$, we have $\nu(A) = 0$.
+                        
+                        Let $A \in \mathcal{F}$ with $\mu(A) = 0$. For any $\varepsilon > 0$, by our assumption, there exists a $\delta > 0$ such that for all $E \in \mathcal{F}$ with $\mu(E) < \delta$, we have $\nu(E) < \varepsilon$.
+                        
+                        Since $\mu(A) = 0 < \delta$, it follows that $\nu(A) < \varepsilon$. But this is true for any $\varepsilon > 0$, no matter how small. Therefore, $\nu(A) = 0$, which proves that $\nu \ll \mu$.
+                        \end{proof}
 \section{Lecture 13 (03-12)}
-if $ \nu(A)=\sum_{A}fd\mu $ for some non-negative Borel function f, then f is the Random-Nikodym derivative of $ \mu $ w.r.t. $ \mu $
-\\$ \nu<<\mu $ iff $ A\in F $ s.t.$ \mu(A)=0\Rightarrow \nu(A)=0 $
-\\if $ \mu,\nu $  are $ \sigma $-finite
+\begin{definition}[Radon-Nikodym Derivative]{def:rn-derivative}
+    If $\nu(A) = \int_A f \, d\mu$ for some nonnegative Borel measurable function $f$, then $f$ is the Radon-Nikodym derivative of $\nu$ with respect to $\mu$.
+    \end{definition}
+    
+    \begin{definition}[Absolute Continuity]{def:absolute-continuity}
+    $\nu \ll \mu$ if and only if $\forall A \in \mathcal{F}$ such that $\mu(A) = 0 \Rightarrow \nu(A) = 0$.
+    \end{definition}
+    
+    \begin{theorem}[Radon-Nikodym Theorem]{thm:radon-nikodym}
+    If $\mu, \nu$ are $\sigma$-finite measures, then $\nu \ll \mu \Leftrightarrow \nu(A) = \int_A f \, d\mu, \forall A \in \mathcal{F}$ for some nonnegative measurable function $f$.
+    \end{theorem}
+    
+    \begin{definition}[Equivalent Measures]{def:equivalent-measures}
+    $\mu \sim \nu$ if and only if $\mu \ll \nu$ and $\nu \ll \mu$.
+    \end{definition}
+    
+    \begin{proposition}[Continuous Random Variables]{prop:continuous-rv}
+    A continuous random variable $X$ satisfies $\mathbb{P}_X(A) = \mathbb{P}(X \in A), \forall A \in \mathcal{B}(\mathbb{R})$.
+    
+    $\mathbb{P}_X \ll m \Leftrightarrow \exists f$ such that $\mathbb{P}_X(A) = \int_A f(x) \, dm$, where $f$ is the probability density function.
+    \end{proposition}
+    
+    \begin{remark}[]{}
+    We often write $\int_A f \, dm = \int_A f(x) \, dx$ when $m$ is the Lebesgue measure.
+    \end{remark}
+    \begin{example}[Exponential Distribution]{ex:exponential}
+        Consider the measure space $(\mathbb{R}, \mathcal{B}(\mathbb{R}), m)$ where $m$ is the Lebesgue measure. Define the function:
+        \begin{align*}
+        g(x) = \lambda e^{-\lambda x} \mathbf{1}_{[0,+\infty)}(x), \quad \lambda > 0
+        \end{align*}
+        
+        Then for every $B \in \mathcal{B}(\mathbb{R})$, 
+        \begin{align*}
+        \mathbb{P}_X(B) = \int_B g(x) \, dx
+        \end{align*}
+        defines a measure.
+        
+        To verify this is a probability measure, we check:
+        \begin{align*}
+        \mathbb{P}_X(\mathbb{R}) &= \int_{-\infty}^{+\infty} \lambda e^{-\lambda x} \mathbf{1}_{[0,+\infty)}(x) \, dx \\
+        &= \int_0^{+\infty} \lambda e^{-\lambda x} \, dx \\
+        &= \left[ -e^{-\lambda x} \right]_0^{+\infty} \\
+        &= 0 - (-1) = 1
+        \end{align*}
+        Therefore, $\mathbb{P}_X$ defines a probability measure.
+        
+        This is the \textbf{exponential distribution} with parameter $\lambda$, denoted as $X \sim \text{Exp}(\lambda)$.
+        
+        \textbf{Fact:} If $X \sim \text{Exp}(\lambda)$, then:
+        \begin{align*}
+        \mathbb{E}[X] &= \int_0^{+\infty} x \lambda e^{-\lambda x} \, dx \\
+        &= -\int_0^{+\infty} x \, d(e^{-\lambda x}) \\
+        &= -\left[ x e^{-\lambda x} \right]_0^{+\infty} + \int_0^{+\infty} e^{-\lambda x} \, dx \\
+        &= 0 - 0 + \frac{1}{\lambda} \left[ -e^{-\lambda x} \right]_0^{+\infty} \\
+        &= \frac{1}{\lambda}
+        \end{align*}
+        
+        Also:
+        \begin{align*}
+        \mathbb{E}[X^2] &= \int_0^{+\infty} x^2 \lambda e^{-\lambda x} \, dx \\
+        &= \ldots \\
+        &= \frac{2}{\lambda^2}
+        \end{align*}
+        \end{example}
+        \begin{lemma}[Standardization of Normal Distribution]{lem:normal-standardization}
+            If $X \sim N(\mu, \sigma^2)$, then $Y = \frac{X-\mu}{\sigma}$ is $N(0,1)$ (standard normal).
+            \end{lemma}
+            
+            \begin{proof}
+            $$\mathbb{P}(Y \leq a) = \mathbb{P}\left(X \leq \mu + a\sigma\right) = \int_{-\infty}^{\mu+a\sigma} \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}} \, dx$$
+            \end{proof}
+            
+            Making the substitution $y = \frac{x-\mu}{\sigma}$, we get:
+            \begin{align*}
+            \mathbb{P}(Y \leq a) &= \int_{-\infty}^{a} \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} \, dy
+            \end{align*}
+            which is the CDF of a standard normal distribution.
+            
+            \begin{lemma}[Moment Generating Function of Standard Normal]{lem:mgf-standard-normal}
+            If $X \sim N(0,1)$, then $\mathbb{E}[e^{tX}] = e^{\frac{1}{2}t^2}$.
+            \end{lemma}
+            
+            \begin{proof}
+            \begin{align*}
+            \mathbb{E}[e^{tX}] &= \int_{-\infty}^{+\infty} e^{tx} \cdot \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \, dx \\
+            &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-\frac{1}{2}(x^2-2tx)} \, dx \\
+            &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-\frac{(x-t)^2}{2}} e^{\frac{t^2}{2}} \, dx \\
+            &= e^{\frac{t^2}{2}} \cdot \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} e^{-\frac{(x-t)^2}{2}} \, dx \\
+            &= e^{\frac{t^2}{2}} \cdot 1 \\
+            &= e^{\frac{t^2}{2}}
+            \end{align*}
+            where in the fourth line we used the substitution $y = x - t$.
+            \end{proof}
+            
+            \begin{remark}[Applications of MGF]{rem:mgf-applications}
+                (1) If $\mathbb{E}[e^{tX}] < +\infty$, then:
+                \begin{align*}
+                \mathbb{E}[e^{tX}] &= \mathbb{E}\left[\sum_{k=0}^{\infty} \frac{t^k}{k!}X^k\right] \\
+                &= \sum_{k=0}^{\infty} \frac{t^k}{k!}\mathbb{E}[X^k]
+                \end{align*}
+                Therefore, the moment generating function determines all moments of the random variable.
+                
+                (2) Let $X$ be a continuous random variable with density function $f$. Then:
+                \begin{align*}
+                \mathbb{E}[e^{tX}] = \int_{-\infty}^{+\infty} e^{tx}f(x)\,dx = \mathcal{L}[f]
+                \end{align*}
+                where $\mathcal{L}[f]$ denotes the Laplace transform of $f$.
+                
+                (3) Fact: If $M_X(t) = \mathbb{E}[e^{tX}]$ converges absolutely in a neighborhood of 0, then it uniquely determines the probability density function $f$.
+                
+                (4) If $X \sim N(\mu,\sigma^2)$, compute $\mathbb{E}[e^{tX}]$.
+                \end{remark}
 \begin{proposition}[Lack of memory]{}
 If $ X\sim Exp(\lambda) $, Then $$
     P(X>s+t|X>s)=P(X>t)
 $$  
 \end{proposition}   
+\begin{proof}
+    \begin{align*}
+    \mathbb{P}[X > t + s | X > s] &= \frac{\mathbb{P}[X > t + s, X > s]}{\mathbb{P}[X > s]} \\
+    &= \frac{\mathbb{P}[X > t + s]}{\mathbb{P}[X > s]} \\
+    &= \frac{\int_{t+s}^{+\infty} \lambda e^{-\lambda x} \, dx}{\int_{s}^{+\infty} \lambda e^{-\lambda x} \, dx} \\
+    &= \frac{e^{-\lambda(t+s)}}{e^{-\lambda s}} \\
+    &= e^{-\lambda t} \\
+    &= \mathbb{P}[X > t]
+    \end{align*}
+    \end{proof}
+    
+    \begin{example}[Probability Density Function of Normal Distribution]{ex:normal-pdf}
+    The probability density function of a normal distribution is given by:
+    \begin{align*}
+    f(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}, \mu \in \mathbb{R}, \sigma > 0
+    \end{align*}
+    
+    This is also known as the Gaussian distribution, denoted as $N(\mu, \sigma^2)$.
+    
+    Special case: When $\mu = 0$ and $\sigma = 1$, we have:
+    \begin{align*}
+    f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}
+    \end{align*}
+    which is called the standard normal distribution, denoted as $N(0,1)$.
+    \end{example}
+    \begin{proposition}[Properties of Normal Distribution]{}
+        \begin{enumerate}
+        \item \textbf{Normalization:} Verify that $\int_{\mathbb{R}} f(x) \, dx = 1$, since 
+        \begin{align*}
+        \int_{-\infty}^{+\infty} e^{-\frac{x^2}{2}} \, dx = \sqrt{2\pi}
+        \end{align*}
+        
+        \item \textbf{Mean and Variance:} If $X \sim N(\mu, \sigma^2)$, then $\mathbb{E}[X] = \mu$ and $\operatorname{Var}(X) = \sigma^2$.
+        
+        \item \textbf{Special Case - Standard Normal Distribution:} If $X \sim N(0,1)$, then:
+        \begin{align*}
+        \mathbb{E}[X] &= \int_{-\infty}^{+\infty} x \cdot \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \, dx = 0 \\
+        \operatorname{Var}(X) &= \mathbb{E}[X^2] = \int_{-\infty}^{+\infty} x^2 \cdot \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \, dx \\
+        &= \frac{1}{\sqrt{2\pi}} \frac{d}{d\lambda} \left[ \int_{-\infty}^{+\infty} e^{-\lambda x^2} \, dx \right]_{\lambda=\frac{1}{2}} \\
+        &= \frac{1}{\sqrt{2\pi}} \frac{d}{d\lambda} \left[ \sqrt{\frac{\pi}{\lambda}} \right]_{\lambda=\frac{1}{2}} \\
+        &= \frac{1}{\sqrt{2\pi}} \cdot \left( -\frac{1}{2} \right) \cdot \frac{d}{d\lambda} \left[ \lambda^{-\frac{1}{2}} \right]_{\lambda=\frac{1}{2}} \cdot \sqrt{\pi} \\
+        &= \frac{1}{\sqrt{2\pi}} \cdot \left( -\frac{1}{2} \right) \cdot \left( -\frac{1}{2} \right) \cdot \lambda^{-\frac{3}{2}} \cdot \sqrt{\pi} \Big|_{\lambda=\frac{1}{2}} \\
+        &= \frac{1}{4} \cdot \frac{\sqrt{2\pi}}{\sqrt{2\pi}} \cdot 2\sqrt{2} \\
+        &= 1
+        \end{align*}
+        \end{enumerate}
+        \end{proposition}
+        \begin{example}[Cauchy Distribution]{ex:cauchy}
+            Let $f(x) = \frac{1}{\pi(1+x^2)}, \quad x \in \mathbb{R}$.
+            
+            \begin{align*}
+            \int_{-\infty}^{+\infty} f(x) \, dx &= \int_{-\infty}^{+\infty} \frac{1}{\pi(1+x^2)} \, dx \\
+            &= \frac{1}{\pi} \left[ \arctan(x) \right]_{-\infty}^{+\infty} \\
+            &= \frac{1}{\pi} \cdot \pi = 1
+            \end{align*}
+            
+            This defines a random variable $Y \sim \text{Cauchy}(0,1)$.
+            
+            \textbf{Fact:} $\mathbb{E}[e^{tX}] = \int \frac{e^{tx}}{\pi(1+x^2)} \, dx$ converges only for $t = 0$.
+            
+            The expected value is also divergent:
+            \begin{align*}
+            \mathbb{E}[X] = \int \frac{x}{\pi(1+x^2)} \, dx \quad \text{diverges}
+            \end{align*}
+            
+            \textbf{Characteristic Function:} While the moment generating function doesn't exist for the Cauchy distribution, the characteristic function is well-defined:
+            \begin{align*}
+            \phi(t) = \mathbb{E}[e^{itX}] = \int e^{itx} \frac{1}{\pi(1+x^2)} \, dx
+            \end{align*}
+            \end{example}
 \section{Recitation (03-14)}
 \subsection*{Problem 1}
 We know that $ X\sim Exp(\lambda) $,Then $ P(X>t+s|X> s)=P(X>t) $
 \\Identify all distribution that satisfy the lack of memory property.
-\begin{align*}{}{}
-\text{Let }G(t)=P(X>t)\\
-G(t+s)=G(t)G(s)\\
-\text{Let }H(t)=\log G(t)\\
-H(t+s)=H(t)+H(s)\\
-\text{Claim: } \exists \lambda H(t)=\lambda t\\
-\forall k\in Z, H(k)=kH(1)\\
-G(t)=e^{-\lambda t}\\
-\end{align*}
+\begin{proof}
+    We proceed in several steps to identify all distributions that satisfy the memoryless property.
+    
+    \textbf{Step 1:} First, we recall the definition of the memoryless property. A random variable $X$ has the memoryless property if
+    \begin{align}
+    \mathbb{P}(X > t+s | X > s) = \mathbb{P}(X > t) \quad \forall s, t \geq 0 \tag{1}
+    \end{align}
+    
+    We know that if $X \sim \text{Exp}(\lambda)$ (i.e., $X$ follows an exponential distribution with parameter $\lambda$), then $X$ satisfies property (1). We want to prove that exponential distributions are the only ones with this property.
+    
+    \textbf{Step 2:} Let $G(t) = \mathbb{P}(X > t)$ be the survival function of $X$. Using property (1), we have:
+    \begin{align*}
+    \mathbb{P}(X > t+s | X > s) &= \mathbb{P}(X > t) \\
+    \frac{\mathbb{P}(X > t+s, X > s)}{\mathbb{P}(X > s)} &= \mathbb{P}(X > t) \\
+    \frac{\mathbb{P}(X > t+s)}{\mathbb{P}(X > s)} &= \mathbb{P}(X > t) \\
+    \frac{G(t+s)}{G(s)} &= G(t)
+    \end{align*}
+    
+    Rearranging, we get the functional equation:
+    \begin{align}
+    G(t+s) = G(t) \cdot G(s) \quad \forall s, t \geq 0 \tag{2}
+    \end{align}
+    
+    \textbf{Step 3:} Define $H(t) = -\log G(t)$. Taking the logarithm of both sides of equation (2):
+    \begin{align}
+    \log G(t+s) &= \log G(t) + \log G(s) \\
+    -H(t+s) &= -H(t) - H(s) \\
+    H(t+s) &= H(t) + H(s) \quad \forall s, t \geq 0 \tag{3}
+    \end{align}
+    
+    This is the Cauchy functional equation. We will now prove that any continuous solution to this equation must have the form $H(t) = \lambda t$ for some constant $\lambda > 0$.
+    
+    \textbf{Step 4:} We claim that there exists $\lambda$ such that $H(t) = \lambda t$ for all $t \geq 0$. We prove this in several sub-steps:
+    
+    (a) For integer values: Let $\lambda = H(1)$. For any integer $k \in \mathbb{Z}^+$, we have:
+    \begin{align*}
+    H(k) &= H(1 + 1 + \ldots + 1) \quad \text{($k$ times)} \\
+    &= H(1) + H(1) + \ldots + H(1) \quad \text{(using equation (3) repeatedly)} \\
+    &= k \cdot H(1) = \lambda k
+    \end{align*}
+    
+    (b) For rational values: For any rational number $\frac{p}{q}$ where $p, q \in \mathbb{Z}^+$, using equation (3), we have:
+    \begin{align*}
+    H\left(\frac{p}{q} \cdot q\right) &= q \cdot H\left(\frac{p}{q}\right) \\
+    H(p) &= q \cdot H\left(\frac{p}{q}\right) \\
+    \lambda p &= q \cdot H\left(\frac{p}{q}\right) \\
+    H\left(\frac{p}{q}\right) &= \lambda \cdot \frac{p}{q}
+    \end{align*}
+    
+    (c) For all real values: By the continuity of $H$ and the density of rational numbers in $\mathbb{R}$, for any real number $t \geq 0$, there exists a sequence of rational numbers $\{t_n\}$ such that $t_n \to t$. By the continuity of $H$, we have:
+    \begin{align*}
+    H(t) = \lim_{n \to \infty} H(t_n) = \lim_{n \to \infty} \lambda t_n = \lambda t
+    \end{align*}
+    
+    Therefore, $H(t) = \lambda t$ for all $t \geq 0$.
+    
+    \textbf{Step 5:} Since $H(t) = -\log G(t) = \lambda t$, we have:
+    \begin{align*}
+    G(t) = e^{-\lambda t}, \quad \lambda > 0
+    \end{align*}
+    
+    This is exactly the survival function of an exponential distribution with parameter $\lambda$. Note that $\lambda$ must be positive since $G(t)$ is a decreasing function of $t$ (as $t$ increases, the probability of surviving beyond $t$ decreases).
+    
+    \textbf{Step 6:} Finally, the probability density function of $X$ is the negative derivative of the survival function:
+    \begin{align*}
+    f(t) = -\frac{d}{dt}G(t) = -\frac{d}{dt}e^{-\lambda t} = \lambda e^{-\lambda t}, \quad t \geq 0
+    \end{align*}
+    
+    This is the probability density function of an exponential distribution with parameter $\lambda$.
+    
+    In conclusion, the only continuous probability distributions that satisfy the memoryless property are exponential distributions.
+    \end{proof}
 \subsection*{Problem 2}
 $ (\Omega,F,\mu) $ measure space, X is a integrable borel function, Y is an  simple function 
 \\Show that (1)$$
     \exists A\in F ,\mu(A)<+\infty ,s.t. \int_\Omega Y d\mu=\int_A Y d\mu
 $$ 
-(1) $$
+(2) $$
     \exists \epsilon>0, \exists A_\epsilon\in F, \mu(A_\epsilon)<+\infty, s.t. |\int_{A_\epsilon} X d \mu-\int_\Omega Xd\mu|<\epsilon
 $$ 
+\begin{proof}
+    \textbf{Part 1:} Let $Y$ be a simple function, which can be written as
+    \begin{align*}
+        Y = \sum_{i=1}^n a_i 1_{A_i}
+    \end{align*}
+    where $a_i \in \mathbb{R}$, $A_i \cap A_j = \emptyset$ for $i \neq j$, and $a_i \neq 0$. Let $A = \bigcup_{i=1}^n A_i$. 
+    
+    Since $Y$ is zero outside $A$, we have
+    \begin{align*}
+        \int_\Omega Y \, d\mu = \int_A Y \, d\mu
+    \end{align*}
+    
+    Also, $\mu(A) = \sum_{i=1}^n \mu(A_i) < +\infty$ since each $A_i$ has finite measure.
+    
+    \textbf{Part 2:} Suppose that $X \geq 0$ is a non-negative Borel function. Since $X$ is integrable, there exists a sequence of simple functions $\{Y_n\}$ such that $Y_n \uparrow X$ pointwise and $\lim_{n \to \infty} \int_\Omega Y_n \, d\mu = \int_\Omega X \, d\mu$.
+    
+    For any $\epsilon > 0$, there exists $N \in \mathbb{N}$ such that
+    \begin{align*}
+        \left|\int_\Omega Y_N \, d\mu - \int_\Omega X \, d\mu\right| < \epsilon
+    \end{align*}
+    
+    From Part 1, there exists $A_N \in \mathcal{F}$ with $\mu(A_N) < +\infty$ such that
+    \begin{align*}
+        \int_\Omega Y_N \, d\mu = \int_{A_N} Y_N \, d\mu
+    \end{align*}
+    
+    This implies
+    \begin{align*}
+        \left|\int_{A_N} Y_N \, d\mu - \int_\Omega X \, d\mu\right| < \epsilon
+    \end{align*}
+    
+    Since $0 \leq Y_N \leq X$ and $Y_N$ approximates $X$ on $A_N$, we have
+    \begin{align*}
+        \int_{A_N} X \, d\mu - \epsilon \leq \int_{A_N} Y_N \, d\mu \leq \int_{A_N} X \, d\mu
+    \end{align*}
+    
+    Which leads to
+    \begin{align*}
+        \left|\int_{A_N} X \, d\mu - \int_\Omega X \, d\mu\right| < \epsilon
+    \end{align*}
+    
+    Now, suppose $X$ is an arbitrary integrable Borel function. Let $X = X^+ - X^-$, where $X^+ = \max(X, 0)$ and $X^- = \max(-X, 0)$ are the positive and negative parts of $X$, respectively.
+    
+    By applying the above result to $X^+$ and $X^-$, we can find $A^+, A^- \in \mathcal{F}$ with $\mu(A^+), \mu(A^-) < +\infty$ such that
+    \begin{align*}
+        \left|\int_{A^+} X^+ \, d\mu - \int_\Omega X^+ \, d\mu\right| < \frac{\epsilon}{2}\\
+        \left|\int_{A^-} X^- \, d\mu - \int_\Omega X^- \, d\mu\right| < \frac{\epsilon}{2}
+    \end{align*}
+    
+    Let $A = A^+ \cup A^-$. Then $\mu(A) < +\infty$ and
+    \begin{align*}
+        \left|\int_A X \, d\mu - \int_\Omega X \, d\mu\right| &= \left|\int_A (X^+ - X^-) \, d\mu - \int_\Omega (X^+ - X^-) \, d\mu\right|\\
+        &\leq \left|\int_A X^+ \, d\mu - \int_\Omega X^+ \, d\mu\right| + \left|\int_A X^- \, d\mu - \int_\Omega X^- \, d\mu\right|\\
+        &< \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+    \end{align*}
+    
+    Therefore, for any integrable Borel function $X$ and any $\epsilon > 0$, there exists $A_\epsilon \in \mathcal{F}$ with $\mu(A_\epsilon) < +\infty$ such that
+    \begin{align*}
+        \left|\int_{A_\epsilon} X \, d\mu - \int_\Omega X \, d\mu\right| < \epsilon
+    \end{align*}
+    \end{proof}
+\subsection*{Problem 3}
+    Let $X$ be a continuous non-negative random variable with $\mathbb{E}[X] < \infty$. Then:
+    \begin{enumerate}
+        \item $\displaystyle \mathbb{E}[X] = \int_0^{+\infty} \mathbb{P}[X > y] \, dy - \int_0^{+\infty} \mathbb{P}[X <- y] \, dy$
+        \item $\displaystyle \lim_{y \to +\infty} y \cdot \mathbb{P}[X > y] = 0$
+    \end{enumerate}
+    \begin{proof}
+        Let's prove each part separately.
+        
+        \textbf{Part (1):} We begin with the definition of expectation. For a continuous random variable $X$ with probability density function $f_X(x)$:
+        \begin{align*}
+        \mathbb{E}[X] &= \int_{-\infty}^{+\infty} x \cdot f_X(x) \, dx
+        \end{align*}
+        
+        We can decompose $X$ into its positive and negative parts:
+        \begin{align*}
+        \mathbb{E}[X] &= \mathbb{E}[X^+] - \mathbb{E}[X^-]
+        \end{align*}
+        where $X^+ = \max(X, 0)$ and $X^- = \max(-X, 0)$.
+        
+        In class, we showed that for a non-negative random variable $Z$:
+        \begin{align*}
+        \mathbb{E}[Z] = \int_0^{+\infty} \mathbb{P}[Z > y] \, dy
+        \end{align*}
+        
+        Applying this to $X^+$ and $X^-$:
+        \begin{align*}
+        \mathbb{E}[X^+] &= \int_0^{+\infty} \mathbb{P}[X^+ > y] \, dy = \int_0^{+\infty} \mathbb{P}[X > y] \, dy\\
+        \mathbb{E}[X^-] &= \int_0^{+\infty} \mathbb{P}[X^- > y] \, dy = \int_0^{+\infty} \mathbb{P}[-X > y] \, dy = \int_0^{+\infty} \mathbb{P}[X < -y] \, dy
+        \end{align*}
+        
+        Therefore:
+        \begin{align*}
+        \mathbb{E}[X] &= \mathbb{E}[X^+] - \mathbb{E}[X^-]\\
+        &= \int_0^{+\infty} \mathbb{P}[X > y] \, dy - \int_0^{+\infty} \mathbb{P}[X < -y] \, dy
+        \end{align*}
+        
+        \textbf{Part (2):} We need to prove that $\lim_{y \to +\infty} y \cdot \mathbb{P}[X > y] = 0$.
+        
+        For any $y > 0$, we have:
+        \begin{align*}
+        y \cdot \mathbb{P}[X > y] &= y \cdot \int_y^{+\infty} f_X(x) \, dx\\
+        &\leq \int_y^{+\infty} x \cdot f_X(x) \, dx\\
+        &= \mathbb{E}[X \cdot \mathbf{1}_{\{X > y\}}]
+        \end{align*}
+        
+        We claim that $\mathbb{E}[X \cdot \mathbf{1}_{\{X > y\}}] \to 0$ as $y \to +\infty$.
+        
+        This follows because $X$ is integrable ($\mathbb{E}[X] < \infty$), and as $y$ increases, the set $\{X > y\}$ becomes smaller. By the dominated convergence theorem:
+        \begin{align*}
+        \lim_{y \to +\infty} \mathbb{E}[X \cdot \mathbf{1}_{\{X > y\}}] = 0
+        \end{align*}
+        
+        Therefore:
+        \begin{align*}
+        \lim_{y \to +\infty} y \cdot \mathbb{P}[X > y] = 0
+        \end{align*}
+        
+        This result can also be approached using approximation by simple functions. Additionally, we can leverage the following fact from measure theory: In a measure space $(\Omega, \mathcal{F}, \mu)$, if $f$ is integrable, then for any $\varepsilon > 0$, there exists $\delta > 0$ such that for any $A \in \mathcal{F}$ with $\mu(A) < \delta$, we have $\left|\int_A f \, d\mu\right| < \varepsilon$.
+        \end{proof}
 \section{Lecture 14 (03-17)}
-chain rule
+\begin{theorem}[Chain Rule for Radon-Nikodym Derivatives]{}
+    Suppose $\nu \ll \mu$ (i.e., $\nu$ is absolutely continuous with respect to $\mu$). Then a function $f$ is integrable with respect to $\nu$ if and only if $f \cdot \frac{d\nu}{d\mu}$ is integrable with respect to $\mu$. Furthermore, in this case:
+    \[
+    \int f \, d\nu = \int f \cdot \frac{d\nu}{d\mu} \, d\mu
+    \]
+    where $\frac{d\nu}{d\mu}$ denotes the Radon-Nikodym derivative of $\nu$ with respect to $\mu$.
+    \end{theorem}
+    
+    \begin{remark}[Probabilistic Interpretation]{}
+    If $Q \ll P$ are probability measures, and $X$ is a $Q$-integrable random variable, then:
+    \[
+    \mathbb{E}^Q[X] = \mathbb{E}^P\left[X \cdot \frac{dQ}{dP}\right]
+    \]
+    where $\frac{dQ}{dP}$ is the Radon-Nikodym derivative (likelihood ratio) of $Q$ with respect to $P$.
+    \end{remark}
+    
+    \begin{proof}
+    We proceed in several steps:
+    
+    \textbf{Step 1:} First, we verify the theorem for indicator functions. For any measurable set $A$:
+    \begin{align*}
+    \int 1_A \, d\nu &= \nu(A)\\
+    &= \int_A \frac{d\nu}{d\mu} \, d\mu \quad \text{(by definition of Radon-Nikodym derivative)}\\
+    &= \int 1_A \cdot \frac{d\nu}{d\mu} \, d\mu
+    \end{align*}
+    
+    \textbf{Step 2:} By linearity, we extend the result to simple functions. Let $\varphi = \sum_{i=1}^n a_i 1_{A_i}$, where $A_i \cap A_j = \emptyset$ for $i \neq j$. Then:
+    \begin{align*}
+    \int \varphi \, d\nu &= \sum_{i=1}^n a_i \int 1_{A_i} \, d\nu\\
+    &= \sum_{i=1}^n a_i \int 1_{A_i} \cdot \frac{d\nu}{d\mu} \, d\mu \quad \text{(by Step 1)}\\
+    &= \int \sum_{i=1}^n a_i 1_{A_i} \cdot \frac{d\nu}{d\mu} \, d\mu\\
+    &= \int \varphi \cdot \frac{d\nu}{d\mu} \, d\mu
+    \end{align*}
+    
+    \textbf{Step 3:} For a non-negative Borel function $g \geq 0$, there exists a sequence $\{\varphi_n\}_{n \geq 1}$ of simple functions such that $\varphi_n \uparrow g$ pointwise. Applying the Monotone Convergence Theorem (MCT):
+    \begin{align*}
+    \int g \, d\nu &= \lim_{n \to \infty} \int \varphi_n \, d\nu \quad \text{(by MCT)}\\
+    &= \lim_{n \to \infty} \int \varphi_n \cdot \frac{d\nu}{d\mu} \, d\mu \quad \text{(by Step 2)}\\
+    &= \int \lim_{n \to \infty} \left(\varphi_n \cdot \frac{d\nu}{d\mu}\right) \, d\mu \quad \text{(by MCT)}\\
+    &= \int g \cdot \frac{d\nu}{d\mu} \, d\mu
+    \end{align*}
+    
+    \textbf{Step 4:} For a general Borel function $g$, we decompose it as $g = g^+ - g^-$, where $g^+ = \max(g, 0)$ and $g^- = \max(-g, 0)$. Applying the result from Step 3 to both $g^+$ and $g^-$, we obtain:
+    \begin{align*}
+    \int g \, d\nu &= \int g^+ \, d\nu - \int g^- \, d\nu\\
+    &= \int g^+ \cdot \frac{d\nu}{d\mu} \, d\mu - \int g^- \cdot \frac{d\nu}{d\mu} \, d\mu\\
+    &= \int (g^+ - g^-) \cdot \frac{d\nu}{d\mu} \, d\mu\\
+    &= \int g \cdot \frac{d\nu}{d\mu} \, d\mu
+    \end{align*}
+    
+    This completes the proof of the chain rule.
+    \end{proof}
 \begin{example}[]{}
- \begin{enumerate}[label=\circled{\arabic*}] 
- \item $ (\Omega, F, P) $ 
- \end{enumerate}
+    \begin{align*}
+        &\text{eg}: (\Omega, \mathcal{F}, \mathbb{P}), \quad X \sim N(0,1). \text{ Let } \theta > 0. \quad X + \theta \sim N(\theta, 1)\\
+        &\text{We can define a new prob. measure } \mathbb{Q}, \text{ s.t. under } \mathbb{Q}, \; X + \theta \sim N(0,1).\\
+        &\text{Soln}: \text{ Let } \frac{d\mathbb{Q}}{d\mathbb{P}} = e^{-\theta X - \frac{1}{2}\theta^2}\\
+        &\mathbb{Q} \text{ is a prob. measure: } \mathbb{Q}(\Omega) = \int_{\Omega} d\mathbb{Q} = \int_{\Omega} \frac{d\mathbb{Q}}{d\mathbb{P}}d\mathbb{P} = \int_{\Omega} e^{-\theta X - \frac{1}{2}\theta^2}d\mathbb{P} = e^{-\frac{1}{2}\theta^2}\mathbb{E}^{\mathbb{P}}[e^{-\theta X}]\\
+        &\hspace{7.3cm} = e^{-\frac{1}{2}\theta^2} \cdot e^{\frac{1}{2}\theta^2} = 1 \quad \text{MGF for } N(0,1)\\
+        &\text{Compute } \mathbb{E}^{\mathbb{Q}}[e^{t(X+\theta)}] = \mathbb{E}^{\mathbb{P}}\left[e^{t(X+\theta)}\frac{d\mathbb{Q}}{d\mathbb{P}}\right]\\
+        &\forall t \in \mathbb{R} \hspace{1.7cm} = \mathbb{E}^{\mathbb{P}}\left[e^{t(X+\theta)}e^{-\theta X - \frac{1}{2}\theta^2}\right] = e^{t\theta - \frac{1}{2}\theta^2}\mathbb{E}^{\mathbb{P}}[e^{(t-\theta)X}]\\
+        &\hspace{7.3cm} = e^{t\theta - \frac{1}{2}\theta^2}e^{\frac{1}{2}(t-\theta)^2} = e^{\frac{1}{2}t^2}\\
+        &\Rightarrow X+\theta \sim^{\mathbb{Q}} N(0,1)
+        \end{align*}
 \end{example}
+\textbf{Fact:}
+\begin{align*}
+    \text{ if } M(t):=\mathbb{E}[e^{tX}] \text{ converges in } t \in (-\delta,\delta) \text{ for some } \delta > 0.\\
+    \text{Then } \{M(t), t \in (-\delta,\delta)\} \text{ determines the distribution of } X.
+    \end{align*}
 \subsection{Joint distribution}
 Given probability space $ (\Omega_1, F_1, P_1), (\Omega_2, F_2, P_2)$ can define the product space $ (\Omega_1\times\Omega_2, F_1\otimes F_2, P_1\otimes P_2) $ where$$
     F_1\otimes F_2=\sigma(\{A_1\times A_2:A_1\in F_1,A_2\in F_2\})
@@ -1593,11 +2201,236 @@ P((X,Y)\in A)=\int_{A}f(u,v)dudv\text{, for every } A\in B(R^2)\\
 \begin{remark}[]{}
 if X,Y are independent$\Rightarrow F(x,y)=F_X(x)F_Y(y)\Leftrightarrow(cont.) f(x,y)=f_X(x)f_Y(y) $
 \end{remark}
+\begin{example}[]{}
+ \begin{enumerate}[label=\circled{\arabic*}] 
+\item  \begin{align*}
+    &\text{If X, Y have joint density function}\\
+    &f(x,y) = \frac{\alpha^x}{x!}\frac{\beta^y}{y!}e^{-\alpha-\beta} \quad \forall x,y \in \mathbb{N}.\\
+    &\text{Soln: } \bullet \text{ X, Y are indep, because } f(x,y) = f_1(x)f_2(y).\\
+    &\quad \bullet f_X(x) = \sum_{y \in \mathbb{N}} \frac{\alpha^x}{x!}\frac{\beta^y}{y!}e^{-\alpha-\beta} = \frac{\alpha^x}{x!}e^{-\alpha-\beta}\sum_{y \in \mathbb{N}}\frac{\beta^y}{y!} = \frac{\alpha^x}{x!}e^{-\alpha}\\
+    &\quad \Rightarrow X \sim \text{Poisson}(\alpha)\\
+    &\quad \text{Similarly, } f_Y(y) = \sum_{x \in \mathbb{N}} \frac{\alpha^x}{x!}\frac{\beta^y}{y!}e^{-\alpha-\beta} = \ldots \quad Y \sim \text{Poisson}(\beta).
+    \end{align*}
+ \item \begin{align*}
+     &\text{ The joint density function of } X, Y \text{ is } f(x,y) = 
+    \begin{cases}
+    e^{-(x+y)} & \text{if } 0 \leq x, y < \infty\\
+    0 & \text{else}
+    \end{cases}\\
+    &\text{Find the density funct. of } \frac{X}{Y}.\\
+    \underline{\text{Soln}}: & F_{\frac{X}{Y}}(a) = P\left(\frac{X}{Y} \leq a\right) = \iint_{[x \leq ay]} f(x,y) \, dx \, dy\\
+    &= \int_0^{+\infty} \int_0^{ay} e^{-(x+y)} \, dx \, dy = \int_0^{+\infty} [1-e^{-ay}]e^{-y} \, dy\\
+    &= \int_0^{+\infty} (1-e^{-ay})e^{-y} \, dy = 1-\frac{1}{a+1}.\\
+    &f_{\frac{X}{Y}}(a) = \frac{1}{(a+1)^2}, \quad a \geq 0
+    \end{align*}
+ \end{enumerate}
+\end{example}
 \section{Lecture 15 (03-19)}
-Sum of random variables
-\begin{proposition}[]{}
-Let X,Y be a cont. r.v.s then $ f_{X+Y}(z)=\int_{-\infty}^{+\infty}f(x,z-x) $ 
+\subsection{Joint Distribution Function and Density Function}
+
+\begin{definition}[Joint Distribution Function]{}
+For random variables $X$ and $Y$, the joint distribution function is defined as:
+\begin{align*}
+F(x,y) = \mathbb{P}(X \leq x, Y \leq y)
+\end{align*}
+\end{definition}
+
+\begin{definition}[Joint Density Function]{}
+For continuous random variables $X$ and $Y$, if the second-order partial derivative of their joint distribution function $F(x,y)$ exists, the joint density function is defined as:
+\begin{align*}
+f(x,y) = \frac{\partial^2 F(x,y)}{\partial x \partial y}
+\end{align*}
+For any measurable set $A \subset \mathbb{R}^2$, we have:
+\begin{align*}
+\mathbb{P}((X,Y) \in A) = \iint_A f(x,y) \,dx\,dy
+\end{align*}
+\end{definition}
+
+\subsection{Distribution of Sum of Random Variables}
+
+\begin{proposition}[Density Function of Sum]{}
+Let $X$ and $Y$ be continuous random variables with joint density function $f(x,y)$. The density function of $X+Y$ is:
+\begin{align*}
+f_{X+Y}(z) = \int_{-\infty}^{+\infty} f(x, z-x) \,dx
+\end{align*}
 \end{proposition}
+
+\begin{proof}[]{}
+First, the distribution function of $X+Y$ can be represented as:
+\begin{align*}
+F_{X+Y}(z) &= \mathbb{P}(X+Y \leq z)\\
+&= \iint_{x+y \leq z} f(x,y) \,dx\,dy\\
+&= \int_{-\infty}^{+\infty}\int_{-\infty}^{z-x} f(x,y) \,dy \,dx
+\end{align*}
+
+Differentiating with respect to $z$, we obtain the density function:
+\begin{align*}
+f_{X+Y}(z) &= \frac{d}{dz}F_{X+Y}(z)\\
+&= \frac{d}{dz}\int_{-\infty}^{+\infty}\int_{-\infty}^{z-x} f(x,y) \,dy \,dx\\
+&= \int_{-\infty}^{+\infty} f(x, z-x) \,dx
+\end{align*}
+where we applied Leibniz's integral rule to exchange the order of integration and differentiation.
+\end{proof}
+
+\begin{example}[Sum of Independent Standard Normal Random Variables]{}
+Let $X, Y \sim N(0,1)$ be independent. Prove that $X+Y \sim N(0,2)$.
+\end{example}
+
+\begin{proof}[]{}
+Since $X$ and $Y$ are independent, their joint density function is the product of their individual density functions:
+\begin{align*}
+f(x,y) = f_X(x) \cdot f_Y(y) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}
+\end{align*}
+
+Computing the density function of $X+Y$:
+\begin{align*}
+f_{X+Y}(z) &= \int_{-\infty}^{+\infty} f(x, z-x) \,dx\\
+&= \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}} \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{(z-x)^2}{2}} \,dx\\
+&= \frac{1}{2\pi}\int_{-\infty}^{+\infty} e^{-\frac{1}{2}(x^2 + (z-x)^2)} \,dx
+\end{align*}
+
+Computing the exponent term:
+\begin{align*}
+x^2 + (z-x)^2 &= x^2 + z^2 - 2zx + x^2\\
+&= 2x^2 - 2zx + z^2\\
+&= 2(x^2 - zx + \frac{z^2}{2})\\
+&= 2(x - \frac{z}{2})^2 + \frac{z^2}{2} - \frac{z^2}{2}\\
+&= 2(x - \frac{z}{2})^2 + \frac{z^2}{2}
+\end{align*}
+
+Substituting back into the original integral:
+\begin{align*}
+f_{X+Y}(z) &= \frac{1}{2\pi}\int_{-\infty}^{+\infty} e^{-\frac{1}{2}[2(x - \frac{z}{2})^2 + \frac{z^2}{2}]} \,dx\\
+&= \frac{1}{2\pi}e^{-\frac{z^2}{4}}\int_{-\infty}^{+\infty} e^{-(x - \frac{z}{2})^2} \,dx
+\end{align*}
+
+Letting $u = x - \frac{z}{2}$, we have $dx = du$, and the integration limits transform:
+\begin{align*}
+f_{X+Y}(z) &= \frac{1}{2\pi}e^{-\frac{z^2}{4}}\int_{-\infty}^{+\infty} e^{-u^2} \,du\\
+&= \frac{1}{2\pi}e^{-\frac{z^2}{4}} \cdot \sqrt{\pi}\\
+&= \frac{1}{\sqrt{2\pi \cdot 2}}e^{-\frac{z^2}{4}}
+\end{align*}
+
+This is precisely the density function of $N(0,2)$, therefore $X+Y \sim N(0,2)$.
+\end{proof}
+
+\textbf{Fact}:Sum of Independent Normal Random Variables\\
+If $X \sim N(\mu_1, \sigma_1^2)$, $Y \sim N(\mu_2, \sigma_2^2)$ and $X$ and $Y$ are independent, then $X+Y \sim N(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$.
+    \begin{align*}
+        \text{Soln2:} &\text{ Use that moment generating funct. } M(t) = \mathbb{E}[e^{tX}] \text{ determines the distr.}\\
+        &M_{X+Y}(t) = \mathbb{E}[e^{t(X+Y)}] \stackrel{\text{ind.}}{=} \mathbb{E}[e^{tX} \cdot \mathbb{E}[e^{tY}]] = e^{\frac{1}{2}t^2} \cdot e^{\frac{1}{2}t^2} = e^{t^2}, \quad X+Y \sim N(0,2)\\
+        &\text{Here we used if } X \sim N(\mu, \sigma^2), \mathbb{E}[e^{tX}] = e^{\mu t + \frac{1}{2}\sigma^2 t^2}.
+        \end{align*} 
+    \begin{example}[Problems with Uniform Distributions]{}
+    Let $X, Y$ be independent random variables, each uniformly distributed on $[0,1]$ (i.e., $X, Y \sim \text{Uniform}[0,1]$, with $f_X(x) = \mathbf{1}_{[0,1]}(x)$).
+    \end{example}
+    
+    \begin{problem}[]
+    Compute the joint density function of $X+Y$.
+    \end{problem}
+    
+    \begin{solution}
+        For two independent random variables $X$ and $Y$, the density function of their sum $Z=X+Y$ can be calculated using the convolution formula:
+\begin{align*}
+f_{X+Y}(z) &= \int_{-\infty}^{+\infty} f_X(x)f_Y(z-x) \, dx\\
+&= \int_{0}^{1} \mathbf{1}_{[0,1]}(x)\mathbf{1}_{[0,1]}(z-x) \, dx
+\end{align*}
+
+Since $f_X(x) = \mathbf{1}_{[0,1]}(x)$ and $f_Y(y) = \mathbf{1}_{[0,1]}(y)$, the integration region must satisfy both $0 \leq x \leq 1$ and $0 \leq z-x \leq 1$, which means $0 \leq x \leq 1$ and $z-1 \leq x \leq z$.
+
+This can be divided into three cases:
+\begin{align*}
+f_{X+Y}(z) = \int_{0}^{1} \mathbf{1}_{0 \leq z-x \leq 1} \, dx = 
+\begin{cases}
+\int_{0}^{z} 1 \, dx = z, & \text{if } z \in [0,1]\\
+\int_{z-1}^{1} 1 \, dx = 2-z, & \text{if } z \in (1,2]\\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+Therefore, the density function of $X+Y$ is:
+\begin{align*}
+f_{X+Y}(z) = 
+\begin{cases}
+z, & \text{if } z \in [0,1]\\
+2-z, & \text{if } z \in (1,2]\\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+This is a triangular distribution, reaching its maximum value of 1 at $z=1$.
+
+    \end{solution}
+    
+    \begin{problem}[]
+    Let $X_1, \ldots, X_n$ be independent random variables, each uniformly distributed on $[0,1]$. Compute $F_{X_1+\ldots+X_n}(z)$ for $z \in [0,1]$.
+    \end{problem}
+    
+    \begin{solution}
+        We will use induction to prove that $F_{X_1+\ldots+X_n}(z) = \frac{z^n}{n!}$ for $z \in [0,1]$.
+
+\textbf{Base case}: When $n=1$, $F_{X_1}(z) = z$ for $z \in [0,1]$, which is the distribution function of a uniform distribution on $[0,1]$.
+
+\textbf{Induction hypothesis}: Assume that for $n-1$, we have $F_{X_1+\ldots+X_{n-1}}(z) = \frac{z^{n-1}}{(n-1)!}$ for $z \in [0,1]$.
+
+\textbf{Induction step}: We need to prove that $F_{X_1+\ldots+X_n}(z) = \frac{z^n}{n!}$ for $z \in [0,1]$.
+
+Using the convolution formula and the induction hypothesis, we can calculate:
+\begin{align*}
+F_n(z) &= \int_{-\infty}^{+\infty}\int_{-\infty}^{z-x} f(x)f_{n-1}(y) \, dy \, dx\\
+&= \int_{-\infty}^{+\infty} f(x)F_{n-1}(z-x) \, dx
+\end{align*}
+
+For $z \in [0,1]$, substituting the known conditions:
+\begin{align*}
+F_n(z) &= \int_{0}^{z} \frac{(z-x)^{n-1}}{(n-1)!} \, dx\\
+&= \frac{1}{(n-1)!}\int_{0}^{z} (z-x)^{n-1} \, dx
+\end{align*}
+
+Using the substitution $u = z-x$, $dx = -du$, when $x=0$ we have $u=z$, and when $x=z$ we have $u=0$:
+\begin{align*}
+F_n(z) &= \frac{1}{(n-1)!}\int_{z}^{0} u^{n-1} (-du)\\
+&= \frac{1}{(n-1)!}\int_{0}^{z} u^{n-1} \, du\\
+&= \frac{1}{(n-1)!} \cdot \frac{z^n}{n}\\
+&= \frac{z^n}{n!}
+\end{align*}
+
+Therefore, we have proven that for $z \in [0,1]$, $F_{X_1+\ldots+X_n}(z) = \frac{z^n}{n!}$.
+
+Note: This result is only valid for $z \in [0,1]$. For $z > 1$, the distribution function expression becomes more complex.
+
+    \end{solution}
+    
+    \begin{problem}[]
+    Let $X_1, X_2, \ldots$ be independent random variables, each uniformly distributed on $[0,1]$. Define $N = \min\{n \in \mathbb{N}: X_1 + X_2 + \ldots + X_n > 1\}$. Compute $\mathbb{E}[N]$.
+    \end{problem}
+    
+    \begin{solution}
+        We define $N = \min\{n \in \mathbb{N}: X_1 + X_2 + \ldots + X_n > 1\}$.
+
+First, observe that the event $\{N \geq n\}$ is equivalent to the event $\{X_1 + X_2 + \ldots + X_{n-1} \leq 1\}$. This is because $N \geq n$ means that the sum of the first $n-1$ random variables is not yet sufficient to exceed 1.
+
+Therefore:
+\begin{align*}
+P(N \geq n) &= P(X_1 + X_2 + \ldots + X_{n-1} \leq 1)\\
+&= F_{X_1+\ldots+X_{n-1}}(1)\\
+&= \frac{1^{n-1}}{(n-1)!}\\
+&= \frac{1}{(n-1)!}
+\end{align*}
+
+Using the formula for the expectation of a discrete random variable $E[N] = \sum_{n=1}^{\infty} P(N \geq n)$, we have:
+\begin{align*}
+E[N] &= \sum_{n=1}^{\infty} P(N \geq n)\\
+&= \sum_{n=1}^{\infty} \frac{1}{(n-1)!}\\
+&= \sum_{n=0}^{\infty} \frac{1}{n!}\\
+&= e
+\end{align*}
+
+The last step follows from the fact that $\sum_{n=0}^{\infty} \frac{1}{n!} = e$, which is the series expansion of the natural constant $e$.
+
+Therefore, $E[N] = e \approx 2.71828...$
+
+    \end{solution}
 \section{Recitation (03-21)}
 \subsection*{Problem 1}
 Is is possible to have 2 biased dice, such that the sum is uniformly distributed in \{2,3,...12\}?
@@ -1609,4 +2442,42 @@ Let X be a non-negative r.v. show that$$
 $$ 
 \subsection*{Problem 4}
 Gamma $ (n,\lambda) ,f_{n,\lambda}=\frac{\lambda^nx^{n-1}}{P(n)}e^{-\lambda x}$ ,where $ P(n)=(n-1)! $
-\\Show that if $ X_1,X_2,...,X_n $ is independent $ Exp(\lambda) $ then $ X_1+X_2+\cdots+X_n\sim Gamma(n,\lambda) $  
+\\Show that if $ X_1,X_2,...,X_n $ is independent $ Exp(\lambda) $ then $ X_1+X_2+\cdots+X_n\sim Gamma(n,\lambda) $ 
+\section{Lecture 16 (03-24)}
+\noindent\textbf{+5 Questions; Grade the best 4.}
+
+\noindent\textbf{Bookwork Content} \quad (\textsf{$\star$ - proofs are examinable})
+
+\begin{enumerate}
+\item Def.\ of algebra: algebra generated by class of subsets. \\
+Important examples from real line \& Discrete sets. (identify the algebra/$\sigma$-algebra generated by given class of sets)$^\star$
+
+\item $\cdots$ $\sigma$-algebra, $\sigma$-algebra $- - - - -$ \\
+$- - - - - - - - -$
+
+\item Def.\ of Content. Subadditivity prop. Important examples from $\mathbb{R}$.
+
+\item $\cdots$ Measure. Subadditivity$^\star$. Continuity from above/below.$^\star$
+
+\item Lebesgue measure. Borel sets. examples of $\mathcal{B}(\mathbb{R})$. Lebesgue-Stieltjes measure.
+
+\item Extension Thm.
+
+\item Def.\ of $\pi$-system. Example of $\pi$-system that generates $\mathcal{B}(\mathbb{R})$. Uniqueness Thm. \\
+Application of Uniqueness Thm.\ to show the uniqueness of Lebesgue measure.$^\star$
+
+\item Def.\ of mble funct./r.v., Borel funct. $\sigma$-algebra generated by r.v.
+
+\item Equivalent cond. for a funct. being Borel.$^\star$ Be able to prove certain funct. are m'ble. \\
+Operation of m'ble funct.$^\star$
+
+\item Construction of Lebesgue integral (simple $\rightarrow$ non-negative Borel $\rightarrow$ general) $\{X<a, a\in\mathbb{R}\}$
+
+\item Monotone Conv. Thm.
+
+\item absolute Cont. and Radon-Nikodym Derivative.
+\end{enumerate}
+
+\noindent\textbf{Common distributions:}
+
+\noindent Bernoulli, Binomial, Poisson, Geometric, Uniform, Exponential, Gaussian 
