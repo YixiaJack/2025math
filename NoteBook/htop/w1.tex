@@ -2481,3 +2481,24 @@ Operation of m'ble funct.$^\star$
 \noindent\textbf{Common distributions:}
 
 \noindent Bernoulli, Binomial, Poisson, Geometric, Uniform, Exponential, Gaussian 
+\section{Lecture 17 (04-07)}
+Random walk
+\\Markov property
+$$
+    P[S_{n+m}|S_0,S_1,\cdots,S_m]=P[S_{n+m}=j|S_m]
+$$ 
+"position after m-th step does not depend on the info before m"
+\\Let \begin{align*}{}{}
+T_y^0&=0\\
+T_y^k&=\inf\{n\geq T_y^{k-1}:S_n=y\}\\
+\end{align*}
+\begin{definition}[]{}
+y is recurrent if $P[T_y^k<\infty]=1$ for all k
+\\y is transient if $P[T_y^k<\infty]<1$ for some k
+\end{definition}
+\begin{remark}[]{}
+If y is recurrent
+$$
+    P[T_y^k<\infty]=P[T_y^k<\infty|T_y^{k-1}<\infty] P[T_y^k<\infty]+P[T_y^k<\infty|T_y^{k-1}=\infty] P[T_y^k<\infty]
+$$ 
+\end{remark}

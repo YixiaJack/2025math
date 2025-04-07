@@ -62,39 +62,41 @@
 \contentsline {subsection}{\numberline {2.20.2}Distribution of Sum of Random Variables}{89}{subsection.2.20.2}%
 \contentsline {section}{\numberline {2.21}Recitation (03-21)}{93}{section.2.21}%
 \contentsline {section}{\numberline {2.22}Lecture 16 (03-24)}{94}{section.2.22}%
-\contentsline {chapter}{\numberline {3}Partial Differential Equations}{95}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{95}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{95}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{95}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{96}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{96}{subsection.3.1.4}%
-\contentsline {subsubsection}{Stationary waves}{96}{section*.24}%
-\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{97}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}uniform transport}{97}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{99}{subsection.3.2.2}%
-\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{102}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{104}{subsection.3.3.1}%
-\contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{109}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Exercises}{110}{subsection.3.4.1}%
-\contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{113}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Lecture 6 (02-19)--{Fourier Series}}{116}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Fourier Series}{117}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Fourier Series 2}{119}{subsection.3.6.2}%
-\contentsline {section}{\numberline {3.7}Lecture 7 (02-24)}{120}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Complex Fourier series}{121}{subsection.3.7.1}%
-\contentsline {section}{\numberline {3.8}Lecture 8 (02-26)--Fourier Series}{122}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Differentiation and integration of Fourier series}{122}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}change of scale}{124}{subsection.3.8.2}%
-\contentsline {subsection}{\numberline {3.8.3}Convergence of Fourier series}{125}{subsection.3.8.3}%
-\contentsline {section}{\numberline {3.9}Lecture 9 (03-02)--Exercises}{127}{section.3.9}%
-\contentsline {subsection}{\numberline {3.9.1}Hilbert space}{130}{subsection.3.9.1}%
-\contentsline {section}{\numberline {3.10}Lecture 10 (03-10)}{131}{section.3.10}%
-\contentsline {section}{\numberline {3.11}Lecture 11 (03-12)}{133}{section.3.11}%
-\contentsline {section}{\numberline {3.12}Lecture 12 (03-17)--{Separation of variables}}{133}{section.3.12}%
-\contentsline {subsection}{\numberline {3.12.1}The heat equation}{133}{subsection.3.12.1}%
-\contentsline {subsection}{\numberline {3.12.2}The wave equation}{134}{subsection.3.12.2}%
-\contentsline {chapter}{\numberline {4}Algorithm}{135}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{135}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{136}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Recitation 02}{140}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Lecture 2 (02-19) -- {Divide and Conquer}}{141}{section.4.4}%
+\contentsline {section}{\numberline {2.23}Lecture 17 (04-07)}{94}{section.2.23}%
+\contentsline {chapter}{\numberline {3}Partial Differential Equations}{96}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Lecture 1 (02-03) -- {What are the PDEs?}}{96}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}What are the PDEs?}{96}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Classical solutions}{96}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Initial and Boundary Conditions}{97}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}Linear and Nonlinear waves}{97}{subsection.3.1.4}%
+\contentsline {subsubsection}{Stationary waves}{97}{section*.24}%
+\contentsline {section}{\numberline {3.2}Lecture 2 (02-05) -- {Uniform Transport and Traveling waves}}{98}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}uniform transport}{98}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Nonuniform transport}{100}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Lecture 3 (02-10)-Nonlinear transport and shocks}{103}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}The wave equation:d'Alembert's formula}{105}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Lecture 4 (02-12)}{110}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Exercises}{111}{subsection.3.4.1}%
+\contentsline {section}{\numberline {3.5}Lecture 5 (02-17)-Exercise}{114}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Lecture 6 (02-19)--{Fourier Series}}{117}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Fourier Series}{118}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Fourier Series 2}{120}{subsection.3.6.2}%
+\contentsline {section}{\numberline {3.7}Lecture 7 (02-24)}{121}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Complex Fourier series}{122}{subsection.3.7.1}%
+\contentsline {section}{\numberline {3.8}Lecture 8 (02-26)--Fourier Series}{123}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Differentiation and integration of Fourier series}{123}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}change of scale}{125}{subsection.3.8.2}%
+\contentsline {subsection}{\numberline {3.8.3}Convergence of Fourier series}{126}{subsection.3.8.3}%
+\contentsline {section}{\numberline {3.9}Lecture 9 (03-02)--Exercises}{128}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Hilbert space}{131}{subsection.3.9.1}%
+\contentsline {section}{\numberline {3.10}Lecture 10 (03-10)}{132}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Lecture 11 (03-12)}{134}{section.3.11}%
+\contentsline {section}{\numberline {3.12}Lecture 12 (03-17)--{Separation of variables}}{134}{section.3.12}%
+\contentsline {subsection}{\numberline {3.12.1}The heat equation}{134}{subsection.3.12.1}%
+\contentsline {subsection}{\numberline {3.12.2}The wave equation}{135}{subsection.3.12.2}%
+\contentsline {section}{\numberline {3.13}Lecture 13 (04-07)}{135}{section.3.13}%
+\contentsline {chapter}{\numberline {4}Algorithm}{136}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lecture 1 (02-03) -- {Asymptotic bounds and big O}}{136}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Recitation 1 (02-07)--{Problem Solving}}{137}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Recitation 02}{141}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Lecture 2 (02-19) -- {Divide and Conquer}}{142}{section.4.4}%

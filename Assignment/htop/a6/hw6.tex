@@ -1,0 +1,332 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-SHU 238 (HTOP) -- Homework 6}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\subsection*{Problem 1}
+\begin{align*}
+    &\text{Show the following:}\\
+    &\text{(a) } \mathbb{E}(aY + bZ \mid X) = a\mathbb{E}(Y \mid X) + b\mathbb{E}(Z \mid X) \text{ for } a, b \in \mathbb{R},\\
+    &\text{(b) } \mathbb{E}(Y \mid X) \geq 0 \text{ if } Y \geq 0,\\
+    &\text{(c) } \mathbb{E}(1 \mid X) = 1,\\
+    &\text{(d) } \text{if } X \text{ and } Y \text{ are independent then } \mathbb{E}(Y \mid X) = \mathbb{E}(Y),\\
+    &\text{(e) (`pull-through property') } \mathbb{E}(Yg(X) \mid X) = g(X)\mathbb{E}(Y \mid X) \text{ for any suitable function } g,\\
+    &\text{(f) (`tower property') } \mathbb{E}\{\mathbb{E}(Y \mid X, Z) \mid X\} = \mathbb{E}(Y \mid X) = \mathbb{E}\{\mathbb{E}(Y \mid X) \mid X, Z\}.
+    \end{align*}
+    \textbf{(a) Linearity:}  
+    By definition, for discrete random variables,
+    \[
+    \mathbb{E}(aY+bZ \mid X=x)= \sum_{y,z} \Bigl[\,a y+b z\Bigr]\,\mathbb{P}(Y=y,\,Z=z \mid X=x).
+    \]
+    By the distributive property of summation, we have:
+    \[
+    \mathbb{E}(aY+bZ \mid X=x)= a \sum_{y,z} y\, \mathbb{P}(Y=y,Z=z \mid X=x)
+    + b \sum_{y,z} z\, \mathbb{P}(Y=y,Z=z \mid X=x).
+    \]
+    Notice that for fixed \(y\),
+    \[
+    \sum_{z} \mathbb{P}(Y=y, Z=z \mid X=x)= \mathbb{P}(Y=y \mid X=x),
+    \]
+    and similarly,
+    \[
+    \sum_{y} \mathbb{P}(Y=y, Z=z \mid X=x)= \mathbb{P}(Z=z \mid X=x).
+    \]
+    Thus, we obtain:
+    \[
+    \begin{aligned}
+    \mathbb{E}(aY+bZ \mid X=x) &= a \sum_{y} y\, \mathbb{P}(Y=y \mid X=x)
+    + b \sum_{z} z\, \mathbb{P}(Z=z \mid X=x)\\[1ex]
+    &= a\,\mathbb{E}(Y \mid X=x) + b\,\mathbb{E}(Z \mid X=x).
+    \end{aligned}
+    \]
+    Since this holds for every \(x\), we have proven that
+    \[
+ {\mathbb{E}(aY+bZ \mid X)= a\,\mathbb{E}(Y \mid X) + b\,\mathbb{E}(Z \mid X).}
+    \]
+    
+    \bigskip
+    
+    \textbf{(b) Nonnegativity:}\\[1ex]
+    If \(Y \geq 0\), then for any fixed \(x\) each term in
+    \[
+    \mathbb{E}(Y \mid X=x)= \sum_{y} y \, \mathbb{P}(Y=y \mid X=x)
+    \]
+    is nonnegative, so
+    \[
+    {\mathbb{E}(Y \mid X) \geq 0.}
+    \]
+    
+    \bigskip
+    
+    \textbf{(c) Expectation of a Constant:}\\[1ex]
+    Setting \(Y\equiv 1\),
+    \[
+    \mathbb{E}(1 \mid X=x)= \sum_{y,z} 1\cdot \mathbb{P}(Y=y, Z=z \mid X=x)
+    =\sum_{y,z} \mathbb{P}(Y=y, Z=z \mid X=x)=1,
+    \]
+    since the sum of the conditional probabilities equals \(1\). Thus,
+    \[
+    {\mathbb{E}(1 \mid X) = 1.}
+    \]
+    
+    \bigskip
+    
+    \textbf{(d) Independence:}\\[1ex]
+    If \(X\) and \(Y\) are independent, then for all \(x\) and \(y\)
+    \[
+    \mathbb{P}(Y=y \mid X=x)=\mathbb{P}(Y=y).
+    \]
+    Thus,
+    \[
+    \mathbb{E}(Y \mid X=x)= \sum_{y} y\, \mathbb{P}(Y=y \mid X=x)
+    =\sum_{y} y\, \mathbb{P}(Y=y)= \mathbb{E}(Y).
+    \]
+    Hence,
+    \[
+ {\mathbb{E}(Y \mid X) = \mathbb{E}(Y).}
+    \]
+    
+    \bigskip
+    
+    \textbf{(e) Pull-Through Property:}\\[1ex]
+    Let \(g\) be any function such that \(g(X)\) is \(\sigma(X)\)-measurable. Then for any fixed \(x\),
+    \[
+    \begin{aligned}
+    \mathbb{E}\bigl(Y\,g(X) \mid X=x\bigr)
+    &=\sum_{y,z} y\,g(x)\,\mathbb{P}(Y=y, Z=z \mid X=x)\\[1ex]
+    &= g(x) \sum_{y,z} y\, \mathbb{P}(Y=y, Z=z \mid X=x)\\[1ex]
+    &= g(x)\,\mathbb{E}(Y \mid X=x).
+    \end{aligned}
+    \]
+    Thus,
+    \[
+  {\mathbb{E}(Y\,g(X) \mid X)= g(X)\,\mathbb{E}(Y \mid X).}
+    \]
+    
+    \bigskip
+    
+    \textbf{(f) Tower Property:}\begin{align*}
+        \mathbb{E}\{\mathbb{E}(Y | X, Z) | X = x\} &= \sum_{z} \left\{ \sum_{y} y\mathbb{P}(Y = y | X = x, Z = z)\mathbb{P}(X = x, Z = z | X = x) \right\} \\
+        &= \sum_{z}\sum_{y} y\frac{\mathbb{P}(Y = y, X = x, Z = z)}{\mathbb{P}(X = x, Z = z)} \cdot \frac{\mathbb{P}(X = x, Z = z)}{\mathbb{P}(X = x)} \\
+        &= \sum_{y} y\mathbb{P}(Y = y | X = x)  \\
+        &= \mathbb{E}\{\mathbb{E}(Y | X) | X = x, Z = z\}
+        \end{align*}
+    
+\subsection*{Problem 2}
+\begin{align*}
+    &\text{Conditional variance formula.} \\
+    &\text{How should we define var}(Y \mid X), \text{ the conditional variance of } Y \text{ given } X\text{?} \\
+    &\text{Show that var}(Y) = \mathbb{E}(\text{var}(Y \mid X)) + \text{var}(\mathbb{E}(Y \mid X)).
+    \end{align*}
+    \subsection*{Problem 3}
+    \begin{enumerate}
+        \item Let $X$ and $Y$ be independent discrete random variables, and let $g, h : \mathbb{R} \rightarrow \mathbb{R}$. Show that $g(X)$ and $h(Y)$ are independent.
+        \item Show that two discrete random variables $X$ and $Y$ are independent if and only if $f_{X,Y}(x, y) = f_X(x) f_Y(y)$ for all $x, y \in \mathbb{R}$.
+        \item More generally, show that $X$ and $Y$ are independent if and only if $f_{X,Y}(x, y)$ can be factorized as the product $g(x)h(y)$ of a function of $x$ alone and a function of $y$ alone.
+    \end{enumerate}
+    \subsection*{Problem 4}
+ \textbf{Stein's identity.} Let $X$ be $N(\mu, \sigma^2)$. \\
+ Show that $\mathbb{E}\{(X - \mu)g(X)\} = \sigma^2\mathbb{E}(g'(X))$ when both sides exist.
+ \subsection*{Problem 5}
+ \begin{align*}
+    &\text{(a) Show that } \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}, \text{ and deduce that} \\
+    &\quad f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}, \quad -\infty < x < \infty, \\
+    &\quad \text{is a density function if } \sigma > 0. \\
+    &\text{(b) Calculate the mean and variance of a standard normal variable.} \\
+    &\text{(c) Show that the } N(0,1) \text{ distribution function } \Phi \text{ satisfies} \\
+    &\quad (x^{-1} - x^{-3})e^{-\frac{1}{2}x^2} < \sqrt{2\pi}[1 - \Phi(x)] < x^{-1}e^{-\frac{1}{2}x^2}, \quad x > 0. \\
+    &\quad \text{These bounds are of interest because } \Phi \text{ has no closed form.} \\
+    &\text{(d) Let } X \text{ be } N(0,1), \text{ and } a > 0. \text{ Show that } \mathbb{P}(X > x + a/x \mid X > x) \to e^{-a} \text{ as } x \to 0.
+    \end{align*}
+    \subsection*{Problem 6}
+    \begin{align*}
+        &\text{(a) Let } X \text{ have a continuous distribution function } F. \text{ Show that}\\
+        &\quad \text{(i) } F(X) \text{ is uniformly distributed on } [0, 1],\\
+        &\quad \text{(ii) } -\log F(X) \text{ is exponentially distributed.}\\
+        &\text{(b) A straight line } l \text{ touches a circle with unit diameter at the point P which is diametrically opposed}\\
+        &\quad \text{on the circle to another point Q. A straight line QR joins Q to some point R on } l. \text{ If the angle } \widehat{\text{PQR}}\\
+        &\quad \text{between the lines PQ and QR is a random variable with the uniform distribution on } [-\frac{1}{2}\pi, \frac{1}{2}\pi],\\
+        &\quad \text{show that the length of PR has the Cauchy distribution (this length is measured positive or negative}\\
+        &\quad \text{depending upon which side of P the point R lies).}\\
+        &\text{(c) Let the net scores in the two halves of a game between teams } A \text{ and } B \text{ be independent and}\\
+        &\quad \text{identically distributed random variables } X, Y \text{ that are symmetric about 0 and have a continuous}\\
+        &\quad \text{distribution function } F. \text{ Team } A \text{ wins (respectively, loses) if } X + Y > 0 \text{ (respectively, } X + Y \leq 0).\\
+        &\quad \text{Find the probability that } A \text{ wins conditional on the half-time score } X.
+        \end{align*}
+    \subsection*{Problem 7}
+    Secretary/marriage problem. You are permitted to inspect the $n$ prizes at a fête in a given order, at each stage either rejecting or accepting the prize under consideration. There is no recall, in the sense that no rejected prize may be accepted later. It may be assumed that, given complete information, the prizes may be ranked in a strict order of preference, and that the order of presentation is independent of this ranking. Find the strategy which maximizes the probability of accepting the best prize, and describe its behaviour when $n$ is large.
+\end{document}
