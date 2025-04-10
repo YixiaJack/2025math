@@ -187,7 +187,7 @@
     &\text{(e) (`pull-through property') } \mathbb{E}(Yg(X) \mid X) = g(X)\mathbb{E}(Y \mid X) \text{ for any suitable function } g,\\
     &\text{(f) (`tower property') } \mathbb{E}\{\mathbb{E}(Y \mid X, Z) \mid X\} = \mathbb{E}(Y \mid X) = \mathbb{E}\{\mathbb{E}(Y \mid X) \mid X, Z\}.
     \end{align*}
-    \textbf{(a) Linearity:}  
+    \textbf{(a) }  
     By definition, for discrete random variables,
     \[
     \mathbb{E}(aY+bZ \mid X=x)= \sum_{y,z} \Bigl[\,a y+b z\Bigr]\,\mathbb{P}(Y=y,\,Z=z \mid X=x).
@@ -220,7 +220,7 @@
     
     \bigskip
     
-    \textbf{(b) Nonnegativity:}\\[1ex]
+    \textbf{(b) }\\[1ex]
     If \(Y \geq 0\), then for any fixed \(x\) each term in
     \[
     \mathbb{E}(Y \mid X=x)= \sum_{y} y \, \mathbb{P}(Y=y \mid X=x)
@@ -232,7 +232,7 @@
     
     \bigskip
     
-    \textbf{(c) Expectation of a Constant:}\\[1ex]
+    \textbf{(c) }\\[1ex]
     Setting \(Y\equiv 1\),
     \[
     \mathbb{E}(1 \mid X=x)= \sum_{y,z} 1\cdot \mathbb{P}(Y=y, Z=z \mid X=x)
@@ -245,7 +245,7 @@
     
     \bigskip
     
-    \textbf{(d) Independence:}\\[1ex]
+    \textbf{(d) }\\[1ex]
     If \(X\) and \(Y\) are independent, then for all \(x\) and \(y\)
     \[
     \mathbb{P}(Y=y \mid X=x)=\mathbb{P}(Y=y).
@@ -292,15 +292,117 @@
     &\text{How should we define var}(Y \mid X), \text{ the conditional variance of } Y \text{ given } X\text{?} \\
     &\text{Show that var}(Y) = \mathbb{E}(\text{var}(Y \mid X)) + \text{var}(\mathbb{E}(Y \mid X)).
     \end{align*}
+\begin{proof}
+By definition, the variance of \(Y\) is
+\[
+\operatorname{Var}(Y\mid X) = \mathbb{E}\Bigl[\bigl(Y - \mathbb{E}(Y\mid X)\bigr)^2\mid X\Bigr].
+\]
+\begin{align*}
+\operatorname{Var}(Y)
+&=\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y)\bigr)^2\Bigr] \\
+&=\mathbb{E}\Bigl[\Bigl(Y-\mathbb{E}(Y\mid X)+\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)^2\Bigr] \\
+&=\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr)^2\Bigr]
++ 2\,\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr)\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)\Bigr] \\
+&\quad+\,\,\mathbb{E}\Bigl[\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)^2\Bigr] \\
+&=\mathbb{E}\Bigl[\operatorname{Var}(Y\mid X)\Bigr]
++ \operatorname{Var}\Bigl(\mathbb{E}(Y\mid X)\Bigr) \text{ (The cross products are zeros)}
+\end{align*}
+\end{proof}
     \subsection*{Problem 3}
     \begin{enumerate}
         \item Let $X$ and $Y$ be independent discrete random variables, and let $g, h : \mathbb{R} \rightarrow \mathbb{R}$. Show that $g(X)$ and $h(Y)$ are independent.
         \item Show that two discrete random variables $X$ and $Y$ are independent if and only if $f_{X,Y}(x, y) = f_X(x) f_Y(y)$ for all $x, y \in \mathbb{R}$.
         \item More generally, show that $X$ and $Y$ are independent if and only if $f_{X,Y}(x, y)$ can be factorized as the product $g(x)h(y)$ of a function of $x$ alone and a function of $y$ alone.
     \end{enumerate}
+\begin{proof}
+    Since \(X\) and \(Y\) are independent discrete random variables, we have for any subsets \(A,B \subset \mathbb{R}\)
+    \begin{align*}
+        \mathbb{P}(g(X) = a, h(Y) = b) &= \sum_{x,y: g(x)=a,h(y)=b} \mathbb{P}(X = x, Y = y) \\
+        &= \sum_{x,y: g(x)=a,h(y)=b} \mathbb{P}(X = x)\mathbb{P}(Y = y) \\
+        &= \sum_{x: g(x)=a} \mathbb{P}(X = x) \sum_{y: h(y)=b} \mathbb{P}(Y = y) \\
+        &= \mathbb{P}(g(X) = a)\mathbb{P}(h(Y) = b).
+        \end{align*}
+
+Thus, \(g(X)\) and \(h(Y)\) are independent.
+\\(2)
+\begin{align*}
+&(\Rightarrow) \text{Suppose that } X \text{ and } Y \text{ are independent.}\\
+&\text{By the definition of independence, for any sets } A, B \subset \mathbb{R}, \text{ we have:}\\
+&P(X \in A, Y \in B) = P(X \in A)P(Y \in B)\\
+&\text{In particular, for singleton sets } \{x\} \text{ and } \{y\}, \text{ we have:}\\
+&P(X = x, Y = y) = P(X = x)P(Y = y)\\
+&\text{That is, } f_{X,Y}(x,y) = f_X(x)f_Y(y) \quad \forall x,y \in \mathbb{R}\\
+&(\Leftarrow) \text{Suppose that } f_{X,Y}(x,y) = f_X(x)f_Y(y) \quad \forall x,y \in \mathbb{R}\\
+&\text{For any sets } A, B \subset \mathbb{R}, \text{ we have:}\\
+&P(X \in A, Y \in B) = \sum_{x \in A, y \in B} f_{X,Y}(x,y)\\
+&= \sum_{x \in A, y \in B} f_X(x)f_Y(y)\\
+&= \sum_{x \in A} f_X(x) \sum_{y \in B} f_Y(y)\\
+&= P(X \in A)P(Y \in B)\\
+&\text{Therefore, } X \text{ and } Y \text{ are independent.} \quad \square
+\end{align*}
+(3)
+\begin{align*}
+&(\Rightarrow) \text{Suppose that } X \text{ and } Y \text{ are independent.}\\
+&\text{Then by definition, } f_{X,Y}(x,y) = f_X(x)f_Y(y) \text{ for all } x, y \in \mathbb{R}.\\
+&\text{Taking } g(x) = f_X(x) \text{ and } h(y) = f_Y(y) \text{, we have the desired factorization.}\\
+&(\Leftarrow) \text{Suppose that } f_{X,Y}(x,y) = g(x)h(y) \text{ for some functions } g \text{ and } h.\\
+&\text{We need to show that } X \text{ and } Y \text{ are independent.}\\
+&\text{First, let's compute the marginal PMFs:}\\
+&f_X(x) = \sum_y f_{X,Y}(x,y) = \sum_y g(x)h(y) = g(x)\sum_y h(y)\\
+&\text{Similarly, } f_Y(y) = \sum_x f_{X,Y}(x,y) = \sum_x g(x)h(y) = h(y)\sum_x g(x)\\
+&\text{Let } C_1 = \sum_y h(y) \text{ and } C_2 = \sum_x g(x).\\
+&\text{Note that } C_1 \text{ and } C_2 \text{ are constants, and since } f_{X,Y} \text{ is a valid PMF, we know }\\
+&\sum_x \sum_y f_{X,Y}(x,y) = \sum_x \sum_y g(x)h(y) = \sum_x g(x)\sum_y h(y) = C_1 C_2 = 1\\
+&\text{So we have } f_X(x) = g(x)C_1 \text{ and } f_Y(y) = h(y)C_2\\
+&\text{Therefore:}\\
+&f_X(x)f_Y(y) = g(x)C_1 \cdot h(y)C_2 = g(x)h(y)C_1 C_2 = g(x)h(y) = f_{X,Y}(x,y)\\
+&\text{We've shown that } f_{X,Y}(x,y) = f_X(x)f_Y(y) \text{, which means } X \text{ and } Y \text{ are independent.} \quad \square
+\end{align*}
+\end{proof}
     \subsection*{Problem 4}
  \textbf{Stein's identity.} Let $X$ be $N(\mu, \sigma^2)$. \\
  Show that $\mathbb{E}\{(X - \mu)g(X)\} = \sigma^2\mathbb{E}(g'(X))$ when both sides exist.
+ \begin{proof}
+    The probability density function of \(X\) is
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
+\]
+Note that
+\[
+f'_X(x) = -\frac{x-\mu}{\sigma^2}f_X(x),
+\]
+so that
+\[
+(x-\mu)f_X(x) = -\sigma^2 f'_X(x).
+\]
+
+Thus, we have
+\begin{align*}
+\mathbb{E}[(X-\mu)g(X)]
+&= \int_{-\infty}^{\infty}(x-\mu)g(x)f_X(x)\,dx \\
+&= -\sigma^2 \int_{-\infty}^{\infty}g(x)f'_X(x)\,dx.
+\end{align*}
+
+Using integration by parts with
+\[
+u = g(x), \quad dv = f'_X(x)\,dx, \quad du = g'(x)\,dx, \quad v = f_X(x),
+\]
+we obtain
+\begin{align*}
+\int_{-\infty}^{\infty}g(x)f'_X(x)\,dx 
+&= \Bigl[g(x)f_X(x)\Bigr]_{-\infty}^{\infty} - \int_{-\infty}^{\infty}g'(x)f_X(x)\,dx \\
+&= -\int_{-\infty}^{\infty}g'(x)f_X(x)\,dx \quad \text{(boundary term vanishes)}\\[1ex]
+&= -\mathbb{E}[g'(X)].
+\end{align*}
+
+Therefore,
+\begin{align*}
+\mathbb{E}[(X-\mu)g(X)]
+&= -\sigma^2\Bigl[-\mathbb{E}[g'(X)]\Bigr] \\
+&= \sigma^2\,\mathbb{E}[g'(X)].
+\end{align*}
+
+ \end{proof}
  \subsection*{Problem 5}
  \begin{align*}
     &\text{(a) Show that } \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}, \text{ and deduce that} \\
@@ -312,6 +414,85 @@
     &\quad \text{These bounds are of interest because } \Phi \text{ has no closed form.} \\
     &\text{(d) Let } X \text{ be } N(0,1), \text{ and } a > 0. \text{ Show that } \mathbb{P}(X > x + a/x \mid X > x) \to e^{-a} \text{ as } x \to 0.
     \end{align*}
+    \begin{proof}
+        \begin{align*}
+            &\text{(a) To show that } \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} \text{ and deduce that } f(x) \text{ is a density function:}\\
+            &\text{First, let's consider the square of the integral:}\\
+            &I^2 = \left(\int_{-\infty}^{\infty} e^{-x^2} dx\right)^2 = \int_{-\infty}^{\infty} e^{-x^2} dx \int_{-\infty}^{\infty} e^{-y^2} dy = \iint_{\mathbb{R}^2} e^{-(x^2+y^2)} dx dy\\
+            &\text{Converting to polar coordinates with } x = r\cos\theta, y = r\sin\theta:\\
+            &I^2 = \iint_{\mathbb{R}^2} e^{-r^2} r dr d\theta = \int_{0}^{2\pi} d\theta \int_{0}^{\infty} r e^{-r^2} dr\\
+            &\text{For the inner integral, use substitution } u = r^2, du = 2r dr:\\
+            &\int_{0}^{\infty} r e^{-r^2} dr = \frac{1}{2}\int_{0}^{\infty} e^{-u} du = \frac{1}{2}[-e^{-u}]_{0}^{\infty} = \frac{1}{2}\\
+            &\text{Therefore:}\\
+            &I^2 = \int_{0}^{2\pi} d\theta \cdot \frac{1}{2} = \pi\\
+            &\text{Taking the square root of both sides: } I = \sqrt{\pi}\\
+            &\text{Hence, } \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}\\
+            &\text{Now, to show that } f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\} \text{ is a density function:}\\
+            &\text{Clearly } f(x) > 0 \text{ for all } x \text{ when } \sigma > 0\\
+            &\text{We need to verify that } \int_{-\infty}^{\infty} f(x) dx = 1:\\
+            &\int_{-\infty}^{\infty} \frac{1}{\sigma\sqrt{2\pi}} \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\} dx\\
+            &\text{Using substitution } z = \frac{x-\mu}{\sigma}, dx = \sigma dz:\\
+            &\int_{-\infty}^{\infty} \frac{1}{\sigma\sqrt{2\pi}} \exp\left\{-\frac{z^2}{2}\right\} \sigma dz = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-z^2/2} dz\\
+            &\text{Further substitution with } w = \frac{z}{\sqrt{2}}, dz = \sqrt{2}dw:\\
+            &\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-w^2} \sqrt{2}dw = \frac{\sqrt{2}}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-w^2} dw = \frac{\sqrt{2}}{\sqrt{2\pi}} \cdot \sqrt{\pi} = 1\\
+            &\text{Therefore, } f(x) \text{ is indeed a valid probability density function when } \sigma > 0.
+            \end{align*}
+            (b)
+            \begin{align*}
+                &\text{For a standard normal random variable $Z$ with PDF $f(z) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}}$, we calculate:}\\
+                &\text{Mean calculation:}\\
+                &E[Z] = \int_{-\infty}^{\infty} z \cdot f(z) \, dz = \int_{-\infty}^{\infty} z \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}} \, dz\\
+                &E[Z] = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} z \cdot e^{-\frac{z^2}{2}} \, dz\\
+                &\text{Note that $z \cdot e^{-\frac{z^2}{2}}$ is odd since $z$ is odd and $e^{-\frac{z^2}{2}}$ is even}\\
+                &\text{Therefore, the integral over the symmetric interval $(-\infty, \infty)$ equals zero}\\
+                &E[Z] = 0\\
+                &\text{Variance calculation:}\\
+                &\text{Var}(Z) = E[Z^2] - (E[Z])^2 = E[Z^2] - 0^2 = E[Z^2]\\
+                &E[Z^2] = \int_{-\infty}^{\infty} z^2 \cdot f(z) \, dz = \int_{-\infty}^{\infty} z^2 \cdot \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}} \, dz\\
+                &E[Z^2] = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} z^2 \cdot e^{-\frac{z^2}{2}} \, dz\\
+                &\text{Using integration by parts with $u = z$ and $dv = z \cdot e^{-\frac{z^2}{2}} \, dz$:}\\
+                &\text{We get $du = dz$ and $v = -e^{-\frac{z^2}{2}}$, thus:}\\
+                &E[Z^2] = \frac{1}{\sqrt{2\pi}} \left[ -z \cdot e^{-\frac{z^2}{2}} \right]_{-\infty}^{\infty} + \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} e^{-\frac{z^2}{2}} \, dz\\
+                &\text{The first term equals 0, and the second term equals 1 (integral of standard normal PDF)}\\
+                &E[Z^2] = 1\\
+                &\text{Therefore: }\text{Var}(Z) = E[Z^2] - (E[Z])^2 = 1 - 0 = 1
+                \end{align*}
+                \begin{align*}
+                &\text{(c) }\\
+                                    &\text{Let's define } f(y) = y^{-1}e^{-\frac{1}{2}y^2} \text{ and } g(y) = (y^{-1} - y^{-3})e^{-\frac{1}{2}y^2}\\
+                    &\text{Computing the derivatives:}\\
+                    &f'(y) = -(1 + y^{-2})e^{-\frac{1}{2}y^2} \text{ and } g'(y) = -(1 - 3y^{-4})e^{-\frac{1}{2}y^2}\\
+                    &\text{Since } 1 - 3y^{-4} < 1 < 1 + y^{-2} \text{ for } y > 0\\
+                    &\text{We have } -f'(y) > -g'(y) \text{, thus } f'(y) < g'(y)\\
+                    &\text{Multiplying by } \frac{1}{\sqrt{2\pi}} \text{ and integrating from $x$ to $\infty$:}\\
+                    &\int_{x}^{\infty} \frac{1}{\sqrt{2\pi}}f'(y) dy < \int_{x}^{\infty} \frac{1}{\sqrt{2\pi}}g'(y) dy\\
+                    &\text{Since } f(\infty) = g(\infty) = 0 \text{, we get } \frac{1}{\sqrt{2\pi}}f(x) > \frac{1}{\sqrt{2\pi}}g(x)\\
+                    &\text{For the upper bound, note that:}\\
+                    &\sqrt{2\pi}[1-\Phi(x)] = \int_{x}^{\infty}e^{-\frac{1}{2}t^2}dt < \int_{x}^{\infty}\frac{x}{t}e^{-\frac{1}{2}t^2}dt\\
+                    &= x\int_{x}^{\infty}\frac{1}{t}e^{-\frac{1}{2}t^2}dt = x^{-1}e^{-\frac{1}{2}x^2}\\
+                    &\text{For the lower bound, using integration by parts:}\\
+                    &\sqrt{2\pi}[1-\Phi(x)] = \int_{x}^{\infty}e^{-\frac{1}{2}t^2}dt\\
+                    &= \frac{e^{-\frac{1}{2}x^2}}{x} + \int_{x}^{\infty}\frac{e^{-\frac{1}{2}t^2}}{t^2}dt > \frac{e^{-\frac{1}{2}x^2}}{x} - \frac{e^{-\frac{1}{2}x^2}}{x^3}\\
+                    &= (x^{-1} - x^{-3})e^{-\frac{1}{2}x^2}\\
+                    &\text{Therefore: } (x^{-1} - x^{-3})e^{-\frac{1}{2}x^2} < \sqrt{2\pi}[1 - \Phi(x)] < x^{-1}e^{-\frac{1}{2}x^2}, \quad x > 0
+                    \end{align*}
+                    \begin{align*}
+                        &\text{(d)}\\ &\text{Define } \alpha(x) = \mathbb{P}(X > x + a/x \mid X > x) = \frac{1 - \Phi(x + a/x)}{1 - \Phi(x)}\\
+                        &\text{From part (c), we know that for large } t > 0:\\
+                        &(t^{-1} - t^{-3})e^{-\frac{1}{2}t^2} < \sqrt{2\pi}[1 - \Phi(t)] < t^{-1}e^{-\frac{1}{2}t^2}\\
+                        &\text{As } x \to \infty \text{, we can approximate:}\\
+                        &1 - \Phi(x) \approx \frac{1}{\sqrt{2\pi}}x^{-1}e^{-\frac{1}{2}x^2}(1 + o(1))\\
+                        &1 - \Phi(x + a/x) \approx \frac{1}{\sqrt{2\pi}}(x + a/x)^{-1}e^{-\frac{1}{2}(x + a/x)^2}(1 + o(1))\\
+                        &\text{Therefore:}\\
+                        &\alpha(x) \approx (1 + o(1))\frac{x}{x + a/x} \cdot \frac{e^{-\frac{1}{2}(x + a/x)^2}}{e^{-\frac{1}{2}x^2}}\\
+                        &\text{As } x \to \infty, \frac{x}{x + a/x} \to 1\\
+                        &\text{For the exponent term:}\\
+                        &-\frac{1}{2}(x + a/x)^2 + \frac{1}{2}x^2 = -\frac{1}{2}(x^2 + 2a + a^2/x^2 - x^2) = -\frac{1}{2}(2a + a^2/x^2)\\
+                        &\text{As } x \to \infty, -\frac{1}{2}(2a + a^2/x^2) \to -a\\
+                        &\text{Thus:}\\
+                        &\alpha(x) = (1 + o(1))\frac{e^{-\frac{1}{2}(x + a/x)^2}}{e^{-\frac{1}{2}x^2}} \to e^{-a} \text{ as } x \to \infty
+                                          \end{align*}
+    \end{proof}
     \subsection*{Problem 6}
     \begin{align*}
         &\text{(a) Let } X \text{ have a continuous distribution function } F. \text{ Show that}\\
@@ -327,6 +508,118 @@
         &\quad \text{distribution function } F. \text{ Team } A \text{ wins (respectively, loses) if } X + Y > 0 \text{ (respectively, } X + Y \leq 0).\\
         &\quad \text{Find the probability that } A \text{ wins conditional on the half-time score } X.
         \end{align*}
+    \begin{proof}
+        \begin{align*}
+            &\quad \text{(i) } F(X) \text{ is uniformly distributed on } [0, 1],\\
+            &\text{For any } 0 \leq y \leq 1 \text{, we need to find } \mathbb{P}(F(X) \leq y):\\
+            &\mathbb{P}(F(X) \leq y) = \mathbb{P}(X \leq F^{-1}(y))\\
+            &\text{Since } F \text{ is the distribution function of } X \text{, we have:}\\
+            &\mathbb{P}(X \leq F^{-1}(y)) = F(F^{-1}(y)) = y\\
+            &\text{This holds for all } y \in [0,1] \text{, so } F(X) \sim \text{Uniform}[0,1]\\
+            &\\
+            &\quad \text{(ii) } -\log F(X) \text{ is exponentially distributed.}\\
+            &\text{Let } Y = -\log F(X) \text{. We need to show } Y \sim \text{Exp}(1)\\
+            &\text{For any } t \geq 0 \text{, we have:}\\
+            &\mathbb{P}(Y \leq t) = \mathbb{P}(-\log F(X) \leq t) = \mathbb{P}(F(X) \geq e^{-t})\\
+            &\text{Since } F(X) \sim \text{Uniform}[0,1] \text{ from part (i), we have:}\\
+            &\mathbb{P}(F(X) \geq e^{-t}) = 1 - \mathbb{P}(F(X) < e^{-t}) = 1 - e^{-t}\\
+            &\text{Therefore, } \mathbb{P}(Y \leq t) = 1 - e^{-t} \text{ for } t \geq 0\\
+            &\text{This is precisely the CDF of an exponential distribution with rate parameter 1}\\
+            &\text{Thus, } -\log F(X) \sim \text{Exp}(1)
+            \end{align*}
+            (b)
+            \begin{align*}
+                &\text{Let's place the center of the circle at the origin, with P at $(0, \frac{1}{2})$ and Q at $(0, -\frac{1}{2})$.}\\
+                &\text{The line $l$ is horizontal at $y = \frac{1}{2}$ (tangent to the circle at P).}\\
+                &\text{Let $\theta = \widehat{\text{PQR}}$ with $\theta \sim \text{Uniform}[-\frac{\pi}{2}, \frac{\pi}{2}]$.}\\
+                &\text{The line QR has slope $-\frac{1}{\tan(\theta)}$ with equation:}\\
+                &y = -\frac{1}{2} - \frac{x}{\tan(\theta)}\\
+                &\text{Intersecting with $l$ where $y = \frac{1}{2}$:}\\
+                &\frac{1}{2} = -\frac{1}{2} - \frac{x}{\tan(\theta)} \Rightarrow x = -\tan(\theta)\\
+                &\text{So R has coordinates $(-\tan(\theta), \frac{1}{2})$.}\\
+                &\text{Considering the sign, PR = $-\tan(\theta)$ (negative when R is left of P, positive when right)}\\
+                &\text{For any $t$, the CDF is:}\\
+                &\mathbb{P}(PR \leq t) = \mathbb{P}(-\tan(\theta) \leq t) = \mathbb{P}(\theta \geq \arctan(-t))\\
+                &= \frac{\frac{\pi}{2} - \arctan(-t)}{\pi} = \frac{1}{2} + \frac{\arctan(t)}{\pi}\\
+                &\text{This is the CDF of the standard Cauchy distribution, thus PR has the Cauchy distribution.}
+\end{align*}
+(c)
+\begin{align*}
+    &\text{ Let's find the probability that team A wins given the half-time score } X = x.\\
+    &\mathbb{P}(X + Y > 0 \mid X = x) = \mathbb{P}(Y > -x \mid X = x)\\
+    &\text{Since } X \text{ and } Y \text{ are independent random variables:}\\
+    &\mathbb{P}(Y > -x \mid X = x) = \mathbb{P}(Y > -x)\\
+    &\text{Now, using the symmetry of } Y \text{ about 0:}\\
+    &\mathbb{P}(Y > -x) = \mathbb{P}(Y < x) \quad \text{(by symmetry of the distribution)}\\
+    &\mathbb{P}(Y < x) = F(x) \quad \text{(by definition of the CDF)}\\
+    &\text{Therefore:}\\
+    &\mathbb{P}(X + Y > 0 \mid X = x) = F(x)\\
+    &\text{Furthermore, note that } F(X) \text{ is uniformly distributed on (0,1) by part (a)(i),}\\
+    &\text{so the conditional probability of team A winning has mean } \frac{1}{2}.
+    \end{align*}
+    \end{proof}
     \subsection*{Problem 7}
     Secretary/marriage problem. You are permitted to inspect the $n$ prizes at a fête in a given order, at each stage either rejecting or accepting the prize under consideration. There is no recall, in the sense that no rejected prize may be accepted later. It may be assumed that, given complete information, the prizes may be ranked in a strict order of preference, and that the order of presentation is independent of this ranking. Find the strategy which maximizes the probability of accepting the best prize, and describe its behaviour when $n$ is large.
-\end{document}
+\begin{proof}
+    Since the order is random, the probability that the best candidate is in position $i$ is
+\[
+\frac{1}{n}, \quad i=1,2,\ldots,n.
+\]
+If the best candidate appears in position $i$, where $i>r$, we will choose it if and only if the best candidate among the first $i-1$ candidates appears in the first $r$ positions. Since every permutation of the first $i-1$ candidates is equally likely, the probability that the highest-ranked candidate among the first $i-1$ candidates is among the first $r$ is
+\[
+\frac{r}{i-1}.
+\]
+Therefore, the overall probability of selecting the best candidate is
+\begin{align*}
+P_n(r) &= \sum_{i=r+1}^{n} \Pr\Bigl(\text{Best candidate is in position } i\Bigr) \cdot \Pr\Bigl(\text{Best among the first } i-1 \text{ is in the first } r\Bigr)\\[1ex]
+&=\sum_{i=r+1}^{n}\frac{1}{n} \cdot \frac{r}{i-1}\\[1ex]
+&=\frac{r}{n}\sum_{i=r+1}^{n}\frac{1}{i-1}.
+\end{align*}
+Letting $j=i-1$, the summation becomes
+\[
+\sum_{j=r}^{n-1}\frac{1}{j}.
+\]
+Thus,
+\[
+P_n(r) = \frac{r}{n}\sum_{j=r}^{n-1}\frac{1}{j}.
+\]
+
+For large values of $n$, the sum can be approximated by an integral:
+\begin{align*}
+\sum_{j=r}^{n-1}\frac{1}{j} &\approx \int_{r}^{n}\frac{1}{x}\,dx\\[1ex]
+&= \ln(n) - \ln(r)\\[1ex]
+&= \ln\!\left(\frac{n}{r}\right).
+\end{align*}
+Hence, for large $n$,
+\[
+P_n(r) \approx \frac{r}{n}\ln\!\left(\frac{n}{r}\right).
+\]
+
+To maximize $P_n(r)$ with respect to the cutoff $r$, consider $r$ as a continuous variable and define
+\[
+P(r) = \frac{r}{n}\ln\!\left(\frac{n}{r}\right).
+\]
+Differentiate $P(r)$ with respect to $r$:
+\begin{align*}
+\frac{dP}{dr} &= \frac{1}{n}\ln\!\left(\frac{n}{r}\right) + \frac{r}{n} \left(-\frac{1}{r}\right)\\[1ex]
+&=\frac{1}{n}\ln\!\left(\frac{n}{r}\right) - \frac{1}{n}.
+\end{align*}
+Setting the derivative equal to zero to find the maximum, we obtain:
+\begin{align*}
+\frac{1}{n}\ln\!\left(\frac{n}{r}\right) - \frac{1}{n} &= 0,\\[1ex]
+\ln\!\left(\frac{n}{r}\right) &= 1,\\[1ex]
+\frac{n}{r} &= e,\\[1ex]
+r &= \frac{n}{e}.
+\end{align*}
+
+Substitute $r=\frac{n}{e}$ back into the approximate expression for $P_n(r)$:
+\begin{align*}
+P_n\left(\frac{n}{e}\right) &\approx \frac{\frac{n}{e}}{n}\ln\!\left(\frac{n}{n/e}\right)\\[1ex]
+&=\frac{1}{e}\ln(e)\\[1ex]
+&=\frac{1}{e}.
+\end{align*}
+
+Thus, the optimal strategy is to reject the first $\frac{n}{e}$ candidates and then select the first candidate who is better than every candidate seen in the observation phase. For large $n$, this strategy yields a probability of approximately $\frac{1}{e} \approx 36.8\%$ of selecting the best candidate.
+
+\end{proof}
+    \end{document}
