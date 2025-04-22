@@ -964,4 +964,40 @@ $$
 \int_{\alpha}^{\beta}f(z(t))z'(t)dt =\int_{a}^{b}f(z(t(\tau)))z'(t(\tau))t'(\tau)d\tau=\int_{a}^{b}f(w(\tau))w'(\tau)d\tau
 $$  where $ w(\tau)=z(t(\tau)) ,t(a)=\alpha,t(b)=\beta$
 \\2.In this discussion arc have an orientation
+\section{Lecture 13 (04-14)--{Cauchy integral theorem}}
+\begin{definition}[Linear fraction or transformation]{}
+A linear fraction or linear transformation is a function from C to C of the form$$
+    f(z)=\frac{az+b}{cz+d},ad-bc\neq0
+$$
+where a,b,c,d are complex numbers, $ac-bd\neq0$
+\end{definition}
+\textbf{Comments:}
+\begin{itemize}
+\item A linear fraction is a rational function of order 1: common number of zeros and poles.
+\item Each linear fraction is a bijection from C to C. As a matter of fact, the inverse of $$
+    \frac{az+b}{cz+d} \text{ is } \frac{dw-b}{-cw+a}
+$$ 
+\item group representation
+\item linear fraction map circles into circles
+\end{itemize}
+\begin{lemma}[]{}
+Let $ a\neq b $ ,Then for every z in the line segment between a and b ,$$
+    \frac{z-a}{z-b}\in [-\infty,0]
+$$ 
+\end{lemma}
+\textbf{Proof:}
+\begin{align*}{}{}
+z=a+(b-a)t \text{ with }t\in[0,1]\\
+\text{Then } \frac{z-a}{z-b}=\frac{(b-a)t}{(b-a)(1-t)}=\frac{t}{1-t}\\
+\text{Then } \frac{z-a}{z-b}\in [0,\infty)\\
+\end{align*}
+Recall the defination of the winding number
+$$
+    n(\gamma,a)=\frac{1}{2\pi i}\int_{\gamma}\frac{1}{z-a}dz
+$$ 
+\begin{lemma}[]{}
+As a function of a, the winding number $  n(\gamma,a)$ is constant in each region determined by $ \gamma \text{ and } O $ in the bounded region.  
+\end{lemma}
+\textbf{Proof:}
+There is a
 
