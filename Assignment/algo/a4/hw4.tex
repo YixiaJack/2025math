@@ -1,0 +1,373 @@
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  algorithm,algpseudocode,fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\homework}[1]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \classname \hfill \mbox{Updated Day Here} \\
+   \instname \hfill \mbox{\duedate}
+   \rule{6.5in}{0.5mm}
+   \vspace*{-0.1 in}
+}
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,arrows,automata}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset { %
+    language=C++,
+    backgroundcolor=\color{black!5}, % set backgroundcolor
+    basicstyle=\footnotesize,% basic font setting
+}
+
+
+\newcommand{\problem}[1]{\section*{Problem #1}}
+
+
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\roman{enumii})}
+\newenvironment{solution}{{\par\noindent\it Solution.}}{}
+% Left header text: course name/assignment number
+\lhead{CSCI-SHU 220: Algorithms\\Homework 3}
+
+% Right header text: your name
+\rhead{Posted: March 28, 2025\\Due: 11:55pm (Shanghai time), May 13, 2025}
+
+% --- Document starts here ---
+
+\begin{document}
+
+This assignment has in total $100$ base points and $15$ extra points, and the cap is $100$.
+Bonus questions are indicated using the $\star$ mark.
+
+Submission Instructions: Please submit to Gradescope. During submission, you need to \textbf{mark/map the solution to each question}; otherwise, we may apply a penalty. 
+
+Another notice: you only get full credits for the algorithm design questions if your algorithm matches the desired complexity. If the desirable complexity is not stated, you need to design an algorithm to be as fast as possible.
+
+\textit{Please specify the following information before submission}:
+\begin{itemize}
+    \item Your Name: Yixia Yu %  (put your name here)
+    \item Your NetID: yy5091% (put your NetID here)
+\end{itemize}
+\clearpage
+
+
+\problem{1: Bottleneck shortest paths [$8+12$ pts]} 
+Let $G = (V,E)$ be a connected undirected graph and $w:E \rightarrow \mathbb{R}$ be a weight function.
+Write $n = |V|$ and $m = |E|$.
+Consider a path $\pi = (v_0,v_1,\dots,v_r)$ in $G$.
+We define the \textit{bottleneck length} of $\pi$ as $\max_{i=1}^r w(v_{i-1},v_i)$, i.e., the maximum weight of an edge on $\pi$.
+A \textit{bottleneck shortest path} from $s$ to $t$ refers to a path with the smallest bottleneck length.
+The \textit{bottleneck distance} from $s$ to $t$, denoted by $b(s,t)$, is the bottleneck length of a bottleneck shortest path from $s$ to $t$.
+Given a source vertex $s \in V$ and a target vertex $t \in V$, we want to compute $b(s,t)$.
+We solve this problem via the following two steps.
+\begin{enumerate}
+    \item Suppose $E = \{e_1,\dots,e_m\}$ where $w(e_1) \leq \cdots \leq w(e_m)$, and define $G_i = (V,E_i)$ for $E_i = \{e_1,\dots,e_i\}$.
+    Show that for any $v \in V \backslash \{s\}$, $b(s,v)$ is equal to $w(e_i)$ where $i \in \{1,\dots,m\}$ is the smallest index such that $v$ and $s$ lie in the same connected component of $G_i$.
+    
+    \item Based on the result of (a), design an $O((n+m)\log n)$-time algorithm $\textsc{Bottleneck}(G,w,s,t)$ that returns the bottleneck distance $b(s,t)$ in $G$ (with respect to the weight function $w$).
+    Describe the basic idea of your algorithm and give the pseudocode.
+    Briefly justify its correctness.
+\end{enumerate}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 1 here.}
+\end{solution}
+\clearpage
+
+\problem{2: Approximate shortest paths [$8+12$ pts]}
+The purpose of this problem is to design (efficient) approximation algorithms for the single-source shortest-path (SSSP) problem in a graph whose edge weights are in a fixed range.
+For convenience, we only consider connected undirected graphs.
+We divide the problem into the following two steps.
+\begin{enumerate}
+    \item Let $G = (V,E)$ be a connected undirected graph with a weight function $w:E \rightarrow \{1,\dots,10000\}$ (i.e., the weight of each edge of $G$ is an integer between 1 and 10000). 
+    Write $n = |V|$ and $m = |E|$.
+    Design an \textit{exact} algorithm $\textsc{SSSP}(G,w,s)$ with time complexity $O(n+m)$ to solve the SSSP problem on $G$ with weight function $w$ and source vertex $s \in V$.
+    Your algorithm should return an array $D$ such that $D[t]$ is the shortest-path distance from $s$ to $t$ in $G$.
+    Describe the basic idea of your algorithm and give the pseudo-code.
+    Briefly justify its correctness.
+
+    (\textbf{Hint.} Note that the known algorithms for general SSSP cannot solve the problem in $O(n+m)$ time.
+    So here you have to exploit the property that the weights are small integers.
+    Try to first transform the graph $G$ into another graph in which all edges have weight 1, and solve the SSSP problem in the new graph.)
+    
+    \item Based on the result of (a), we now solve SSSP on graphs with \textit{real} weights (in a fixed range).
+    Let $G = (V,E)$ be a connected undirected graph with a weight function $w:E \rightarrow [1,2]$ (i.e., the weight of each edge of $G$ is a real number between 1 and 2). 
+    Write $n = |V|$ and $m = |E|$.
+    Design a $1.01$-approximation algorithm $\textsc{ApprxSSSP}(G,w,s)$ with time complexity $O(n+m)$ for SSSP on $G$ with weight function $w$ and source vertex $s \in V$.
+    That is, your algorithm should return an array $D$ such that $d(s,t) \leq D[t] \leq 1.01 \cdot d(s,t)$, where $d(s,t)$ is the shortest-path distance from $s$ to $t$ in $G$.
+    Describe the basic idea of your algorithm and give the pseudo-code.
+    Prove that it is truly a $1.01$-approximation algorithm.
+    
+    (\textbf{Hint.} Try to modify the weights of the edges a little bit and properly apply the result of (a) to solve the problem on the modified graph.)
+\end{enumerate}
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 2 here.}
+\clearpage
+You can continue your solution here.
+\end{solution}
+\clearpage
+
+
+\problem{3: Approximation for knapsack [$15$ pts]}
+
+Consider an easy variant of the 0-1 knapsack problem in which we want to include items in a knapsack to make the knapsack \textit{as full as possible}.
+Formally, given a number $W \in \mathbb{R}_{\geq 0}$ that represents the capacity of the knapsack and $n$ numbers $w_1,\dots,w_n \in \mathbb{R}_{\geq 0}$ that represent the weights of $n$ items, our goal is to compute a subset $P \subseteq \{1,\dots,n\}$ satisfying $\sum_{i \in P} w_i \leq W$ such that $\sum_{i \in P} w_i$ is maximized (here the set $P$ indicates the items you want to include in the knapsack).
+Note that $W$ and $w_1,\dots,w_n$ are all (non-negative) real numbers, and thus the dynamic-programming algorithm for 0-1 knapsack does not work.
+Instead, we are interested in approximation algorithms for the problem.
+Design a $\frac{1}{2}$-approximation algorithm $\textsc{ApprxKnapsack}(W,w_1,\dots,w_n)$ for the problem with time complexity $O(n \log n)$.
+That is, the algorithm should return a feasible solution $P \subseteq \{1,\dots,n\}$ such that $\sum_{i \in P} w_i \geq \frac{1}{2} \cdot \mathsf{opt}$, where $\mathsf{opt} = \sum_{i \in P^*} w_i$ for an optimal solution $P^* \subseteq \{1,\dots,n\}$.
+Describe the basic idea of your algorithm and give the pseudo-code.
+Prove that your algorithm is truly a $\frac{1}{2}$-approximation algorithm.
+
+(\textbf{Hint.} Try to use some greedy strategy to select the items.)
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 3 here.}
+\end{solution}
+\clearpage
+
+
+\problem{4$^\star$: Another algorithm for farthest pair [$15^\star$ pts]}
+
+Recall that in the farthest-pair problem, we are given a set $S = \{a_1,\dots,a_n\}$ of points in $\mathbb{R}^d$ and the goal is to find two points in $S$ that are farthest to each other.
+Consider the following algorithm, which is a variant of the $\frac{1}{2}$-approximation algorithm you have seen in the lecture.
+
+\begin{algorithm}[h]
+    \caption{\textsc{FarthestPair}$(S = \{a_1,\dots,a_n\})$}
+	\begin{algorithmic}
+        \State $A[1] \leftarrow a_1$
+        \State $i \leftarrow 1$
+        \While{true}
+            \State $p \leftarrow$ the point in $S$ farthest to $A[i]$
+            \State $i \leftarrow i+1$
+            \State $A[i] \leftarrow p$
+            \If{$A[j] = p$ for some $j \in \{1,\dots,i-1\}$}{ \textbf{break}}
+            \EndIf
+        \EndWhile
+        \State \textbf{return} $(A[i-1],A[i])$
+	\end{algorithmic}
+	\label{alg-top}
+\end{algorithm}
+
+Roughly speaking, the above algorithm starts from the point $a_1$, and in each step moves to the point in $S$ farthest to the current point.
+The procedure terminates when it moves to a point that has been visited previously.
+When it terminates, the algorithm simply returns the pair of points visited in the last two steps as its output.
+
+Find the largest number $\rho < 1$ such that this algorithm is a $\rho$-approximation algorithm for the farthest-pair problem.
+Prove the correctness of your answer.
+That is, for the number $\rho$ you find, show that (i) the algorithm is truly a $\rho$-approximation algorithm and (ii) for any $\rho' > \rho$, the algorithm is \textit{not} a $\rho'$-approximation algorithm.
+Note that the algorithm works for the problem in $\mathbb{R}^d$ for a general $d \geq 1$, not just in the plane.
+
+\begin{solution}
+\textbf{Please write down your solution to Problem 4 here.}
+\end{solution}
+\clearpage
+
+
+\problem{5: Reductions [$5 + 10$ pts]}
+\begin{enumerate}
+    \item Show that the weighted maximum-cut problem (partition the vertices of a graph into two subsets, and maximize the sum of the weights of the crossing edges) can be reduced to the partition problem (partition a set of positive integers into two subsets such that the sums of the two are equal.)
+
+    \item Prove that Pos-or-Neg 3-SAT is NP-hard using reduction. Pos-or-Neg 3-SAT refers to a special case of 3-SAT where every clause either consists of all positive variables or all negations of variables.
+\end{enumerate}
+\begin{solution}
+\textbf{Please write down your solution to Problem 5 here.}
+\end{solution}
+\clearpage
+
+
+\problem{6: Vertex Weighted SSSP [$10$ pts]}
+Let $G = (V,E)$ be a simple undirected graph with a weight function $w: V \rightarrow \mathbb{R}_{> 0}$ on its vertices.
+The \textit{length} of a path $(v_0,v_1,\dots,v_r)$ in $G$ is defined as $\sum_{i=0}^r w(v_i)$.
+Design an $O(n^2)$-time algorithm to solve the SSSP problem in this setting.
+\begin{solution}
+\textbf{Please write down your solution to Problem 6 here.}
+\end{solution}
+\clearpage
+
+
+\problem{7: Facility Location Function [$10$ pts]}
+Recall that the facility location function is defined as
+$$f(A) = \sum_{v \in V} \max_{a \in A} \text{sim}(v,a)$$
+A feature-based submodular function can be of the form
+$$f(A) = \sum_j w_j\phi_j(\sum_{v \in V} m_j(v))$$
+Here $\phi_j$ is any concave function, and $w_j$ is a scalar. Show that the facility location function can be written as a feature-based submodular function. The outer sum should be over a number that is polynomial in $n$, i.e., the choices of $j$ should be a polynomial of $n$.
+\begin{solution}
+\textbf{Please write down your solution to Problem 6 here.}
+\end{solution}
+\clearpage
+
+
+\problem{8: Matroid [$10$ pts]}
+Given a tree $T = (V, E)$ and a subset of vertices $A$. Let $h(E')$, $E' \subseteq E$, be the number of connected components in the forest $T \setminus E'$. Define a set of subset of edges as 
+$$\mathcal{I} = \{E' \subseteq E | h(E') = |E'| + 1\}$$
+Prove that $\mathcal{M} = (E,\mathcal{I})$ is a matroid.
+
+\end{document}
