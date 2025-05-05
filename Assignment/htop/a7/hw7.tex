@@ -1,0 +1,735 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-SHU 238 (HTOP) -- Homework 7}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\subsection*{Problem 1}
+\begin{align*}
+    &\text{Show the following:}\\
+    &\text{(a) } \mathbb{E}(aY + bZ \mid X) = a\mathbb{E}(Y \mid X) + b\mathbb{E}(Z \mid X) \text{ for } a, b \in \mathbb{R},\\
+    &\text{(b) } \mathbb{E}(Y \mid X) \geq 0 \text{ if } Y \geq 0,\\
+    &\text{(c) } \mathbb{E}(1 \mid X) = 1,\\
+    &\text{(d) } \text{if } X \text{ and } Y \text{ are independent then } \mathbb{E}(Y \mid X) = \mathbb{E}(Y),\\
+    &\text{(e) (`pull-through property') } \mathbb{E}(Yg(X) \mid X) = g(X)\mathbb{E}(Y \mid X) \text{ for any suitable function } g,\\
+    &\text{(f) (`tower property') } \mathbb{E}\{\mathbb{E}(Y \mid X, Z) \mid X\} = \mathbb{E}(Y \mid X) = \mathbb{E}\{\mathbb{E}(Y \mid X) \mid X, Z\}.
+    \end{align*}
+    \textbf{(a) }  
+    By definition, for discrete random variables,
+    \[
+    \mathbb{E}(aY+bZ \mid X=x)= \sum_{y,z} \Bigl[\,a y+b z\Bigr]\,\mathbb{P}(Y=y,\,Z=z \mid X=x).
+    \]
+    By the distributive property of summation, we have:
+    \[
+    \mathbb{E}(aY+bZ \mid X=x)= a \sum_{y,z} y\, \mathbb{P}(Y=y,Z=z \mid X=x)
+    + b \sum_{y,z} z\, \mathbb{P}(Y=y,Z=z \mid X=x).
+    \]
+    Notice that for fixed \(y\),
+    \[
+    \sum_{z} \mathbb{P}(Y=y, Z=z \mid X=x)= \mathbb{P}(Y=y \mid X=x),
+    \]
+    and similarly,
+    \[
+    \sum_{y} \mathbb{P}(Y=y, Z=z \mid X=x)= \mathbb{P}(Z=z \mid X=x).
+    \]
+    Thus, we obtain:
+    \[
+    \begin{aligned}
+    \mathbb{E}(aY+bZ \mid X=x) &= a \sum_{y} y\, \mathbb{P}(Y=y \mid X=x)
+    + b \sum_{z} z\, \mathbb{P}(Z=z \mid X=x)\\[1ex]
+    &= a\,\mathbb{E}(Y \mid X=x) + b\,\mathbb{E}(Z \mid X=x).
+    \end{aligned}
+    \]
+    Since this holds for every \(x\), we have proven that
+    \[
+ {\mathbb{E}(aY+bZ \mid X)= a\,\mathbb{E}(Y \mid X) + b\,\mathbb{E}(Z \mid X).}
+    \]
+    
+    \bigskip
+    
+    \textbf{(b) }\\[1ex]
+    If \(Y \geq 0\), then for any fixed \(x\) each term in
+    \[
+    \mathbb{E}(Y \mid X=x)= \sum_{y} y \, \mathbb{P}(Y=y \mid X=x)
+    \]
+    is nonnegative, so
+    \[
+    {\mathbb{E}(Y \mid X) \geq 0.}
+    \]
+    
+    \bigskip
+    
+    \textbf{(c) }\\[1ex]
+    Setting \(Y\equiv 1\),
+    \[
+    \mathbb{E}(1 \mid X=x)= \sum_{y,z} 1\cdot \mathbb{P}(Y=y, Z=z \mid X=x)
+    =\sum_{y,z} \mathbb{P}(Y=y, Z=z \mid X=x)=1,
+    \]
+    since the sum of the conditional probabilities equals \(1\). Thus,
+    \[
+    {\mathbb{E}(1 \mid X) = 1.}
+    \]
+    
+    \bigskip
+    
+    \textbf{(d) }\\[1ex]
+    If \(X\) and \(Y\) are independent, then for all \(x\) and \(y\)
+    \[
+    \mathbb{P}(Y=y \mid X=x)=\mathbb{P}(Y=y).
+    \]
+    Thus,
+    \[
+    \mathbb{E}(Y \mid X=x)= \sum_{y} y\, \mathbb{P}(Y=y \mid X=x)
+    =\sum_{y} y\, \mathbb{P}(Y=y)= \mathbb{E}(Y).
+    \]
+    Hence,
+    \[
+ {\mathbb{E}(Y \mid X) = \mathbb{E}(Y).}
+    \]
+    
+    \bigskip
+    
+    \textbf{(e) Pull-Through Property:}\\[1ex]
+    Let \(g\) be any function such that \(g(X)\) is \(\sigma(X)\)-measurable. Then for any fixed \(x\),
+    \[
+    \begin{aligned}
+    \mathbb{E}\bigl(Y\,g(X) \mid X=x\bigr)
+    &=\sum_{y,z} y\,g(x)\,\mathbb{P}(Y=y, Z=z \mid X=x)\\[1ex]
+    &= g(x) \sum_{y,z} y\, \mathbb{P}(Y=y, Z=z \mid X=x)\\[1ex]
+    &= g(x)\,\mathbb{E}(Y \mid X=x).
+    \end{aligned}
+    \]
+    Thus,
+    \[
+  {\mathbb{E}(Y\,g(X) \mid X)= g(X)\,\mathbb{E}(Y \mid X).}
+    \]
+    
+    \bigskip
+    
+    \textbf{(f) Tower Property:}\begin{align*}
+        \mathbb{E}\{\mathbb{E}(Y | X, Z) | X = x\} &= \sum_{z} \left\{ \sum_{y} y\mathbb{P}(Y = y | X = x, Z = z)\mathbb{P}(X = x, Z = z | X = x) \right\} \\
+        &= \sum_{z}\sum_{y} y\frac{\mathbb{P}(Y = y, X = x, Z = z)}{\mathbb{P}(X = x, Z = z)} \cdot \frac{\mathbb{P}(X = x, Z = z)}{\mathbb{P}(X = x)} \\
+        &= \sum_{y} y\mathbb{P}(Y = y | X = x)  \\
+        &= \mathbb{E}\{\mathbb{E}(Y | X) | X = x, Z = z\}
+        \end{align*}
+    
+\subsection*{Problem 2}
+\begin{align*}
+    &\text{Conditional variance formula.} \\
+    &\text{How should we define var}(Y \mid X), \text{ the conditional variance of } Y \text{ given } X\text{?} \\
+    &\text{Show that var}(Y) = \mathbb{E}(\text{var}(Y \mid X)) + \text{var}(\mathbb{E}(Y \mid X)).
+    \end{align*}
+    \begin{proof}
+        By definition, the conditional variance of \(Y\) given \(X\) is
+        \[
+        \operatorname{Var}(Y\mid X) = \mathbb{E}\Bigl[\bigl(Y - \mathbb{E}(Y\mid X)\bigr)^2\mid X\Bigr].
+        \]
+        
+        To prove the variance decomposition formula:
+        
+        \begin{align*}
+        \operatorname{Var}(Y)
+        &=\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y)\bigr)^2\Bigr] \\
+        &=\mathbb{E}\Bigl[\Bigl(Y-\mathbb{E}(Y\mid X)+\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)^2\Bigr] \\
+        \end{align*}
+        
+        Expanding the squared term:
+        \begin{align*}
+        &=\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr)^2\Bigr]
+        + 2\,\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr)\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)\Bigr] \\
+        &\quad+\,\,\mathbb{E}\Bigl[\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)^2\Bigr] \\
+        \end{align*}
+        
+        For the middle term:
+        \begin{align*}
+        \mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr)\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)\Bigr]
+        &= \mathbb{E}\Bigl[\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr) \cdot \mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr) \mid X\Bigr]\Bigr] \\
+        &= 0
+        \end{align*}
+        since \(\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr) \mid X\Bigr] = 0\).
+        
+        Therefore:
+        \begin{align*}
+        \operatorname{Var}(Y) 
+        &= \mathbb{E}\Bigl[\mathbb{E}\Bigl[\bigl(Y-\mathbb{E}(Y\mid X)\bigr)^2 \mid X\Bigr]\Bigr] + \mathbb{E}\Bigl[\Bigl(\mathbb{E}(Y\mid X)-\mathbb{E}(Y)\Bigr)^2\Bigr] \\
+        &= \mathbb{E}\Bigl[\operatorname{Var}(Y\mid X)\Bigr] + \operatorname{Var}\Bigl(\mathbb{E}(Y\mid X)\Bigr)
+        \end{align*}
+        \end{proof}
+\subsection*{Problem 3}
+\begin{align*}
+    & \text{ Let $X$ and $Y$ be independent exponential random variables with parameter 1. Find the joint density} \\
+    & \text{function of $U = X + Y$ and $V = X/(X + Y)$, and deduce that $V$ is uniformly distributed on $[0, 1]$.}
+\end{align*}
+\begin{proof}
+
+Let \(X\) and \(Y\) be independent exponential random variables with parameter 1. Define
+\[
+U = X + Y \quad \text{and} \quad V = \frac{X}{X+Y}.
+\]
+We wish to find the joint density function of \(U\) and \(V\) using a transformation of variables and the Jacobian method.
+
+First, express \(X\) and \(Y\) in terms of \(U\) and \(V\). Since
+\[
+V = \frac{X}{X+Y}, \quad \text{it follows that} \quad X = U V.
+\]
+And because
+\[
+U = X + Y, \quad \text{we have} \quad Y = U - X = U - U V = U(1-V).
+\]
+Thus, the transformation is given by:
+\[
+\begin{cases}
+X = UV, \\
+Y = U(1-V).
+\end{cases}
+\]
+
+Next, we compute the Jacobian. The partial derivatives are
+\[
+\frac{\partial X}{\partial U} = V, \quad \frac{\partial X}{\partial V} = U,
+\]
+\[
+\frac{\partial Y}{\partial U} = 1-V, \quad \frac{\partial Y}{\partial V} = -U.
+\]
+The Jacobian matrix is
+\[
+J = \begin{vmatrix} 
+V & U \\
+1-V & -U
+\end{vmatrix},
+\]
+and its determinant is
+\[
+J = V(-U) - U(1-V) = -UV - U + UV = -U.
+\]
+Taking the absolute value (noting that \(U > 0\)) gives
+\[
+|J| = U.
+\]
+
+The joint density function of \(X\) and \(Y\) is
+\[
+f_{X,Y}(x,y) = e^{-x} \cdot e^{-y} = e^{-(x+y)} \quad \text{for } x,y > 0.
+\]
+Substituting \(x = UV\) and \(y = U(1-V)\), we obtain
+\[
+f_{X,Y}(UV, U(1-V)) = e^{-UV-U(1-V)} = e^{-U(V+1-V)} = e^{-U}.
+\]
+Thus, using the transformation formula,
+\[
+f_{U,V}(u,v) = f_{X,Y}(uv, u(1-v)) \cdot |J| = e^{-u} \cdot u = u e^{-u},
+\]
+which is valid for \(u > 0\) and \(0 \leq v \leq 1\).
+
+From the expression
+\[
+f_{U,V}(u,v) = u e^{-u} \cdot 1,
+\]
+we see that the marginal density functions are
+\[
+f_U(u) = u e^{-u} \quad \text{for } u > 0,
+\]
+corresponding to a \(\text{Gamma}(2,1)\) distribution, and
+\[
+f_V(v) = 1 \quad \text{for } 0 \leq v \leq 1,
+\]
+which is a uniform distribution on \([0,1]\). Since
+\[
+f_{U,V}(u,v) = f_U(u) \cdot f_V(v),
+\]
+it follows that \(U\) and \(V\) are independent, and \(V\) is uniformly distributed on \([0,1]\).
+    
+\end{proof}
+\subsection*{Problem 4}
+\begin{align*}
+   & \textbf{Rayleigh distribution.} \text{ Let $X$ and $Y$ be independent random variables, where $X$ has an arc sine} \\
+    & \text{distribution and $Y$ a Rayleigh distribution:} \\
+    & \\
+    & f_X(x) = \frac{1}{\pi\sqrt{1-x^2}}, \quad |x| < 1, \quad f_Y(y) = ye^{-\frac{1}{2}y^2}, \quad y > 0. \\
+    & \\
+    & \text{Write down the joint density function of the pair $(Y, XY)$, and deduce that $XY$ has the standard} \\
+    & \text{normal distribution.}
+\end{align*}
+\begin{proof}
+We are given that \(X\) and \(Y\) are independent random variables with densities
+\begin{align*}
+f_X(x) &= \frac{1}{\pi\sqrt{1-x^2}}, \quad |x|<1, \\
+f_Y(y) &= ye^{-\frac{1}{2}y^2}, \quad y>0.
+\end{align*}
+Here, \(X\) has the arc sine distribution and \(Y\) has the Rayleigh distribution.
+
+To find the joint density of \((Y, XY)\), we define the new variables
+\[
+U = Y \quad \text{and} \quad V = XY.
+\]
+Since \(X\) and \(Y\) are independent, their joint density is
+\begin{align*}
+f_{X,Y}(x,y) &= f_X(x) \, f_Y(y) \\
+&= \frac{1}{\pi\sqrt{1-x^2}} \cdot ye^{-\frac{1}{2}y^2},
+\end{align*}
+for \(|x|<1\) and \(y>0\).
+
+The inverse transformation from \((U,V)\) to \((X,Y)\) is
+\begin{align*}
+Y &= U, \\
+X &= \frac{V}{U},
+\end{align*}
+which is valid for \(U>0\) and \(|V|<U\) (since \(|X|<1\) implies \(|V| = |XY| < U\)).
+
+The Jacobian of the inverse transformation is computed as
+\begin{align*}
+J &= \begin{vmatrix}
+\frac{\partial Y}{\partial U} & \frac{\partial Y}{\partial V} \\[2mm]
+\frac{\partial X}{\partial U} & \frac{\partial X}{\partial V}
+\end{vmatrix}
+= \begin{vmatrix}
+1 & 0 \\[2mm]
+-\frac{V}{U^2} & \frac{1}{U}
+\end{vmatrix}
+= \frac{1}{U}.
+\end{align*}
+
+Using the change of variables formula, the joint density of \((U,V)\) is
+\begin{align*}
+f_{U,V}(u,v) &= f_{X,Y}\left(\frac{v}{u},\, u\right) \cdot \left|\frac{1}{u}\right| \\
+&= \frac{1}{\pi\sqrt{1-\left(\frac{v}{u}\right)^2}} \, u e^{-\frac{1}{2}u^2} \cdot \frac{1}{u} \\
+&= \frac{e^{-\frac{1}{2}u^2}}{\pi\sqrt{1-\left(\frac{v}{u}\right)^2}} \\
+&= \frac{u e^{-\frac{1}{2}u^2}}{\pi\sqrt{u^2-v^2}},
+\end{align*}
+for \(u>0\) and \(|v|<u\).
+
+To obtain the marginal density of \(V\), we integrate over \(u\):
+\begin{align*}
+f_V(v) &= \int_{|v|}^{\infty} f_{U,V}(u,v) \, du \\
+&= \frac{1}{\pi}\int_{|v|}^{\infty} \frac{u e^{-\frac{1}{2}u^2}}{\sqrt{u^2-v^2}} \, du.
+\end{align*}
+
+By using the substitution \(u^2 = v^2 + t^2\) (so that \(u\,du = t\,dt\) and \(\sqrt{u^2-v^2} = t\)), the integral becomes
+\begin{align*}
+f_V(v) &= \frac{1}{\pi}\,e^{-\frac{1}{2}v^2}\int_{0}^{\infty} e^{-\frac{1}{2}t^2}\, dt \\
+&= \frac{e^{-\frac{1}{2}v^2}}{\pi}\cdot \sqrt{\frac{\pi}{2}} \\
+&= \frac{1}{\sqrt{2\pi}}\,e^{-\frac{1}{2}v^2}.
+\end{align*}
+
+Thus, \(V = XY\) is distributed as a standard normal random variable.
+    
+\end{proof}
+\subsection*{Problem 5}
+\begin{align*}
+    & \textbf{Binary expansions.} \text{ Let $U$ be uniformly distributed on the interval $(0, 1)$.} \\
+    & \text{(a) Let $S$ be a (measurable) subset of $(0, 1)$ with strictly positive measure (length). Show that the} \\
+    & \quad \text{conditional distribution of $U$, given that $U \in S$, is uniform on $S$.} \\
+    & \text{(b) Let $V = \sqrt{U}$, and write the binary expansions of $U$ and $V$ as $U = \sum_{r=1}^{\infty} U_r 2^{-r}$ and $V =$ } \\
+    & \quad \sum_{r=1}^{\infty} V_r 2^{-r}. \text{ Show that $U_r$ and $U_s$ are independent for $r \neq s$, while $\text{cov}(V_1, V_2) = -\frac{1}{32}$. Prove} \\
+    & \quad \text{that $\lim_{n \to \infty} \mathbb{P}(V_r = 1) = \frac{1}{2}$.}
+\end{align*}
+\subsection*{(a)}
+
+Suppose that \(U\) is uniformly distributed on \((0,1)\) and \(S\) is a measurable subset of \((0,1)\) with positive measure. We show that the conditional distribution of \(U\) given \(U\in S\) is uniform on \(S\). For any measurable set \(A\subseteq S\), 
+\begin{align*}
+\mathbb{P}(U\in A \mid U\in S) 
+  &= \frac{\mathbb{P}(U\in A\cap S)}{\mathbb{P}(U\in S)}
+   = \frac{\mathbb{P}(U\in A)}{\mathbb{P}(U\in S)} \\
+  &= \frac{|A|}{|S|},
+\end{align*}
+where \(|A|\) and \(|S|\) denote the Lebesgue measures of \(A\) and \(S\), respectively. This is exactly the law for a uniform variable on \(S\).
+
+\subsection*{(b) }
+
+Let \(V=\sqrt{U}\) where \(U\sim\) Uniform\((0,1)\). Write the binary expansions as
+\begin{align*}
+U &= \sum_{r=1}^{\infty} U_r\,2^{-r}, \\
+V &= \sum_{r=1}^{\infty} V_r\,2^{-r},
+\end{align*}
+with \(U_r,\,V_r\in\{0,1\}\).
+
+Since \(U\) is uniform on \((0,1)\), each binary digit \(U_r\) is independent with
+\[
+\mathbb{P}(U_r=1)=\mathbb{P}(U_r=0)=\frac{1}{2}.
+\]
+In particular, for distinct \(r\) and \(s\),
+\begin{align*}
+\mathbb{P}(U_r=1,\,U_s=1)
+  &= \frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}.
+\end{align*}
+
+Next, note that for \(v\in[0,1]\) we have
+\begin{align*}
+\mathbb{P}(V\le v)
+  &=\mathbb{P}(\sqrt{U}\le v)
+  =\mathbb{P}(U\le v^2)
+  = v^2.
+\end{align*}
+
+We now compute probabilities related to the binary digits of \(V\). For the first digit,
+\begin{align*}
+\mathbb{P}(V_1=1)
+  &= \mathbb{P}\Big(V>\frac{1}{2}\Big)
+   = 1-\mathbb{P}\Big(V\le\frac{1}{2}\Big)
+   = 1-\left(\frac{1}{2}\right)^2
+   = \frac{3}{4}.
+\end{align*}
+For the second digit,
+\begin{align*}
+\mathbb{P}(V_2=1)
+  &= \mathbb{P}\Big(V\in\Big(\frac{1}{4},\frac{1}{2}\Big)\cup\Big(\frac{3}{4},1\Big)\Big) \\
+  &= \left[\left(\frac{1}{2}\right)^2 - \left(\frac{1}{4}\right)^2\right]
+     + \left[1 - \left(\frac{3}{4}\right)^2\right] \\
+  &= \left[\frac{1}{4} - \frac{1}{16}\right]
+     + \left[1 - \frac{9}{16}\right]
+   = \frac{3}{16} + \frac{7}{16} = \frac{5}{8}.
+\end{align*}
+The joint probability that both \(V_1\) and \(V_2\) equal 1 is
+\begin{align*}
+\mathbb{P}(V_1=1,\,V_2=1)
+  &= \mathbb{P}\Big(V\in\Big(\frac{3}{4},1\Big)\Big)
+   = 1-\left(\frac{3}{4}\right)^2
+   = \frac{7}{16}.
+\end{align*}
+Thus, the covariance between \(V_1\) and \(V_2\) is
+\begin{align*}
+\text{cov}(V_1,V_2)
+  &= \mathbb{E}[V_1V_2]-\mathbb{E}[V_1]\mathbb{E}[V_2] \\
+  &= \frac{7}{16} - \left(\frac{3}{4}\cdot\frac{5}{8}\right)
+  = \frac{7}{16}-\frac{15}{32}
+  = -\frac{1}{32}.
+\end{align*}
+
+Finally, consider the \(n\)th binary digit \(V_n\). Its probability of being 1 is given by
+\begin{align*}
+\mathbb{P}(V_n=1)
+  &= \sum_{k=1}^{2^{n-1}} \Bigg[\mathbb{P}\Big(V\le \frac{2k}{2^n}\Big)
+     - \mathbb{P}\Big(V\le \frac{2k-1}{2^n}\Big)\Bigg] \\
+  &= \sum_{k=1}^{2^{n-1}} \left[\left(\frac{2k}{2^n}\right)^2
+     - \left(\frac{2k-1}{2^n}\right)^2\right].
+\end{align*}
+A short calculation shows that \(\mathbb{P}(V_n=1)=\frac{1}{2}\) for large \(n\). Hence,
+\[
+\lim_{n\to\infty}\mathbb{P}(V_n=1)=\frac{1}{2}.
+\]
+This means that as \(n\) increases, the binary digits of \(V\) behave as i.i.d. Bernoulli\(\left(\frac{1}{2}\right)\) random variables.
+
+\subsection*{Problem 6}
+\begin{align*}
+    &\text{ Let $X,Y$ be two random variables with finite expectations such that $\mathbb{E}(X|Y) \geq Y$ and} \\
+    &\mathbb{E}(Y|X) \geq X, \text{ prove that $X = Y$ almost surely.}
+\end{align*}
+\begin{proof}
+    First, take expectations on both sides of the inequality \(\mathbb{E}[X \mid Y] \ge Y\):
+\begin{align*}
+\mathbb{E}\bigl[\mathbb{E}[X \mid Y]\bigr] &\ge \mathbb{E}[Y] \\
+\mathbb{E}[X] &\ge \mathbb{E}[Y].
+\end{align*}
+Similarly, using \(\mathbb{E}[Y \mid X] \ge X\) we obtain:
+\begin{align*}
+\mathbb{E}[Y] &\ge \mathbb{E}[X].
+\end{align*}
+Thus,
+\begin{align*}
+\mathbb{E}[X] = \mathbb{E}[Y].
+\end{align*}
+
+Define \(Z = X - Y\). Then, conditioning on \(Y\) we have:
+\begin{align*}
+\mathbb{E}[Z \mid Y] &= \mathbb{E}[X - Y \mid Y] \\
+&= \mathbb{E}[X \mid Y] - Y \ge 0 \quad \text{a.s.}
+\end{align*}
+Likewise, by conditioning on \(X\) we get:
+\begin{align*}
+\mathbb{E}[-Z \mid X] &= \mathbb{E}[Y - X \mid X] \\
+&= \mathbb{E}[Y \mid X] - X \ge 0 \quad \text{a.s.}
+\end{align*}
+
+Taking expectations, the law of iterated expectations implies:
+\begin{align*}
+\mathbb{E}[Z] &= \mathbb{E}\bigl[\mathbb{E}[Z \mid Y]\bigr] \ge 0, \\
+\mathbb{E}[-Z] &= \mathbb{E}\bigl[\mathbb{E}[-Z \mid X]\bigr] \ge 0.
+\end{align*}
+But since \(\mathbb{E}[Z] = \mathbb{E}[X] - \mathbb{E}[Y] = 0\), it follows that:
+\begin{align*}
+\mathbb{E}[Z] = 0.
+\end{align*}
+
+Now, since \(\mathbb{E}[Z \mid Y] \ge 0\) almost surely and
+\[
+\mathbb{E}[Z] = \mathbb{E}\bigl[\mathbb{E}[Z \mid Y]\bigr] = 0,
+\]
+we must have \(\mathbb{E}[Z \mid Y] = 0\) almost surely. But \(\mathbb{E}[Z \mid Y] \ge 0\) forces
+\[
+\mathbb{E}[Z \mid Y] = 0 \quad \text{a.s.}
+\]
+This in turn implies that \(Z = X - Y = 0\) almost surely. Therefore,
+\[
+X = Y \quad \text{a.s.}
+\]
+\end{proof}
+\subsection*{Problem 7}
+\begin{align*}
+    &\text{ Let $c_n$ denote the number of n-step self-avoiding walks starting from the origin in $\mathbb{Z}^d$.} \\
+    &\text{Show that the limit $\mu = \lim_{n \to \infty} c_n^{\frac{1}{n}}$ exists. $\mu$ is called the \textit{connectivity constant} of self} \\
+    &\text{avoiding walk in $\mathbb{Z}^d$.} \\
+\\
+&\text{Hint: you may use the fact that subadditive sequence has a limit: if $a_{n+m} \leq a_m + a_n$ for} \\
+&\text{every $m, n \in \mathbb{N}$, then $\lim_{n \to \infty} \frac{a_n}{n}$ exists.}
+\end{align*}
+\begin{proof}
+    we first observe that the sequence \(\{c_n\}\) is submultiplicative. In fact, one can show that for all \(m,n\in\mathbb{N}\),
+\begin{align*}
+c_{n+m} \le c_n \, c_m.
+\end{align*}
+
+Now, taking the natural logarithm of both sides gives
+\begin{align*}
+\ln c_{n+m} \le \ln c_n + \ln c_m.
+\end{align*}
+Thus, if we define
+\[
+a_n = \ln c_n,
+\]
+then \(\{a_n\}\) is a subadditive sequence; that is, for all \(m,n\),
+\[
+a_{n+m} \le a_n + a_m.
+\]
+
+By Fekete's Lemma for subadditive sequences, we have that
+\begin{align*}
+\lim_{n \to \infty} \frac{a_n}{n} = \inf_{n\ge 1} \frac{a_n}{n}.
+\end{align*}
+Let
+\[
+\lambda = \lim_{n \to \infty} \frac{\ln c_n}{n}.
+\]
+Then, exponentiating both sides yields
+\begin{align*}
+\lim_{n \to \infty} c_n^{1/n} = \exp\left(\lim_{n \to \infty} \frac{\ln c_n}{n}\right) = e^{\lambda} = \mu.
+\end{align*}
+
+Hence, the limit \(\mu = \lim_{n \to \infty} c_n^{1/n}\) exists and is known as the connectivity constant of self-avoiding walks in \(\mathbb{Z}^d\).
+
+\end{proof}
+\subsection*{Problem 8}
+\begin{align*}
+\text{ Show that the connectivity constant in $\mathbb{Z}^2$ satisfies $2 \leq \mu \leq 3$.}
+\end{align*}
+\begin{proof}
+    \textbf{Upper Bound:}
+
+At the first step from the origin there are 4 possible directions. For each subsequent step, a self-avoiding walk cannot immediately return to the vertex it came from and, in general, has at most 3 choices. Thus, for \(n\ge 1\) we have
+\[
+c_n \le 4 \cdot 3^{n-1}.
+\]
+Taking the \(n\)th root yields
+\begin{align*}
+c_n^{1/n} &\le \Bigl(4 \cdot 3^{n-1}\Bigr)^{1/n}
+= 4^{1/n} \, 3^{1-1/n}.
+\end{align*}
+Letting \(n\to\infty\), we note that \(4^{1/n} \to 1\) and \(3^{1-1/n} \to 3\). Hence,
+\[
+\limsup_{n\to\infty} c_n^{1/n} \le 3,
+\]
+so that \(\mu \le 3\).
+
+\bigskip
+
+\textbf{Lower Bound:}
+
+Consider the family of self-avoiding walks that at each step move only in the positive \(x\) (East) or positive \(y\) (North) direction. Such walks are monotone and clearly self-avoiding. At each of the \(n\) steps, there are exactly 2 choices, so that the number of these walks is
+\[
+2^n.
+\]
+Since these are self-avoiding walks, we have
+\[
+c_n \ge 2^n.
+\]
+Taking the \(n\)th root gives
+\[
+c_n^{1/n} \ge 2,
+\]
+and hence,
+\[
+\liminf_{n\to\infty} c_n^{1/n} \ge 2,
+\]
+which implies \(\mu \ge 2\).
+
+\bigskip
+
+Combining the two bounds, we conclude that
+\[
+2 \le \mu \le 3.
+\]
+
+\end{proof}
+    \end{document}

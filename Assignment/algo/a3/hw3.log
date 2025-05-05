@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  21 APR 2025 22:14
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  22 APR 2025 23:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -975,7 +975,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
-[18
+[18]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
+
+[19
 
 ]
 
@@ -985,7 +993,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
 
-[19
+[20]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.52023pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.52023pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-13.52023pt}.
+
+[21
 
 ] (./hw3.aux)
  ***********
@@ -1000,12 +1016,12 @@ Package rerunfilecheck Info: File `hw3.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28227 strings out of 474773
- 541271 string characters out of 5757725
+ 28280 strings out of 474773
+ 541880 string characters out of 5757725
  2203839 words of memory out of 5000000
- 49867 multiletter control sequences out of 15000+600000
+ 49920 multiletter control sequences out of 15000+600000
  569314 words of font info for 96 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,12n,97p,572b,1766s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,12n,97p,775b,1766s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on hw3.pdf (19 pages).
+Output written on hw3.pdf (21 pages).

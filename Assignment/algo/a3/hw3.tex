@@ -169,7 +169,7 @@
    \newpage
    \setcounter{page}{1}
    \noindent
-   \classname \hfill \mbox{\updatedday} \\
+   \classname \hfill \mbox{Updated Day Here} \\
    \instname \hfill \mbox{\duedate}
    \rule{6.5in}{0.5mm}
    \vspace*{-0.1 in}
@@ -700,7 +700,47 @@ Given a DAG $G$, we call it ``nearly strongly connected'' if we can flip one edg
     \item Give a linear time algorithm (in terms of the size of $G$) for computing the edge of flipping.
 \end{enumerate}
 \begin{solution}
-Suppose for a contradiction that there is more than one source or one sink in $ G $ 
+(1)
+Flipping the arc \(u\to v\) into \(v\to u\) removes exactly the edge \(u\to v\) and adds exactly the edge \(v\to u\).  Hence the change in the number of edges entering or leaving each vertex is
+\begin{align*}
+\Delta\bigl(\text{edges entering }u\bigr)&=+1, 
+&\Delta\bigl(\text{edges leaving }u\bigr)&=-1,\\
+\Delta\bigl(\text{edges entering }v\bigr)&=-1, 
+&\Delta\bigl(\text{edges leaving }v\bigr)&=+1,\\
+\Delta\bigl(\text{edges entering or leaving any other }w\bigr)&=0.
+\end{align*}
+In particular, at most one vertex can gain an entering edge and at most one can gain a leaving edge.
+
+Now suppose, for the sake of contradiction, that \(G\) has two distinct sources \(s_1\) and \(s_2\), i.e.\ no edge enters either \(s_1\) or \(s_2\).  After flipping one arc, at most one of \(\{s_1,s_2\}\) can gain an entering edge, so the other still has none.  But a strongly connected digraph has every vertex reachable from every other, which forces every vertex to have at least one entering edge.  This contradiction shows \(G\) has exactly one source.
+
+Dually, if \(G\) had two distinct sinks \(t_1,t_2\) (no edge leaves them), then flipping a single arc could give an extra leaving edge to at most one, leaving the other without any.  Again this contradicts strong connectivity.  Therefore \(G\) has exactly one sink.
+The dual argument applies to sinks (vertices of out‐degree 0): if there were two distinct sinks, flipping a single edge could at best increase the out‐degree of one of them, leaving the other with out‐degree 0 in \(H\), again contradicting strong connectivity.  Therefore \(G\) has exactly one sink as well.
+\\(2)
+Let \(G\) be a nearly strongly‐connected DAG, and let \(s\) and \(t\) be its unique source and unique sink, then the  only edge whose reversal makes \(G\) strongly connected is the arc \(s\to t\).
+\\\emph{(Correctness.)}  
+Suppose flipping some arc \(u\to v\) in \(G\) produces a strongly connected graph \(H\).  In \(H\) there must be a directed path from \(t\) to \(s\).  The only new arc in passing from \(G\) to \(H\) is \(v\to u\), so that path must traverse \(v\to u\).  Hence in \(G\) there was already a path \(t\rightsquigarrow v\) and a path \(u\rightsquigarrow s\).  But \(t\) is the unique sink of the DAG \(G\), so it has no outgoing edges and thus cannot reach any vertex except itself; therefore \(v=t\).  Dually, \(s\) is the unique source, so it has no incoming edges and hence no vertex can reach \(s\) except itself; therefore \(u=s\).  Thus the only possible arc to reverse is \(s\to t\).
+
+Conversely,  let H be obtained by reversing \(s\to t\). Since \(s\) is the unique source, it reaches every vertex in \(G\), and since \(t\) is the unique sink, every vertex in \(G\) reaches \(t\).  After reversing \(s\to t\) into \(t\to s\), for any two vertices \(x,y\) we have
+\[
+  x \;\rightsquigarrow\; t \;\longrightarrow\; s \;\rightsquigarrow\; y
+\]
+in \(H\), so \(H\) is strongly connected.
+\\(3)
+\begin{lstlisting}
+    FindFlipEdge(G)
+        for all v in V
+            inDeg[v] ← 0
+            outDeg[v] ← 0
+        for all (u → v) in E
+            outDeg[u] ← outDeg[u] + 1
+            inDeg[v] ← inDeg[v] + 1
+        sources ← 0, sinks ← 0
+        for all v in V
+            if inDeg[v] = 0 then sources ← sources + 1; s ← v
+            if outDeg[v] = 0 then sinks ← sinks + 1; t ← v
+        if sources != 1 or sinks != 1 or (s,t) not in E then return NIL
+        return (s, t)
+    \end{lstlisting}
 \end{solution}
 \clearpage
 
@@ -711,7 +751,39 @@ We say a vertex in an undirected graph is \textit{bad} if its degree is 0 or 1.
 Let $G = (V,E)$ be a simple undirected graph where $n = |V|$ and $m = |E|$.
 Design an $O(n+m)$-time algorithm that computes a smallest subset $V' \subseteq V$ such that if we remove from $G$ the vertices in $V'$ (and the edges incident to them) then the remaining graph has no bad vertices. Prove its correctness.
 \begin{solution}
-\textbf{Please write down your solution to Problem 7 here.}
+    \begin{lstlisting}
+        Compute2Core(G)
+            for all v in V
+                deg[v] ← number of neighbors of v in G
+                removed[v] ← False
+            Q ← empty queue
+            for all v in V
+                if deg[v] <= 1
+                    enqueue v into Q
+                    removed[v] ← True
+            while Q is not empty
+                v ← dequeue Q
+                for every neighbor u of v
+                    if removed[u] = False
+                        deg[u] ← deg[u] - 1
+                        if deg[u] = 1
+                            enqueue u into Q
+                            removed[u] ← True
+            V' ← { v in V | removed[v] = True }
+            return V'
+        \end{lstlisting}
+        \emph{(Correctness.)}  
+        \begin{proof}
+            Let \(S\subseteq V\) be the set of vertices marked \texttt{removed} by the algorithm, and let \(H=G[V\setminus S]\) be the remaining induced subgraph.  
+
+            \noindent\textbf{No bad vertices remain.} By construction, every vertex whose degree in the evolving graph ever drops to at most 1 is enqueued and marked removed. The process only stops when no vertex of degree 0 or 1 remains. Hence every vertex in \(H\) has degree at least 2.
+            
+            \noindent\textbf{Minimality of the deletion set.} Suppose \(T\subseteq V\) is any vertex‑deletion set whose removal leaves a graph of minimum degree at least 2. We show \(S\subseteq T\). If there were a vertex \(v\in S\setminus T\), then at the time our algorithm deleted \(v\), its degree in the current graph was at most 1. Since \(T\) deletes at least all of \(S\) except possibly \(v\), the degree of \(v\) in \(G[V\setminus T]\) is at most its degree at deletion time, which is \(\le1\). This contradicts the assumption that removal of \(T\) yields minimum degree \(\ge2\). Thus every vertex we delete must lie in \(T\), and so \(S\) is contained in every feasible deletion set. It follows that \(S\) is a smallest such set.
+        
+            
+            \paragraph*{Time Complexity}
+            Computing the initial degree of each vertex takes \(O(n+m)\). Each vertex is enqueued and removed at most once, and each edge is examined only when one endpoint is deleted—leading to a constant‑time degree update. Therefore the total running time is \(O(n+m)\).
+            \end{proof}
 \end{solution}
 \clearpage
 
@@ -719,7 +791,40 @@ Design an $O(n+m)$-time algorithm that computes a smallest subset $V' \subseteq 
 \problem{8: Ordering the Vertices [$10$ pts]}
 Given a directed graph $G$, we want to order its vertices as a sequence: $v_1, v_2, v_3, \ldots, v_n$. Particularly, we want the ordering to comply with the edges such that for at least half of the edges $(v_i, v_j)$, we have $i < j$ in the above ordering. Design an algorithm that find such an ordering and prove its correctness.
 \begin{solution}
-\textbf{Please write down your solution to Problem 8 here.}
+    \begin{lstlisting}
+        FindHalfForwardOrdering(G)
+        //pick an arbitrary ordering (v1, v2, …, vn) of V
+            let order[1..n] be an array
+            let pos[1..n] be an array
+            i ← 1
+            for each vertex v in V
+                order[i] ← v
+                pos[v] ← i
+                i ← i + 1
+            f ← 0
+            for each edge (u, v) in E
+                if pos[u] < pos[v]
+                    f ← f + 1
+            if f >= m/2
+                return order[1..n]
+            else
+                return reverse(order[1..n])
+        \end{lstlisting}
+        \begin{proof}
+            Let \(m = |E|\), and let \(f\) be the number of forward edges in the initial arbitrary ordering \((v_1,\dots,v_n)\).  Every edge is either forward or backward, so there are \(m-f\) backward edges.  Reversing the ordering turns each backward edge into a forward edge, hence the reversed ordering has \(m-f\) forward edges.
+            
+            Since
+            \[
+            f + (m - f) \;=\; m,
+            \]
+            at least one of \(f\) or \(m-f\) must be at least \(m/2\).  The algorithm compares \(f\) to \(m/2\) and returns whichever of the two orderings—original or reversed—has at least \(m/2\) forward edges.  Therefore it always outputs a permutation in which at least half of the edges go forward.
+            \end{proof}
+            
+            \paragraph*{Time Complexity}
+            Computing \(f\) requires scanning all \(m\) edges once, in \(O(m)\) time.  Reversing the list of \(n\) vertices (if needed) takes \(O(n)\) time.  Hence the total running time is
+            \[
+            O(m) + O(n) \;=\; O(m + n).
+            \]
 \end{solution}
 
 
