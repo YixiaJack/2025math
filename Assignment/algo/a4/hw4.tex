@@ -236,7 +236,77 @@ We solve this problem via the following two steps.
 \end{enumerate}
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 1 here.}
+Let the edges be sorted so that 
+\[
+w(e_1) \le w(e_2) \le \cdots \le w(e_m).
+\]
+For each index \( i \), define the graph 
+\[
+G_i = (V, E_i) \quad \text{with} \quad E_i = \{e_1, e_2, \dots, e_i\}.
+\]
+For any vertex \( v \in V \setminus \{s\} \), let 
+\[
+i^* = \min \{ i \mid \text{\(s\) and \(v\) lie in the same connected component of } G_i \}.
+\]
+We claim that the bottleneck distance \( b(s,v) \) is equal to \( w(e_{i^*}) \).
+
+\textbf{Explanation:}
+
+\begin{itemize}
+    \item \emph{(Necessity)}: Since \( s \) and \( v \) are connected in \( G_{i^*} \), there exists an \( s\!-\!v \) path \(\pi\) that uses only edges among \( \{e_1, \dots, e_{i^*}\} \). Consequently, every edge on \(\pi\) has a weight at most \( w(e_{i^*}) \). Thus, the bottleneck length of \(\pi\) is at most \( w(e_{i^*}) \). Since the bottleneck distance is the minimum possible bottleneck length over all \( s\!-\!v \) paths, we have:
+    \[
+    b(s,v) \le w(e_{i^*}).
+    \]
+    \item \emph{(Sufficiency)}: Assume, for contradiction, that there exists a path \(\pi'\) from \( s \) to \( v \) with a bottleneck length \( b(s,v) < w(e_{i^*}) \). This implies that every edge on \(\pi'\) has weight strictly less than \( w(e_{i^*}) \) and so every edge of \(\pi'\) must appear in some \( G_j \) with \( j < i^* \). Then, \( s \) and \( v \) would be connected in \( G_{i^*-1} \), contradicting the minimality of \( i^* \). Hence, we must have
+    \[
+    b(s,v) \ge w(e_{i^*}).
+    \]
+\end{itemize}
+
+Combining both parts, we obtain
+\[
+b(s,v) = w(e_{i^*}).
+\]
+This concludes the proof for part (a).
+
+\subsubsection*{(b) The \textsc{Bottleneck} Algorithm}
+
+\textbf{Basic Idea:}  
+Based on the result of (a), we can compute the bottleneck distance \( b(s,t) \) by simulating the process of gradually adding edges in non-decreasing order of weight until \( s \) and \( t \) become connected. This process can be efficiently executed using the Union-Find (Disjoint Set Union) data structure.
+
+\textbf{Pseudocode:}
+
+\begin{algorithm}
+\caption{\textsc{Bottleneck}$(G,w,s,t)$}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Graph \( G = (V,E) \), weight function \( w : E \to \mathbb{R} \), source \( s \), target \( t \)
+\State \textbf{Output:} Bottleneck distance \( b(s,t) \)
+\State
+\State Sort the edges \( E = \{e_1,e_2,\dots,e_m\} \) such that \( w(e_1) \le w(e_2) \le \cdots \le w(e_m) \)
+\ForAll{vertex \( v \in V \)}
+    \State \textsc{MakeSet}(\( v \))
+\EndFor
+\For{\( i = 1 \) to \( m \)}
+    \State Let \( e_i = (u,v) \)
+    \State \textsc{Union}(\( u, v \))
+    \If{\textsc{Find}(\( s \)) equals \textsc{Find}(\( t \))}
+        \State \Return \( w(e_i) \)
+    \EndIf
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Time Complexity:}  
+\begin{itemize}
+    \item Sorting the \( m \) edges requires \( O(m \log m) \) time.
+    \item The Union-Find operations (using union by rank and path compression) take nearly linear time, i.e., \( O((n+m)\alpha(n)) \), where \( \alpha(n) \) is the inverse Ackermann function.
+    \item Since \( \log m = O(\log n) \) for connected graphs with \( m = O(n^2) \) in the worst case but typically \( m = O(n) \) in sparse graphs, the overall running time is \( O((n+m)\log n) \).
+\end{itemize}
+
+\textbf{Correctness Justification:}  
+The correctness of the algorithm follows directly from part (a). The algorithm simulates the incremental construction of the subgraphs \( G_i \). The first time that \( s \) and \( t \) become connected in this construction corresponds to the smallest index \( i \) for which \( s \) and \( t \) are in the same connected component. By part (a), the weight \( w(e_i) \) at that moment is exactly the bottleneck distance \( b(s,t) \).
+
+Thus, \textsc{Bottleneck} returns the desired bottleneck distance.
 \end{solution}
 \clearpage
 
@@ -270,7 +340,134 @@ We divide the problem into the following two steps.
 \begin{solution}
 \textbf{Please write down your solution to Problem 2 here.}
 \clearpage
-You can continue your solution here.
+(a) Exact SSSP in $O(n+m)$ Time for Integer Weights
+
+\paragraph{Basic Idea.}
+Since every edge weight is an integer in $\{1,\dots, 10000\}$, we can transform the graph $G$ into an \emph{unweighted} graph $G'$ in which every edge is replaced by a chain of \emph{unit-weight} edges. In particular, for each edge $(u,v)$ with weight $k$, we introduce $k-1$ new (auxiliary) vertices and replace $(u,v)$ by a chain of $k$ edges, each of weight 1. Then a standard breadth-first search (BFS) on $G'$ from source vertex $s$ would determine the number of unit edges on the shortest path from $s$ to every other vertex. By construction, the BFS level equals the original weighted distance in $G$. (Since the maximum weight is a fixed constant, the blow-up in the number of vertices is by a constant factor.)
+
+\paragraph{Pseudo-Code.}
+\begin{algorithm}
+\caption{SSSP($G=(V,E)$, $w: E \to \{1,\dots,10000\}$, source $s$)}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Graph $G=(V,E)$ with integer weights, source $s\in V$.
+\State \textbf{Output:} Array $D$ such that $D[t]$ is the shortest-path distance from $s$ to $t$.
+\medskip
+\State Construct a new graph $G'=(V',E')$.
+\ForAll{$u\in V$}
+    \State Add vertex $u$ to $V'$.
+\EndFor
+\ForAll{edge $(u,v)\in E$ with weight $k$}
+    \If{$k=1$}
+        \State Add edge $(u,v)$ and $(v,u)$ to $E'$.
+    \Else
+        \State Set $x\gets u$.
+        \For{$i=1$ to $k-1$}
+            \State Create a new vertex $x_i$.
+            \State Add vertex $x_i$ to $V'$.
+            \State Add edge $(x,x_i)$ and $(x_i,x)$ to $E'$.
+            \State Set $x\gets x_i$.
+        \EndFor
+        \State Add edge $(x,v)$ and $(v,x)$ to $E'$.
+    \EndIf
+\EndFor
+\medskip
+\State Run BFS on $G'$ starting from $s$, and let $\widetilde{D}(v)$ be the level (distance) of vertex $v$.
+\medskip
+\State For every $t\in V$, set $D[t] \gets \widetilde{D}(t)$.
+\State \Return $D$.
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Correctness.}  
+Every edge in $G$ that has weight $k$ is replaced by a path of $k$ unit-weight edges in $G'$. Thus, the number of edges in the BFS tree connecting $s$ and any vertex $t\in V$ equals the sum of the weights along a corresponding $s$--$t$ path in $G$. Hence, the BFS computes the exact distances. Since the total size of $G'$ is $O(n + m\cdot 10000)$ and $10000$ is a constant, the overall running time is $O(n+m)$.
+
+\vspace{0.2in}
+(b)
+
+\paragraph{Basic Idea.}
+Now suppose that every edge weight is a real number in $[1,2]$. We wish to compute, for each vertex $t$, a value $D[t]$ such that 
+\[
+d(s,t) \le D[t] \le 1.01 \, d(s,t),
+\]
+where $d(s,t)$ is the true shortest-path distance from $s$ to $t$. We achieve this by slightly modifying the weights to obtain \emph{integer} weights and then using the exact SSSP algorithm from part (a).
+
+Choose a discretization parameter
+\[
+\delta = 0.01.
+\]
+For each edge $e\in E$, define the modified weight
+\[
+\hat{w}(e) = \lceil w(e)/\delta \rceil.
+\]
+Since $w(e)\in [1,2]$, we have
+\[
+\lceil 1/0.01 \rceil = 100 \le \hat{w}(e) \le \lceil 2/0.01 \rceil = 200.
+\]
+Observe that for every edge $e$,
+\[
+w(e) \le \delta \, \hat{w}(e) < w(e) + \delta.
+\]
+Now, let $P$ be any path containing $\ell$ edges. Then,
+\[
+\sum_{e\in P} w(e) \le \delta \sum_{e\in P} \hat{w}(e) < \sum_{e\in P} w(e) + \ell \delta.
+\]
+Consider an optimal $s$--$t$ path $P^*$ in $G$ with $\ell^*$ edges. Since every weight is at least 1, we have $\ell^* \le d(s,t)$. Hence,
+\[
+\delta \sum_{e\in P^*} \hat{w}(e) < d(s,t) + \delta\, \ell^* \le d(s,t) + 0.01\, d(s,t) = 1.01\, d(s,t).
+\]
+Let $D'(t)$ be the exact distance computed on the modified graph (with integer weights $\hat{w}$) by the algorithm from part (a) and define
+\[
+D[t] = \delta \, D'(t).
+\]
+Then for every $t$ we have
+\[
+d(s,t) \le D[t] \le 1.01 \, d(s,t).
+\]
+
+
+\begin{algorithm}
+\caption{ApprxSSSP($G=(V,E)$, $w: E\to [1,2]$, source $s$)}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Graph $G=(V,E)$ with real weights in $[1,2]$, source $s\in V$.
+\State \textbf{Output:} Array $D$ where $D[t]$ approximates the shortest-path distance from $s$ to $t$ within a factor of 1.01.
+\medskip
+\State Set $\delta \gets 0.01$.
+\ForAll{edges $e\in E$}
+    \State Set $\hat{w}(e) \gets \lceil w(e)/\delta \rceil$.
+\EndFor
+\medskip
+\State Let $G'=(V,E)$ be the same graph as $G$, but with weight function $\hat{w} : E\to \{100,\ldots,200\}$.
+\medskip
+\State Compute $D' = \text{SSSP}(G', \hat{w}, s)$ using the algorithm from part (a).
+\medskip
+\ForAll{$t\in V$}
+    \State Set $D[t] \gets \delta \cdot D'(t)$.
+\EndFor
+\State \Return $D$.
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Proof of Approximation Guarantee.}  
+For every edge $e\in E$, we have
+\[
+w(e) \le \delta \, \hat{w}(e) < w(e)+\delta.
+\]
+Thus for any path $P$ consisting of $\ell$ edges,
+\[
+w(P) \le \delta\, \hat{w}(P) < w(P) + \ell \delta.
+\]
+Let $P^*$ be the optimal $s$--$t$ path in $G$ with $\ell^*$ edges. Then,
+\[
+\delta\, \hat{w}(P^*) < d(s,t) + \ell^* \delta \le d(s,t) + 0.01\, d(s,t) = 1.01\, d(s,t).
+\]
+Since the algorithm from part (a) finds the path that minimizes $\delta\, \hat{w}(P)$ exactly, we conclude that if $D(t)=\delta\, D'(t)$, then
+\[
+d(s,t) \le D(t) < 1.01\, d(s,t).
+\]
+Thus, the algorithm is a 1.01--approximation for the SSSP problem.
+
+\paragraph{Running Time.}  
+The transformation of edge weights takes $O(m)$ time. The SSSP algorithm of part (a) runs in $O(n+m)$ time on $G'$ (since the range of the weights is now fixed). Hence, the overall complexity is $O(n+m)$.
 \end{solution}
 \clearpage
 
@@ -289,7 +486,91 @@ Prove that your algorithm is truly a $\frac{1}{2}$-approximation algorithm.
 (\textbf{Hint.} Try to use some greedy strategy to select the items.)
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 3 here.}
+We design the algorithm by considering two candidate solutions:
+\begin{enumerate}
+    \item \textbf{Candidate 1 (Single Best Item):} Find an item with the maximum weight that fits into the knapsack. That is, choose an index
+    \[
+    i^* \in \arg\max \{ w_i \mid w_i \le W \}.
+    \]
+    Then, set \(P_1 = \{i^*\}\).
+    \item \textbf{Candidate 2 (Greedy Packing):} Sort the items in increasing order of weight. Then, iterate over the sorted list and add items one by one until adding the next item would exceed the capacity \(W\). Let \(P_2\) be the set of items chosen.
+\end{enumerate}
+
+The algorithm then compares the total weights of these two candidates and outputs the one with the larger total weight.
+
+Since the dominating time is due to sorting (which takes \(O(n \log n)\)) and both candidate constructions take linear time, the overall time complexity is \(O(n \log n)\).
+
+
+\begin{algorithm}
+\caption{\(\textsc{ApprxKnapsack}(W, w_1,\dots, w_n)\)}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Knapsack capacity \(W \in \mathbb{R}_{\geq 0}\); items with weights \(w_1,\dots,w_n \in \mathbb{R}_{\geq 0}\)
+\State \textbf{Output:} A subset \(P \subseteq \{1,\dots,n\}\) s.t. \(\sum_{i\in P} w_i \ge \frac{1}{2}\cdot\mathsf{opt}\)
+\medskip
+\State \textbf{// Candidate 1: Single Best Item}
+\State \(i^* \gets \arg\max \{w_i \mid w_i \le W,\, 1\le i \le n\}\)
+\State \(P_1 \gets \{ i^* \}\)  \Comment{If no \(w_i \le W\) exists, set \(P_1 \gets \emptyset\)}
+\medskip
+\State \textbf{// Candidate 2: Greedy Packing}
+\State Let \(L\) be the list of indices \(\{1,\dots,n\}\) sorted in increasing order with respect to \(w_i\)
+\State Initialize: \(P_2 \gets \emptyset,\; S \gets 0\)
+\For{each \(i\) in \(L\)}
+    \If{\(S+w_i \le W\)}
+        \State \(P_2 \gets P_2 \cup \{i\}\)
+        \State \(S \gets S+w_i\)
+    \EndIf
+\EndFor
+\medskip
+\State \textbf{// Return the candidate with the higher total weight}
+\If{\(\sum_{i\in P_1} w_i \ge S\)}
+    \State \Return \(P_1\)
+\Else
+    \State \Return \(P_2\)
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+\section*{Proof of Approximation Guarantee}
+
+Let \(\mathsf{opt}\) denote the total weight of an optimal solution. We now show that the algorithm returns a solution \(P\) satisfying
+\[
+\sum_{i\in P} w_i \ge \frac{1}{2}\cdot \mathsf{opt}.
+\]
+
+We consider two cases.
+
+\textbf{Case 1:} The greedy packing \(P_2\) attains total weight \(S \ge \frac{W}{2}\).
+
+Since any feasible solution (including the optimal one) has total weight at most \(W\), we have
+\[
+S \ge \frac{W}{2} \ge \frac{\mathsf{opt}}{2}.
+\]
+Thus, if \(P_2\) is chosen, the approximation ratio is at least \(\frac{1}{2}\).
+
+\textbf{Case 2:} The greedy packing \(P_2\) attains total weight \(S < \frac{W}{2}\).
+
+Because we attempted to add items in increasing order, the algorithm must have encountered an item \(j\) that could not be added, i.e., 
+\[
+S + w_j > W.
+\]
+This inequality implies
+\[
+w_j > W - S \ge W - \frac{W}{2} = \frac{W}{2}.
+\]
+Now, note that since \(w_j \leq W\), it is a feasible item. Thus, the candidate \(P_1\) (which selects the best single item that fits) satisfies
+\[
+\sum_{i\in P_1} w_i \ge w_j > \frac{W}{2}.
+\]
+Again, using that \(\mathsf{opt} \leq W\), we have
+\[
+\sum_{i\in P_1} w_i > \frac{\mathsf{opt}}{2}.
+\]
+
+In either case, the algorithm returns a solution with total weight at least \(\frac{1}{2}\mathsf{opt}\), which establishes the \(\frac{1}{2}\)-approximation guarantee.
+
+\section*{Time Complexity}
+
+Sorting the list of items takes \(O(n \log n)\) time and the subsequent iteration in the greedy step takes \(O(n)\) time. Hence, the overall running time is \(O(n \log n)\).
 \end{solution}
 \clearpage
 
@@ -326,7 +607,57 @@ That is, for the number $\rho$ you find, show that (i) the algorithm is truly a 
 Note that the algorithm works for the problem in $\mathbb{R}^d$ for a general $d \geq 1$, not just in the plane.
 
 \begin{solution}
-\textbf{Please write down your solution to Problem 4 here.}
+(i) Proof that the Algorithm is a \(\frac{1}{2}\)-Approximation
+
+Let \(d^*= \max \{ \|p - q\| \mid p,q\in S \}\) and let \((p^*,q^*)\) be an optimal (farthest) pair so that \(\|p^*-q^*\| = d^*\).
+
+A key observation is the following {\bf triangle inequality lemma}: For any three points \(s,p,q\) in a metric space,
+\[
+\|p-q\| \le \|s-p\| + \|s-q\|.
+\]
+Thus, it must be that
+\[
+\max\{\|s-p\|,\|s-q\|\} \ge \frac{\|p-q\|}{2}.
+\]
+Now, consider any iteration \(i\) of the algorithm. The algorithm sets 
+\[
+A[i+1] = \arg\max_{x\in S} \|A[i]-x\|.
+\]
+In particular, for the optimal pair \((p^*,q^*)\) we have
+\[
+\|A[i]-A[i+1]\| \ge \max\{\|A[i]-p^*\|,\|A[i]-q^*\|\} \ge \frac{\|p^*-q^*\|}{2} = \frac{d^*}{2}.
+\]
+Thus, every step of the algorithm produces two consecutive points that are at least \(\frac{d^*}{2}\) apart.
+
+In particular, when the algorithm terminates and outputs the pair \((A[i-1],A[i])\), we have
+\[
+\|A[i-1]-A[i]\| \ge \frac{d^*}{2}.
+\]
+That is, the pair returned by the algorithm has distance at least \(\frac{1}{2} \cdot d^*\). Hence, the algorithm is a \(\frac{1}{2}\)-approximation algorithm for the farthest-pair problem.
+
+(ii) Tightness of the \(\frac{1}{2}\) Guarantee
+
+We now argue that no constant \(\rho > \frac{1}{2}\) can be guaranteed by this algorithm. In other words, for any \(\rho' > \frac{1}{2}\), there exists an instance where the distance between the two points returned by the algorithm is less than \(\rho' \cdot d^*\).
+
+The key is that the guarantee in the above analysis comes solely from the property that for any three points, 
+\[
+\max\{\|s-p\|,\|s-q\|\} \ge \frac{\|p-q\|}{2}.
+\]
+This inequality is tight. One can construct instances (in any \(\mathbb{R}^d\)) where, for the optimal pair \((p^*,q^*)\) and an appropriately chosen starting point \(s\), it holds that 
+\[
+\max\{\|s-p^*\|,\|s-q^*\|\} \approx \frac{d^*}{2}.
+\]
+For example, consider a configuration where the optimal pair lies at the endpoints of a segment of length \(d^*\) and many other points are arranged very close to the midpoint of this segment. By choosing the initial point appropriately, the algorithm may “bounce” among points whose mutual distances are nearly \(\frac{d^*}{2}\), and it will eventually return a pair whose distance is as close as desired to \(\frac{d^*}{2}\). (A formal construction can be given by placing points along or near the circle whose diameter is \(d^*\); then, as the algorithm follows the farthest‐point queries, one may force the successive distances to be nearly \(\frac{d^*}{2}\).)
+
+Therefore, for any \(\rho' > \frac{1}{2}\), one can design an instance where the algorithm’s output is at most \(\left(\frac{1}{2} + \varepsilon\right) d^*\) with \(\varepsilon < \rho' - \frac{1}{2}\). This shows the algorithm is not a \(\rho'\)-approximation for any \(\rho' > \frac{1}{2}\).
+
+\section*{Conclusion}
+
+The largest number \(\rho < 1\) for which the above algorithm is a \(\rho\)-approximation algorithm for the farthest-pair problem is
+\[
+\rho = \frac{1}{2}.
+\]
+We have shown that (i) the returned pair always has distance at least \(\frac{d^*}{2}\), and (ii) for any constant \(\rho' > \frac{1}{2}\) there are instances where the algorithm’s output is strictly less than \(\rho' \cdot d^*\).
 \end{solution}
 \clearpage
 
@@ -338,7 +669,101 @@ Note that the algorithm works for the problem in $\mathbb{R}^d$ for a general $d
     \item Prove that Pos-or-Neg 3-SAT is NP-hard using reduction. Pos-or-Neg 3-SAT refers to a special case of 3-SAT where every clause either consists of all positive variables or all negations of variables.
 \end{enumerate}
 \begin{solution}
-\textbf{Please write down your solution to Problem 5 here.}
+Recall that the \emph{partition problem} is defined as follows. An instance is a finite set 
+\[
+A=\{a_1,a_2,\dots,a_n\} \subset \mathbb{N},
+\]
+and one asks whether there is a partition of $A$ into two subsets $A_1$ and $A_2$ so that
+\[
+\sum_{a \in A_1} a = \sum_{a \in A_2}a.
+\]
+
+Our goal is to show that weighted maximum-cut reduces (in polynomial time) to partition. In other words, if one had a (decision) procedure for partition, one could solve the decision version of weighted maximum-cut.
+
+A simple reduction is as follows. Suppose we are given an instance of weighted maximum-cut for a graph $G=(V,E)$ with weight function $w$. Let 
+\[
+W_{\text{tot}} = \sum_{e\in E} w(e)
+\]
+be the total weight. Notice that in any cut $(S,V\setminus S)$ every edge is either counted (if it has its endpoints in different parts) or not; hence, the maximum possible cut is upper bounded by $W_{\text{tot}}$. In fact, one may show that if $G$ “allows” a cut with exactly \(\frac{W_{\text{tot}}}{2}\) weight then necessarily the weighted sums of the edges incident on the two sides are balanced (this is true for graphs that are “regular” in an appropriate sense).
+
+The reduction builds an instance of partition as follows. For each vertex \(v\in V\) define its \emph{weighted degree}
+\[
+d(v) = \sum_{e: v\in e} w(e).
+\]
+Now form the set
+\[
+A = \{\, d(v) : v\in V \,\}.
+\]
+Observe that
+\[
+\sum_{v\in V} d(v)=2\,W_{\text{tot}}.
+\]
+We now ask: does there exist a partition of $A$ into $A_1$ and $A_2$ with
+\[
+\sum_{a\in A_1} a = \sum_{a\in A_2}a = W_{\text{tot}}\, ?
+\]
+It is not hard to verify the following claim.
+
+\medskip
+\noindent {\bf Claim.} \emph{There is a cut in \(G\) with total crossing weight exactly \(W_{\text{tot}}/2\) if and only if the set \(A\) has a partition into two subsets with equal sum.}
+
+\medskip
+\noindent {\bf Proof Sketch.}  
+Given a vertex bipartition \(S\) and \(V\setminus S\), consider the sums 
+\[
+D_S = \sum_{v\in S} d(v),\quad D_{\overline{S}} = \sum_{v\in V\setminus S} d(v).
+\]
+A short calculation (using that every edge contributes twice overall) shows that the weight of the cut is exactly
+\[
+W(S) = \frac{1}{2}\left| D_S - D_{\overline{S}}\right|.
+\]
+Thus, if \(D_S = D_{\overline{S}}\) then \(W(S)=0\) with respect to the difference; however, by a suitable “balancing” (or by considering the complementary cut), one may show that the optimal cut achieves at least \(W_{\text{tot}}/2\) when the degrees are split equally. (For instance, in many natural instances the maximum cut is attained when the degrees are as evenly split as possible; one may also add a very heavy edge between two new vertices to force the optimum cut to separate them and then “simulate” equality of degree sums among the original vertices. There are several variants of this reduction.) 
+
+Thus, using a partition oracle (capable of deciding whether the instance \(A\) has an equal-sum partition), one can decide whether there is a cut of “balanced” weight in \(G\). In view of known NP-completeness of partition, this shows that weighted maximum-cut is no easier than partition.
+
+\medskip
+This completes the reduction.
+
+\bigskip
+(2)
+
+Since 3-SAT is known to be NP-complete, it suffices to reduce a known NP-hard variant of 3-SAT (or, in many cases, 3-SAT itself) to Pos-or-Neg 3-SAT. A standard method is to “split” each variable into two copies --- one used for its positive occurrences and one for its negative occurrences --- and then add \emph{consistency gadgets} to force the two copies to have complementary truth values. We now describe a reduction.
+
+\medskip
+\noindent \textbf{Reduction.}  
+Suppose we are given an arbitrary instance of 3-SAT, with formula
+\[
+\phi = C_1 \wedge C_2 \wedge \cdots \wedge C_m,
+\]
+where each clause \(C_j\) is a disjunction of three literals (possibly mixed in sign). For each variable \(x\) of \(\phi\), introduce two new Boolean variables \(x^+\) and \(x^-\). In the new formula \(\phi'\) we make the following replacements:
+\begin{itemize}
+    \item Replace every occurrence of \(x\) in positive form by \(x^+\).
+    \item Replace every occurrence of \(\neg x\) by \(x^-\).
+\end{itemize}
+Since a clause in \(\phi\) might now contain a mix of \(x^+\) and \(y^+\) (if the original literal was positive) or \(x^-\) and \(y^-\) (if the original literal was negated), the clauses coming from \(\phi\) are already \emph{monotone} (all literals in such a clause are unnegated in \(\phi'\), or all appear as “negated” if one later views \(x^-\) as a fresh variable rather than as the negation of \(x^+\)). However, we still must force consistency, namely that for every variable \(x\), the “copies” \(x^+\) and \(x^-\) receive opposite truth assignments. This can be accomplished with the following \emph{gadget} (which uses only monotone clauses):
+
+\medskip
+For each variable \(x\), add the two clauses
+\[
+(x^+ \vee x^- \vee x^-)\quad \text{and}\quad (\neg x^+ \vee \neg x^+ \vee \neg x^-).
+\]
+Note that the first clause is \emph{all positive} (three occurrences, though repetitions are allowed) and forces at least one of \(x^+\) and \(x^-\) to be true, while the second clause is \emph{all negative} and forces at most one of \(x^+\) and \(x^-\) to be true. Hence, the gadget forces exactly one of \(x^+\) and \(x^-\) to be true (i.e., it simulates the condition \(x^+ = \text{true}\) if and only if \(x = \text{true}\), and \(x^- = \text{true}\) if and only if \(x = \text{false}\)).  
+
+\medskip
+Thus, every clause in the new formula \(\phi'\) is either (i) a clause coming from the original formula (now having all positive literals or, in the case of originally negated literals, all “negative” variables) or (ii) a gadget clause of the form shown above. In every case, each clause is monotone, that is, it is either entirely positive or entirely negative.
+
+\medskip
+One may prove by a routine argument that \(\phi\) is satisfiable if and only if \(\phi'\) is satisfiable. (The “only if” direction is given by assigning \(x^+\) and \(x^-\) the appropriate truth values matching an assignment for \(x\); for the converse use the gadget clauses to deduce that the values for \(x^+\) and \(x^-\) must be complementary.) This shows that Pos-or-Neg 3-SAT is NP-hard.
+
+\bigskip
+\section*{Conclusion}
+
+We have shown:
+\begin{enumerate}
+    \item There is a polynomial-time reduction from the weighted maximum-cut problem to the partition problem. In our reduction the vertex weighted degrees (derived from the edge weights) are encoded as positive integers; a balanced partition of these degrees corresponds (via a short calculation) to a cut whose crossing weight is exactly half the total edge weight.
+    \item Pos-or-Neg 3-SAT (where every clause is either all positive or all negative) is NP-hard via a reduction from 3-SAT. By “splitting” each variable into two copies and adding simple monotone consistency gadgets, one obtains an instance of 3-SAT in which every clause is monotone.
+\end{enumerate}
+Thus, both problems are at least as hard as classical NP-complete problems.
 \end{solution}
 \clearpage
 
@@ -348,7 +773,64 @@ Let $G = (V,E)$ be a simple undirected graph with a weight function $w: V \right
 The \textit{length} of a path $(v_0,v_1,\dots,v_r)$ in $G$ is defined as $\sum_{i=0}^r w(v_i)$.
 Design an $O(n^2)$-time algorithm to solve the SSSP problem in this setting.
 \begin{solution}
-\textbf{Please write down your solution to Problem 6 here.}
+Algorithm Overview\\
+Observe that when extending a path from vertex \(u\) to a neighbor \(v\), the additional cost incurred is \(w(v)\). Thus, if we denote by \(d(v)\) the shortest path distance from \(s\) to \(v\), then we have the following relaxation rule for every edge \((u,v)\):
+\[
+d(v) = \min\{ d(v), \; d(u) + w(v) \}.
+\]
+We initialize the distance to the source \(s\) as
+\[
+d(s) = w(s),
+\]
+and for every other vertex \(v\) we set \(d(v) = \infty\).
+
+Because all weights \(w(v)\) are positive, this problem is a natural candidate for Dijkstra's algorithm. Here, we use a simple implementation (without a heap) that runs in \(O(n^2)\) time.
+
+\section*{Pseudocode}
+
+\begin{algorithm}[H]
+\caption{\textsc{SSSP-VertexWeights} \((G=(V,E),\,w,\,s)\)}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Graph \(G=(V,E)\), vertex weight function \(w: V \to \mathbb{R}_{> 0}\), source vertex \(s\in V\).
+\State \textbf{Output:} Distance array \(d\) where \(d(v)\) is the minimum path length from \(s\) to \(v\).
+\ForAll{\(v \in V\)}
+    \State \(d(v) \gets \infty\)
+    \State \(\text{finalized}(v) \gets \text{false}\)
+\EndFor
+\State \(d(s) \gets w(s)\)
+\While{there exists a vertex \(v \in V\) with \(\text{finalized}(v) = \text{false}\)}
+    \State Let \(u \gets \arg\min \{\, d(v) \mid v\in V \text{ and } \text{finalized}(v)=\text{false}\,\}\)
+    \State \(\text{finalized}(u) \gets \text{true}\)
+    \ForAll{neighbors \(v\) of \(u\)}
+         \If{\(\text{finalized}(v) = \text{false}\) \textbf{and} \(d(v) > d(u) + w(v)\)}
+              \State \(d(v) \gets d(u) + w(v)\)
+         \EndIf
+    \EndFor
+\EndWhile
+\State \Return \(d\)
+\end{algorithmic}
+\end{algorithm}
+
+\section*{Correctness}
+The algorithm maintains the invariant that for every vertex \(v\) for which \(\text{finalized}(v)\) is \texttt{true}, \(d(v)\) is the length of the shortest path from \(s\) to \(v\). Since the additional cost to move from any vertex \(u\) to a neighbor \(v\) is \(w(v)\), the relaxation step 
+\[
+d(v) = \min\{ d(v), \; d(u) + w(v) \}
+\]
+correctly updates the tentative best distance to \(v\). Because all weights are positive, once a vertex is finalized it cannot be improved further. Therefore, by the standard correctness argument of Dijkstra’s algorithm, the computed distances \(d(v)\) are optimal.
+
+\section*{Time Complexity Analysis}
+The algorithm has two main components:
+\begin{enumerate}
+    \item \textbf{Selecting the next vertex:} In every iteration of the \textsc{while}-loop, we scan all \(n\) vertices to find the vertex with minimal \(d(v)\) that is not yet finalized. This takes \(O(n)\) time per iteration.
+    \item \textbf{Relaxation:} For the chosen vertex \(u\), we iterate over all neighbors. In a simple undirected graph, a vertex can have at most \(O(n)\) neighbors.
+\end{enumerate}
+Since there are at most \(n\) iterations in the \textsc{while}-loop, the overall running time is
+\[
+O(n) \times O(n) = O(n^2).
+\]
+
+\section*{Conclusion}
+We have designed an \(O(n^2)\)-time algorithm for the SSSP problem in a graph where each vertex \(v\) carries a positive weight \(w(v)\) and the length of a path is the sum of the weights of the vertices along the path. The algorithm is a straightforward modification of Dijkstra's algorithm where the cost to traverse an edge \((u,v)\) is given by \(w(v)\). Since every vertex weight is positive, the standard Dijkstra’s argument applies and the overall time complexity is \(O(n^2)\).
 \end{solution}
 \clearpage
 
@@ -360,7 +842,53 @@ A feature-based submodular function can be of the form
 $$f(A) = \sum_j w_j\phi_j(\sum_{v \in V} m_j(v))$$
 Here $\phi_j$ is any concave function, and $w_j$ is a scalar. Show that the facility location function can be written as a feature-based submodular function. The outer sum should be over a number that is polynomial in $n$, i.e., the choices of $j$ should be a polynomial of $n$.
 \begin{solution}
-\textbf{Please write down your solution to Problem 6 here.}
+The Threshold Decomposition Idea\\
+
+For every \(v\in V\), note that
+\[
+\max_{a\in A}\operatorname{sim}(v,a)=\int_{t=0}^{T} 1\Big\{\max_{a\in A}\operatorname{sim}(v,a) \ge t\Big\}\,dt,
+\]
+where \(T\) is an upper bound on \(\operatorname{sim}(v,a)\) (for example, if \(\operatorname{sim}(v,a)\) is known to lie in \([0,1]\) then take \(T=1\)). Summing over all \(v\) yields
+\[
+f(A)=\sum_{v\in V}\max_{a\in A}\operatorname{sim}(v,a)=\int_0^T \sum_{v\in V}1\Big\{\max_{a\in A}\operatorname{sim}(v,a)\ge t\Big\}\,dt.
+\]
+Discretize the interval \([0,T]\) by choosing a step size \(\Delta t>0\) (for instance, an inverse-polynomial step size in \(n\)) and define the thresholds
+\[
+t_j=j\Delta t,\quad j=1,2,\ldots, p,
+\]
+where \(p=T/\Delta t=O(\operatorname{poly}(n))\). Then we have (approximately, or exactly if the similarity values have limited precision)
+\[
+f(A)\approx \sum_{j=1}^{p}\Delta t \; \left(\sum_{v\in V} 1\Big\{\max_{a\in A}\operatorname{sim}(v,a)\ge t_j\Big\}\right).
+\]
+Define for each threshold index \(j\):
+\[
+w_j = \Delta t,\quad \phi_j(x)=x \quad \text{(the identity function, which is concave)},\quad \text{and} \quad m_j(v,A) = 1\Big\{\max_{a\in A}\operatorname{sim}(v,a)\ge t_j\Big\}.
+\]
+Then we can write
+\[
+f(A)=\sum_{j=1}^{p}w_j\,\phi_j\Biggl(\sum_{v\in V} m_j(v,A)\Biggr).
+\]
+Since the number of thresholds \(p\) is polynomial in \(n\), this is a valid representation as a feature-based submodular function.
+
+\section*{Discussion}
+
+The key observation is that the maximum of nonnegative numbers can be written as the integral over level sets (``thresholds''). By discretizing this integral, we obtain a sum of terms, where each term is linear (and hence concave) in the number of vertices whose best similarity value (to the set \(A\)) exceeds a given threshold. Thus, the facility location function is expressed as a weighted sum of concave functions composed with modular functions. This is exactly the desired feature-based representation, and the outer sum has only \(p = O(\operatorname{poly}(n))\) terms.
+
+\section*{Conclusion}
+
+We have shown that the facility location function
+\[
+f(A)=\sum_{v\in V}\max_{a\in A}\operatorname{sim}(v,a)
+\]
+can be written as
+\[
+f(A)=\sum_{j=1}^{p}w_j\,\phi_j\Biggl(\sum_{v\in V} m_j(v,A)\Biggr),
+\]
+with 
+\[
+w_j=\Delta t,\quad \phi_j(x)=x,\quad \text{and}\quad m_j(v,A)=1\Big\{\max_{a\in A}\operatorname{sim}(v,a)\ge t_j\Big\},
+\]
+where \(t_j=j\Delta t\) and \(p=O(\operatorname{poly}(n))\). This completes the demonstration.
 \end{solution}
 \clearpage
 
@@ -369,5 +897,71 @@ Here $\phi_j$ is any concave function, and $w_j$ is a scalar. Show that the faci
 Given a tree $T = (V, E)$ and a subset of vertices $A$. Let $h(E')$, $E' \subseteq E$, be the number of connected components in the forest $T \setminus E'$. Define a set of subset of edges as 
 $$\mathcal{I} = \{E' \subseteq E | h(E') = |E'| + 1\}$$
 Prove that $\mathcal{M} = (E,\mathcal{I})$ is a matroid.
+\\
+Observation
 
+Since \(T\) is a tree with \(|V|=n\) vertices, it has \(|E|=n-1\) edges. It is well known that for any forest \(F\) on \(n\) vertices with \(m\) edges, the number of connected components is exactly \(n-m\). In our case, the forest \(T\setminus E'\) has
+\[
+|F|=|E\setminus E'|=|E|-|E'|=(n-1)-|E'|
+\]
+edges, and hence, the number of connected components is
+\[
+h(E')=n-\left[(n-1)-|E'|\right] = 1+|E'|.
+\]
+Thus, \emph{for every} \(E'\subseteq E\) we have
+\[
+h(E')=|E'|+1.
+\]
+It follows that
+\[
+\mathcal{I}=\{E'\subseteq E \mid h(E')=|E'|+1\} = 2^E,
+\]
+i.e. \(\mathcal{I}\) is the collection of all subsets of \(E\).
+
+\section*{Matroid Axioms Verification}
+
+We now verify that \(\mathcal{M}=(E,2^E)\) is a matroid by checking the following standard axioms:
+
+\begin{enumerate}
+    \item \textbf{Non-emptiness:}  
+    The empty set \(\emptyset\) belongs to \(\mathcal{I}\). Indeed, since no edge is removed,
+    \[
+    h(\emptyset) = \text{number of connected components of }T = 1,
+    \]
+    and
+    \[
+    |\emptyset|+1=0+1=1.
+    \]
+    Hence, \(\emptyset\in \mathcal{I}\).
+
+    \item \textbf{Hereditary Property:}  
+    Let \(E'\in \mathcal{I}\) and let \(E''\subseteq E'\). Since \(\mathcal{I}=2^E\) (i.e. every subset of \(E\) is in \(\mathcal{I}\)), we have \(E''\in \mathcal{I}\). More directly, for any \(E''\subseteq E\) we already have
+    \[
+    h(E'') = |E''|+1,
+    \]
+    so the hereditary property holds.
+
+    \item \textbf{Exchange Property:}  
+    Let \(I_1,I_2\in \mathcal{I}\) with \(|I_1|<|I_2|\). Since every subset of \(E\) is independent, for any \(e\in I_2\setminus I_1\) we have \(I_1\cup\{e\}\in \mathcal{I}\). (In other words, the exchange property is vacuously true for the free matroid \((E,2^E)\).)
+\end{enumerate}
+
+\section*{Conclusion}
+
+Since all three matroid properties hold for \(\mathcal{M}=(E,\mathcal{I})\), we conclude that \(\mathcal{M}\) is a matroid.
+
+\bigskip
+
+\noindent\textbf{Remark:} The fact that \(\mathcal{I}\) is defined via 
+\[
+h(E')=|E'|+1
+\]
+might appear nontrivial in a general graph. However, because \(T\) is a tree, the property
+\[
+h(E') = |V| - \bigl(|E|-|E'|\bigr)
+\]
+simplifies to
+\[
+h(E') = (|V| - |E|) + |E'| = 1 + |E'|,
+\]
+so that every subset of \(E\) satisfies the independence condition.
 \end{document}
