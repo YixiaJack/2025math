@@ -1,0 +1,391 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-UA 228 (Fundamental Dynamics of Earth’s Atmosphere and Climate) -- Homework 1}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\subsection*{Problem 1}
+This question considers how much energy you emit.
+
+\begin{enumerate}
+\item[(a)] Compute your total energy output in Watts. You may assume a body temperature of $37^\circ$ C and, to keep it from getting too personal, a body surface area of $1.8\,\text{m}^2$, which is about average for an adult.
+
+\item[(b)] Now compute how much energy you emit in a day. First compute it in SI units (Joules), remembering that one Watt = 1 Joule per second. Now convert this to a more familiar energy unit, the food Calorie. Confusingly, a \textit{food} Calorie is equivalent to 1000 calories (scientifically, we call it a kilocal), where 1 calorie is the energy needed to heat 1 gram of water 1 degree C. Finally, 1 calorie is equivalent to 4.184 Joules.
+
+\item[(c)] If you have done the calculation correctly, you will arrive at a very large number that would require you to eat \textit{a lot} more than recommended by your doctor! Explain why this calculation seems paradoxical.
+\end{enumerate}
+
+(a) Using the Stefan-Boltzmann law, the total energy output can be calculated as follows:
+\[P = \sigma A T^4\]
+where $\sigma = 5.67 \times 10^{-8} Wm^{-2}K^{-4}$ is the Stefan-Boltzmann constant, $A = 1.8 m^2$ is the body surface area, and $T = 37 + 273= 310 K$ is the body temperature in Kelvin. Plugging in these values, we get:
+\[
+P = 5.67 \times 10^{-8} \times 1.8 \times (310)^4 \approx 942.546 W
+\]
+So, the total energy output is approximately 942.546 Watts.
+
+(b) To compute the energy emitted in a day, we first convert the power output from Watts to Joules per day. Since 1 Watt = 1 Joule/second, we have:
+\[
+E_{day} = P \times 86400 \, \text{seconds/day} = 942.546 \times 86400 \approx 8.144 \times 10^7 \, \text{ Joules/day}
+\]
+Next, we convert Joules to food Calories. Since 1 food Calorie = 1000 calories and 1 calorie = 4.184 Joules, we have:
+\[
+E_{Calories} = \frac{E_{day}}{4184} \approx \frac{8.144 \times 10^7}{4184} \approx 19464.627 \, \text{ Calories/day}
+\]
+So, the energy emitted in a day is approximately 19464.627 food Calories.
+
+(c) The calculation seems paradoxical because it only accounts for energy radiated out by the body, but ignores energy radiated back to us by our surroundings.
+
+In reality, we must consider the net radiation loss, which is the difference between what we emit and what we absorb from the environment. At room temperature (20°C), the environment radiates approximately 785 W back to us. Therefore, our net radiation loss is only about 942.546 - 785 = 157.546 W, which over 24 hours equals roughly the Calories that matching typical daily food intake.
+\subsection*{Problem 2}
+The Voyager 1 probe was launched in 1977 to explore outer space. As it moves further and further away from the Sun, the amount of energy it receives from solar radiation decreases as
+\[
+S = S_0 \frac{r_E^2}{r^2},
+\]
+where $S_0 = 1361\,\text{W/m}^2$ is the solar constant, $r_E (= 150 \cdot 10^9\,\text{m})$ is the distance between the Sun and the Earth, and $r$ is the distance between the Sun and the probe.
+
+\begin{enumerate}
+\item[(a)] Assuming that the probe is a sphere of albedo 0.1, determine its temperature as a function of $r$.
+
+\item[(b)] In particular, what is its current temperature? According to \url{https://science.nasa.gov/mission/voyager/where-are-voyager-1-and-voyager-2-now/}, it is approximately $2.517 \cdot 10^{13}$ m away; I had to convert from miles to meters; check my math!
+\end{enumerate}
+
+(a) To determine the temperature of the Voyager 1 probe as a function of its distance from the Sun, we can use the concept of radiative equilibrium. The power absorbed by the probe must equal the power it emits.
+The power absorbed by the probe can be calculated as follows:
+\[P_{absorbed} = (1 - \alpha) \cdot S \cdot A_{cross-section}\]
+where $\alpha = 0.1$ is the albedo of the probe, $S$ is the solar radiation at distance $r$, and $A_{cross-section} = \pi r_{probe}^2$ is the cross-sectional area of the probe (assuming it is a sphere with radius $r_{probe}$).
+The power emitted by the probe can be calculated using the Stefan-Boltzmann law:
+\[
+P_{emitted} = \sigma \cdot A_{surface} \cdot T^4
+\]
+where  $\sigma$ is the Stefan-Boltzmann constant, $A_{surface} = 4 \pi r_{probe}^2$ is the surface area of the probe, and $T$ is its temperature.
+Setting the absorbed power equal to the emitted power, we have:
+\[(1 - \alpha) \cdot S \cdot \pi r_{probe}^2 = \sigma \cdot 4 \pi r_{probe}^2 \cdot T^4\]
+Simplifying, we get:
+\[
+T = \left( \frac{(1 - \alpha) \cdot S}{4 \sigma} \right)^{1/4}
+\]
+Substituting the expression for $S$:
+\[T = \left( \frac{(1 - \alpha) \cdot S_0 \cdot r_E^2}{4  \sigma r^2} \right)^{1/4}=\frac{1.050 \cdot 10^8}{r^{1/2}}\]
+This gives us the temperature of the probe as a function of its distance from the Sun, $r$.
+
+(b) To find the current temperature of the Voyager 1 probe, we can substitute its current distance from the Sun, $r = 2.517 \times 10^{13}$ m, into the temperature formula derived in part (a):
+\[T = \frac{1.050 \cdot 10^8}{(2.517 \times 10^{13})^{1/2}} \approx 20.929 K\]
+So, the current temperature of the Voyager 1 probe is approximately 20.929 Kelvin.
+\subsection*{Problem 3}
+Consider that the Earth behaves as a leaky greenhouse as in section 2.3.2.
+
+\begin{enumerate}
+\item[(a)] Find its surface temperature, $T_s$ and atmospheric temperature, $T_a$ of a planet assuming that the incoming solar radiation is $S_0 = 1361\,\text{Wm}^{-2}$, its albedo is $\alpha = 0.300$ and the emissivity of the atmosphere is $\epsilon = 0.700$. Don't worry if it's a bit cold; the values $\epsilon$ and $\alpha$ are approximate.
+
+\item[(b)] A detailed, but straightforward radiative transfer calculation shows that if you hold the temperature of the planet and atmosphere fixed, a doubling of atmospheric carbon dioxide corresponds to an additional heating of $4\,\text{Wm}^{-2}$ at the surface. Find the value of $\epsilon$ that would correspond to an increase in radiation from the atmosphere to surface of $4\,\text{Wm}^{-2}$.
+
+\item[(c)] Find the change in surface temperature needed to bring the surface and atmosphere back into equilibrium. This is a simple, albeit naive, estimate of the global warming response to a doubling of CO$_2$, assuming no other feedbacks.
+
+\item[(d)] As discussed in class, when the planet warms, we expect the water vapor content of the atmosphere to increase. Water vapor is a potent greenhouse gas and will increase the emissivity of the atmosphere. Under the same condition as above, find the final change in surface temperature if the emissivity increases by 0.01 per degree Kelvin above the initial temperature you computed in
+
+\end{enumerate}
+(a)by Energy balance equations, we have: 
+\\Surface: $\frac{S_0}{4}(1-\alpha) + \epsilon\sigma T_a^4 = \sigma T_s^4$
+\\Atmosphere: $\epsilon\sigma T_s^4 = 2\epsilon\sigma T_a^4$
+\\From the atmospheric balance: $T_a = \left( \frac{T_s^4}{2} \right)^{1/4}$
+\\Substituting $T_a$ into the surface balance:
+\[\frac{S_0}{4}(1-\alpha) + \epsilon\sigma \left( \frac{T_s^4}{2} \right) = \sigma T_s^4\]
+\[\frac{1361}{4}\cdot 0.7 + 0.7 \cdot 5.67 \times 10^{-8} \cdot \frac{T_s^4}{2} = 5.67 \times 10^{-8} \cdot T_s^4\]
+Solving for $T_s$, we get:
+\[T_s \approx 283.531 K\]
+Then substituting $T_s$ back to find $T_a$:
+\[T_a = \left( \frac{T_s^4}{2} \right)^{1/4} = \left( \frac{(283.531)^4}{2} \right)^{1/4} \approx 238.420 K\]
+\\
+So, the surface temperature $T_s$ is approximately 283.531 K and the atmospheric temperature $T_a$ is approximately 238.420 K.
+\\
+(b) To find the new emissivity $\epsilon'$ that would correspond to an increase in radiation from the atmosphere to the surface of $4\,\text{Wm}^{-2}$, we start with the original energy balance equations and modify them to account for the additional heating.
+\\Initial: \[E_{down,0} = 0.700 \times 5.67 \times 10^{-8} \times (238.420)^4 = 128.248,\text{W/m}^2\]
+\\New: \[E_{down,new} = 128.248 + 4.000 = 132.248,\text{W/m}^2\]
+\[\epsilon' = \frac{E_{down,new}}{\sigma\cdot T_a^4} = \frac{132.248}{5.67 \times 10^{-8} \cdot (238.420)^4} \approx 0.722\]
+\\So, the new emissivity $\epsilon'$ is approximately 0.722.
+\\
+(c) To find the change in surface temperature needed to bring the surface and atmosphere back into equilibrium, we can use the modified energy balance equations with the new emissivity $\epsilon' = 0.722$.
+\\From atmospheric balance: $T_a = \frac{T_s}{2^{1/4}}$
+\\Surface balance: $\frac{S_0}{4}(1-\alpha) + \epsilon\sigma T_a^4 = \sigma T_s^4$
+\[\frac{1361}{4}\cdot 0.7 + 0.722 \cdot 5.67 \times 10^{-8} \cdot \frac{T_s^4}{2} = 5.67 \times 10^{-8} \cdot T_s^4\]
+Solving for $T_s$, we get:
+\[T_s \approx 284.743K\]
+\\The change in surface temperature is:
+\[\Delta T_s = T_{s,new} - T_{s,initial} = 284.743 - 283.531 \approx 1.212 K\]
+\\So, the change in surface temperature needed to bring the surface and atmosphere back into equilibrium is
+approximately 1.212 K.
+\\(d)
+\begin{verbatim}
+Water Vapor Feedback Iteration (Pseudocode):
+
+Initialization:
+    sigma := 5.67e-8
+    S_in := 283.531
+  epsilon_0 := 0.700
+  T_initial := [S_in / (sigma * (1 - epsilon_0/2))]^{1/4}
+  T_CO2 := [S_in / (sigma * (1 - epsilon_CO2/2))]^{1/4}
+  Delta_T := T_CO2 - T_initial
+
+Iteration:
+  repeat
+    epsilon := epsilon_CO2 + 0.01 * Delta_T
+    T_s := [S_in / (sigma * (1 - epsilon/2))]^{1/4}
+    Delta_T_new := T_s - T_initial
+    if |Delta_T_new - Delta_T| < 1e-6 then
+      break
+    end if
+    Delta_T := Delta_T_new
+  until converged
+
+Return Delta_T, epsilon, T_s
+\end{verbatim}
+We find that the final change in surface temperature is approximately 3.095 K, with a final emissivity of approximately 0.7529.
+\\
+(a). For this last part, you can use an iterative numerical solution, but be sure to document how you do it (for example, by showing the code you use). Note: it clearly doesn't make sense for the emissivity to scale linearly with temperature for too long: at one point you'd have a nonsensical emissivity above 1 (or below 0, if you cooled the planet). What we have done here is made a linear approximation to $\epsilon(T_s)$ that is valid for a limited range around the initial temperature.
+
+
+
+\subsection*{Problem 4}
+In the leaky greenhouse model discussed in class, the emissivity of the atmosphere is capped at 1. However, some planetary atmospheres, such as Venus, are highly opaque to infrared radiation. To model this situation, we treat the atmosphere as multiple layers of absorbing greenhouse. In class we considered the greenhouse effect induced by a `two-layer' atmosphere like the one represented on Figure 2.9. of the textbook. The atmosphere is made of two fully absorbing layers A and B - meaning that each layer absorbs all radiation coming from above and below it. (The lower layer (B) absorbs all the radiation coming from the top layer (A) and the surface. The upper layer (A) absorbs all the radiation from the lower layer.)
+
+\begin{enumerate}
+\item[(a)] Write the energy budget from both the atmospheric layer and the surface.
+
+\item[(b)] Solve these equations to determine the temperature of each layer and for the surface, assuming a solar constant of $2632\,\text{Wm}^{-2}$ and an albedo of 0.77 (the values appropriate for Venus).
+
+\item[(c)] Now add a third layer, looking for a pattern in the solution. What is the surface temperature with three layers?
+
+\item[(d)] Finally, determine how many layers of atmosphere are needed to get a surface temperature of 760 K.
+\end{enumerate}
+
+(a) Energy Budgets
+
+\textbf{Surface Energy Budget:} 
+\begin{equation*}
+\frac{(1-\alpha)S_0}{4} + \sigma T_B^4 = \sigma T_s^4\,.
+\end{equation*}
+
+\textbf{Lower Atmospheric Layer (B):} 
+\begin{equation*}
+\sigma T_s^4 + \sigma T_A^4 = 2\sigma T_B^4\,.
+\end{equation*}
+
+\textbf{Upper Atmospheric Layer (A):} 
+\begin{equation*}
+\sigma T_B^4 = 2\sigma T_A^4.
+\end{equation*}
+(b) Solving the System of Equations,by A and B
+\[T_s^4=3T_A^4\]
+Then, connecting with the surface energy budget:
+\[\frac{(1-\alpha)S_0}{4} + \sigma T_B^4 = \sigma T_s^4\]
+\[\frac{(1-0.77)2632}{4} + \sigma \cdot2T_A^4 = \sigma \cdot 3T_A^4\]
+\[T_A = 227.296 K\]
+\[T_B = 270.302K\]
+\[T_s = 299.138K\]
+(c) For three layers, we denote the temperatures of the layers as $T_A$, $T_B$, and $T_C$ from top to bottom, and the surface temperature as $T_s$. The energy budgets are:
+\textbf{Surface Energy Budget:}
+\begin{equation*}
+\frac{(1-\alpha)S_0}{4} + \sigma T_C^4 = \sigma T_s^4\,.
+\end{equation*}
+\textbf{Lower Atmospheric Layer (C):}
+\begin{equation*}
+\sigma T_s^4 + \sigma T_B^4 = 2\sigma T_C^4\,.
+\end{equation*}
+\textbf{Upper Atmospheric Layer (B):}
+\begin{equation*}
+\sigma T_C^4 + \sigma T_A^4 = 2\sigma T_B^4\,.
+\end{equation*}
+\textbf{Top Atmospheric Layer (A):}
+\begin{equation*}
+\sigma T_B^4 = 2\sigma T_A^4.
+\end{equation*}
+We can find the pattern in the temperatures:
+\[\frac{(1-\alpha)S_0}{4} = \sigma T_{top}^4\]
+\[T_{top-n}^4 = (n+1)\sigma T_{top}^4.\]
+Solving these equations, we find:
+\[T_A = 227.2964578 K\]
+\[T_B = 270.302K\]
+\[T_C = 299.138K\]
+\[T_s = 321.445K\]
+(d) To determine how many layers of atmosphere are needed to achieve a surface temperature of 760 K, we can use the pattern observed in the previous parts. The surface temperature $T_s=760K$ can be expressed in terms of the top layer temperature $T_{top}=T_A$ and the number of layers $n$ as follows:
+\[T_s^4 = (n+1)T_{top}^4\]
+where $T_{top}=T_A$ is the temperature of the top layer, which can be calculated from the solar constant and albedo:
+\[\frac{(1-\alpha)S_0}{4} = \sigma T_{top}^4\]
+\[N+1 = \frac{T_s^4}{T_{top}^4}\]
+Solving for $n$:
+\[n=123.992\approx124\]
+Thus, approximately 124 layers of atmosphere are needed to achieve a surface temperature of 760 K.
+\end{document}
