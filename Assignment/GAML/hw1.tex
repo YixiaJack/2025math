@@ -205,6 +205,180 @@ where $\Dkl(q\|p)= q\log\frac{q}{p}+(1-q)\log\frac{1-q}{1-p}$ is the binary rela
 
 \item Show that this can be used to derive a bound that is finer than Hoeffding's inequality by choosing $q=p+\varepsilon$, for any $\varepsilon>0$ \emph{(Hint: you can use Pinsker's inequality, which in this context gives $\Dkl(q\|p)\ge 2|p-q|^2$)}.
 \end{enumerate}
+
+(1)Recall that if \(Y\) is a nonnegative random variable and \(a > 0\), then Markov's inequality states:
+   \[
+   \mathbb{P}[Y \ge a] \le \frac{\mathbb{E}[Y]}{a}.
+   \]
+   Here, let
+   \[
+   Y = e^{tm\hat{p}} \quad \text{and} \quad a = e^{tmq}.
+   \]
+   Then,
+   \[
+   \mathbb{P}\left(e^{tm\hat{p}} \ge e^{tmq}\right) \le \frac{\mathbb{E}\left[e^{tm\hat{p}}\right]}{e^{tmq}}.
+   \]
+   Since the event \(\{e^{tm\hat{p}} \ge e^{tmq}\}\) is equivalent to \(\{\hat{p} \ge q\}\), we have:
+   \[
+   \mathbb{P}\left(\hat{p} \ge q\right) \le e^{-tmq} \, \mathbb{E}\left[e^{tm\hat{p}}\right].
+   \]
+Notice that
+   \[
+   \hat{p} = \frac{1}{m} \sum_{i=1}^m X_i \quad \Longrightarrow \quad e^{tm\hat{p}} = e^{t \sum_{i=1}^m X_i}.
+   \]
+   Since the \(X_i\) are independent, the expectation of the exponential of the sum factors as a product:
+   \[
+   \mathbb{E} \left[e^{t\sum_{i=1}^m X_i}\right] = \prod_{i=1}^m \mathbb{E} \left[e^{tX_i}\right].
+   \]
+   Thus, we obtain:
+   \[
+   \mathbb{P}\left(\hat{p} \ge q\right) \le e^{-tmq} \prod_{i=1}^m \mathbb{E} \left[e^{tX_i}\right].
+   \]
+(2)Define the function
+\[
+f(x) = e^{tx}.
+\]
+We compute its second derivative:
+\[
+f''(x) = t^2 e^{tx}.
+\]
+Since \(t > 0\) and \(e^{tx} > 0\) for all \(x\), we have \(f''(x) > 0\) for all \(x\). This shows that \(f(x)\) is a \emph{convex} function.
+
+For any \(x\in [0,1]\), we can express \(x\) as a convex combination of 0 and 1:
+\[
+x = (1-x)\cdot 0 + x\cdot 1.
+\]
+Using the property of convex functions, we have:
+\[
+f\Bigl((1-x)\cdot 0 + x\cdot 1\Bigr) \le (1-x)f(0) + x f(1).
+\]
+the inequality becomes
+\[
+e^{tx} \le (1-x)\cdot 1 + x\cdot e^t = 1-x+e^t x.
+\]
+This completes the proof of hint.
+\\Taking expectation with respect to \(X_i\) yields
+\[
+\mathbb{E}\left[e^{tX_i}\right] \le \mathbb{E}\Bigl[1-X_i+e^t X_i\Bigr].
+\]
+Because expectation is linear, we have
+\[
+\mathbb{E}\Bigl[1-X_i+e^t X_i\Bigr] = 1-\mathbb{E}[X_i]+e^t\,\mathbb{E}[X_i] = 1-p+e^t p.
+\]
+Since the same bound holds for each \(X_i\), we get
+\[
+\prod_{i=1}^m \mathbb{E}\left[e^{tX_i}\right] \le \Bigl(1-p+e^t p\Bigr)^m.
+\]
+Substituting this into our earlier bound gives
+\[
+\mathbb{P}\left[\hat{p}\ge q\right] \le e^{-tmq}\Bigl(1-p+e^t p\Bigr)^m.
+\]
+Since \(e^{-tmq} = \Bigl(e^{-tq}\Bigr)^m\), we can write:
+\[
+\mathbb{P}\left[\hat{p}\ge q\right] \le \Bigl[e^{-tq}\Bigl(1-p+e^t p\Bigr)\Bigr]^m.
+\]
+This completes the proof.
+\\(3)
+\\
+Let 
+\[
+f(t)= e^{-tq}\Bigl(1-p+p\,e^t\Bigr).
+\]
+We wish to choose \(t>0\) so that \(f(t)\) is minimized.
+\\Define
+\[
+\phi(t)=\ln f(t)= -tq + \ln\Bigl(1-p+p\,e^t\Bigr).
+\]
+Differentiating with respect to \(t\) gives
+\[
+\phi'(t) = -q + \frac{p\,e^t}{\,1-p+p\,e^t}\,.
+\]
+Setting \(\phi'(t)=0\) yields
+\[
+\frac{p\,e^t}{\,1-p+p\,e^t} = q.
+\]
+Solving for \(e^t\):
+\[
+p\,e^t = q\Bigl(1-p+p\,e^t\Bigr) \quad \Longrightarrow \quad p\,e^t = q(1-p) + q\,p\,e^t\,.
+\]
+Rearrange the terms to isolate \(e^t\):
+\[
+p\,e^t (1-q) = q(1-p) \quad \Longrightarrow \quad e^t = \frac{q(1-p)}{p(1-q)}.
+\]
+Thus, the minimizing value is
+\[
+t^* = \ln\!\left(\frac{q(1-p)}{p(1-q)}\right).
+\]
+
+Substitute \(t=t^*\) into the bound:
+\[
+f(t^*) = e^{-q\,t^*}\Bigl(1-p+p\,e^{t^*}\Bigr).
+\]
+Since
+\[
+e^{t^*} = \frac{q(1-p)}{p(1-q)},
+\]
+we have:
+\[
+e^{-q\,t^*} = \left(\frac{q(1-p)}{p(1-q)}\right)^{-q},
+\]
+and
+\[
+1-p+p\,e^{t^*}= 1-p + p\,\frac{q(1-p)}{p(1-q)}
+= 1-p + \frac{q(1-p)}{1-q}
+= (1-p)\left(1 + \frac{q}{1-q}\right)
+= \frac{1-p}{1-q}\,.
+\]
+Thus,
+\[
+f(t^*) = \left(\frac{q(1-p)}{p(1-q)}\right)^{-q}\frac{1-p}{1-q}.
+\]
+
+Rewrite the expression 
+and we obtain
+\[
+f(t^*) = \left(\frac{p}{q}\right)^q (1-p)^{1-q}(1-q)^{-(1-q)}
+= \left(\frac{p}{q}\right)^q \left(\frac{1-p}{1-q}\right)^{1-q}\,.
+\]
+Observing that
+\[
+e^{-\Dkl(q\|p)} = \exp\Bigl[-q\log\frac{q}{p}-(1-q)\log\frac{1-q}{1-p}\Bigr]
+= \left(\frac{p}{q}\right)^q \left(\frac{1-p}{1-q}\right)^{1-q}\,,
+\]
+we conclude that
+\[
+f(t^*) = e^{-\Dkl(q\|p)}.
+\]
+Thus, the optimal bound becomes
+\[
+\mathbb{P}\Bigl[\hat{p}\ge q\Bigr] \le \Bigl[f(t^*)\Bigr]^m
+= e^{-m\,\Dkl(q\|p)}\,.
+\]
+\\(4)
+choose 
+\[
+q = p + \varepsilon \quad \text{for any } \varepsilon > 0.
+\]
+Then the bound becomes
+\[
+\mathbb{P}\left[\hat{p} \ge p+\varepsilon\right] \le \exp\Bigl(-m\,\Dkl(p+\varepsilon\|p)\Bigr).
+\]
+
+\emph{Pinsker's inequality}, tells us that in this context
+\[
+\Dkl(p+\varepsilon \| p) \ge 2\varepsilon^2.
+\]
+Substituting this into our bound, we obtain
+\[
+\mathbb{P}\left[\hat{p} \ge p+\varepsilon\right] \le e^{-2m\,\varepsilon^2}.
+\]
+
+This bound is at least as strong (and under many circumstances finer) than Hoeffding's inequality.  because:
+\begin{itemize}
+  \item The binary relative entropy \(\Dkl(p+\varepsilon\|p)\) depends on the specific values of \(p\) and \(p+\varepsilon\), thereby capturing the true large-deviation rate. In contrast, Hoeffding's inequality provides a uniform \emph{worst-case} bound over all distributions with support in \([0,1]\).
+  \item Pinsker's inequality gives the lower bound \(\Dkl(p+\varepsilon\|p) \ge 2\varepsilon^2\), but \(\Dkl(p+\varepsilon\|p)\) is typically \emph{greater} than \(2\varepsilon^2\) unless \(p=1/2\) (or in the limit as \(\varepsilon\to 0\)). For example, when \(p\) is near 0 or 1, the divergence \(\Dkl(p+\varepsilon\|p)\) can be significantly larger than \(2\varepsilon^2\), which implies a much faster exponential decay for the tail probability.
+\end{itemize}
+
 \subsection*{Problem B. PAC-Learning}
 \begin{enumerate}[leftmargin=1.2em,label=\arabic*.]
 \item \textbf{Concentric spheres.} Let $\mathcal{X}=\mathbb{R}^3$ and consider the set of concepts of the form
