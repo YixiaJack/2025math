@@ -39,7 +39,7 @@
 \contentsline {subsection}{\numberline {2.3.3}Exercise}{38}{subsection.2.3.3}%
 \contentsline {section}{\numberline {2.4}Lecture 3 (02-10)--(Content and Measure)}{40}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Content and Measure}{41}{subsection.2.4.1}%
-\contentsline {section}{\numberline {2.5}Lecture 4 (02-12)--{Measure and Extension}}{44}{section.2.5}%
+\contentsline {section}{\numberline {2.5}Lecture 4 (02-12)--{Measure and Extension}}{43}{section.2.5}%
 \contentsline {subsection}{\numberline {2.5.1}$ \pi $ and $\lambda $ system }{47}{subsection.2.5.1}%
 \contentsline {section}{\numberline {2.6}Recitation 2 (02-14)-Exercise}{48}{section.2.6}%
 \contentsline {subsection}{\numberline {2.6.1}Special Case:}{49}{subsection.2.6.1}%
@@ -51,10 +51,10 @@
 \contentsline {section}{\numberline {2.11}Lecture 8 (02-26)}{59}{section.2.11}%
 \contentsline {section}{\numberline {2.12}Lecture 9 (02-28)-{Expectation}}{63}{section.2.12}%
 \contentsline {section}{\numberline {2.13}Lecture 10 (03-02)-{Var}}{64}{section.2.13}%
-\contentsline {section}{\numberline {2.14}Lecture 11 (03-05)-{poisson random variable}}{67}{section.2.14}%
-\contentsline {section}{\numberline {2.15}Recitation (03-07)}{70}{section.2.15}%
+\contentsline {section}{\numberline {2.14}Lecture 11 (03-05)-{poisson random variable}}{66}{section.2.14}%
+\contentsline {section}{\numberline {2.15}Recitation (03-07)}{69}{section.2.15}%
 \contentsline {section}{\numberline {2.16}Lecture 12 (03-10)}{71}{section.2.16}%
-\contentsline {section}{\numberline {2.17}Lecture 13 (03-12)}{77}{section.2.17}%
+\contentsline {section}{\numberline {2.17}Lecture 13 (03-12)}{76}{section.2.17}%
 \contentsline {section}{\numberline {2.18}Recitation (03-14)}{82}{section.2.18}%
 \contentsline {section}{\numberline {2.19}Lecture 14 (03-17)}{86}{section.2.19}%
 \contentsline {subsection}{\numberline {2.19.1}Joint distribution}{88}{subsection.2.19.1}%

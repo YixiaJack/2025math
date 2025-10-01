@@ -1,0 +1,9 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'Notebook.blg'
+[57] biber-MSWIN64:342> INFO - === 
+[79] Biber.pm:421> INFO - Reading 'Notebook.bcf'
+[136] Biber.pm:1002> INFO - Found 0 citekeys in bib section 0
+[144] bbl.pm:676> INFO - Writing 'Notebook.bbl' with encoding 'UTF-8'
+[144] bbl.pm:779> INFO - Output to Notebook.bbl
+[144] Biber.pm:132> WARN - The file 'Notebook.bcf' does not contain any citations!
+[144] Biber.pm:134> INFO - WARNINGS: 1

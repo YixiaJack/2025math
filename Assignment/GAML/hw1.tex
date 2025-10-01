@@ -391,6 +391,107 @@ m \;\ge\; \frac{1}{\varepsilon}\,\log\!\left(\frac{1}{\delta}\right).
 \]
 You should carefully justify all steps of your proof. (For this problem, you should seek a proof similar to one presented in class for rectangles in the plane and not leverage a more powerful or more general theorem.)
 \end{enumerate}
+We consider the concept class
+\[
+\mathcal{C} = \{ c_r : c_r = \{(x,y,z) \in \mathbb{R}^3 : x^2 + y^2 + z^2 \le r^2\}, \; r > 0\},
+\]
+and assume the target concept is
+\[
+c = c_{r_0} = \{(x,y,z) \in \mathbb{R}^3 : x^2 + y^2 + z^2 \le r_0^2\},
+\]
+for some unknown \(r_0 > 0\). The distribution \(D\) over \(\mathbb{R}^3\) is arbitrary.
+
+Then, we can he this Algorithm: Given \(m\) i.i.d. training examples
+\[
+S = \{(x_1, y_1), (x_2, y_2), \ldots, (x_m, y_m)\},
+\]
+where \(x_i \sim D\) and
+\[
+y_i = \mathbf{1}_{x_i \in c},
+\]
+the algorithm outputs the hypothesis
+\[
+h = \{ x \in \mathbb{R}^3 : \|x\| \le r_+\},
+\]
+where
+\[
+r_+ = \max\{\, \|x_i\| : y_i = 1 \,\}
+\]
+is the maximum distance from the origin among all positive examples.
+
+The correctness is that since for any positive example we have \(\|x_i\| \le r_0\), it follows that
+\[
+r_+ \le r_0,
+\]
+so that
+\[
+h \subseteq c.
+\]
+Thus, the hypothesis \(h\) never labels a negative example as positive and the only possible error is failing to cover some positive examples. In particular, the error is
+\[
+\operatorname{error}_D(h) = \Pr_{x \sim D}\big[x \in c \setminus h\big].
+\]
+
+\textbf{PAC Guarantee}:\\
+Fix \(\varepsilon,\delta \in (0,1)\). We wish to show that if
+\[
+m \ge \frac{1}{\varepsilon}\ln\!\left(\frac{1}{\delta}\right),
+\]
+then
+\[
+\Pr\big[\operatorname{error}_D(h) > \varepsilon\big] \le \delta.
+\]
+
+The proof proceeds similarly to the one for axis-aligned rectangles in the plane:
+
+Since \(h \subseteq c\), the error comes solely from points in the annulus (the outer shell) of \(c\). Choose a radius \(r'\) with \(0 \le r' < r_0\) so that the outer region
+\[
+A = \{x \in c: r' < \|x\| \le r_0\}
+\]
+has probability
+\[
+\Pr_D[A] \ge \varepsilon.
+\]
+(If such an \(A\) does not exist—namely, if \(\Pr_D[c] \le \varepsilon\)—then for any hypothesis \(h \subseteq c\) the error satisfies \(\operatorname{error}_D(h) \le \Pr_D[c] \le \varepsilon\), and the claim holds trivially.)
+
+Notice that if at least one positive training example lies in \(A\), then the maximum radius \(r_+\) will be at least \(r'\), and therefore
+\[
+h = \{x: \|x\| \le r_+\} \supseteq \{x: \|x\| \le r'\}.
+\]
+Thus,
+\[
+c \setminus h \subseteq c \setminus \{x: \|x\| \le r'\} = A,
+\]
+and consequently,
+\[
+\operatorname{error}_D(h) \le \Pr_D[A] \le \varepsilon.
+\]
+In other words, if a positive training example falls in \(A\), then the error is at most \(\varepsilon\).
+
+If \(\operatorname{error}_D(h) > \varepsilon\), then no positive training example in \(S\) fell in \(A\). For each training example, the probability (unconditionally) that it lands in \(A\) is at least \(\varepsilon\). Therefore, the probability that a single training example does \emph{not} fall in \(A\) is at most \(1-\varepsilon\). Since the examples are independent, the probability that none of the \(m\) examples falls in \(A\) is bounded by
+\[
+(1-\varepsilon)^{\,m} \le e^{-m\varepsilon}.
+\]
+
+To guarantee that
+\[
+\Pr\big[\operatorname{error}_D(h) > \varepsilon\big] \le e^{-m\varepsilon} \le \delta,
+\]
+it suffices to choose \(m\) so that
+\[
+e^{-m\varepsilon} \le \delta.
+\]
+Taking logarithms we have
+\[
+-m\varepsilon \le \ln \delta,
+\]
+or equivalently,
+\[
+m \ge \frac{1}{\varepsilon}\ln\!\left(\frac{1}{\delta}\right).
+\]
+
+This completes the proof
+\hfill \(\square\)
 \subsection*{Problem C. Rademacher complexity}
 \begin{enumerate}[leftmargin=1.2em,label=\arabic*.]
 \item Let $\mathcal{H}_1$ and $\mathcal{H}_2$ be two families of functions mapping $\mathcal{X}$ to $[0,1]$ and let $S$ be a sample of size $m$.
@@ -419,4 +520,293 @@ You should carefully justify all steps of your proof. (For this problem, you sho
   \item  1[bonus question] Let $n^\ast$ denote the largest number of repetitions of any point in the sample. Give an upper bound on $\widehat{\mathfrak{R}}_{S}(\mathcal{E})$ in terms of $n^\ast$.
   \end{enumerate}
 \end{enumerate}
+
+(1)
+For the class \(\mathcal{H}_1+\mathcal{H}_2\), we have
+\[
+\begin{aligned}
+\widehat{\mathfrak{R}}_S(\mathcal{H}_1+\mathcal{H}_2) 
+&=\frac{1}{m}\mathbb{E}_\sigma \left[\sup_{h_1\in\mathcal{H}_1,\,h_2\in\mathcal{H}_2} \sum_{i=1}^m \sigma_i \Bigl(h_1(x_i)+h_2(x_i)\Bigr)\right] \\
+&=\frac{1}{m}\mathbb{E}_\sigma \Biggl[
+\sup_{h_1\in\mathcal{H}_1}\sum_{i=1}^m \sigma_i h_1(x_i)
++\sup_{h_2\in\mathcal{H}_2}\sum_{i=1}^m \sigma_i h_2(x_i)
+\Biggr] \\
+&=\widehat{\mathfrak{R}}_S(\mathcal{H}_1)+\widehat{\mathfrak{R}}_S(\mathcal{H}_2).
+\end{aligned}
+\]
+ This completes the proof for part (a).
+
+Let us now consider the class \(\mathcal{H}_1\mathcal{H}_2=\{\,h_1\cdot h_2: h_1\in\mathcal{H}_1,\,h_2\in\mathcal{H}_2\,\}\). By definition,
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{H}_1\mathcal{H}_2)
+=\frac{1}{m}\mathbb{E}_\sigma \left[\sup_{h_1\in\mathcal{H}_1,\, h_2\in\mathcal{H}_2} \sum_{i=1}^m \sigma_i \, h_1(x_i)h_2(x_i)\right].
+\]
+For any real numbers \(x_1,x_2\) the following identity holds:
+\[
+x_1x_2=\frac{1}{4}\Bigl[(x_1+x_2)^2-(x_1-x_2)^2\Bigr].
+\]
+Hence, replacing \(x_1=r_i:=h_1(x_i)\) and \(x_2=s_i:=h_2(x_i)\) (noting that since \(h_1(x_i),h_2(x_i)\in[0,1]\) the sums \(h_1(x_i)+h_2(x_i)\in[0,2]\) and differences \(\;h_1(x_i)-h_2(x_i)\in[-1,1]\)) we obtain
+\[
+h_1(x_i)h_2(x_i)=\frac{1}{4}\Bigl[(h_1(x_i)+h_2(x_i))^2-(h_1(x_i)-h_2(x_i))^2\Bigr].
+\]
+Thus, for any fixed choice of Rademacher signs,
+\[
+\sum_{i=1}^m\sigma_i\, h_1(x_i)h_2(x_i)
+=\frac{1}{4}\sum_{i=1}^m\sigma_i\Bigl[(h_1(x_i)+h_2(x_i))^2-(h_1(x_i)-h_2(x_i))^2\Bigr].
+\]
+Taking the supremum over \(h_1\) and \(h_2\) and then the expectation yields
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{H}_1\mathcal{H}_2)
+\le \frac{1}{4}\left[
+\widehat{\mathfrak{R}}_S\Bigl(\{(h_1+h_2)^2\}\Bigr)
++\widehat{\mathfrak{R}}_S\Bigl(\{(h_1-h_2)^2\}\Bigr)
+\right].
+\]
+
+We now use Talagrand's contraction lemma. Recall that if \(\phi\colon\mathbb{R}\to\mathbb{R}\) is \(L\)-Lipschitz with \(\phi(0)=0\), then
+\[
+\widehat{\mathfrak{R}}_S\Bigl(\phi\circ\mathcal{F}\Bigr)
+\le L\,\widehat{\mathfrak{R}}_S(\mathcal{F}).
+\]
+
+\medskip
+
+\underline{For the Class \(\{(h_1+h_2)^2\}\):}  
+Since \(h_1(x)+h_2(x)\in[0,2]\), the function \(\phi(x)=x^2\) is \(4\)-Lipschitz on \([0,2]\) (because for \(x,y\in[0,2]\),
+\[
+|x^2-y^2|=|x-y||x+y|\le 4|x-y|).
+\]
+Moreover, \(\phi(0)=0\). Thus, by the contraction lemma,
+\[
+\widehat{\mathfrak{R}}_S\Bigl(\{(h_1+h_2)^2\}\Bigr)
+\le 4\,\widehat{\mathfrak{R}}_S(\{h_1+h_2\}).
+\]
+Using part (a), we have
+\[
+\widehat{\mathfrak{R}}_S(\{h_1+h_2\})=\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2).
+\]
+Thus,
+\[
+\widehat{\mathfrak{R}}_S\Bigl(\{(h_1+h_2)^2\}\Bigr)
+\le 4\,\Bigl[\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2)\Bigr].
+\]
+
+\medskip
+
+\underline{For the Class \(\{(h_1-h_2)^2\}\):}  
+Similarly, \(h_1(x)-h_2(x)\in[-1,1]\) and on \([-1,1]\) the function \(\psi(x)=x^2\) is \(2\)-Lipschitz (since \(|x^2-y^2|\le 2|x-y|\) for all \(x,y\in[-1,1]\) and \(\psi(0)=0\)). Hence,
+\[
+\widehat{\mathfrak{R}}_S\Bigl(\{(h_1-h_2)^2\}\Bigr)
+\le 2\,\widehat{\mathfrak{R}}_S(\{h_1-h_2\})
+= 2\,\Bigl[\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2)\Bigr],
+\]
+where in the last step we again used part (a) (noting that for any pair, \((h_1-h_2)\) belongs to the sum of \(\mathcal{H}_1\) and \(-\mathcal{H}_2\); since the Rademacher complexity is invariant under sign changes, the same bound holds).
+
+\medskip
+
+Plugging these estimates back into our bound for \(\widehat{\mathfrak{R}}_S(\mathcal{H}_1\mathcal{H}_2)\) we obtain
+\[
+\begin{aligned}
+\widehat{\mathfrak{R}}_S(\mathcal{H}_1\mathcal{H}_2)
+&\le \frac{1}{4}\left[
+4\,\Bigl(\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2)\Bigr)
++ 2\,\Bigl(\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2)\Bigr)
+\right] \\
+&=\frac{1}{4}\cdot 6\,\Bigl(\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2)\Bigr)
+=\frac{3}{2}\,\Bigl(\widehat{\mathfrak{R}}_S(\mathcal{H}_1)
++\widehat{\mathfrak{R}}_S(\mathcal{H}_2)\Bigr).
+\end{aligned}
+\]
+This completes the proof for part (b).\\
+(2)
+\\\textbf{Proof:}\\[1mm]
+For the class \(\mathcal{E}\), each function is of the form
+\[
+f_z(x)=\mathbf{1}_{\{x=z\}},\quad \text{for some } z\in\mathcal{X}.
+\]
+Consider a fixed sample \(S=\{x_1,\dots,x_m\}\) where all \(x_i\) are distinct. There are two types of functions in \(\mathcal{E}\):
+  
+1. If \(z\notin S\), then for all \(i\) we have \(f_z(x_i)=0\) and thus 
+\[
+\sum_{i=1}^{m}\sigma_i\,f_z(x_i)=0.
+\]
+  
+2. If \(z=x_j\) for some \(j\in\{1,\dots,m\}\), then
+\[
+f_z(x_i)= \begin{cases} 1, &\text{if }i=j,\\ 0,& \text{otherwise.} \end{cases}
+\]
+Hence,
+\[
+\sum_{i=1}^m \sigma_i\,f_z(x_i)=\sigma_j.
+\]
+
+Thus, the supremum 
+\[
+\sup_{f\in \mathcal{E}}\sum_{i=1}^m \sigma_i\,f(x_i)
+\]
+is achieved by choosing an index \(j\) for which \(\sigma_j=+1\) if at least one exists; otherwise, if all \(\sigma_i=-1\), one may choose a function corresponding to some \(z\notin S\) (which gives sum \(0\)) to obtain a larger value. In summary, we have
+\[
+\sup_{f\in \mathcal{E}}\sum_{i=1}^m \sigma_i\,f(x_i)
+=\max\Bigl\{0,\,\max_{1\le j\le m} \sigma_j\Bigr\}.
+\]
+Since each \(\sigma_j\) takes values in \(\{-1,+1\}\), the above supremum equals:
+\[
+\sup_{f\in \mathcal{E}}\sum_{i=1}^m \sigma_i\,f(x_i)=
+\begin{cases}
+1, &\text{if there exists some } j \text{ with } \sigma_j=+1; \\
+0, &\text{if } \sigma_i=-1 \text{ for all } i.
+\end{cases}
+\]
+
+Therefore, by taking expectation over the random signs, we observe that
+\[
+\mathbb{E}_{\sigma}\!\left[\sup_{f\in \mathcal{E}}\sum_{i=1}^m \sigma_i\,f(x_i)\right]
+=(1-2^{-m})\cdot 1 + 2^{-m}\cdot 0 = 1-2^{-m}.
+\]
+
+Finally, by the definition of empirical Rademacher complexity we have
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{E})
+=\frac{1}{m}\Bigl(1-2^{-m}\Bigr)
+\le \frac{1}{m},
+\]
+since \(1-2^{-m}\le 1\) for all \(m\ge 1\).
+
+This completes the proof.
+\\(b)
+Since every function in \(\mathcal{E}\) is of the form
+\[
+f_{z}(x) = \mathbf{1}_{\{x=z\}} \quad \text{for some } z\in\mathcal{X},
+\]
+we examine its action on the sample \(S\).
+
+Because \(S\) contains only the single point \(x\), we have:
+- If \(z=x\): then \(f_x(x) = 1\) so that for every \(i\),
+  \[
+  f_x(x_i) = 1,
+  \]
+  and therefore
+  \[
+  \sum_{i=1}^{m} \sigma_i\, f_x(x_i) = \sum_{i=1}^{m} \sigma_i.
+  \]
+- For any \(z \neq x\): then \(f_z(x) = 0\) so that
+  \[
+  f_z(x_i) = 0 \quad \text{for all } i,
+  \]
+  leading to
+  \[
+  \sum_{i=1}^{m} \sigma_i\, f_z(x_i) = 0.
+  \]
+
+Thus, the supremum over \(\mathcal{E}\) is
+\[
+\sup_{f\in\mathcal{E}} \sum_{i=1}^m \sigma_i\, f(x_i)
+=\max\left\{\sum_{i=1}^m \sigma_i,\; 0\right\},
+\]
+which is the positive part of the sum. We denote it by
+\[
+\left(\sum_{i=1}^m \sigma_i\right)_+.
+\]
+
+Thus, the empirical Rademacher complexity becomes
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{E}) 
+=\frac{1}{m}\,\mathbb{E}_{\boldsymbol{\sigma}}\!\left[\left(\sum_{i=1}^m \sigma_i\right)_+\right].
+\]
+Because the Rademacher distribution is symmetric, the positive part and the negative part are balanced. In fact, note that
+\[
+\left|\sum_{i=1}^m \sigma_i\right| 
+=\left(\sum_{i=1}^m \sigma_i\right)_+ + \left(-\sum_{i=1}^m \sigma_i\right)_+
+=2\left(\sum_{i=1}^m \sigma_i\right)_+,
+\]
+where the last equality holds by symmetry (i.e. \(\mathbb{E}[\left(\sum \sigma_i\right)_+]=\mathbb{E}\left[\left(-\sum \sigma_i\right)_+\right]\)). Taking expectation, we obtain
+\[
+\mathbb{E}_{\boldsymbol{\sigma}}\!\left[\left(\sum_{i=1}^m \sigma_i\right)_+\right]
+=\frac{1}{2}\,\mathbb{E}_{\boldsymbol{\sigma}}\!\left[\left|\sum_{i=1}^m \sigma_i\right|\right].
+\]
+Substituting back, we have
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{E})
+=\frac{1}{2m}\,\mathbb{E}_{\boldsymbol{\sigma}}\!\left[\left|\sum_{i=1}^{m}\sigma_i\right|\right].
+\]
+
+To bound \(\mathbb{E}\Bigl[\left|\sum_{i=1}^{m}\sigma_i\right|\Bigr]\), we can use the following standard calculation. First, notice that
+\[
+\mathbb{E}\!\left[\left(\sum_{i=1}^{m}\sigma_i\right)^2\right]
+=\sum_{i=1}^{m} \mathbb{E}[\sigma_i^2] 
+= m,
+\]
+since the \(\sigma_i\) are independent with \(\sigma_i^2=1\) almost surely.
+Now, by Jensen’s inequality, we have
+\[
+\mathbb{E}\!\left[\left|\sum_{i=1}^{m}\sigma_i\right|\right]
+\le \sqrt{\mathbb{E}\!\left[\Bigl(\sum_{i=1}^{m}\sigma_i\Bigr)^2\right]}
+=\sqrt{m}.
+\]
+Thus,
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{E})
+\le \frac{1}{2m}\,\sqrt{m}
+=\frac{1}{2\sqrt{m}}.
+\]
+
+(c):
+\\
+Let $S = \{x_1, \ldots, x_m\}$ be a sample containing $k$ distinct points $z_1, \ldots, z_k$, where point $z_j$ appears $n_j$ times. We have $n^* = \max_{j=1,\ldots,k} n_j$ and $\sum_{j=1}^k n_j = m$.
+
+For any function $e_z \in \mathcal{E}$ where $e_z(x) = \mathbf{1}_{\{x=z\}}$, we have:
+\[
+\sum_{i=1}^m \sigma_i e_z(x_i) = 
+\begin{cases}
+\sum_{i: x_i = z_j} \sigma_i & \text{if } z = z_j \text{ for some } j \in \{1,\ldots,k\} \\
+0 & \text{if } z \notin \{z_1,\ldots,z_k\}
+\end{cases}
+\]
+
+Therefore:
+\[
+\sup_{e \in \mathcal{E}} \sum_{i=1}^m \sigma_i e(x_i) = \max\left\{0, \max_{j=1,\ldots,k} \sum_{i: x_i = z_j} \sigma_i\right\}
+\]
+
+Constructing the finite set, for each $j \in \{1,\ldots,k\}$, define the vector $x^{(j)} \in \mathbb{R}^m$ by:
+\[
+x^{(j)}_i = \begin{cases} 
+1 & \text{if the } i\text{-th sample point equals } z_j \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+Also define $x^{(0)} = 0 \in \mathbb{R}^m$ (the zero vector).
+
+Let $A = \{x^{(0)}, x^{(1)}, \ldots, x^{(k)}\} \subset \mathbb{R}^m$. Then:
+\[
+\sup_{e \in \mathcal{E}} \sum_{i=1}^m \sigma_i e(x_i) = \sup_{x \in A} \sum_{i=1}^m \sigma_i x_i
+\]
+
+Computing the parameters for Massart's Lemma:
+
+\begin{itemize}
+\item The set $A$ is finite with $|A| = k + 1 \leq m + 1$
+\item For $j \in \{1,\ldots,k\}$: $\|x^{(j)}\|_2 = \sqrt{n_j} \leq \sqrt{n^*}$
+\item For $j = 0$: $\|x^{(0)}\|_2 = 0$
+\item Therefore: $R = \max_{x \in A} \|x\|_2 = \max_{j=1,\ldots,k} \sqrt{n_j} = \sqrt{n^*}$
+\end{itemize}
+
+By Massart's Lemma, for the finite set $A \subseteq \mathbb{R}^m$ with $R = \max_{x \in A} \|x\|_2 = \sqrt{n^*}$:
+\[
+\mathbb{E}_{\sigma}\left[\frac{1}{m} \sup_{x \in A} \sum_{i=1}^m \sigma_i x_i\right] \leq \frac{R\sqrt{2\log|A|}}{m} = \frac{\sqrt{n^*} \cdot \sqrt{2\log(k+1)}}{m}
+\]
+
+Since $k \leq m$, we have $\log(k+1) \leq \log(m+1)$. Therefore:
+\[
+\widehat{\mathfrak{R}}_S(\mathcal{E}) = \mathbb{E}_{\sigma}\left[\frac{1}{m} \sup_{e \in \mathcal{E}} \sum_{i=1}^m \sigma_i e(x_i)\right] \leq \frac{\sqrt{2n^* \log(m+1)}}{m}
+\]
+
+
 \end{document}
