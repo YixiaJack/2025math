@@ -1,0 +1,290 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-UA 228 (Fundamental Dynamics of Earth’s Atmosphere and Climate) -- Homework 1}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\section*{Problem 1}
+Starting from the hydrostatic balance
+\begin{equation*}
+\frac{dp}{dz} = -\rho g,
+\end{equation*}
+
+\begin{enumerate}
+    \item[(a)] Show that the mass of the atmosphere per square meter is given by $p_s/g$, where $p_s$ is the surface pressure. What is the mass of our atmosphere per square meter?
+    
+    \item[(b)] Use your answer to compute the total mass of our atmosphere.
+    
+    \item[(c)] You will get a larger number in (b). To give it context, express your answer in terms of full grown African bull elephants, which weight approximately 6000 kg each.
+\end{enumerate}
+Starting from hydrostatic balance:
+\begin{equation*}
+\frac{dp}{dz} = -\rho g
+\end{equation*}
+
+Integrate from surface to top of atmosphere:
+\begin{equation*}
+\int_{p_s}^{0} dp = -\int_{0}^{\infty} \rho g \, dz
+\end{equation*}
+
+\begin{equation*}
+-p_s = -g \int_{0}^{\infty} \rho \, dz = -gM
+\end{equation*}
+
+where $M$ is the mass per unit area. Therefore:
+For Earth: $p_s = 101,325$ Pa, $g = 9.8$ m/s$^2$
+
+\begin{equation*}
+M = \frac{101,325}{9.8} \approx 10,340 \text{ kg/m}^2
+\end{equation*}
+
+\subsection*{Part (b)}
+
+Earth's surface area: $A = 4\pi R_E^2 = 4\pi (6.37 \times 10^6)^2 \approx 5.10 \times 10^{14}$ m$^2$
+
+Total mass:
+\begin{equation*}
+M_{\text{total}} = 10,340 \times 5.10 \times 10^{14} \approx \boxed{5.3 \times 10^{18} \text{ kg}}
+\end{equation*}
+
+\subsection*{Part (c)}
+
+Number of elephants (at 6000 kg each):
+\begin{equation*}
+\frac{5.3 \times 10^{18}}{6000} \approx \boxed{8.8 \times 10^{14} \text{ elephants}}
+\end{equation*}
+
+\section*{Problem 2}
+Consider an Earth-like atmosphere at a uniform temperature of 255K in hydrostatic balance and surface pressure of 1000 hPa.
+
+\begin{enumerate}
+    \item[(a)] Consider the level that separates the atmosphere into two equal parts in mass (i.e., half the mass is above and half is below that level). Find the (i) pressure, (ii) altitude, and (iii) air density at that level.
+    
+    \item[(b)] Repeat the calculation above, but for a planet where the gravitational acceleration is 3 ms$^{-2}$ and the atmosphere is 100\% carbon dioxide, with a molar mass of 44 grams per mole. Hint: you need the molar mass of CO$_2$ to get its gas constant from the universal molar gas constant $R_m = 8.314$ J/mol K. $R_{\text{CO}_2} = R_m/0.044$.
+\end{enumerate}
+
+\section*{Problem 3}
+Consider a column of water where the density is given by
+\begin{equation*}
+\rho_e(z) = \rho_0 + \lambda z.
+\end{equation*}
+
+We take two liquid parcels of the same volume $\Delta V$, one initially at level $z_1$ and density $\rho_e(z_1)$ and the second at a higher level $z_2 > z_1$ and density $\rho_e(z_2)$.
+
+\begin{enumerate}
+    \item[(a)] Compute the combined geopotential energy of the two parcels ($E = mgz$). To do this, you'll need to make an assumption about the size of the two parcels. For simplicity, choose them to be 1 cubic meter.
+    
+    \item[(b)] Compute the combined geopotential energy of the two parcels after they've switched positions (i.e., the first parcel moves to $z_2$ and the second to $z_1$). Determine under which values of $\lambda$ the geopotential energy would decrease after the switch.
+    
+    \item[(c)] Compare this to the stability conditions (eq. 4-5 of our text book) and discuss how these are related to each other. Does the size of the parcel matter for this comparison?
+\end{enumerate}
+
+\section*{Problem 4}
+In the absence of heating or any moisture effects, the temperature of an air parcel evolves as
+\begin{equation*}
+\frac{dT}{dt} = -\frac{g}{c_p}w
+\end{equation*}
+where $g$ is the gravitational acceleration, $c_p$ is the specific heat at constant pressure ($c_p = 1005$ J kg$^{-1}$K$^{-1}$ for dry air) and $w$ is the vertical velocity.
+
+\begin{enumerate}
+    \item[(a)] Show that the quantity $E = c_pT + gZ$ is conserved during the ascent of an air parcel, i.e., that $\frac{dE}{dt} = 0$.
+    
+    \item[(b)] Consider now an atmospheric column where the temperature profile is given by
+    \begin{equation*}
+    T_e(z) = T_0 - \Gamma(z - z_0),
+    \end{equation*}
+    where $\Gamma$ is an arbitrary parameter that quantifies the lapse rate of the atmosphere. An air parcel from level $z_0$ with initial temperature $T_0$ is displaced upward by 1 km. Find its new temperature and determine its buoyancy.
+    
+    \item[(c)] For which value of $\Gamma$ is the atmospheric column convectively stable or unstable. Explain your answer based on question 4b.
+\end{enumerate}
+
+\section*{Problem 5}
+Finally consider an Earth-like atmosphere where the air has a constant potential temperature, $\theta = 255$ K. Assume that the atmosphere is in hydrostatic balance and has surface pressure of 1000 hPa. We would call such an atmosphere ``isentropic'', a fancy term that means constant potential temperature, as opposed to the ``isothermal'' worlds considered in question 2, where the temperature was constant.
+
+\begin{enumerate}
+    \item[(a)] How does the temperature vary with height? Your answer should be an equation that spells out $T(z) = (\text{something})$.
+    
+    \item[(b)] The density drops off exponentially in an isothermal atmosphere (as considered in question 2) so that in theory it extends to infinity, though of course at one point the density is so small that it would be less than 1 molecule per cubic meter, and so effectively done! An isentropic atmosphere, however, has a finite top. What is the top for this atmosphere?
+    
+    \item[(c)] As in question 2, consider the level that separates the atmosphere into two equal parts in mass (i.e., half the mass is above and half is below that level). Find the (i) pressure, (ii) altitude, and (iii) air density at that level. To get started, note that part (i) is easy. But for part (ii), you need to integrate the temperature form of HSB
+    \begin{equation*}
+    d(\ln p) = \frac{g}{R_dT(z)}dz
+    \end{equation*}
+    using your function $T(z)$ from part (a). The right hand side isn't a trivial integral and it might be easiest to compute it numerically, for example, with the trapezoidal rule. Once you know (i) and (ii), you can compute (iii). How do your values compare to those in question 2a?
+\end{enumerate}
+
+
+\end{document}
