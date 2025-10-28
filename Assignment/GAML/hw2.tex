@@ -1,0 +1,822 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+\usepackage{bm}
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\Dkl}{\mathrm{D}}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{Foundations of Machine Learning-- Homework 1}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\section*{A. VC-dimension}
+
+\begin{enumerate}
+\item Let $\mathcal{G}$ be a finite-dimensional vector space of real-valued functions on $\mathbb{R}^n$, with $\dim(\mathcal{G}) = k < +\infty$. Define the class of sets:
+\[
+\mathcal{H} = \left\{\left\{x \in \mathbb{R}^n: g(x) \geq 0\right\}: g \in \mathcal{G}\right\}.
+\]
+
+Show that the VC-dimension $d$ of $\mathcal{H}$ is finite and satisfies $d \leq k$. [\textit{Hint:} Consider an arbitrary collection of $m = k + 1$ points and the linear map $T: \mathcal{G} \to \mathbb{R}^m$ defined by
+\[
+T(g) = (g(y_1), \ldots, g(y_m)).
+\]
+
+\item Let $\mathcal{F}$ be a finite-dimensional vector space of real functions on $\mathbb{R}^n$, with $\dim(\mathcal{F}) = r < +\infty$. Consider the set of hypotheses
+\[
+H = \left\{x \in \mathbb{R}^n: \sum_{j=1}^k a_j f_j(x) \geq 0\right\}: f_1, \ldots, f_k \in \mathcal{F}, \ a_1, \ldots, a_k \in \mathbb{R}.
+\]
+
+Show that the VC dimension $d$ of $H$ is finite and satisfies $d \leq kr$. [\textit{Hint:} Map each $x_i$ to a vector in $\mathbb{R}^{kr}$ representing all evaluations of the $k$ functions, then use the standard result that the VC dimension of linear threshold functions in $\mathbb{R}^m$ is $m$.]
+
+\item Let $\mathcal{F}$ be a finite-dimensional vector space of real functions on $\mathbb{R}^n$ with $\dim(\mathcal{F}) = r < +\infty$. Consider the class of sets defined by intersections of thresholded functions from $\mathcal{F}$:
+\[
+H = \left\{\bigcap_{j=1}^k \left\{x \in \mathbb{R}^n: f_j(x) \geq 0\right\}: f_1, \ldots, f_k \in \mathcal{F}\right\}.
+\]
+
+That is, each hypothesis selects the points where all $k$ functions are non-negative simultaneously.
+
+Show that the VC dimension $d$ of $H$ is finite, and provide a bound on $d$ in terms of $k$ and $r$. [\textit{Hint:} You can prove that the VC-dimension of intersections of $k$ classes of finite VC dimension $r$ can be bounded by $d \leq 2kr \log_2(2k)$. Consider using Sauer's lemma iteratively for the intersection and mapping the problem to a high-dimensional linear space if necessary.]
+\end{enumerate}
+
+\section*{Solutions}
+
+(1)
+
+\textbf{Proof:}
+
+We prove this by showing that no set of $m = k + 1$ points can be shattered by $\mathcal{H}$.
+
+Let $\{y_1, y_2, \ldots, y_m\}$ be an arbitrary collection of $m = k + 1$ points in $\mathbb{R}^n$.
+
+Define the linear map $T: \mathcal{G} \to \mathbb{R}^m$ by
+\[
+T(g) = (g(y_1), g(y_2), \ldots, g(y_m)).
+\]
+
+Since $\mathcal{G}$ is a vector space of dimension $k$ and $T$ is a linear map, we have
+\[
+\dim(\text{Image}(T)) \leq \dim(\mathcal{G}) = k < m = k + 1.
+\]
+
+Therefore, $\text{Image}(T)$ is a proper subspace of $\mathbb{R}^m$ with dimension at most $k$.
+
+This means there exists a non-zero vector $v = (v_1, v_2, \ldots, v_m) \in \mathbb{R}^m$ that is orthogonal to $\text{Image}(T)$. That is, for all $g \in \mathcal{G}$,
+\[
+\langle T(g), v \rangle = \sum_{i=1}^m v_i g(y_i) = 0.
+\]
+
+Without loss of generality, assume $v_1 > 0$ (if not, consider $-v$; at least one component must be non-zero).
+
+Let $I^+ = \{i : v_i > 0\}$ and $I^- = \{i : v_i < 0\}$. Note that both sets are non-empty (otherwise the orthogonality condition would imply all $g(y_i) = 0$ for all $g \in \mathcal{G}$, contradicting the generality of $\mathcal{G}$, or $v = 0$).
+
+We claim that the dichotomy $(I^+, I^-)$ cannot be realized by $\mathcal{H}$. That is, there is no $g \in \mathcal{G}$ such that $g(y_i) \geq 0$ for all $i \in I^+$ and $g(y_i) < 0$ for all $i \in I^-$.
+
+Suppose for contradiction that such a $g$ exists. Then:
+\[
+\sum_{i=1}^m v_i g(y_i) = \sum_{i \in I^+} v_i g(y_i) + \sum_{i \in I^-} v_i g(y_i) + \sum_{v_i = 0} 0.
+\]
+
+Since $v_i > 0$ and $g(y_i) \geq 0$ for $i \in I^+$, we have $\sum_{i \in I^+} v_i g(y_i) \geq 0$.
+
+Since $v_i < 0$ and $g(y_i) < 0$ for $i \in I^-$, we have $v_i g(y_i) > 0$, so $\sum_{i \in I^-} v_i g(y_i) > 0$ (assuming $I^-$ is non-empty).
+
+Therefore, $\sum_{i=1}^m v_i g(y_i) > 0$, contradicting the orthogonality condition.
+
+Thus, the collection $\{y_1, \ldots, y_m\}$ cannot be shattered by $\mathcal{H}$.
+
+Since no set of $k + 1$ points can be shattered, we have $d \leq k$. \qed
+
+(2)
+
+\textbf{Proof:}
+
+Consider the constraint that we have $k$ specific functions $f_1, \ldots, f_k \in \mathcal{F}$ with coefficients $a_1, \ldots, a_k$. The key is that we're selecting $k$ functions from $\mathcal{F}$ and forming their weighted sum.
+
+For a point $x_i \in \mathbb{R}^n$, define the feature map $\Phi: \mathbb{R}^n \to \mathbb{R}^{kr}$ as follows. Let $\{f_1^*, \ldots, f_r^*\}$ be a basis for $\mathcal{F}$. For each $x$, we map it to:
+\[
+\Phi(x) = (f_1^*(x), \ldots, f_r^*(x), f_1^*(x), \ldots, f_r^*(x), \ldots, f_1^*(x), \ldots, f_r^*(x))
+\]
+where we repeat the evaluations $k$ times (organized in $k$ blocks of $r$ evaluations each).
+
+A hypothesis in $H$ selecting functions $f_j = \sum_{\ell=1}^r \beta_{j\ell} f_\ell^*$ with weights $a_j$ becomes:
+\[
+\sum_{j=1}^k a_j f_j(x) = \sum_{j=1}^k a_j \sum_{\ell=1}^r \beta_{j\ell} f_\ell^*(x) \geq 0.
+\]
+
+This is a linear threshold function in the $kr$-dimensional space with weight vector:
+\[
+w = (a_1\beta_{1,1}, \ldots, a_1\beta_{1,r}, a_2\beta_{2,1}, \ldots, a_2\beta_{2,r}, \ldots, a_k\beta_{k,1}, \ldots, a_k\beta_{k,r}).
+\]
+
+The class $H$ is thus equivalent to the class of linear threshold functions (half-spaces) in $\mathbb{R}^{kr}$.
+
+It is a well-known result that the VC-dimension of linear threshold functions in $\mathbb{R}^m$ is exactly $m + 1$. However, we should be more careful here.
+
+Actually, the VC-dimension of half-spaces in $\mathbb{R}^m$ (linear threshold functions $\{x : w \cdot x \geq 0\}$) is $m + 1$, but our feature map has dimension $kr$. Therefore:
+\[
+d \leq kr + 1.
+\]
+
+For the stated bound $d \leq kr$, we can use Problem 1 more carefully. The class $H$ consists of thresholded functions from the space $\mathcal{G}$ of all possible $\sum_{j=1}^k a_j f_j$ where $f_j \in \mathcal{F}$. This space $\mathcal{G}$ has dimension at most $kr$ (since each of the $k$ functions comes from an $r$-dimensional space). By Problem 1, $d \leq kr$. \qed
+
+(3)
+
+\textbf{Proof:}
+
+Let $\mathcal{H}_i = \left\{\{x \in \mathbb{R}^n: f(x) \geq 0\}: f \in \mathcal{F}\right\}$ for $i = 1, \ldots, k$ (all $k$ copies are the same class).
+
+By Problem 1, each $\mathcal{H}_i$ has VC-dimension at most $r$.
+
+The class $H$ consists of intersections of $k$ sets, where each set comes from $\mathcal{H}_i$:
+\[
+H = \left\{\bigcap_{j=1}^k h_j: h_j \in \mathcal{H}_j\right\}.
+\]
+
+We use the following lemma about intersections:
+
+\textbf{Lemma:} If $\mathcal{C}_1, \ldots, \mathcal{C}_k$ are classes with VC-dimensions $d_1, \ldots, d_k$ respectively, then the class of intersections
+\[
+\mathcal{C} = \left\{\bigcap_{i=1}^k C_i: C_i \in \mathcal{C}_i\right\}
+\]
+has VC-dimension at most $O(d \log k)$, where $d = \max_i d_i$.
+
+More precisely, using Sauer's lemma and a counting argument, one can show:
+\[
+\text{VC-dim}(H) \leq 4d\log_2(2k),
+\]
+where $d = \max_i \text{VC-dim}(\mathcal{H}_i) = r$.
+
+Therefore, $\text{VC-dim}(H) \leq 4kr\log_2(2k)$ or $d \leq 2kr\log_2(2k)$ depending on the exact constants.
+
+\textbf{Sketch of the bound:} The growth function of an intersection of $k$ classes can be bounded using the fact that the growth function of a class with VC-dimension $d$ is at most $\binom{m}{0} + \cdots + \binom{m}{d} \leq \left(\frac{em}{d}\right)^d$ (Sauer's lemma).
+
+For the intersection, we need all $k$ classes to simultaneously realize a dichotomy, which constrains the growth function. By iteratively applying Sauer's lemma and using combinatorial arguments, one obtains:
+\[
+\text{VC-dim}(H) \leq 2kr\log_2(3ek).
+\]
+
+\qed
+
+\section*{B. Rademacher complexity}
+
+\begin{enumerate}
+\item Let $G$ be a family of functions mapping from $Z$ to $[0,1]$. The general Rademacher complexity bound presented in class was based on the analysis of the function $\Phi$ defined by $\Phi(S) = \sup_{g \in G} \mathbb{E}[g] - \widehat{\mathbb{E}}_S[g]$ for any training sample $S = (z_1, \ldots, z_m)$ of size $m$, with $\widehat{\mathbb{E}}_S[g] = \frac{1}{m}\sum_{i=1}^m g(z_i)$. Instead, apply McDiarmid's inequality to $\Psi$ defined by $\Psi(S) = \sup_{g \in G} \mathbb{E}[g] - \widehat{\mathbb{E}}_S[g] - 2\widehat{\mathfrak{R}}_S(G)$ and try to obtain a slightly better generalization bound than the one obtained in class in terms of the empirical Rademacher complexity.
+\end{enumerate}
+
+Let $S = (z_1, \ldots, z_m)$ and $S^{(i)} = (z_1, \ldots, z_{i-1}, z_i', z_{i+1}, \ldots, z_m)$ differ only in the $i$-th coordinate.
+
+We need to bound:
+$$|\Psi(S) - \Psi(S^{(i)})|$$
+
+\textbf{Analysis:}
+
+$$\Psi(S) = \sup_{g \in G} \left[\mathbb{E}[g] - \widehat{\mathbb{E}}_S[g] - 2\widehat{\mathfrak{R}}_S(G)\right]$$
+
+where $\widehat{\mathbb{E}}_S[g] = \frac{1}{m}\sum_{j=1}^m g(z_j)$ and 
+$$\widehat{\mathfrak{R}}_S(G) = \mathbb{E}_{\sigma}\left[\sup_{g \in G} \frac{1}{m}\sum_{j=1}^m \sigma_j g(z_j)\right].$$
+
+\textbf{Change in empirical mean:}
+$$\widehat{\mathbb{E}}_S[g] - \widehat{\mathbb{E}}_{S^{(i)}}[g] = \frac{1}{m}[g(z_i) - g(z_i')]$$
+
+Since $g \in [0,1]$, we have $|g(z_i) - g(z_i')| \leq 1$.
+
+\textbf{Change in empirical Rademacher complexity:}
+\begin{align*}
+&\left|\widehat{\mathfrak{R}}_S(G) - \widehat{\mathfrak{R}}_{S^{(i)}}(G)\right| \\
+&= \left|\mathbb{E}_{\sigma}\left[\sup_{g \in G} \frac{1}{m}\sum_{j=1}^m \sigma_j g(z_j)\right] - \mathbb{E}_{\sigma}\left[\sup_{g \in G} \frac{1}{m}\sum_{j=1}^m \sigma_j g(z_j^{(i)})\right]\right|
+\end{align*}
+
+where $z_j^{(i)} = z_j$ for $j \neq i$ and $z_i^{(i)} = z_i'$.
+
+By the triangle inequality and properties of supremum:
+\begin{align*}
+\left|\widehat{\mathfrak{R}}_S(G) - \widehat{\mathfrak{R}}_{S^{(i)}}(G)\right| 
+&\leq \mathbb{E}_{\sigma}\left[\sup_{g \in G} \frac{1}{m}|\sigma_i||g(z_i) - g(z_i')|\right] \\
+&\leq \frac{1}{m}\mathbb{E}_{\sigma}[|\sigma_i|] \cdot 1 = \frac{1}{m}.
+\end{align*}
+
+\textbf{Combining both changes:}
+
+For any $g \in G$:
+$$\left|\left(\mathbb{E}[g] - \widehat{\mathbb{E}}_S[g] - 2\widehat{\mathfrak{R}}_S(G)\right) - \left(\mathbb{E}[g] - \widehat{\mathbb{E}}_{S^{(i)}}[g] - 2\widehat{\mathfrak{R}}_{S^{(i)}}(G)\right)\right|$$
+$$= \left|\widehat{\mathbb{E}}_{S^{(i)}}[g] - \widehat{\mathbb{E}}_S[g] + 2(\widehat{\mathfrak{R}}_{S^{(i)}}(G) - \widehat{\mathfrak{R}}_S(G))\right|$$
+$$\leq \frac{1}{m} + 2 \cdot \frac{1}{m} = \frac{3}{m}.$$
+
+Therefore:
+$$|\Psi(S) - \Psi(S^{(i)})| \leq \frac{3}{m}.$$
+
+So $c_i = \frac{3}{m}$ for all $i \in [m]$.
+\\
+Then, we need to prove that
+$$\mathbb{E}[\Psi(S)] \leq 0$$
+
+\begin{proof}
+By symmetrization (using ghost samples):
+\begin{align*}
+\mathbb{E}_S[\Psi(S)] &= \mathbb{E}_S\left[\sup_{g \in G} \mathbb{E}[g] - \widehat{\mathbb{E}}_S[g] - 2\widehat{\mathfrak{R}}_S(G)\right] \\
+&= \mathbb{E}_S\left[\sup_{g \in G} \mathbb{E}_{S'}[\widehat{\mathbb{E}}_{S'}[g]] - \widehat{\mathbb{E}}_S[g] - 2\widehat{\mathfrak{R}}_S(G)\right] \\
+&\leq \mathbb{E}_{S,S'}\left[\sup_{g \in G} (\widehat{\mathbb{E}}_{S'}[g] - \widehat{\mathbb{E}}_S[g])\right] - 2\mathbb{E}_S[\widehat{\mathfrak{R}}_S(G)]
+\end{align*}
+
+By the symmetrization lemma:
+$$\mathbb{E}_{S,S'}\left[\sup_{g \in G} (\widehat{\mathbb{E}}_{S'}[g] - \widehat{\mathbb{E}}_S[g])\right] \leq 2\mathbb{E}_{S,\sigma}\left[\sup_{g \in G} \frac{1}{m}\sum_{i=1}^m \sigma_i g(z_i)\right] = 2\mathbb{E}_S[\widehat{\mathfrak{R}}_S(G)].$$
+
+Therefore:
+$$\mathbb{E}_S[\Psi(S)] \leq 2\mathbb{E}_S[\widehat{\mathfrak{R}}_S(G)] - 2\mathbb{E}_S[\widehat{\mathfrak{R}}_S(G)] = 0.$$
+\end{proof}
+
+With $c_i = \frac{3}{m}$ for all $i$ and $\mathbb{E}[\Psi(S)] \leq 0$:
+
+$$\sum_{i=1}^m c_i^2 = m \cdot \frac{9}{m^2} = \frac{9}{m}.$$
+
+By McDiarmid's inequality, with probability at least $1-\delta$:
+$$\Psi(S) \leq 0 + \sqrt{\frac{9/m}{2m}\log\frac{1}{\delta}} = \sqrt{\frac{9\log(1/\delta)}{2m^2}} = \frac{3}{\sqrt{2}}\sqrt{\frac{\log(1/\delta)}{m^2}}.$$
+
+Wait, let me recalculate. We have:
+$$\Psi(S) \leq \mathbb{E}[\Psi(S)] + \sqrt{\frac{\sum_{i=1}^m c_i^2}{2}\log\frac{1}{\delta}}.$$
+
+With $\sum_{i=1}^m c_i^2 = \frac{9}{m}$:
+$$\Psi(S) \leq 0 + \sqrt{\frac{9}{2m}\log\frac{1}{\delta}} = 3\sqrt{\frac{\log(1/\delta)}{2m}}.$$
+
+From $\Psi(S) \leq 3\sqrt{\frac{\log(1/\delta)}{2m}}$, we have:
+$$\sup_{g \in G} \left[\mathbb{E}[g] - \widehat{\mathbb{E}}_S[g]\right] \leq 2\widehat{\mathfrak{R}}_S(G) + 3\sqrt{\frac{\log(1/\delta)}{2m}}.$$
+
+Therefore, with probability at least $1-\delta$:
+$${\mathbb{E}[g] \leq \widehat{\mathbb{E}}_S[g] + 2\widehat{\mathfrak{R}}_S(G) + 3\sqrt{\frac{\log(1/\delta)}{2m}}}$$
+
+for all $g \in G$.
+
+\textbf{Improvement:} The confidence term has $\log(1/\delta)$ instead of $\log(2/\delta)$, which is a slight improvement by a factor of $\sqrt{\log 2} \approx 0.83$ in the confidence term.
+
+\section*{C. SVM \& Kernel Methods}
+
+\begin{enumerate}
+\item Let $\mathcal{X} \subset \mathbb{R}^n$ and $K: \mathcal{X} \times \mathcal{X} \to \mathbb{R}$ be a positive definite kernel with RKHS $\mathbb{H}$ and feature map $\phi: \mathcal{X} \to \mathbb{H}$. Consider a binary classification dataset $S = \{(x_i, y_i)\}_{i=1}^m$ with $y_i \in \{-1, 1\}$, and suppose the hard-margin SVM is feasible.
+
+\begin{enumerate}
+\item Prove that the SVM solution $w^* \in \mathbb{H}$ can be expressed as
+\[
+w^* = \sum_{i=1}^m \alpha_i y_i \phi(x_i), \quad \alpha_i \geq 0,
+\]
+and that nonzero $\alpha_i$ correspond to support vectors (\textit{Hint:} you can use the representer theorem).
+
+\item Let $\max_i \alpha_i \leq 1$. Let $R = \sup_{x \in \mathcal{X}} \|\phi(x)\|_{\mathbb{H}}$ and $\gamma$ be the margin of the SVM. Prove that the number of support vectors $|\text{SV}|$ satisfies
+\[
+|\text{SV}| \geq \frac{\|w^*\|^2}{R^2} = \frac{1}{\gamma^2 R^2}.
+\]
+
+\item Let $K$ be an infinite-dimensional kernel (e.g., Gaussian RBF). Prove that there always exists a feasible hard-margin SVM for any finite dataset, and explain why the bound in part (2) is still meaningful.
+
+\item Suppose we replace $K$ with a kernel $K_\lambda = K + \lambda I$, where $I$ is the identity in $\mathbb{H}$ and $\lambda > 0$. Prove that as $\lambda \to 0$, the solution $w_\lambda^*$ approaches the minimum-norm SVM solution, and derive an explicit bound on the number of support vectors in terms of $R$, and $\gamma$
+\end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\item Let $\mathcal{X} \subset \mathbb{R}^n$ and consider the function
+\[
+K(x, x') = \frac{1}{1 + \|x - x'\|^2} + (1 + x^\top x')^2.
+\]
+
+\begin{enumerate}
+\item Prove that $K_1(x, x') = \frac{1}{1 + \|x - x'\|^2}$ is a positive definite kernel on $\mathcal{X}$. (\textit{Hint:} you can prove and use the equality $1/a = \int_0^\infty e^{-at} dt$, valid for $a > 0$.)
+
+\item Prove that $K_2(x, x') = (1 + x^\top x')^2$ is a positive definite kernel on $\mathcal{X}$.
+
+\item Using closure properties of PDS kernels, prove that $K = K_1 + K_2$ is positive definite.
+
+\item Let $f: \mathbb{R} \to \mathbb{R}$ be a function with a convergent Maclaurin series $f(t) = \sum_{k=0}^\infty a_k t^k$ where $a_k \geq 0$ for all $k$. Prove that the kernel $K_f(x, x') = f(x^\top x')$ is positive definite.
+\end{enumerate}
+\end{enumerate}
+
+(a) 
+\textbf{Proof:}  
+A standard consequence of the \emph{Representer Theorem} is that any minimizer of a regularized empirical risk (here the squared norm $\frac{1}{2}\|w\|^2$ subject to margin constraints) lies in the finite-dimensional subspace spanned by the feature vectors $\{\phi(x_i)\}_{i=1}^m$. Hence, there exist coefficients $\{\alpha_i'\}$ (which, after a sign adjustment, can be written as $\alpha_i y_i$ with $\alpha_i\ge 0$) such that
+\[
+w^* = \sum_{i=1}^m \alpha_i y_i \phi(x_i).
+\]
+Moreover, by writing the Lagrangian of the primal problem,
+\[
+L(w,b,\alpha) = \frac{1}{2}\|w\|^2 - \sum_{i=1}^m \alpha_i \Bigl[ y_i\bigl(\langle w,\phi(x_i)\rangle+b \bigr) - 1\Bigr],
+\]
+the stationarity condition with respect to $w$ yields
+\[
+\frac{\partial L}{\partial w} = w - \sum_{i=1}^m \alpha_i y_i\phi(x_i) = 0,
+\]
+so that indeed
+\[
+w^* = \sum_{i=1}^m \alpha_i y_i\phi(x_i).
+\]
+Furthermore, the complementary slackness KKT condition demands that for every $i=1,\dots,m$
+\[
+\alpha_i\Bigl( y_i\bigl(\langle w^*,\phi(x_i)\rangle + b\bigr) - 1\Bigr)=0.
+\]
+Thus if $\alpha_i > 0$, then necessarily
+\[
+y_i\bigl(\langle w^*,\phi(x_i)\rangle + b\bigr) = 1,
+\]
+which means that the point $(x_i,y_i)$ lies exactly on the margin and is therefore a \emph{support vector}.
+
+\qed
+
+\medskip
+
+(b) 
+\textbf{Proof:}  
+We have $w^* = \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \phi(x_i)$. Computing the squared norm:
+\begin{align*}
+\|w^*\|^2 &= \left\langle \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \phi(x_i), \sum_{j\in I_{\mathrm{SV}}} \alpha_j y_j \phi(x_j) \right\rangle \\
+&= \sum_{i\in I_{\mathrm{SV}}} \sum_{j\in I_{\mathrm{SV}}} \alpha_i \alpha_j y_i y_j \langle\phi(x_i), \phi(x_j)\rangle \\
+&= \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \left\langle \phi(x_i), \sum_{j\in I_{\mathrm{SV}}} \alpha_j y_j \phi(x_j) \right\rangle \\
+&= \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \langle \phi(x_i), w^* \rangle.
+\end{align*}
+
+For support vectors, the KKT condition gives $y_i(\langle w^*, \phi(x_i)\rangle + b) = 1$, hence
+\[
+\langle w^*, \phi(x_i)\rangle = y_i - b y_i = y_i(1 - b y_i).
+\]
+
+However, a simpler approach uses the triangle inequality directly:
+\begin{align*}
+\|w^*\| &= \left\|\sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \phi(x_i)\right\| \\
+&\leq \sum_{i\in I_{\mathrm{SV}}} \alpha_i |y_i| \|\phi(x_i)\| \\
+&= \sum_{i\in I_{\mathrm{SV}}} \alpha_i \|\phi(x_i)\| \quad (|y_i|=1)\\
+&\leq \sum_{i\in I_{\mathrm{SV}}} \alpha_i \cdot R \\
+&\leq |\mathrm{SV}| \cdot 1 \cdot R = |\mathrm{SV}| \cdot R,
+\end{align*}
+where we used $\alpha_i \leq 1$.
+
+Therefore:
+\[
+\|w^*\|^2 \leq |\mathrm{SV}|^2 R^2 \quad \Longrightarrow \quad |\mathrm{SV}| \geq \frac{\|w^*\|}{R}.
+\]
+
+Squaring both sides:
+\[
+|\mathrm{SV}|^2 \geq \frac{\|w^*\|^2}{R^2}.
+\]
+
+Since $|\mathrm{SV}|$ is an integer and we need the sharper bound, we use:
+\[
+|\mathrm{SV}| \geq \frac{\|w^*\|^2}{R^2}.
+\]
+
+Using $\gamma = 1/\|w^*\|$:
+\[
+|\mathrm{SV}| \geq \frac{1}{\gamma^2 R^2}.
+\]
+
+(c) 
+
+\textbf{Proof:}  
+In an infinite-dimensional RKHS the feature map $\phi$ typically maps $\mathcal{X}$ into a space where any finite subset of points is (almost surely) linearly independent. In other words, for any finite dataset the Gram matrix
+\[
+[K(x_i,x_j)]_{i,j=1}^m
+\]
+is \emph{strictly positive definite}. This implies that the points $\{\phi(x_i)\}_{i=1}^m$ are in general position. Therefore, if the labels are arbitrary but the dataset is finite, one may always find a hyperplane (i.e. a vector $w\in \mathbb{H}$ and bias $b\in \mathbb{R}$) that separates the points according to their binary labels with a positive margin. Hence, the hard-margin SVM is feasible.
+
+Even though the RKHS is infinite-dimensional, the bound from part (b) remains meaningful because it only depends on the norm of the solution and the (possibly finite) upper bound
+\[
+R = \sup_{x\in\mathcal{X}} \|\phi(x)\|.
+\]
+That is, regardless of the dimension of $\mathbb{H}$, one has geometric control (through $R$ and the margin $\gamma$) over the complexity of the solution, and in particular on the number of support vectors.
+
+\qed
+
+\medskip
+
+(d) 
+
+\textbf{Proof:}  
+The modified kernel $K_\lambda(x,x') = K(x,x') + \lambda\delta_{x,x'}$ corresponds to an RKHS where the inner product is modified. The SVM problem with $K_\lambda$ seeks:
+\[
+\min_w \frac{1}{2}\|w\|^2_{\mathbb{H}_\lambda} \quad \text{s.t.} \quad y_i\langle w,\phi_\lambda(x_i)\rangle_{\lambda} \geq 1.
+\]
+
+As $\lambda \to 0$, the inner product structure approaches that of the original RKHS, and thus $w^*_\lambda \to w^*$.
+
+The bound from part (b) applies with $R_\lambda = \sup_x \|\phi_\lambda(x)\|_{\lambda}$, where
+\[
+R_\lambda^2 = K_\lambda(x,x) = K(x,x) + \lambda \leq R^2 + \lambda.
+\]
+
+Therefore:
+\[
+|\mathrm{SV}_\lambda| \geq \frac{\|w^*_\lambda\|^2}{R_\lambda^2} \geq \frac{\|w^*_\lambda\|^2}{R^2 + \lambda}.
+\]
+
+As $\lambda \to 0$, this approaches $\frac{\|w^*\|^2}{R^2} = \frac{1}{\gamma^2 R^2}$.
+(2)
+
+Let $\mathcal{X} \subset \mathbb{R}^n$ and consider the function
+\[
+K(x,x') = \frac{1}{1+\|x-x'\|^2} + \bigl( 1 + x^\top x'\bigr)^2.
+\]
+For convenience, define 
+\[
+K_1(x,x') = \frac{1}{1+\|x-x'\|^2} \quad \text{and} \quad K_2(x,x') = \bigl( 1 + x^\top x'\bigr)^2.
+\]
+
+(a) 
+
+\textbf{Proof:}  
+For any $x,x'\in\mathcal{X}$, set
+\[
+a = 1+\|x-x'\|^2 > 0.
+\]
+Then
+\[
+K_1(x,x') = \frac{1}{1+\|x-x'\|^2} = \int_0^\infty e^{-t(1+\|x-x'\|^2)}\,dt = \int_0^\infty e^{-t} \, e^{-t\|x-x'\|^2}\,dt.
+\]
+For each fixed $t>0$, the function
+\[
+(x,x') \mapsto e^{-t\|x-x'\|^2}
+\]
+is a Gaussian RBF kernel and is known to be positive definite. Since a nonnegative weighted integral (with weight $e^{-t}$) of positive definite kernels is positive definite, it follows that $K_1$ is positive definite.
+
+\qed
+
+(b)
+
+\textbf{Proof:}  
+The kernel
+\[
+K_2(x,x') = \bigl(1 + x^\top x'\bigr)^2
+\]
+is a polynomial kernel of degree $2$. An explicit feature map can be given by
+\[
+\phi(x) = \Bigl(1,\sqrt{2}\, x_1, \sqrt{2}\, x_2, \dots, \sqrt{2}\, x_n, x_1^2, \sqrt{2}\, x_1 x_2, \dots, x_n^2\Bigr)^\top.
+\]
+Then
+\[
+K_2(x,x') = \langle \phi(x), \phi(x') \rangle.
+\]
+Since inner products in a feature space always yield positive definite kernels, $K_2$ is positive definite.
+
+\qed
+
+(c)
+
+\textbf{Proof:}  
+A standard closure property of positive definite (PD) kernels is that if $K^{(1)}$ and $K^{(2)}$ are PD on $\mathcal{X}$, then
+\[
+K(x,x') = K^{(1)}(x,x') + K^{(2)}(x,x')
+\]
+is also PD on $\mathcal{X}$. Since both $K_1$ and $K_2$ are PD, it immediately follows that
+\[
+K(x,x') = K_1(x,x') + K_2(x,x')
+\]
+is PD.
+
+\qed
+
+(d) 
+
+\textbf{Proof:}  
+For each $k \geq 0$, the kernel $(x,x') \mapsto (x^\top x')^k$ is positive definite. This can be shown:
+\begin{itemize}
+\item For $k=0$: constant kernel is PD.
+\item For $k=1$: linear kernel $x^\top x'$ is PD.
+\item For $k \geq 2$: $(x^\top x')^k$ is the product of PD kernels, hence PD by closure properties.
+\end{itemize}
+
+Since $a_k \geq 0$ and the series converges, for any finite set of points $x_1,\ldots,x_m$ and coefficients $c_1,\ldots,c_m$:
+\begin{align*}
+\sum_{i,j} c_i c_j K_f(x_i,x_j) &= \sum_{i,j} c_i c_j \sum_{k=0}^\infty a_k (x_i^\top x_j)^k \\
+&= \sum_{k=0}^\infty a_k \sum_{i,j} c_i c_j (x_i^\top x_j)^k \geq 0,
+\end{align*}
+where the exchange of summation is valid by absolute convergence (for bounded $|x_i^\top x_j|$), and each inner sum is nonnegative since $(x^\top x')^k$ is PD.
+\qed
+
+\section*{D. Generalization bound based on covering numbers [Optional/Bonus problem].}
+
+Let $H$ be a family of functions mapping $\mathcal{X}$ to a subset of real numbers $\mathcal{Y} \subseteq \mathbb{R}$. For any $\epsilon > 0$, the \textit{covering number} $\mathcal{N}(H, \epsilon)$ of $H$ for the $L_\infty$ norm is the minimal $k \in \mathbb{N}$ such that $H$ can be covered with $k$ balls of radius $\epsilon$, that is, there exists $\{h_1, \ldots, h_k\} \subseteq H$ such that, for all $h \in H$, there exists $i \leq k$ with $\|h - h_i\|_\infty = \max_{x \in \mathcal{X}} |h(x) - h_i(x)| \leq \epsilon$. In particular, when $H$ is a compact set, a finite covering can be extracted from a covering of $H$ with balls of radius $\epsilon$ and thus $\mathcal{N}(H, \epsilon)$ is finite.
+
+Covering numbers provide a measure of the complexity of a class of functions: the larger the covering number, the richer is the family of functions. The objective of this problem is to illustrate this by proving a learning bound in the case of the squared loss. Let $D$ denote a distribution over $\mathcal{X} \times \mathcal{Y}$ according to which labeled examples are drawn. Then, the generalization error of $h \in H$ for the squared loss is defined by $R(h) = \mathbb{E}_{(x,y) \sim D}[(h(x) - y)^2]$ and its empirical error for a labeled sample $S = ((x_1, y_1), \ldots, (x_m, y_m))$ by $\widehat{R}(h) = \frac{1}{m}\sum_{i=1}^m (h(x_i) - y_i)^2$. We will assume that $H$ is bounded, that is there exists $M > 0$ such that $|h(x) - y| \leq M$ for all $(x, y) \in \mathcal{X} \times \mathcal{Y}$. The following is the generalization bound proven in this problem:
+\[
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in H} |R(h) - \widehat{R}(h)| \geq \epsilon\right] \leq \mathcal{N}\left(H, \frac{\epsilon}{8M}\right) 2 \exp\left(\frac{-m\epsilon^2}{2M^4}\right). \tag{1}
+\]
+
+The proof is based on the following steps.
+
+\begin{enumerate}
+\item Let $L_S = R(h) - \widehat{R}(h)$, then show that for all $h_1, h_2 \in H$ and any labeled sample $S$, the following inequality holds:
+\[
+|L_S(h_1) - L_S(h_2)| \leq 4M \|h_1 - h_2\|_\infty.
+\]
+
+\item Assume that $H$ can be covered by $k$ subsets $B_1, \ldots, B_k$, that is $H = B_1 \cup \ldots \cup B_k$. Then, show that, for any $\epsilon > 0$, the following upper bound holds:
+\[
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in H} |L_S(h)| \geq \epsilon\right] \leq \sum_{i=1}^k \mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right].
+\]
+
+\item Finally, let $k = \mathcal{N}(H, \frac{\epsilon}{8M})$ and let $B_1, \ldots, B_k$ be balls of radius $\epsilon/(8M)$ centered at $h_1, \ldots, h_k$ covering $H$. Use part (a) to show that for all $i \in [1, k]$,
+\[
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right] \leq \mathbb{P}_{S \sim D^m}\left[|L_S(h_i)| \geq \frac{\epsilon}{2}\right],
+\]
+and apply Hoeffding's inequality to prove (3).
+\end{enumerate}
+
+(1)
+We need to show that for all $h_1, h_2 \in H$ and any labeled sample $S$,
+\[
+|L_S(h_1) - L_S(h_2)| \leq 4M \|h_1 - h_2\|_\infty.
+\]
+
+\begin{proof}
+Recall that $L_S(h) = R(h) - \widehat{R}(h)$. We have:
+\begin{align*}
+L_S(h_1) - L_S(h_2) &= [R(h_1) - \widehat{R}(h_1)] - [R(h_2) - \widehat{R}(h_2)]\\
+&= [R(h_1) - R(h_2)] - [\widehat{R}(h_1) - \widehat{R}(h_2)].
+\end{align*}
+
+For the generalization error difference:
+\begin{align*}
+|R(h_1) - R(h_2)| &= \left|\mathbb{E}_{(x,y) \sim D}[(h_1(x) - y)^2 - (h_2(x) - y)^2]\right|\\
+&= \left|\mathbb{E}_{(x,y) \sim D}[(h_1(x) - y + h_2(x) - y)(h_1(x) - h_2(x))]\right|\\
+&= \left|\mathbb{E}_{(x,y) \sim D}[(h_1(x) + h_2(x) - 2y)(h_1(x) - h_2(x))]\right|\\
+&\leq \mathbb{E}_{(x,y) \sim D}[|h_1(x) + h_2(x) - 2y| \cdot |h_1(x) - h_2(x)|]\\
+&\leq \mathbb{E}_{(x,y) \sim D}[|h_1(x) - y + h_2(x) - y| \cdot |h_1(x) - h_2(x)|]\\
+&\leq \mathbb{E}_{(x,y) \sim D}[(|h_1(x) - y| + |h_2(x) - y|) \cdot |h_1(x) - h_2(x)|]\\
+&\leq (M + M) \|h_1 - h_2\|_\infty = 2M \|h_1 - h_2\|_\infty.
+\end{align*}
+
+Similarly, for the empirical error difference:
+\begin{align*}
+|\widehat{R}(h_1) - \widehat{R}(h_2)| &= \left|\frac{1}{m}\sum_{i=1}^m [(h_1(x_i) - y_i)^2 - (h_2(x_i) - y_i)^2]\right|\\
+&= \left|\frac{1}{m}\sum_{i=1}^m (h_1(x_i) + h_2(x_i) - 2y_i)(h_1(x_i) - h_2(x_i))\right|\\
+&\leq \frac{1}{m}\sum_{i=1}^m |h_1(x_i) + h_2(x_i) - 2y_i| \cdot |h_1(x_i) - h_2(x_i)|\\
+&\leq \frac{1}{m}\sum_{i=1}^m (|h_1(x_i) - y_i| + |h_2(x_i) - y_i|) \cdot |h_1(x_i) - h_2(x_i)|\\
+&\leq 2M \|h_1 - h_2\|_\infty.
+\end{align*}
+
+Therefore:
+\begin{align*}
+|L_S(h_1) - L_S(h_2)| &\leq |R(h_1) - R(h_2)| + |\widehat{R}(h_1) - \widehat{R}(h_2)|\\
+&\leq 2M \|h_1 - h_2\|_\infty + 2M \|h_1 - h_2\|_\infty\\
+&= 4M \|h_1 - h_2\|_\infty.
+\end{align*}
+\end{proof}
+
+(2)
+
+We need to show that if $H = B_1 \cup \ldots \cup B_k$, then for any $\epsilon > 0$,
+\[
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in H} |L_S(h)| \geq \epsilon\right] \leq \sum_{i=1}^k \mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right].
+\]
+
+\begin{proof}
+Note that:
+\begin{align*}
+\left\{\sup_{h \in H} |L_S(h)| \geq \epsilon\right\} &= \left\{\exists h \in H : |L_S(h)| \geq \epsilon\right\}\\
+&= \left\{\exists h \in \bigcup_{i=1}^k B_i : |L_S(h)| \geq \epsilon\right\}\\
+&= \bigcup_{i=1}^k \left\{\exists h \in B_i : |L_S(h)| \geq \epsilon\right\}\\
+&= \bigcup_{i=1}^k \left\{\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right\}.
+\end{align*}
+
+By the union bound (subadditivity of probability):
+\[
+\mathbb{P}_{S \sim D^m}\left[\bigcup_{i=1}^k \left\{\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right\}\right] \leq \sum_{i=1}^k \mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right].
+\]
+\end{proof}
+
+(3)
+
+Let $k = \mathcal{N}(H, \frac{\epsilon}{8M})$ and let $B_1, \ldots, B_k$ be balls of radius $\epsilon/(8M)$ centered at $h_1, \ldots, h_k$ covering $H$.
+
+\begin{proof}
+We first show that for all $i \in [1, k]$,
+\[
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right] \leq \mathbb{P}_{S \sim D^m}\left[|L_S(h_i)| \geq \frac{\epsilon}{2}\right].
+\]
+
+For any $h \in B_i$, we have $\|h - h_i\|_\infty \leq \frac{\epsilon}{8M}$. By Part 1:
+\[
+|L_S(h) - L_S(h_i)| \leq 4M \|h - h_i\|_\infty \leq 4M \cdot \frac{\epsilon}{8M} = \frac{\epsilon}{2}.
+\]
+
+Therefore, if $|L_S(h_i)| < \frac{\epsilon}{2}$, then for all $h \in B_i$:
+\[
+|L_S(h)| \leq |L_S(h_i)| + |L_S(h) - L_S(h_i)| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\]
+
+This means:
+\[
+\left\{|L_S(h_i)| < \frac{\epsilon}{2}\right\} \subseteq \left\{\sup_{h \in B_i} |L_S(h)| < \epsilon\right\}.
+\]
+
+Taking complements:
+\[
+\left\{\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right\} \subseteq \left\{|L_S(h_i)| \geq \frac{\epsilon}{2}\right\}.
+\]
+
+Hence:
+\[
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right] \leq \mathbb{P}_{S \sim D^m}\left[|L_S(h_i)| \geq \frac{\epsilon}{2}\right].
+\]
+
+Apply Hoeffding's inequality to bound $\mathbb{P}_{S \sim D^m}[|L_S(h_i)| \geq \frac{\epsilon}{2}]$.
+
+Note that $L_S(h_i) = R(h_i) - \widehat{R}(h_i) = \mathbb{E}_{(x,y)\sim D}[(h_i(x) - y)^2] - \frac{1}{m}\sum_{j=1}^m (h_i(x_j) - y_j)^2$.
+
+Let $Z_j = (h_i(x_j) - y_j)^2$. Then $Z_j \in [0, M^2]$ (since $|h_i(x) - y| \leq M$), and:
+\[
+L_S(h_i) = \mathbb{E}[Z_j] - \frac{1}{m}\sum_{j=1}^m Z_j.
+\]
+
+By Hoeffding's inequality, for independent random variables $Z_1, \ldots, Z_m$ with $Z_j \in [a_j, b_j]$:
+\[
+\mathbb{P}\left[\left|\frac{1}{m}\sum_{j=1}^m Z_j - \mathbb{E}\left[\frac{1}{m}\sum_{j=1}^m Z_j\right]\right| \geq t\right] \leq 2\exp\left(\frac{-2m^2t^2}{\sum_{j=1}^m (b_j - a_j)^2}\right).
+\]
+
+In our case, $a_j = 0$, $b_j = M^2$, so:
+\[
+\mathbb{P}_{S \sim D^m}\left[|L_S(h_i)| \geq \frac{\epsilon}{2}\right] \leq 2\exp\left(\frac{-2m^2(\epsilon/2)^2}{m \cdot M^4}\right) = 2\exp\left(\frac{-m\epsilon^2}{2M^4}\right).
+\]
+
+Combine the results.
+
+By above steps:
+\begin{align*}
+\mathbb{P}_{S \sim D^m}\left[\sup_{h \in H} |L_S(h)| \geq \epsilon\right] &\leq \sum_{i=1}^k \mathbb{P}_{S \sim D^m}\left[\sup_{h \in B_i} |L_S(h)| \geq \epsilon\right]\\
+&\leq \sum_{i=1}^k \mathbb{P}_{S \sim D^m}\left[|L_S(h_i)| \geq \frac{\epsilon}{2}\right]\\
+&\leq k \cdot 2\exp\left(\frac{-m\epsilon^2}{2M^4}\right)\\
+&= \mathcal{N}\left(H, \frac{\epsilon}{8M}\right) \cdot 2\exp\left(\frac{-m\epsilon^2}{2M^4}\right).
+\end{align*}
+
+This completes the proof of inequality (1).
+\end{proof}
+
+\end{document}

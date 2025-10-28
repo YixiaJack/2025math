@@ -210,21 +210,20 @@ For Earth: $p_s = 101,325$ Pa, $g = 9.8$ m/s$^2$
 \begin{equation*}
 M = \frac{101,325}{9.8} \approx 10,340 \text{ kg/m}^2
 \end{equation*}
-
-\subsection*{Part (b)}
+ (b)
 
 Earth's surface area: $A = 4\pi R_E^2 = 4\pi (6.37 \times 10^6)^2 \approx 5.10 \times 10^{14}$ m$^2$
 
 Total mass:
 \begin{equation*}
-M_{\text{total}} = 10,340 \times 5.10 \times 10^{14} \approx \boxed{5.3 \times 10^{18} \text{ kg}}
+M_{\text{total}} = 10,340 \times 5.10 \times 10^{14} \approx 5.3 \times 10^{18} \text{ kg}
 \end{equation*}
 
-\subsection*{Part (c)}
+(c)
 
 Number of elephants (at 6000 kg each):
 \begin{equation*}
-\frac{5.3 \times 10^{18}}{6000} \approx \boxed{8.8 \times 10^{14} \text{ elephants}}
+\frac{5.3 \times 10^{18}}{6000} \approx 8.8 \times 10^{14} \text{ elephants}
 \end{equation*}
 
 \section*{Problem 2}
@@ -235,6 +234,60 @@ Consider an Earth-like atmosphere at a uniform temperature of 255K in hydrostati
     
     \item[(b)] Repeat the calculation above, but for a planet where the gravitational acceleration is 3 ms$^{-2}$ and the atmosphere is 100\% carbon dioxide, with a molar mass of 44 grams per mole. Hint: you need the molar mass of CO$_2$ to get its gas constant from the universal molar gas constant $R_m = 8.314$ J/mol K. $R_{\text{CO}_2} = R_m/0.044$.
 \end{enumerate}
+
+
+(i)
+
+Since half the mass is above and half below, and $M = p/g$:
+\begin{equation*}
+p = \frac{p_s}{2} = 500 \text{ hPa}
+\end{equation*}
+
+(ii)
+
+Scale height: 
+\begin{equation*}
+H = \frac{RT}{g} = \frac{287 \times 255}{9.8} \approx 7467.857 \text{ m}
+\end{equation*}
+
+For isothermal atmosphere: $p(z) = p_s e^{-z/H}$
+
+\begin{equation*}
+500 = 1000 \cdot e^{-z/7467.857}
+\end{equation*}
+
+\begin{equation*}
+z = 7467.857 \ln(2) \approx 5176.324 \text{ m}
+\end{equation*}
+
+(iii) 
+
+\begin{equation*}
+\rho = \frac{p}{RT} = \frac{50000}{287 \times 255} \approx 0.683 \text{ kg/m}^3
+\end{equation*}
+
+(b):
+
+Gas constant: $R_{CO_2} = \frac{8.314}{0.044} \approx 189$ J/(kg·K)
+
+(i)The same as in (a)$p = \frac{p_s}{2} = 500 \text{ hPa}$
+
+(ii) 
+
+Scale height:
+\begin{equation*}
+H =  \frac{RT}{g} =\frac{189 \times 255}{3} = 16065 \text{ m}
+\end{equation*}
+For isothermal atmosphere: $p(z) = p_s e^{-z/H}$
+\begin{equation*}
+z = 16065 \ln(2) \approx 11,135.409 \text{ m}
+\end{equation*}
+
+\textbf{(iii) Density:}
+
+\begin{equation*}
+\rho = \frac{p}{RT} = \frac{50000}{189 \times 255} \approx 1.037 \text{ kg/m}^3
+\end{equation*}
 
 \section*{Problem 3}
 Consider a column of water where the density is given by
@@ -251,6 +304,49 @@ We take two liquid parcels of the same volume $\Delta V$, one initially at level
     
     \item[(c)] Compare this to the stability conditions (eq. 4-5 of our text book) and discuss how these are related to each other. Does the size of the parcel matter for this comparison?
 \end{enumerate}
+
+
+(a)
+
+Density profile: $\rho_e(z) = \rho_0 + \lambda z$
+
+Parcel 1 at $z_1$: mass $= \rho_e(z_1) \cdot 1 = \rho_0 + \lambda z_1$, PE $= (\rho_0 + \lambda z_1)gz_1$
+
+Parcel 2 at $z_2$: mass $= \rho_0 + \lambda z_2$, PE $= (\rho_0 + \lambda z_2)gz_2$
+
+Total initial energy:
+\begin{equation*}
+E_i = g[(\rho_0 + \lambda z_1)z_1 + (\rho_0 + \lambda z_2)z_2] = g[\rho_0(z_1 + z_2) + \lambda(z_1^2 + z_2^2)]
+\end{equation*}
+
+(b)
+After swapping positions (parcel 1 to $z_2$, parcel 2 to $z_1$):
+\begin{equation*}
+E_f = g[(\rho_0 + \lambda z_1)z_2 + (\rho_0 + \lambda z_2)z_1] = g[\rho_0(z_1 + z_2) + 2\lambda z_1 z_2]
+\end{equation*}
+
+Energy change:
+\begin{equation*}
+\Delta E = E_f - E_i = g\lambda[2z_1z_2 - z_1^2 - z_2^2] = -g\lambda(z_2 - z_1)^2
+\end{equation*}
+
+For energy to decrease (unstable): $\Delta E < 0$
+
+Since $(z_2 - z_1)^2 > 0$, we need $\lambda > 0$ for instability.
+
+\textbf{Stability condition:}
+\begin{itemize}
+\item $\lambda < 0$: stable (density decreases with height)
+\item $\lambda > 0$: unstable (density increases with height)
+\end{itemize}
+(c)
+From our density profile: $\frac{d\rho_e}{dz} = \lambda$
+
+Textbook stability criterion (Eq. 4-5): $\frac{d\rho}{dz} < 0$ for stability
+
+This matches perfectly: $\lambda < 0 \Leftrightarrow \frac{d\rho}{dz} < 0$ (stable)
+
+Parcel size doesn't matter because volume cancels out in the energy difference expression.
 
 \section*{Problem 4}
 In the absence of heating or any moisture effects, the temperature of an air parcel evolves as
@@ -270,7 +366,55 @@ where $g$ is the gravitational acceleration, $c_p$ is the specific heat at const
     
     \item[(c)] For which value of $\Gamma$ is the atmospheric column convectively stable or unstable. Explain your answer based on question 4b.
 \end{enumerate}
+(a): 
+To prove $E = c_pT + gZ$ is conserved, we start with the given equation:
 
+Given: $\frac{dT}{dt} = -\frac{g}{c_p}w$ where $w = \frac{dZ}{dt}$
+
+Calculate:
+\begin{equation*}
+\frac{dE}{dt} = \frac{d}{dt}(c_pT + gZ) = c_p\frac{dT}{dt} + g\frac{dZ}{dt}
+\end{equation*}
+
+\begin{equation*}
+= c_p\left(-\frac{g}{c_p}w\right) + gw = -gw + gw = 0
+\end{equation*}
+
+Therefore $E = c_pT + gZ \text{ is conserved}$
+
+(b)
+
+Environment: $T_e(z) = T_0 - \Gamma(z - z_0)$
+
+Dry adiabatic lapse rate: $\Gamma_d = \frac{g}{c_p} = \frac{9.8}{1005} = 0.00975$ K/m
+
+After rising 1000 m:
+
+Parcel temperature: $T_p = T_0 - \Gamma_d \times 1000 = T_0 - 9.75$ K
+
+Environment temperature: $T_e = T_0 - \Gamma \times 1000$ K
+
+Temperature difference:
+\begin{equation*}
+T_p - T_e = 1000(\Gamma - \Gamma_d) = 1000(\Gamma - 0.00975)
+\end{equation*}
+
+Since buoyancy $\propto (T_p - T_e)$:
+\begin{itemize}
+\item If $\Gamma > \Gamma_d$: $T_p > T_e$ → positive buoyancy (upward)
+\item If $\Gamma < \Gamma_d$: $T_p < T_e$ → negative buoyancy (downward)
+\end{itemize}
+
+(c):
+by the result from (b):
+
+$\text{Stable: } \Gamma < \Gamma_d = 9.75 \text{ K/km}$
+
+$\text{Unstable: } \Gamma > \Gamma_d = 9.75 \text{ K/km}$
+
+$\text{Neutral: } \Gamma = \Gamma_d = 9.75 \text{ K/km}$
+
+When an air parcel rises, it cools at the dry adiabatic rate $\Gamma_d \approx 9.75$ K/km. If the environmental lapse rate $\Gamma < \Gamma_d$, the parcel cools faster than its surroundings, becomes colder and denser, experiences negative buoyancy, and sinks back down (stable). If $\Gamma > \Gamma_d$, the parcel remains warmer than the environment, maintains positive buoyancy, and continues rising (unstable).
 \section*{Problem 5}
 Finally consider an Earth-like atmosphere where the air has a constant potential temperature, $\theta = 255$ K. Assume that the atmosphere is in hydrostatic balance and has surface pressure of 1000 hPa. We would call such an atmosphere ``isentropic'', a fancy term that means constant potential temperature, as opposed to the ``isothermal'' worlds considered in question 2, where the temperature was constant.
 
@@ -286,5 +430,101 @@ Finally consider an Earth-like atmosphere where the air has a constant potential
     using your function $T(z)$ from part (a). The right hand side isn't a trivial integral and it might be easiest to compute it numerically, for example, with the trapezoidal rule. Once you know (i) and (ii), you can compute (iii). How do your values compare to those in question 2a?
 \end{enumerate}
 
+(a):
+
+Potential temperature: $\theta = T\left(\frac{p_0}{p}\right)^{R/c_p}$
+
+For constant $\theta = 255$ K (isentropic atmosphere), this implies the atmosphere follows the dry adiabatic lapse rate:
+
+\begin{equation*}
+T(z) = T_s - \frac{g}{c_p}z = 255 - 0.00975z
+\end{equation*}
+
+where $z$ is in meters and $T$ in Kelvin.
+
+At surface ($z=0$): $T_s = \theta = 255$ K
+
+(b):
+
+The atmosphere ends where $T = 0$:
+
+\begin{equation*}
+0 = 255 - \frac{9.8}{1005}z_{top}
+\end{equation*}
+
+\begin{equation*}
+    z_{top} = \frac{255 \times 1005}{9.8} = \frac{c_p\theta}{g} \approx 26,150.51 \text{ m}
+\end{equation*}
+
+Unlike isothermal atmosphere which extends to infinity, isentropic atmosphere has a finite top.
+
+(c)
+
+(i) Pressure: same as Problem 2, $p = \frac{p_s}{2} = 500 \text{ hPa}$
+
+(ii) Altitude:
+From hydrostatic balance:
+\begin{equation*}
+\frac{dp}{dz} = -\rho g = -\frac{pg}{RT}
+\end{equation*}
+
+Rearranging:
+\begin{equation*}
+\frac{dp}{p} = -\frac{g}{RT(z)}dz
+\end{equation*}
+
+,with $T(z) = 255 - \frac{g}{c_p}z$:
+
+\begin{equation*}
+d(\ln p) = \frac{g}{R_dT(z)}dz = \frac{g}{R_d(255 - \frac{g}{c_p}z)}dz
+\end{equation*}
+
+Integrating for both sides from surface to height $z$:
+
+\begin{equation*}
+\int_{\ln(1000)}^{\ln(500)} d(\ln p)=\ln\left(\frac{500}{1000}\right) = \frac{g}{R_d}\int_0^z \frac{dz'}{255 - \frac{g}{c_p}z'}
+\end{equation*}
+
+\begin{equation*}
+-\ln(2) = -\frac{c_p}{R_d}\ln\left(\frac{255}{255 - \frac{g}{c_p}z}\right)
+\end{equation*}
+
+With $\frac{c_p}{R_d} = \frac{1005}{287} = 3.5$:
+
+\begin{equation*}
+2^{1/3.5} = \frac{255}{255 - 0.00975z}
+\end{equation*}
+
+\begin{equation*}
+1.219 \times (255 - 0.00975z) = 255
+\end{equation*}
+
+\begin{equation*}
+z \approx 4698.68\text{ m}
+\end{equation*}
+
+(iii) Density:
+
+At $z = 4698.68$ m: $T = 255 - 9.75 \times 4.699 = 209.18$ K
+
+\begin{equation*}
+\rho = \frac{p}{RT} = \frac{50000}{287 \times 209.18} \approx 0.833 \text{ kg/m}^3
+\end{equation*}
+
+\textbf{Comparison with Problem 2a:}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Quantity & Isothermal (2a) & Isentropic (5c) \\
+\hline
+Pressure & 500 hPa & 500 hPa \\
+Altitude & 5176.32 m & 4698.68 m \\
+Density & 0.683 kg/m$^3$ & 0.833 kg/m$^3$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Isentropic atmosphere has faster temperature decrease, reaching mass midpoint at lower altitude with higher density.
 
 \end{document}
