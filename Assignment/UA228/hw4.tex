@@ -1,0 +1,482 @@
+
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-UA 228 (Fundamental Dynamics of Earth’s Atmosphere and Climate) -- Homework 2}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\section*{Introduction}
+
+At this point in the course, we have developed a theory of the vertical structure of the atmosphere. How does our paper-and-pencil theory fare against harsh observational reality? This assignment includes four atmospheric soundings -- direct measurements of the atmosphere from ascending weather balloons. I have provided both the ``skew T'' and standard format versions of each sounding, as discussed in class. Sounding observations are typically conducted at airports or air force bases, as these are areas where we particularly want to understand atmospheric conditions!
+
+You will need to estimate values from the sounding diagrams: please do your best to ``eyeball'' values to 1-2 significant figures. The goal is to obtain rough approximate answers and demonstrate coherent calculations, not to pursue perfection! I have also posted excerpts from Bohren and Albrecht's \textit{Atmospheric Thermodynamics} to help you understand these ``skew T'' diagrams.
+
+\textbf{Please be sure to show your work!} Remember you may collaborate with partners, but please acknowledge your collaborators.
+
+\section*{For questions 1-4, let's go back to NYU commencement 2025 (May 15).}
+
+It's 8 am, and we just got the 12Z (that is, 12 Greenwich Mean Time, or 8 am New York) sounding from Upton, NY. Upton is located about halfway out on Long Island, and is the closest sounding station to the city. Brookhaven National Laboratory is based in Upton.
+
+\subsection*{1. What are the 1000 hPa values of the following quantities:}
+
+\begin{enumerate}[label=(\alph*)]
+    \item temperature, $T$
+    
+    \textbf{Solution:} From the skew-T diagram at 1000 hPa, follow the temperature curve (right thick black line) to read the temperature along the isotherms (black diagonal lines).
+    
+    \textbf{Answer:} $T \approx 16°\text{C}$
+    
+    \item specific humidity, $q$
+    
+    \textbf{Solution:} From the dewpoint temperature at 1000 hPa ($T_d \approx 14°\text{C}$), follow the green mixing ratio line (constant mixing ratio line going from lower left to upper right) to read the value.
+    
+    \textbf{Answer:} $q \approx 10$ g/kg
+    
+    \item saturation specific humidity, $q_s$
+    
+    \textbf{Solution:} From the actual temperature $T = 16°\text{C}$ at 1000 hPa, follow the green mixing ratio line to find the saturation mixing ratio.
+    
+    \textbf{Answer:} $q_s \approx 11.5$ g/kg
+    
+    \item relative humidity, $U$
+    
+    \textbf{Solution:} Calculate using the formula:
+    \begin{equation}
+    U = \frac{q}{q_s} \times 100\% = \frac{10}{11.5} \times 100\%
+    \end{equation}
+    
+    \textbf{Answer:} $U \approx 87\%$
+    
+    \item potential temperature, $\theta$
+    
+    \textbf{Solution:} From the point (1000 hPa, 16°C), follow the dry adiabat (red dashed line) downward. Since we're already at 1000 hPa, the potential temperature equals the actual temperature. Alternatively, using the formula:
+    \begin{equation}
+    \theta = T \times \left(\frac{1000}{p}\right)^{0.286} = 16°\text{C} \times \left(\frac{1000}{1000}\right)^{0.286} = 16°\text{C}
+    \end{equation}
+    
+    \textbf{Answer:} $\theta \approx 16°\text{C}$ (or 289 K)
+    
+    \item equivalent moist potential temperature, $\theta_e$
+    
+    \textbf{Solution:} From the surface point, ascend along the dry adiabat until reaching the dewpoint (LCL at $\sim$950 hPa), then continue along the moist adiabat (blue curved line) to high altitude, and descend back to 1000 hPa along the same moist adiabat.
+    
+    \textbf{Answer:} $\theta_e \approx 52°\text{C}$ (or 325 K)
+    
+    \item wind speed 
+    
+    \textbf{Solution:} Read the wind barb at 1000 hPa on the right side of the diagram. Count the barbs: one full barb = 10 knots, one half barb = 5 knots.
+    
+    \textbf{Answer:} Wind speed $\approx 10-15$ knots 
+    
+    \item wind direction
+    
+    \textbf{Solution:} The wind barb points toward the direction the wind is coming from. At 1000 hPa, the barb points from the southwest.
+    
+    \textbf{Answer:} Wind direction: Southwest (SW) or approximately 225°
+\end{enumerate}
+
+\subsection*{2. Now estimate the same values (a-h) at 500 hPa.}
+
+\begin{enumerate}[label=(\alph*)]
+    \item temperature, $T$
+    
+    \textbf{Solution:} At 500 hPa, read the temperature from the right thick black line along the isotherms.
+    
+    \textbf{Answer:} $T \approx -8°\text{C}$
+    
+    \item specific humidity, $q$
+    
+    \textbf{Solution:} From the dewpoint at 500 hPa ($T_d \approx -12°\text{C}$), follow the green mixing ratio line.
+    
+    \textbf{Answer:} $q \approx 1.5$ g/kg
+    
+    \item saturation specific humidity, $q_s$
+    
+    \textbf{Solution:} From $T = -8°\text{C}$ at 500 hPa, follow the green mixing ratio line.
+    
+    \textbf{Answer:} $q_s \approx 2.0$ g/kg
+    
+    \item relative humidity, $U$
+    
+    \textbf{Solution:} 
+    \begin{equation}
+    U = \frac{q}{q_s} \times 100\% = \frac{1.5}{2.0} \times 100\%
+    \end{equation}
+    
+    \textbf{Answer:} $U \approx 75\%$
+    
+    \item potential temperature, $\theta$
+    
+    \textbf{Solution:} From (500 hPa, -8°C), descend along the red dry adiabat to 1000 hPa, or use:
+    \begin{equation}
+    \theta = (-8 + 273) \times \left(\frac{1000}{500}\right)^{0.286} \approx 265 \times 1.19 \approx 315 \text{ K}
+    \end{equation}
+    
+    \textbf{Answer:} $\theta \approx 42°\text{C}$ (or 315 K)
+    
+    \item equivalent moist potential temperature, $\theta_e$
+    
+    \textbf{Solution:} Follow the moist adiabat (blue line) passing through the 500 hPa point down to 1000 hPa.
+    
+    \textbf{Answer:} $\theta_e \approx 48°\text{C}$ (or 321 K)
+    
+    \item wind speed
+    
+    \textbf{Solution:} Read wind barbs at 500 hPa.
+    
+    \textbf{Answer:} Wind speed $\approx 30-40$ knots
+    
+    \item wind direction
+    
+    \textbf{Solution:} Read the direction the wind barb points from.
+    
+    \textbf{Answer:} Wind direction: West (W) or approximately 270°
+\end{enumerate}
+
+\subsection*{3. What is the height of the 500 hPa surface? Suppose that the atmosphere was isothermal. What would its temperature need to be so the 500 hPa surface has the same height as you observed on this day? Hint: you solved this in past homework program, and the key is the scale height, H=RT/g. How does this temperature compare with the actual temperatures from 1000 to 500 hPa?}
+
+\textbf{Solution:} 
+
+From the sounding diagram, read the height of the 500 hPa surface:
+
+\textbf{Height of 500 hPa:} $h \approx 5500$ m
+
+For an isothermal atmosphere, the pressure decreases with height as:
+\begin{equation}
+p(z) = p_0 e^{-z/H}
+\end{equation}
+where $H = \frac{RT}{g}$ is the scale height.
+
+For $p = 500$ hPa and $p_0 = 1000$ hPa:
+\begin{equation}
+500 = 1000 \times e^{-z/H}
+\end{equation}
+\begin{equation}
+\ln(0.5) = -\frac{z}{H}
+\end{equation}
+\begin{equation}
+H = \frac{z}{\ln(2)} = \frac{5500}{0.693} \approx 7937 \text{ m}
+\end{equation}
+
+Using $H = \frac{RT}{g}$ with $R = 287$ J/(kg·K) and $g = 9.8$ m/s$^2$:
+\begin{equation}
+T = \frac{Hg}{R} = \frac{7937 \times 9.8}{287} \approx 271 \text{ K} = -2°\text{C}
+\end{equation}
+
+\textbf{Comparison:} The isothermal temperature of $-2°\text{C}$ is between the surface temperature (16°C) and the 500 hPa temperature (-8°C), roughly representing an average temperature. The actual atmosphere has a temperature lapse rate (decreasing temperature with height), which differs from the isothermal assumption.
+
+\subsection*{4. Find the tropopause and estimate the parameters below. You have to extrapolate to get some of these values, particularly temperature, so just try your best.}
+
+\textbf{Solution:} The tropopause is identified where the temperature profile stops decreasing with height and begins to increase or remain constant (temperature inversion). On the skew-T diagram, this appears where the temperature curve changes from tilting left to tilting right or becoming vertical.
+
+\begin{enumerate}[label=(\alph*)]
+    \item height
+    
+    \textbf{Answer:} $h \approx 11,000$ m
+    
+    \item pressure
+    
+    \textbf{Answer:} $p \approx 220$ hPa
+    
+    \item temperature
+    
+    \textbf{Solution:} Extrapolate the temperature curve at the tropopause level.
+    
+    \textbf{Answer:} $T \approx -55°\text{C}$ (or 218 K)
+    
+    \item potential temperature
+    
+    \textbf{Solution:} Follow the dry adiabat from (220 hPa, -55°C) to 1000 hPa:
+    \begin{equation}
+    \theta = 218 \times \left(\frac{1000}{220}\right)^{0.286} \approx 218 \times 1.52 \approx 331 \text{ K}
+    \end{equation}
+    
+    \textbf{Answer:} $\theta \approx 58°\text{C}$ (or 331 K)
+    
+    \item wind speed
+    
+    \textbf{Answer:} Wind speed $\approx 50-60$ knots
+    
+    \item wind direction
+    
+    \textbf{Answer:} Wind direction: West-Northwest (WNW) or approximately 280-290°
+    
+    \item Finally, why is the potential temperature at the tropopause so much larger than the actual temperature?
+    
+    \textbf{Solution:} Potential temperature represents what the temperature would be if air were brought adiabatically to 1000 hPa. At the tropopause, the pressure is very low (~220 hPa) and the actual temperature is very cold (~-55°C). When this air is compressed adiabatically to 1000 hPa, work is done on it, significantly increasing its temperature. The large difference reflects the strong stratification of the atmosphere: air at the tropopause has much higher entropy and would become much warmer if brought to the surface adiabatically.
+\end{enumerate}
+
+\section*{Each of questions 5, 6, and 7 apply to one of the soundings (A, B, or C). It may help to first identify which sounding applies to each question. You will need to use all three!}
+
+\subsection*{5. Which sounding exhibits a large layer where the atmosphere is neutrally stable to dry convection? At what pressure does this layer begin and end? What do you think caused this layer to form?}
+
+\textbf{Answer:} Sounding B (Amarillo, TX)
+
+\textbf{Solution:} A layer neutrally stable to dry convection has an environmental lapse rate equal to the dry adiabatic lapse rate. On the skew-T, this appears as the temperature profile being parallel to the dry adiabats (red lines).
+
+\textbf{Pressure range:} The layer extends from approximately 850 hPa (surface) to 700 hPa (about 3 km altitude).
+
+\textbf{Cause:} This well-mixed layer is likely caused by strong daytime heating and vigorous dry convection over the land surface. The continental location (Texas) and intense solar heating create strong turbulent mixing that homogenizes the temperature profile along the dry adiabat. This is typical of afternoon conditions over hot, dry continental areas.
+
+\subsection*{6. Which sounding exhibits an environmental profile that is unstable to moist convection for a parcel at the surface? Is there anything inhibiting this convection in the lower troposphere? [You have to look carefully to see this.] If the surface parcel was able to get past this inhibiting layer, how high would it go if it continued to ascend on a moist adiabat, undiluted by any environmental air? Comment how this compares to the tropopause.}
+
+\textbf{Answer:} Sounding C (Corpus Christi, TX)
+
+\textbf{Solution:} 
+
+\textbf{Moist convective instability:} When a surface parcel is lifted and becomes saturated, its trajectory follows the moist adiabat (blue curve). If this curve lies to the right of (warmer than) the environmental temperature profile, the atmosphere is unstable to moist convection.
+
+\textbf{Inhibition layer:} Yes, there is a small stable layer or "cap" at approximately 900-850 hPa (around 1-1.5 km) where the environmental temperature is warmer than the parcel trajectory. This creates Convective INhibition (CIN) that must be overcome.
+
+\textbf{Maximum height:} If the parcel breaks through the cap, following the moist adiabat, it would remain warmer than the environment up to approximately 200-250 hPa (about 11-12 km altitude).
+
+\textbf{Comparison to tropopause:} This height is very close to or at the tropopause level (~220 hPa, 11 km), indicating extremely strong convective potential. This sounding shows conditions favorable for severe thunderstorms with very deep convection reaching the tropopause.
+
+\subsection*{7. Which sounding exhibits a strong inversion in the profile? What is the height of the inversion, that is, how far up does it extend from the surface? How strong is it, i.e. how much warmer is that atmosphere above than below? What is different about the air above and below the inversion?}
+
+\textbf{Answer:} Sounding A (Vandenberg, CA)
+
+\textbf{Solution:} An inversion appears on the skew-T as a portion where the temperature profile tilts to the right (temperature increasing with height).
+
+\textbf{Height of inversion:} The inversion extends from the surface (1000 hPa) to approximately 850 hPa (about 1.5 km altitude).
+
+\textbf{Strength:} The temperature difference is approximately 8-10°C, with surface temperature around 12°C and temperature at the top of the inversion around 20-22°C.
+
+\textbf{Differences in air masses:}
+\begin{itemize}
+    \item \textbf{Below inversion:} Cold, very moist (high humidity, dewpoint close to temperature), marine air from the Pacific Ocean. Likely contains fog or low clouds.
+    \item \textbf{Above inversion:} Warm, very dry (low humidity, large dewpoint depression), likely from subsiding air associated with the Pacific High pressure system.
+\end{itemize}
+
+This is a classic marine inversion typical of the California coast, caused by cool ocean water below and subsiding warm air aloft.
+
+\section*{For questions 8 and 9, consider all three of the soundings, A, B, and C.}
+
+\subsection*{8. Where in all three soundings (if anywhere) do you think there are clouds or fog present in the atmosphere?}
+
+\textbf{Solution:} Clouds or fog are present where the temperature and dewpoint curves are very close together or touching (indicating saturation, relative humidity near 100\%).
+
+\textbf{Answer:}
+
+\begin{itemize}
+    \item \textbf{Sounding A (Vandenberg):} Fog or low stratus clouds from surface to approximately 850 hPa (0-1.5 km). The temperature and dewpoint are nearly coincident in this layer.
+    
+    \item \textbf{Sounding B (Amarillo):} No significant clouds. The temperature and dewpoint curves are well separated throughout, indicating dry conditions.
+    
+    \item \textbf{Sounding C (Corpus Christi):} 
+    \begin{itemize}
+        \item Low-level moisture from surface to ~900 hPa (possible low clouds)
+        \item If convection is triggered, deep cumulonimbus clouds extending from the LCL (~950 hPa) up to 200 hPa (11-12 km), potentially producing thunderstorms
+    \end{itemize}
+\end{itemize}
+
+\subsection*{9. Please describe the meteorological conditions of all three sounding, that is, if you were a weather forecaster, what sort of forecast would you make based on this data alone. Would any place experience extreme weather that day? Or, to put it more informally, if your wedding was at that location that day, what would you be worried about? (Alas, I don't think any of these locations would be that great for a wedding!)}
+
+\textbf{Answer:}
+
+\textbf{Sounding A (Vandenberg, CA - Coastal California):}
+
+\textbf{Forecast:} Cool, foggy, and overcast conditions with low clouds/stratus. Temperatures mild (50-60°F). Poor visibility due to marine fog. Light winds. The inversion will trap pollution and moisture near the surface.
+
+\textbf{Wedding concerns:} Cold and foggy! Outdoor ceremonies would be gloomy with poor visibility and damp conditions. However, no severe weather threat - just dreary and chilly. Might need to move indoors or have heaters and good lighting.
+
+\textbf{Sounding B (Amarillo, TX - High Plains):}
+
+\textbf{Forecast:} Hot, dry, and sunny. Clear skies with excellent visibility. Strong surface heating creating well-mixed boundary layer. Low humidity making it feel less oppressive despite heat. Breezy conditions possible due to strong mixing.
+
+\textbf{Wedding concerns:} Intense heat and sun exposure! Risk of heat exhaustion for guests. Very dry air might cause dehydration. Dust possible with strong winds. Need shade, lots of water, and sun protection. No rain threat, which is good, but the heat and dryness could be uncomfortable.
+
+\textbf{Sounding C (Corpus Christi, TX - Gulf Coast):}
+
+\textbf{Forecast:} HOT, HUMID, and EXTREMELY DANGEROUS. High potential for severe thunderstorms with:
+\begin{itemize}
+    \item Very large hail
+    \item Damaging winds
+    \item Heavy rainfall and flash flooding
+    \item Possible tornadoes
+    \item Frequent lightning
+\end{itemize}
+The extreme instability (CAPE very high) combined with the cap suggests supercell thunderstorms if the cap breaks. Morning might be hot and humid with building cumulus; afternoon/evening could see explosive storm development.
+
+\textbf{Wedding concerns:} CANCEL OR POSTPONE! This is the most dangerous of the three soundings. Risk of severe thunderstorms potentially reaching the venue. Lightning strikes, torrential rain, hail damage, strong winds could injure guests and damage property. Even if morning starts nice, conditions could deteriorate rapidly. This is a "severe weather outbreak" type sounding. Absolutely need indoor backup plan and weather monitoring.
+
+\textbf{Summary ranking (worst to best for wedding):}
+\begin{enumerate}
+    \item Corpus Christi (C) - Dangerous
+    \item Amarillo (B) - Uncomfortable but safe
+    \item Vandenberg (A) - Dreary but safe
+\end{enumerate}
+\end{document}

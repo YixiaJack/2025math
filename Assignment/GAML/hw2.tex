@@ -216,7 +216,7 @@ Show that the VC dimension $d$ of $H$ is finite, and provide a bound on $d$ in t
 
 \textbf{Proof:}
 
-We prove this by showing that no set of $m = k + 1$ points can be shattered by $\mathcal{H}$.
+We prove that the VC-dimension $d$ of $\mathcal{H}$ satisfies $d \leq k$ by showing that no set of $m = k + 1$ points can be shattered by $\mathcal{H}$.
 
 Let $\{y_1, y_2, \ldots, y_m\}$ be an arbitrary collection of $m = k + 1$ points in $\mathbb{R}^n$.
 
@@ -225,109 +225,142 @@ Define the linear map $T: \mathcal{G} \to \mathbb{R}^m$ by
 T(g) = (g(y_1), g(y_2), \ldots, g(y_m)).
 \]
 
-Since $\mathcal{G}$ is a vector space of dimension $k$ and $T$ is a linear map, we have
+Since $\mathcal{G}$ is a vector space of dimension $k$ and $T$ is a linear map, by the rank-nullity theorem, we have
 \[
-\dim(\text{Image}(T)) \leq \dim(\mathcal{G}) = k < m = k + 1.
+\dim(\text{Im}(T)) \leq \dim(\mathcal{G}) = k < m = k + 1.
 \]
 
-Therefore, $\text{Image}(T)$ is a proper subspace of $\mathbb{R}^m$ with dimension at most $k$.
+Therefore, $\text{Im}(T)$ is a proper subspace of $\mathbb{R}^m$ with dimension at most $k < m$.
 
-This means there exists a non-zero vector $v = (v_1, v_2, \ldots, v_m) \in \mathbb{R}^m$ that is orthogonal to $\text{Image}(T)$. That is, for all $g \in \mathcal{G}$,
+This means there exists a non-zero vector $v = (v_1, v_2, \ldots, v_m) \in \mathbb{R}^m$ that is orthogonal to $\text{Im}(T)$. That is, for all $g \in \mathcal{G}$,
 \[
 \langle T(g), v \rangle = \sum_{i=1}^m v_i g(y_i) = 0.
 \]
 
-Without loss of generality, assume $v_1 > 0$ (if not, consider $-v$; at least one component must be non-zero).
+Since $v \neq 0$, we can partition the indices $\{1, 2, \ldots, m\}$ into three disjoint sets:
+\begin{align*}
+I^+ &= \{i : v_i > 0\}, \\
+I^- &= \{i : v_i < 0\}, \\
+I^0 &= \{i : v_i = 0\}.
+\end{align*}
 
-Let $I^+ = \{i : v_i > 0\}$ and $I^- = \{i : v_i < 0\}$. Note that both sets are non-empty (otherwise the orthogonality condition would imply all $g(y_i) = 0$ for all $g \in \mathcal{G}$, contradicting the generality of $\mathcal{G}$, or $v = 0$).
+Note that $I^+ \cup I^- \neq \emptyset$ since $v \neq 0$.
 
-We claim that the dichotomy $(I^+, I^-)$ cannot be realized by $\mathcal{H}$. That is, there is no $g \in \mathcal{G}$ such that $g(y_i) \geq 0$ for all $i \in I^+$ and $g(y_i) < 0$ for all $i \in I^-$.
+We claim that if $I^+ \neq \emptyset$ and $I^- \neq \emptyset$, then the dichotomy corresponding to the subset $I^+$ (i.e., classifying points in $I^+$ as positive and points in $I^- \cup I^0$ as negative) cannot be realized by any hypothesis in $\mathcal{H}$.
 
-Suppose for contradiction that such a $g$ exists. Then:
+Suppose for contradiction that there exists $g \in \mathcal{G}$ such that 
+\begin{align*}
+g(y_i) &\geq 0 \text{ for all } i \in I^+, \\
+g(y_i) &< 0 \text{ for all } i \in I^-.
+\end{align*}
+
+Then:
 \[
-\sum_{i=1}^m v_i g(y_i) = \sum_{i \in I^+} v_i g(y_i) + \sum_{i \in I^-} v_i g(y_i) + \sum_{v_i = 0} 0.
+\sum_{i=1}^m v_i g(y_i) = \sum_{i \in I^+} v_i g(y_i) + \sum_{i \in I^-} v_i g(y_i) + \sum_{i \in I^0} v_i g(y_i).
 \]
 
-Since $v_i > 0$ and $g(y_i) \geq 0$ for $i \in I^+$, we have $\sum_{i \in I^+} v_i g(y_i) \geq 0$.
+Since $v_i = 0$ for $i \in I^0$, the third sum vanishes.
 
-Since $v_i < 0$ and $g(y_i) < 0$ for $i \in I^-$, we have $v_i g(y_i) > 0$, so $\sum_{i \in I^-} v_i g(y_i) > 0$ (assuming $I^-$ is non-empty).
+For the first sum: since $v_i > 0$ and $g(y_i) \geq 0$ for $i \in I^+$, we have $\sum_{i \in I^+} v_i g(y_i) \geq 0$.
 
-Therefore, $\sum_{i=1}^m v_i g(y_i) > 0$, contradicting the orthogonality condition.
+For the second sum: since $v_i < 0$ and $g(y_i) < 0$ for $i \in I^-$, we have $v_i g(y_i) > 0$, so $\sum_{i \in I^-} v_i g(y_i) > 0$ (assuming $I^- \neq \emptyset$).
+
+Therefore, $\sum_{i=1}^m v_i g(y_i) > 0$, which contradicts the orthogonality condition.
+
+If $I^- = \emptyset$ but $I^+ \neq \emptyset$, a similar argument shows that no $g \in \mathcal{G}$ can satisfy $g(y_i) < 0$ for all $i \in I^+$, which means the empty subset cannot be realized (contradiction to shattering).
 
 Thus, the collection $\{y_1, \ldots, y_m\}$ cannot be shattered by $\mathcal{H}$.
 
-Since no set of $k + 1$ points can be shattered, we have $d \leq k$. \qed
+Since no set of $k + 1$ points can be shattered, we conclude that the VC-dimension $d$ of $\mathcal{H}$ satisfies $d \leq k$. \qed
+
 
 (2)
 
 \textbf{Proof:}
 
-Consider the constraint that we have $k$ specific functions $f_1, \ldots, f_k \in \mathcal{F}$ with coefficients $a_1, \ldots, a_k$. The key is that we're selecting $k$ functions from $\mathcal{F}$ and forming their weighted sum.
+We show that $H$ can be viewed as a class of linear threshold functions (homogeneous half-spaces) in a finite-dimensional space, from which the bound follows.
 
-For a point $x_i \in \mathbb{R}^n$, define the feature map $\Phi: \mathbb{R}^n \to \mathbb{R}^{kr}$ as follows. Let $\{f_1^*, \ldots, f_r^*\}$ be a basis for $\mathcal{F}$. For each $x$, we map it to:
+Let $\{f_1^*, \ldots, f_r^*\}$ be a basis for $\mathcal{F}$. Any function $f \in \mathcal{F}$ can be written as $f = \sum_{\ell=1}^r \beta_\ell f_\ell^*$ for some coefficients $\beta_1, \ldots, \beta_r \in \mathbb{R}$.
+
+Consider the feature map $\Phi: \mathbb{R}^n \to \mathbb{R}^{kr}$ defined by
 \[
-\Phi(x) = (f_1^*(x), \ldots, f_r^*(x), f_1^*(x), \ldots, f_r^*(x), \ldots, f_1^*(x), \ldots, f_r^*(x))
+\Phi(x) = (f_1^*(x), \ldots, f_r^*(x), f_1^*(x), \ldots, f_r^*(x), \ldots, f_1^*(x), \ldots, f_r^*(x)),
 \]
-where we repeat the evaluations $k$ times (organized in $k$ blocks of $r$ evaluations each).
+where the tuple $(f_1^*(x), \ldots, f_r^*(x))$ is repeated $k$ times, arranged in $k$ blocks of size $r$.
 
-A hypothesis in $H$ selecting functions $f_j = \sum_{\ell=1}^r \beta_{j\ell} f_\ell^*$ with weights $a_j$ becomes:
+For any hypothesis in $H$ defined by functions $f_1, \ldots, f_k \in \mathcal{F}$ and coefficients $a_1, \ldots, a_k \in \mathbb{R}$, where $f_j = \sum_{\ell=1}^r \beta_{j\ell} f_\ell^*$, the decision rule is:
 \[
 \sum_{j=1}^k a_j f_j(x) = \sum_{j=1}^k a_j \sum_{\ell=1}^r \beta_{j\ell} f_\ell^*(x) \geq 0.
 \]
 
-This is a linear threshold function in the $kr$-dimensional space with weight vector:
+This can be rewritten as:
+\[
+\langle w, \Phi(x) \rangle \geq 0,
+\]
+where the weight vector $w \in \mathbb{R}^{kr}$ is given by
 \[
 w = (a_1\beta_{1,1}, \ldots, a_1\beta_{1,r}, a_2\beta_{2,1}, \ldots, a_2\beta_{2,r}, \ldots, a_k\beta_{k,1}, \ldots, a_k\beta_{k,r}).
 \]
 
-The class $H$ is thus equivalent to the class of linear threshold functions (half-spaces) in $\mathbb{R}^{kr}$.
-
-It is a well-known result that the VC-dimension of linear threshold functions in $\mathbb{R}^m$ is exactly $m + 1$. However, we should be more careful here.
-
-Actually, the VC-dimension of half-spaces in $\mathbb{R}^m$ (linear threshold functions $\{x : w \cdot x \geq 0\}$) is $m + 1$, but our feature map has dimension $kr$. Therefore:
+Therefore, $H$ is equivalent to the class of homogeneous linear threshold functions in $\mathbb{R}^{kr}$:
 \[
-d \leq kr + 1.
+H \cong \{\{z \in \mathbb{R}^{kr} : w \cdot z \geq 0\} : w \in \mathbb{R}^{kr}\}.
 \]
 
-For the stated bound $d \leq kr$, we can use Problem 1 more carefully. The class $H$ consists of thresholded functions from the space $\mathcal{G}$ of all possible $\sum_{j=1}^k a_j f_j$ where $f_j \in \mathcal{F}$. This space $\mathcal{G}$ has dimension at most $kr$ (since each of the $k$ functions comes from an $r$-dimensional space). By Problem 1, $d \leq kr$. \qed
+It is a well-known result that the VC-dimension of homogeneous half-spaces (linear threshold functions through the origin) in $\mathbb{R}^m$ is exactly $m$.
+
+Therefore, the VC-dimension $d$ of $H$ satisfies $d \leq kr$.
+
 
 (3)
 
 \textbf{Proof:}
 
-Let $\mathcal{H}_i = \left\{\{x \in \mathbb{R}^n: f(x) \geq 0\}: f \in \mathcal{F}\right\}$ for $i = 1, \ldots, k$ (all $k$ copies are the same class).
+We prove that the VC-dimension of $H$ is finite and provide a bound in terms of $k$ and $r$.
 
-By Problem 1, each $\mathcal{H}_i$ has VC-dimension at most $r$.
-
-The class $H$ consists of intersections of $k$ sets, where each set comes from $\mathcal{H}_i$:
+First, note that by Problem 1, the class
 \[
-H = \left\{\bigcap_{j=1}^k h_j: h_j \in \mathcal{H}_j\right\}.
+\mathcal{H}_0 = \{\{x \in \mathbb{R}^n : f(x) \geq 0\} : f \in \mathcal{F}\}
+\]
+has VC-dimension at most $r$.
+
+The class $H$ consists of intersections of $k$ sets from $\mathcal{H}_0$:
+\[
+H = \left\{\bigcap_{j=1}^k S_j : S_1, \ldots, S_k \in \mathcal{H}_0\right\}.
 \]
 
-We use the following lemma about intersections:
+We use the following general result on intersections:
 
-\textbf{Lemma:} If $\mathcal{C}_1, \ldots, \mathcal{C}_k$ are classes with VC-dimensions $d_1, \ldots, d_k$ respectively, then the class of intersections
+\textbf{Lemma (VC-dimension of intersections):} Let $\mathcal{C}_1, \ldots, \mathcal{C}_k$ be hypothesis classes, each with VC-dimension at most $d$. Then the class of intersections
 \[
-\mathcal{C} = \left\{\bigcap_{i=1}^k C_i: C_i \in \mathcal{C}_i\right\}
+\mathcal{C} = \left\{\bigcap_{i=1}^k C_i : C_i \in \mathcal{C}_i\right\}
 \]
-has VC-dimension at most $O(d \log k)$, where $d = \max_i d_i$.
+has VC-dimension at most $O(kd \log k)$.
 
-More precisely, using Sauer's lemma and a counting argument, one can show:
+More precisely, it can be shown that:
 \[
-\text{VC-dim}(H) \leq 4d\log_2(2k),
-\]
-where $d = \max_i \text{VC-dim}(\mathcal{H}_i) = r$.
-
-Therefore, $\text{VC-dim}(H) \leq 4kr\log_2(2k)$ or $d \leq 2kr\log_2(2k)$ depending on the exact constants.
-
-\textbf{Sketch of the bound:} The growth function of an intersection of $k$ classes can be bounded using the fact that the growth function of a class with VC-dimension $d$ is at most $\binom{m}{0} + \cdots + \binom{m}{d} \leq \left(\frac{em}{d}\right)^d$ (Sauer's lemma).
-
-For the intersection, we need all $k$ classes to simultaneously realize a dichotomy, which constrains the growth function. By iteratively applying Sauer's lemma and using combinatorial arguments, one obtains:
-\[
-\text{VC-dim}(H) \leq 2kr\log_2(3ek).
+\text{VC-dim}(\mathcal{C}) \leq 2kd \log_2(3k).
 \]
 
-\qed
+\textbf{Sketch of proof of the lemma:}
+
+Let $S = \{x_1, \ldots, x_m\}$ be a set of $m$ points. The growth function $\Pi_{\mathcal{C}}(m)$ counts the number of distinct ways the class $\mathcal{C}$ can label the points in $S$.
+
+For the intersection $\bigcap_{i=1}^k C_i$ to produce a specific labeling, each $C_i$ must produce a labeling compatible with the intersection. By Sauer's lemma, each class $\mathcal{C}_i$ with VC-dimension $d$ can produce at most $\sum_{j=0}^d \binom{m}{j} \leq \left(\frac{em}{d}\right)^d$ distinct labelings on $m$ points.
+
+The key insight is that for the intersection to shatter a set, we need enough "degrees of freedom" from all $k$ classes combined. Using a double counting argument and the constraint that the intersection must be consistent, one can show that if $m > 2kd\log_2(3k)$, then $\Pi_{\mathcal{C}}(m) < 2^m$, which means $S$ cannot be shattered.
+
+\textbf{Application to our problem:}
+
+In our case, we have $k$ copies of the same class $\mathcal{H}_0$, each with VC-dimension at most $r$. Applying the lemma with $d = r$, we obtain:
+\[
+\text{VC-dim}(H) \leq 2kr \log_2(3k).
+\]
+
+Therefore, the VC-dimension $d$ of $H$ is finite and satisfies
+\[
+d \leq 2kr \log_2(3k) = O(kr \log k).
+\]
 
 \section*{B. Rademacher complexity}
 
@@ -462,132 +495,84 @@ K(x, x') = \frac{1}{1 + \|x - x'\|^2} + (1 + x^\top x')^2.
 \end{enumerate}
 
 (a) 
-\textbf{Proof:}  
-A standard consequence of the \emph{Representer Theorem} is that any minimizer of a regularized empirical risk (here the squared norm $\frac{1}{2}\|w\|^2$ subject to margin constraints) lies in the finite-dimensional subspace spanned by the feature vectors $\{\phi(x_i)\}_{i=1}^m$. Hence, there exist coefficients $\{\alpha_i'\}$ (which, after a sign adjustment, can be written as $\alpha_i y_i$ with $\alpha_i\ge 0$) such that
+
+\textbf{Proof:}
+
+The hard-margin SVM problem is:
+\begin{align*}
+\min_{w \in \mathbb{H}, b \in \mathbb{R}} \quad & \frac{1}{2}\|w\|^2 \\
+\text{subject to} \quad & y_i(\langle w, \phi(x_i) \rangle + b) \geq 1, \quad \forall i \in [1, m].
+\end{align*}
+
+By the \textbf{Representer Theorem}, any solution $w^*$ to this optimization problem lies in the finite-dimensional subspace spanned by $\{\phi(x_1), \ldots, \phi(x_m)\}$. Therefore, there exist coefficients $c_1, \ldots, c_m \in \mathbb{R}$ such that
 \[
-w^* = \sum_{i=1}^m \alpha_i y_i \phi(x_i).
+w^* = \sum_{i=1}^m c_i \phi(x_i).
 \]
-Moreover, by writing the Lagrangian of the primal problem,
+
+The Lagrangian of the primal problem is:
 \[
-L(w,b,\alpha) = \frac{1}{2}\|w\|^2 - \sum_{i=1}^m \alpha_i \Bigl[ y_i\bigl(\langle w,\phi(x_i)\rangle+b \bigr) - 1\Bigr],
+L(w, b, \alpha) = \frac{1}{2}\|w\|^2 - \sum_{i=1}^m \alpha_i [y_i(\langle w, \phi(x_i) \rangle + b) - 1],
 \]
-the stationarity condition with respect to $w$ yields
+where $\alpha = (\alpha_1, \ldots, \alpha_m)$ are the Lagrange multipliers.
+
+Since this is a convex optimization problem with linear constraints, and the problem is feasible (as given), the KKT conditions are necessary and sufficient for optimality.
+
+The KKT conditions at the optimal point $(w^*, b^*, \alpha^*)$ are:
+
+\begin{enumerate}
+\item \textbf{Stationarity:}
 \[
-\frac{\partial L}{\partial w} = w - \sum_{i=1}^m \alpha_i y_i\phi(x_i) = 0,
+\nabla_w L(w^*, b^*, \alpha^*) = w^* - \sum_{i=1}^m \alpha_i^* y_i \phi(x_i) = 0
 \]
-so that indeed
 \[
-w^* = \sum_{i=1}^m \alpha_i y_i\phi(x_i).
+\nabla_b L(w^*, b^*, \alpha^*) = -\sum_{i=1}^m \alpha_i^* y_i = 0
 \]
-Furthermore, the complementary slackness KKT condition demands that for every $i=1,\dots,m$
+
+\item \textbf{Primal feasibility:}
 \[
-\alpha_i\Bigl( y_i\bigl(\langle w^*,\phi(x_i)\rangle + b\bigr) - 1\Bigr)=0.
+y_i(\langle w^*, \phi(x_i) \rangle + b^*) \geq 1, \quad \forall i
 \]
-Thus if $\alpha_i > 0$, then necessarily
+
+\item \textbf{Dual feasibility:}
 \[
-y_i\bigl(\langle w^*,\phi(x_i)\rangle + b\bigr) = 1,
+\alpha_i^* \geq 0, \quad \forall i
 \]
-which means that the point $(x_i,y_i)$ lies exactly on the margin and is therefore a \emph{support vector}.
+
+\item \textbf{Complementary slackness:}
+\[
+\alpha_i^* [y_i(\langle w^*, \phi(x_i) \rangle + b^*) - 1] = 0, \quad \forall i
+\]
+\end{enumerate}
+
+From the stationarity condition, we have:
+\[
+w^* = \sum_{i=1}^m \alpha_i^* y_i \phi(x_i),
+\]
+where $\alpha_i^* \geq 0$ by the dual feasibility condition.
+
+Defining $\alpha_i := \alpha_i^*$, we obtain the desired representation:
+\[
+w^* = \sum_{i=1}^m \alpha_i y_i \phi(x_i), \quad \text{with } \alpha_i \geq 0.
+\]
+
+By the complementary slackness condition, if $\alpha_i > 0$, then:
+\[
+y_i(\langle w^*, \phi(x_i) \rangle + b^*) - 1 = 0,
+\]
+which means
+\[
+y_i(\langle w^*, \phi(x_i) \rangle + b^*) = 1.
+\]
+
+This indicates that the point $(x_i, y_i)$ lies exactly on the margin hyperplane. By definition, such points are \textbf{support vectors}.
+
+Conversely, if $(x_i, y_i)$ is not a support vector, then $y_i(\langle w^*, \phi(x_i) \rangle + b^*) > 1$, which by complementary slackness implies $\alpha_i = 0$.
+
+Therefore, nonzero $\alpha_i$ correspond exactly to support vectors.
 
 \qed
 
-\medskip
-
-(b) 
-\textbf{Proof:}  
-We have $w^* = \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \phi(x_i)$. Computing the squared norm:
-\begin{align*}
-\|w^*\|^2 &= \left\langle \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \phi(x_i), \sum_{j\in I_{\mathrm{SV}}} \alpha_j y_j \phi(x_j) \right\rangle \\
-&= \sum_{i\in I_{\mathrm{SV}}} \sum_{j\in I_{\mathrm{SV}}} \alpha_i \alpha_j y_i y_j \langle\phi(x_i), \phi(x_j)\rangle \\
-&= \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \left\langle \phi(x_i), \sum_{j\in I_{\mathrm{SV}}} \alpha_j y_j \phi(x_j) \right\rangle \\
-&= \sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \langle \phi(x_i), w^* \rangle.
-\end{align*}
-
-For support vectors, the KKT condition gives $y_i(\langle w^*, \phi(x_i)\rangle + b) = 1$, hence
-\[
-\langle w^*, \phi(x_i)\rangle = y_i - b y_i = y_i(1 - b y_i).
-\]
-
-However, a simpler approach uses the triangle inequality directly:
-\begin{align*}
-\|w^*\| &= \left\|\sum_{i\in I_{\mathrm{SV}}} \alpha_i y_i \phi(x_i)\right\| \\
-&\leq \sum_{i\in I_{\mathrm{SV}}} \alpha_i |y_i| \|\phi(x_i)\| \\
-&= \sum_{i\in I_{\mathrm{SV}}} \alpha_i \|\phi(x_i)\| \quad (|y_i|=1)\\
-&\leq \sum_{i\in I_{\mathrm{SV}}} \alpha_i \cdot R \\
-&\leq |\mathrm{SV}| \cdot 1 \cdot R = |\mathrm{SV}| \cdot R,
-\end{align*}
-where we used $\alpha_i \leq 1$.
-
-Therefore:
-\[
-\|w^*\|^2 \leq |\mathrm{SV}|^2 R^2 \quad \Longrightarrow \quad |\mathrm{SV}| \geq \frac{\|w^*\|}{R}.
-\]
-
-Squaring both sides:
-\[
-|\mathrm{SV}|^2 \geq \frac{\|w^*\|^2}{R^2}.
-\]
-
-Since $|\mathrm{SV}|$ is an integer and we need the sharper bound, we use:
-\[
-|\mathrm{SV}| \geq \frac{\|w^*\|^2}{R^2}.
-\]
-
-Using $\gamma = 1/\|w^*\|$:
-\[
-|\mathrm{SV}| \geq \frac{1}{\gamma^2 R^2}.
-\]
-
-(c) 
-
-\textbf{Proof:}  
-In an infinite-dimensional RKHS the feature map $\phi$ typically maps $\mathcal{X}$ into a space where any finite subset of points is (almost surely) linearly independent. In other words, for any finite dataset the Gram matrix
-\[
-[K(x_i,x_j)]_{i,j=1}^m
-\]
-is \emph{strictly positive definite}. This implies that the points $\{\phi(x_i)\}_{i=1}^m$ are in general position. Therefore, if the labels are arbitrary but the dataset is finite, one may always find a hyperplane (i.e. a vector $w\in \mathbb{H}$ and bias $b\in \mathbb{R}$) that separates the points according to their binary labels with a positive margin. Hence, the hard-margin SVM is feasible.
-
-Even though the RKHS is infinite-dimensional, the bound from part (b) remains meaningful because it only depends on the norm of the solution and the (possibly finite) upper bound
-\[
-R = \sup_{x\in\mathcal{X}} \|\phi(x)\|.
-\]
-That is, regardless of the dimension of $\mathbb{H}$, one has geometric control (through $R$ and the margin $\gamma$) over the complexity of the solution, and in particular on the number of support vectors.
-
-\qed
-
-\medskip
-
-(d) 
-
-\textbf{Proof:}  
-The modified kernel $K_\lambda(x,x') = K(x,x') + \lambda\delta_{x,x'}$ corresponds to an RKHS where the inner product is modified. The SVM problem with $K_\lambda$ seeks:
-\[
-\min_w \frac{1}{2}\|w\|^2_{\mathbb{H}_\lambda} \quad \text{s.t.} \quad y_i\langle w,\phi_\lambda(x_i)\rangle_{\lambda} \geq 1.
-\]
-
-As $\lambda \to 0$, the inner product structure approaches that of the original RKHS, and thus $w^*_\lambda \to w^*$.
-
-The bound from part (b) applies with $R_\lambda = \sup_x \|\phi_\lambda(x)\|_{\lambda}$, where
-\[
-R_\lambda^2 = K_\lambda(x,x) = K(x,x) + \lambda \leq R^2 + \lambda.
-\]
-
-Therefore:
-\[
-|\mathrm{SV}_\lambda| \geq \frac{\|w^*_\lambda\|^2}{R_\lambda^2} \geq \frac{\|w^*_\lambda\|^2}{R^2 + \lambda}.
-\]
-
-As $\lambda \to 0$, this approaches $\frac{\|w^*\|^2}{R^2} = \frac{1}{\gamma^2 R^2}$.
 (2)
-
-Let $\mathcal{X} \subset \mathbb{R}^n$ and consider the function
-\[
-K(x,x') = \frac{1}{1+\|x-x'\|^2} + \bigl( 1 + x^\top x'\bigr)^2.
-\]
-For convenience, define 
-\[
-K_1(x,x') = \frac{1}{1+\|x-x'\|^2} \quad \text{and} \quad K_2(x,x') = \bigl( 1 + x^\top x'\bigr)^2.
-\]
 
 (a) 
 
