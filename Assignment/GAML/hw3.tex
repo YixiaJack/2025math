@@ -1,0 +1,260 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+\usepackage{bm}
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\Dkl}{\mathrm{D}}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{Foundations of Machine Learning-- Homework 1}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\section*{A. AdaBoost}
+
+Let $\text{corr}(\mathbf{x}, \mathbf{x}')$ denote the inner product (or unnormalized correlation) of two vectors $\mathbf{x}$ and $\mathbf{x}'$.
+
+\begin{enumerate}
+    \item Prove that the distribution vector $(D_{t+1}(1), \ldots, D_{t+1}(m))$ defined by AdaBoost and the vector of components $y_i h_t(x_i)$ are uncorrelated.
+    
+    \item Fix $\epsilon \in (0, 1/2)$. Let the training sample be defined by $m$ points in the plane with $\frac{m}{4}$ negative points all at coordinate $(1,1)$, another set of $\frac{m}{4}$ negative points all at coordinate $(-1,-1)$, $\frac{m(1-\epsilon)}{4}$ positive points all at coordinate $(1,-1)$, and $\frac{m(1+\epsilon)}{4}$ positive points all at coordinate $(-1,+1)$. Describe the behavior of AdaBoost when run on this sample using boosting stumps, in particular, give the solution the algorithm returns after $T$ rounds.
+\end{enumerate}
+
+\section*{B. Boosting algorithms}
+
+\begin{enumerate}
+    \item Show that for all $u \in \mathbb{R}$ and integer $p > 1$, $1_{u \leq 0} \leq \Psi_p(-u)$ where $\Psi_p(u) = \max((1+u)^p, 0)$. Show that $\Psi_p$ is convex and differentiable.
+    
+    \item Use $\Psi_p$ to derive a boosting-type algorithm using coordinate descent. You should give a full description of your algorithm, including the pseudocode, details for the choice of the step and direction, as well as a generalization bound.
+\end{enumerate}
+
+\section*{C. Regularized Maxent}
+
+This problem studies $L_2$-regularized Maxent. We will use the notation introduced in class and will denote by $J_S$ the dual objective function minimized given a sample $S$:
+\[
+J_S(\mathbf{w}) = \frac{\lambda}{2} \|\mathbf{w}\|_2^2 + \mathop{\mathbb{E}}_{x \sim S} \left[ -\log p_{\mathbf{w}}[x] \right],
+\]
+where $\lambda > 0$ is a regularization parameter. We will assume that the feature vector is bounded: $\|\Phi(x)\|_2 \leq r$ for all $x \in \mathcal{X}$, for some $r > 0$.
+
+\begin{enumerate}
+    \item Use McDiarmid's inequality to prove that for any $\delta > 0$, with probability at least $1 - \delta$, the following inequality holds:
+    \[
+    \left\| \mathop{\mathbb{E}}_{x \sim \mathcal{D}}[\Phi(x)] - \mathop{\mathbb{E}}_{x \sim S}[\Phi(x)] \right\|_2 \leq \sqrt{\frac{2r^2}{m}} \left( 1 + \log \sqrt{\frac{1}{\delta}} \right).
+    \]
+    
+    \item Let $\widehat{\mathbf{w}}$ be the $L_2$-regularized maxent solution for a sample $S$ and $\mathbf{w}_{\mathcal{D}}$ the solution for an infinite sample:
+    \[
+    \widehat{\mathbf{w}} = \mathop{\text{argmin}}_{\mathbf{w} \in \mathbb{R}^N} J_S(\mathbf{w}) \quad \text{and} \quad \mathbf{w}_{\mathcal{D}} = \mathop{\text{argmin}}_{\mathbf{w} \in \mathbb{R}^N} J_{\mathcal{D}}(\mathbf{w}).
+    \]
+    where $J_{\mathcal{D}}(\mathbf{w}) = \frac{\lambda}{2} \|\mathbf{w}\|_2^2 + \mathop{\mathbb{E}}_{x \sim \mathcal{D}} \left[ -\log p_{\mathbf{w}}[x] \right]$. Use the definition of $\widehat{\mathbf{w}}$ and $\mathbf{w}_{\mathcal{D}}$ as minimizers (use gradients) to prove that the following inequality holds:
+    \[
+    \|\widehat{\mathbf{w}} - \mathbf{w}_{\mathcal{D}}\|_2 \leq \frac{\left\| \mathop{\mathbb{E}}_{x \sim S}[\Phi(x)] - \mathop{\mathbb{E}}_{x \sim \mathcal{D}}[\Phi(x)] \right\|_2}{\lambda}.
+    \]
+    
+    \item For any $\mathbf{w}$ and any distribution $\mathcal{Q}$ define $\mathcal{L}_{\mathcal{Q}}(\mathbf{w})$ by $\mathcal{L}_{\mathcal{Q}}(\mathbf{w}) = \mathop{\mathbb{E}}_{x \sim \mathcal{Q}}[-\log p_{\mathbf{w}}[x]]$. Show that
+    \[
+    \mathcal{L}_{\mathcal{D}}(\widehat{\mathbf{w}}) - \mathcal{L}_{\mathcal{D}}(\mathbf{w}_{\mathcal{D}}) \leq (\widehat{\mathbf{w}} - \mathbf{w}_{\mathcal{D}}) \cdot \left[ \mathop{\mathbb{E}}_{x \sim S}[\Phi(x)] - \mathop{\mathbb{E}}_{x \sim \mathcal{D}}[\Phi(x)] \right] + \frac{\lambda}{2} \|\mathbf{w}_{\mathcal{D}}\|_2^2 - \frac{\lambda}{2} \|\widehat{\mathbf{w}}\|_2^2.
+    \]
+    
+    \item Use that to show that the following inequality holds for any $\mathbf{w}$:
+    \[
+    \mathcal{L}_{\mathcal{D}}(\widehat{\mathbf{w}}) \leq \frac{1}{\lambda} \left\| \mathop{\mathbb{E}}_{x \sim S}[\Phi(x)] - \mathop{\mathbb{E}}_{x \sim \mathcal{D}}[\Phi(x)] \right\|_2^2 + \mathcal{L}_{\mathcal{D}}(\mathbf{w}) + \frac{\lambda}{2} \|\mathbf{w}\|_2^2.
+    \]
+    
+    \item Conclude by proving that for any $\delta > 0$, with probability at least $1 - \delta$, the following inequality holds:
+    \[
+    \mathcal{L}_{\mathcal{D}}(\widehat{\mathbf{w}}) \leq \inf_{\mathbf{w} \in \mathbb{R}^N} \mathcal{L}_{\mathcal{D}}(\mathbf{w}) + \frac{\lambda}{2} \|\mathbf{w}\|_2^2 + \frac{2r^2}{\lambda m} \left( 1 + \sqrt{\log \frac{1}{\delta}} \right)^2.
+    \]
+\end{enumerate}
+
+\section*{D. Randomized Halving}
+
+In class, we showed that, in the realizable scenario (at least one expert is always correct), the number of mistakes made by Halving is upper bounded by $\log_2 N$. Here, we consider for the same realizable scenario a randomized version of Halving defined as follows.
+
+As for Halving, let $H_t$ denote the set of remaining experts at the beginning of round $t$, with $H_1 = H$ the full set of $N$ experts. At each round, let $r_t$ be the fraction of experts in $H_t$ predicting 1. Then, the prediction $\widehat{y}_t$ made by the algorithm is 1 with probability
+\[
+p_t = \left[ \frac{1}{2} \log_2 \frac{1}{1-r_t} \right] 1_{r_t \leq \frac{3}{4}} + 1_{r_t > \frac{3}{4}},
+\]
+0 with probability $1 - p_t$. The true label $y_t$ is then received and $H_{t+1}$ is derived from $H_t$ by removing all experts who made a mistake.
+
+\begin{enumerate}
+    \item Write the pseudocode of the algorithm.
+    
+    \item Define the potential function $\Psi_t = \log_2 |H_t|$. Let $\mu_t = 1_{y_t \neq \widehat{y}_t}$, prove that for all $t \geq 1$, $\mathbb{E}[\mu_t] \leq \frac{\Psi_t - \Psi_{t+1}}{2}$.
+    
+    \item Show that the expected number of mistakes made by randomized Halving is at most $\frac{1}{2} \log_2 N$.
+    
+    \item (Bonus question) Prove that no randomized algorithm makes fewer than $\lfloor \frac{1}{2} \log_2 N \rfloor$ mistakes, in expectation.
+\end{enumerate}
+
+\end{document}
