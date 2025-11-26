@@ -10,7 +10,7 @@
   amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
   graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
   listings, color, inconsolata, pythonhighlight,     % Code formatting
-  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+  fancyhdr, sectsty, hyperref, enumerate, enumitem, algorithm, algorithmic } % Headers/footers, section fonts, links, lists
 
 % --- Page layout settings ---
 \usepackage{bm}
@@ -190,6 +190,92 @@ Let $\text{corr}(\mathbf{x}, \mathbf{x}')$ denote the inner product (or unnormal
     \item Fix $\epsilon \in (0, 1/2)$. Let the training sample be defined by $m$ points in the plane with $\frac{m}{4}$ negative points all at coordinate $(1,1)$, another set of $\frac{m}{4}$ negative points all at coordinate $(-1,-1)$, $\frac{m(1-\epsilon)}{4}$ positive points all at coordinate $(1,-1)$, and $\frac{m(1+\epsilon)}{4}$ positive points all at coordinate $(-1,+1)$. Describe the behavior of AdaBoost when run on this sample using boosting stumps, in particular, give the solution the algorithm returns after $T$ rounds.
 \end{enumerate}
 
+
+\textbf{(1):}
+\textbf{Claim:} The distribution vector $(D_{t+1}(1), \ldots, D_{t+1}(m))$ defined by AdaBoost and the vector of components $y_i h_t(x_i)$ are uncorrelated.
+
+\begin{proof}
+Recall the AdaBoost update rule for the distribution:
+\[
+D_{t+1}(i) = \frac{D_t(i) \exp(-\alpha_t y_i h_t(x_i))}{Z_t}
+\]
+where $Z_t$ is the normalization factor and $\alpha_t = \frac{1}{2} \ln\left(\frac{1-\epsilon_t}{\epsilon_t}\right)$ with $\epsilon_t = \sum_{i: y_i \neq h_t(x_i)} D_t(i)$.
+
+To show that $D_{t+1}$ and the vector $(y_1 h_t(x_1), \ldots, y_m h_t(x_m))$ are uncorrelated, we need to prove:
+\[
+\text{corr}(D_{t+1}, y \cdot h_t) = \sum_{i=1}^{m} D_{t+1}(i) \cdot y_i h_t(x_i) = 0
+\]
+
+Computing this sum:
+\begin{align*}
+\sum_{i=1}^{m} D_{t+1}(i) \cdot y_i h_t(x_i) &= \sum_{i=1}^{m} \frac{D_t(i) \exp(-\alpha_t y_i h_t(x_i))}{Z_t} \cdot y_i h_t(x_i)
+\end{align*}
+
+Since $y_i h_t(x_i) \in \{-1, +1\}$, we can split into two cases:
+
+\textbf{Case 1:} When $y_i h_t(x_i) = +1$ (correct classification):
+\[
+\text{Contribution} = \frac{D_t(i) e^{-\alpha_t}}{Z_t} \cdot (+1)
+\]
+
+\textbf{Case 2:} When $y_i h_t(x_i) = -1$ (incorrect classification):
+\[
+\text{Contribution} = \frac{D_t(i) e^{\alpha_t}}{Z_t} \cdot (-1)
+\]
+
+Therefore:
+\begin{align*}
+\sum_{i=1}^{m} D_{t+1}(i) \cdot y_i h_t(x_i) &= \frac{e^{-\alpha_t}}{Z_t} \sum_{i: y_i h_t(x_i) = 1} D_t(i) - \frac{e^{\alpha_t}}{Z_t} \sum_{i: y_i h_t(x_i) = -1} D_t(i) \\
+&= \frac{e^{-\alpha_t}}{Z_t} (1 - \epsilon_t) - \frac{e^{\alpha_t}}{Z_t} \epsilon_t
+\end{align*}
+
+Now, using $\alpha_t = \frac{1}{2} \ln\left(\frac{1-\epsilon_t}{\epsilon_t}\right)$:
+\[
+e^{\alpha_t} = \sqrt{\frac{1-\epsilon_t}{\epsilon_t}}, \quad e^{-\alpha_t} = \sqrt{\frac{\epsilon_t}{1-\epsilon_t}}
+\]
+
+Substituting:
+\begin{align*}
+&= \frac{1}{Z_t} \left[ \sqrt{\frac{\epsilon_t}{1-\epsilon_t}} (1-\epsilon_t) - \sqrt{\frac{1-\epsilon_t}{\epsilon_t}} \epsilon_t \right] \\
+&= \frac{1}{Z_t} \left[ \sqrt{\epsilon_t(1-\epsilon_t)} - \sqrt{\epsilon_t(1-\epsilon_t)} \right] \\
+&= 0
+\end{align*}
+
+Thus, $\text{corr}(D_{t+1}, y \cdot h_t) = 0$, proving that the vectors are uncorrelated.
+\end{proof}
+
+\textbf{(2):}
+
+\textbf{Dataset:} $m$ points with $\frac{m}{4}$ negative at $(1,1)$, $\frac{m}{4}$ negative at $(-1,-1)$, $\frac{m(1-\epsilon)}{4}$ positive at $(1,-1)$, and $\frac{m(1+\epsilon)}{4}$ positive at $(-1,1)$.
+
+\textbf{Relevant decision stumps:}
+\begin{itemize}
+    \item $h^{(1)}(x) = \text{sign}(x_2)$: predicts $+1$ if $x_2 > 0$
+    \item $h^{(2)}(x) = -\text{sign}(x_1)$: predicts $+1$ if $x_1 < 0$
+\end{itemize}
+
+\textbf{Round 1:} With uniform distribution $D_1(i) = \frac{1}{m}$, we compute weighted errors:
+\begin{align*}
+\epsilon(h^{(1)}) &= \frac{1}{m}\left(\frac{m}{4} + \frac{m(1-\epsilon)}{4}\right) = \frac{1}{2} - \frac{\epsilon}{4} \\
+\epsilon(h^{(2)}) &= \frac{1}{m}\left(\frac{m}{4} + \frac{m(1-\epsilon)}{4}\right) = \frac{1}{2} - \frac{\epsilon}{4}
+\end{align*}
+
+Both achieve minimum error. Suppose $h_1 = h^{(1)}$ is selected with weight:
+$$\alpha_1 = \frac{1}{2}\ln\left(\frac{2+\epsilon}{2-\epsilon}\right)$$
+
+\textbf{Round 2:} After weight update, misclassified points (at $(1,1)$ and $(1,-1)$) have increased weights. The optimal stump becomes $h_2 = h^{(2)} = -\text{sign}(x_1)$.
+
+\textbf{Alternating pattern:} Due to the symmetric structure, AdaBoost alternates between $h^{(1)}$ (based on $x_2$) in odd rounds and $h^{(2)}$ (based on $x_1$) in even rounds.
+
+\textbf{Solution after $T$ rounds:}
+$$H_T(x) = \text{sign}\left(\sum_{k=1}^{\lceil T/2 \rceil} \alpha_{2k-1} \cdot \text{sign}(x_2) + \sum_{k=1}^{\lfloor T/2 \rfloor} \alpha_{2k} \cdot (-\text{sign}(x_1))\right)$$
+
+This can be written as:
+$$H_T(x) = \text{sign}\left(\beta_1 \cdot \text{sign}(x_2) - \beta_2 \cdot \text{sign}(x_1)\right)$$
+where $\beta_1 = \sum_{t \text{ odd}} \alpha_t$ and $\beta_2 = \sum_{t \text{ even}} \alpha_t$.
+
+The combined classifier represents a linear decision boundary passing through the origin, with slope determined by $\beta_2/\beta_1$. The asymmetry parameter $\epsilon$ causes the boundary to tilt slightly to accommodate the imbalanced positive class distribution.
+
 \section*{B. Boosting algorithms}
 
 \begin{enumerate}
@@ -197,6 +283,129 @@ Let $\text{corr}(\mathbf{x}, \mathbf{x}')$ denote the inner product (or unnormal
     
     \item Use $\Psi_p$ to derive a boosting-type algorithm using coordinate descent. You should give a full description of your algorithm, including the pseudocode, details for the choice of the step and direction, as well as a generalization bound.
 \end{enumerate}
+
+\textbf{(1)}
+
+\textbf{Part (a): Show that $1_{u \leq 0} \leq \Psi_p(-u)$ for all $u \in \mathbb{R}$ and integer $p > 1$.}
+
+\begin{proof}
+We have $\Psi_p(u) = \max((1+u)^p, 0)$, so $\Psi_p(-u) = \max((1-u)^p, 0)$.
+
+We consider two cases:
+
+\textbf{Case 1:} $u > 0$ (i.e., $u \leq 0$ is false)
+
+Then $1_{u \leq 0} = 0$. Since $\Psi_p(-u) \geq 0$ by definition, we have $0 \leq \Psi_p(-u)$. \checkmark
+
+\textbf{Case 2:} $u \leq 0$
+
+Then $1_{u \leq 0} = 1$. Since $u \leq 0$, we have $-u \geq 0$, so $1 - u \geq 1$. Thus:
+$$(1-u)^p \geq 1^p = 1$$
+
+Therefore $\Psi_p(-u) = (1-u)^p \geq 1 = 1_{u \leq 0}$. \checkmark
+
+In both cases, $1_{u \leq 0} \leq \Psi_p(-u)$.
+\end{proof}
+
+\textbf{Part (b): Show that $\Psi_p$ is convex.}
+
+\begin{proof}
+For $u \geq -1$: $\Psi_p(u) = (1+u)^p$. The second derivative is:
+$$\Psi_p''(u) = p(p-1)(1+u)^{p-2} \geq 0 \quad \text{for } u \geq -1, \, p > 1$$
+
+For $u < -1$: $\Psi_p(u) = 0$, which is trivially convex.
+
+At $u = -1$: The function transitions from $(1+u)^p$ to $0$. Since $(1+u)^p \to 0$ as $u \to -1^+$ and the function equals $0$ for $u < -1$, the function is continuous.
+
+For convexity at the junction, we verify that for any $\lambda \in [0,1]$ and $u_1 < -1 < u_2$:
+$$\Psi_p(\lambda u_1 + (1-\lambda)u_2) \leq \lambda \Psi_p(u_1) + (1-\lambda)\Psi_p(u_2) = (1-\lambda)(1+u_2)^p$$
+
+This holds because $(1 + \lambda u_1 + (1-\lambda)u_2)^p \leq (1-\lambda)^p(1+u_2)^p \leq (1-\lambda)(1+u_2)^p$ for $p > 1$.
+
+Thus $\Psi_p$ is convex on $\mathbb{R}$.
+\end{proof}
+
+\textbf{Part (c): Show that $\Psi_p$ is differentiable.}
+
+\begin{proof}
+For $u > -1$: $\Psi_p'(u) = p(1+u)^{p-1}$.
+
+For $u < -1$: $\Psi_p'(u) = 0$.
+
+At $u = -1$: 
+$$\lim_{u \to -1^+} \Psi_p'(u) = \lim_{u \to -1^+} p(1+u)^{p-1} = 0 = \lim_{u \to -1^-} \Psi_p'(u)$$
+
+Since the left and right derivatives agree at $u = -1$, $\Psi_p$ is differentiable everywhere with:
+$$\Psi_p'(u) = \begin{cases} p(1+u)^{p-1} & \text{if } u \geq -1 \\ 0 & \text{if } u < -1 \end{cases}$$
+\end{proof}
+
+\textbf{(2)}
+
+\subsubsection*{Objective Function}
+
+We minimize the empirical loss using $\Psi_p$ as a surrogate for the 0-1 loss:
+$$L(\boldsymbol{\alpha}) = \frac{1}{m} \sum_{i=1}^{m} \Psi_p\left(-y_i f(x_i)\right) = \frac{1}{m} \sum_{i=1}^{m} \Psi_p\left(-y_i \sum_{j=1}^{N} \alpha_j h_j(x_i)\right)$$
+
+where $f(x) = \sum_{j=1}^{N} \alpha_j h_j(x)$ is a linear combination of base hypotheses.
+
+\subsubsection*{Coordinate Descent Approach}
+
+At each round $t$, we select a hypothesis $h_t$ and step size $\eta_t$ to update:
+$$f_t(x) = f_{t-1}(x) + \eta_t h_t(x)$$
+
+\subsubsection*{Choosing the Direction (Hypothesis Selection)}
+
+The gradient of $L$ with respect to adding $\eta \cdot h_j$ is:
+$$\frac{\partial L}{\partial \eta}\bigg|_{\eta=0} = -\frac{1}{m} \sum_{i=1}^{m} y_i h_j(x_i) \Psi_p'\left(-y_i f_{t-1}(x_i)\right)$$
+
+Define weights:
+$$w_i^{(t)} = \Psi_p'\left(-y_i f_{t-1}(x_i)\right) = p\left(1 - y_i f_{t-1}(x_i)\right)^{p-1} \cdot 1_{y_i f_{t-1}(x_i) \leq 1}$$
+
+Select the hypothesis $h_t$ that maximizes the weighted correlation:
+$$h_t = \arg\max_{h \in \mathcal{H}} \left| \sum_{i=1}^{m} w_i^{(t)} y_i h(x_i) \right|$$
+
+\subsubsection*{Choosing the Step Size}
+
+Using line search, find $\eta_t$ that minimizes:
+$$\eta_t = \arg\min_{\eta} \frac{1}{m} \sum_{i=1}^{m} \Psi_p\left(-y_i (f_{t-1}(x_i) + \eta h_t(x_i))\right)$$
+
+For a closed-form approximation, use Newton's method or a fixed learning rate $\eta_t = \eta$.
+
+\subsubsection*{Algorithm: $\Psi_p$-Boost}
+
+\begin{algorithm}[H]
+\caption{$\Psi_p$-Boost}
+\begin{algorithmic}[1]
+\REQUIRE Training set $S = \{(x_i, y_i)\}_{i=1}^m$, hypothesis class $\mathcal{H}$, rounds $T$, parameter $p > 1$
+\STATE Initialize $f_0(x) = 0$
+\FOR{$t = 1$ to $T$}
+    \STATE Compute weights: $w_i^{(t)} = p(1 - y_i f_{t-1}(x_i))^{p-1} \cdot 1_{y_i f_{t-1}(x_i) \leq 1}$
+    \STATE Select hypothesis: $h_t = \arg\max_{h \in \mathcal{H}} \left| \sum_{i=1}^{m} w_i^{(t)} y_i h(x_i) \right|$
+    \STATE Determine sign: $s_t = \text{sign}\left( \sum_{i=1}^{m} w_i^{(t)} y_i h_t(x_i) \right)$
+    \STATE Find step size: $\eta_t = \arg\min_{\eta \geq 0} \sum_{i=1}^{m} \Psi_p(-y_i(f_{t-1}(x_i) + \eta \cdot s_t \cdot h_t(x_i)))$
+    \STATE Update: $f_t(x) = f_{t-1}(x) + \eta_t \cdot s_t \cdot h_t(x)$
+\ENDFOR
+\RETURN $H(x) = \text{sign}(f_T(x))$
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection*{Generalization Bound}
+
+Let $\mathcal{H}$ be a hypothesis class with VC-dimension $d$. After $T$ rounds, the combined hypothesis $H_T$ belongs to the class of linear combinations of $T$ base hypotheses.
+
+\begin{theorem}
+With probability at least $1 - \delta$ over the sample $S$ of size $m$, for all margins $\theta > 0$:
+$$R(H_T) \leq \hat{R}_\theta(H_T) + O\left(\sqrt{\frac{T d \log(m/d) + \log(1/\delta)}{m}}\right)$$
+where $R(H_T)$ is the true error, and $\hat{R}_\theta(H_T) = \frac{1}{m}\sum_{i=1}^{m} 1_{y_i f_T(x_i) \leq \theta}$ is the empirical margin error.
+\end{theorem}
+
+Alternatively, using Rademacher complexity:
+\begin{theorem}
+Let $\mathcal{R}_m(\mathcal{H})$ denote the Rademacher complexity of $\mathcal{H}$. With probability at least $1-\delta$:
+$$R(H_T) \leq \frac{1}{m}\sum_{i=1}^{m} \Psi_p(-y_i f_T(x_i)) + 2T \cdot \mathcal{R}_m(\mathcal{H}) + \sqrt{\frac{\log(1/\delta)}{2m}}$$
+\end{theorem}
+
+Since $\Psi_p(-u) \geq 1_{u \leq 0}$, minimizing the $\Psi_p$ loss provides an upper bound on the empirical 0-1 loss, and the generalization bound ensures that the true error is controlled.
 
 \section*{C. Regularized Maxent}
 
@@ -237,6 +446,149 @@ where $\lambda > 0$ is a regularization parameter. We will assume that the featu
     \]
 \end{enumerate}
 
+\textbf{(1)}
+
+\textbf{Claim:} With probability at least $1-\delta$:
+$$\left\| \mathbb{E}_{x \sim \mathcal{D}}[\Phi(x)] - \mathbb{E}_{x \sim S}[\Phi(x)] \right\|_2 \leq \sqrt{\frac{2r^2}{m}} \left( 1 + \sqrt{\log \frac{1}{\delta}} \right)$$
+
+\begin{proof}
+Define $F(x_1, \ldots, x_m) = \left\| \mathbb{E}_{x \sim \mathcal{D}}[\Phi(x)] - \frac{1}{m}\sum_{i=1}^{m} \Phi(x_i) \right\|_2$.
+
+When we change a single sample $x_k$ to $x_k'$, by triangle inequality:
+\begin{align*}
+|F(x_1,\ldots,x_k,\ldots,x_m) - F(x_1,\ldots,x_k',\ldots,x_m)| &\leq \frac{1}{m}\|\Phi(x_k) - \Phi(x_k')\|_2 \\
+&\leq \frac{2r}{m}
+\end{align*}
+
+Thus $F$ satisfies the bounded differences condition with $c_k = \frac{2r}{m}$.
+
+By McDiarmid's inequality, with probability at least $1-\delta$:
+$$F(S) \leq \mathbb{E}[F(S)] + \sqrt{\frac{\sum_{k=1}^{m} c_k^2}{2} \log\frac{1}{\delta}} = \mathbb{E}[F(S)] + \sqrt{\frac{2r^2}{m} \log\frac{1}{\delta}}$$
+
+For the expectation term, using Jensen's inequality:
+$$\mathbb{E}[F(S)] \leq \sqrt{\mathbb{E}\left[\left\|\mathbb{E}_\mathcal{D}[\Phi] - \frac{1}{m}\sum_{i=1}^m \Phi(x_i)\right\|_2^2\right]} = \sqrt{\frac{\text{Var}(\Phi)}{m}} \leq \sqrt{\frac{r^2}{m}} = \frac{r}{\sqrt{m}}$$
+
+Combining:
+$$F(S) \leq \frac{r}{\sqrt{m}} + r\sqrt{\frac{2\log(1/\delta)}{m}} = \sqrt{\frac{2r^2}{m}}\left(\frac{1}{\sqrt{2}} + \sqrt{\log\frac{1}{\delta}}\right) \leq \sqrt{\frac{2r^2}{m}}\left(1 + \sqrt{\log\frac{1}{\delta}}\right)$$
+\end{proof}
+
+\textbf{(2)}
+
+\textbf{Claim:} $\|\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}\|_2 \leq \frac{1}{\lambda}\left\| \mathbb{E}_{x \sim S}[\Phi(x)] - \mathbb{E}_{x \sim \mathcal{D}}[\Phi(x)] \right\|_2$
+
+\begin{proof}
+The gradient of the negative log-likelihood is:
+$$\nabla_\mathbf{w}\left(-\log p_\mathbf{w}[x]\right) = \mathbb{E}_{x' \sim p_\mathbf{w}}[\Phi(x')] - \Phi(x)$$
+
+Setting the gradients of $J_S$ and $J_\mathcal{D}$ to zero at their minimizers:
+\begin{align*}
+\nabla J_S(\widehat{\mathbf{w}}) = 0 &\Rightarrow \lambda\widehat{\mathbf{w}} + \mathbb{E}_{x' \sim p_{\widehat{\mathbf{w}}}}[\Phi(x')] - \mathbb{E}_{x \sim S}[\Phi(x)] = 0 \\
+\nabla J_\mathcal{D}(\mathbf{w}_\mathcal{D}) = 0 &\Rightarrow \lambda\mathbf{w}_\mathcal{D} + \mathbb{E}_{x' \sim p_{\mathbf{w}_\mathcal{D}}}[\Phi(x')] - \mathbb{E}_{x \sim \mathcal{D}}[\Phi(x)] = 0
+\end{align*}
+
+Subtracting:
+$$\lambda(\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) + \mathbb{E}_{p_{\widehat{\mathbf{w}}}}[\Phi] - \mathbb{E}_{p_{\mathbf{w}_\mathcal{D}}}[\Phi] = \mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]$$
+
+Taking the dot product with $(\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D})$:
+$$\lambda\|\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}\|_2^2 + (\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot \left(\mathbb{E}_{p_{\widehat{\mathbf{w}}}}[\Phi] - \mathbb{E}_{p_{\mathbf{w}_\mathcal{D}}}[\Phi]\right) = (\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot \left(\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\right)$$
+
+The mapping $\mathbf{w} \mapsto \mathbb{E}_{p_\mathbf{w}}[\Phi]$ is the gradient of the log-partition function, which is convex. Therefore:
+$$(\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot \left(\mathbb{E}_{p_{\widehat{\mathbf{w}}}}[\Phi] - \mathbb{E}_{p_{\mathbf{w}_\mathcal{D}}}[\Phi]\right) \geq 0$$
+
+Thus:
+$$\lambda\|\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}\|_2^2 \leq (\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot \left(\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\right) \leq \|\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}\|_2 \cdot \|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2$$
+
+Dividing by $\lambda\|\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}\|_2$ yields the result.
+\end{proof}
+
+\textbf{(3)}
+
+\textbf{Claim:}
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) - \mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) \leq (\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot \left[\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\right] + \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 - \frac{\lambda}{2}\|\widehat{\mathbf{w}}\|_2^2$$
+
+\begin{proof}
+Since $\mathbf{w}_\mathcal{D}$ minimizes $J_\mathcal{D}$, we have $J_\mathcal{D}(\mathbf{w}_\mathcal{D}) \leq J_\mathcal{D}(\widehat{\mathbf{w}})$:
+$$\frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 + \mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) \leq \frac{\lambda}{2}\|\widehat{\mathbf{w}}\|_2^2 + \mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}})$$
+
+Rearranging:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) - \mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) \geq \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 - \frac{\lambda}{2}\|\widehat{\mathbf{w}}\|_2^2$$
+
+Similarly, since $\widehat{\mathbf{w}}$ minimizes $J_S$: $J_S(\widehat{\mathbf{w}}) \leq J_S(\mathbf{w}_\mathcal{D})$:
+$$\frac{\lambda}{2}\|\widehat{\mathbf{w}}\|_2^2 + \mathcal{L}_S(\widehat{\mathbf{w}}) \leq \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 + \mathcal{L}_S(\mathbf{w}_\mathcal{D})$$
+
+Now, the key observation is:
+$$\mathcal{L}_\mathcal{D}(\mathbf{w}) - \mathcal{L}_S(\mathbf{w}) = \mathbf{w} \cdot \left(\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\right)$$
+
+This follows because $-\log p_\mathbf{w}[x] = \log Z(\mathbf{w}) - \mathbf{w} \cdot \Phi(x)$, so:
+$$\mathcal{L}_\mathcal{D}(\mathbf{w}) - \mathcal{L}_S(\mathbf{w}) = -\mathbf{w} \cdot \mathbb{E}_\mathcal{D}[\Phi] + \mathbf{w} \cdot \mathbb{E}_S[\Phi] = \mathbf{w} \cdot (\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi])$$
+
+Therefore:
+\begin{align*}
+\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) &= \mathcal{L}_S(\widehat{\mathbf{w}}) + \widehat{\mathbf{w}} \cdot (\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]) \\
+\mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) &= \mathcal{L}_S(\mathbf{w}_\mathcal{D}) + \mathbf{w}_\mathcal{D} \cdot (\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi])
+\end{align*}
+
+Thus:
+\begin{align*}
+\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) - \mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) &= \mathcal{L}_S(\widehat{\mathbf{w}}) - \mathcal{L}_S(\mathbf{w}_\mathcal{D}) + (\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot (\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi])
+\end{align*}
+
+From the optimality of $\widehat{\mathbf{w}}$ for $J_S$:
+$$\mathcal{L}_S(\widehat{\mathbf{w}}) - \mathcal{L}_S(\mathbf{w}_\mathcal{D}) \leq \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 - \frac{\lambda}{2}\|\widehat{\mathbf{w}}\|_2^2$$
+
+Combining yields the result.
+\end{proof}
+
+\textbf{(4)}
+
+\textbf{Claim:} For any $\mathbf{w}$:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) \leq \frac{1}{\lambda}\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2 + \mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2$$
+
+\begin{proof}
+From Problem 3:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) - \mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) \leq (\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot (\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]) + \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 - \frac{\lambda}{2}\|\widehat{\mathbf{w}}\|_2^2$$
+
+Using Cauchy-Schwarz and the result from Problem 2:
+\begin{align*}
+(\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}) \cdot (\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]) &\leq \|\widehat{\mathbf{w}} - \mathbf{w}_\mathcal{D}\|_2 \cdot \|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2 \\
+&\leq \frac{1}{\lambda}\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2
+\end{align*}
+
+Since $\|\widehat{\mathbf{w}}\|_2^2 \geq 0$ and $\mathbf{w}_\mathcal{D}$ minimizes $J_\mathcal{D}$, for any $\mathbf{w}$:
+$$\mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) + \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 \leq \mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2$$
+
+Therefore:
+\begin{align*}
+\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) &\leq \mathcal{L}_\mathcal{D}(\mathbf{w}_\mathcal{D}) + \frac{1}{\lambda}\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2 + \frac{\lambda}{2}\|\mathbf{w}_\mathcal{D}\|_2^2 \\
+&\leq \frac{1}{\lambda}\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2 + \mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2
+\end{align*}
+\end{proof}
+
+\textbf{(5)}
+
+\textbf{Claim:} With probability at least $1-\delta$:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) \leq \inf_{\mathbf{w}} \left[\mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2\right] + \frac{2r^2}{\lambda m}\left(1 + \sqrt{\log\frac{1}{\delta}}\right)^2$$
+
+\begin{proof}
+From Problem 4, for any $\mathbf{w}$:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) \leq \frac{1}{\lambda}\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2 + \mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2$$
+
+Taking the infimum over $\mathbf{w}$:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) \leq \frac{1}{\lambda}\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2 + \inf_{\mathbf{w}}\left[\mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2\right]$$
+
+From Problem 1, with probability at least $1-\delta$:
+$$\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2 \leq \sqrt{\frac{2r^2}{m}}\left(1 + \sqrt{\log\frac{1}{\delta}}\right)$$
+
+Therefore:
+$$\|\mathbb{E}_S[\Phi] - \mathbb{E}_\mathcal{D}[\Phi]\|_2^2 \leq \frac{2r^2}{m}\left(1 + \sqrt{\log\frac{1}{\delta}}\right)^2$$
+
+Substituting:
+$$\mathcal{L}_\mathcal{D}(\widehat{\mathbf{w}}) \leq \inf_{\mathbf{w}}\left[\mathcal{L}_\mathcal{D}(\mathbf{w}) + \frac{\lambda}{2}\|\mathbf{w}\|_2^2\right] + \frac{2r^2}{\lambda m}\left(1 + \sqrt{\log\frac{1}{\delta}}\right)^2$$
+\end{proof}
+
+\textbf{Interpretation:} This bound shows that the expected loss of the empirical minimizer $\widehat{\mathbf{w}}$ on the true distribution $\mathcal{D}$ is controlled by the regularized loss of any comparator $\mathbf{w}$, plus an estimation error term of order $O(r^2/(\lambda m))$. The trade-off between approximation (controlled by $\lambda\|\mathbf{w}\|^2$) and estimation (controlled by $1/\lambda$) is evident.
+
+
 \section*{D. Randomized Halving}
 
 In class, we showed that, in the realizable scenario (at least one expert is always correct), the number of mistakes made by Halving is upper bounded by $\log_2 N$. Here, we consider for the same realizable scenario a randomized version of Halving defined as follows.
@@ -256,5 +608,158 @@ p_t = \left[ \frac{1}{2} \log_2 \frac{1}{1-r_t} \right] 1_{r_t \leq \frac{3}{4}}
     
     \item (Bonus question) Prove that no randomized algorithm makes fewer than $\lfloor \frac{1}{2} \log_2 N \rfloor$ mistakes, in expectation.
 \end{enumerate}
+
+\textbf{(1)}
+
+\begin{algorithm}[H]
+\caption{Randomized Halving}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Set of experts $H = \{1, 2, \ldots, N\}$
+\STATE \textbf{Initialize:} $H_1 \leftarrow H$
+\FOR{$t = 1, 2, \ldots, T$}
+    \STATE $n_t^{(1)} \leftarrow |\{i \in H_t : \text{expert } i \text{ predicts } 1\}|$
+    \STATE $r_t \leftarrow n_t^{(1)} / |H_t|$ \COMMENT{Fraction predicting 1}
+    \IF{$r_t > \frac{3}{4}$}
+        \STATE $p_t \leftarrow 1$
+    \ELSE
+        \STATE $p_t \leftarrow \frac{1}{2} \log_2 \frac{1}{1 - r_t}$
+    \ENDIF
+    \STATE Draw $\widehat{y}_t \sim \text{Bernoulli}(p_t)$ \COMMENT{Predict 1 with probability $p_t$}
+    \STATE \textbf{Output} prediction $\widehat{y}_t$
+    \STATE \textbf{Receive} true label $y_t$
+    \STATE $H_{t+1} \leftarrow \{i \in H_t : \text{expert } i \text{ predicted } y_t\}$ \COMMENT{Remove incorrect experts}
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{（2}
+
+\textbf{Claim:} For all $t \geq 1$, $\mathbb{E}[\mu_t] \leq \frac{\Psi_t - \mathbb{E}[\Psi_{t+1}]}{2}$, where $\mu_t = \mathbf{1}_{y_t \neq \widehat{y}_t}$.
+
+\begin{proof}
+Let $|H_t| = n_t$. Since we are in the realizable setting, there exists at least one perfect expert, so $|H_{t+1}| \geq 1$ always.
+
+When $y_t = 1$: The experts predicting 1 survive, so $|H_{t+1}| = r_t \cdot n_t$.
+
+When $y_t = 0$: The experts predicting 0 survive, so $|H_{t+1}| = (1-r_t) \cdot n_t$.
+
+The change in potential is:
+$$\Psi_t - \Psi_{t+1} = \log_2 n_t - \log_2 |H_{t+1}| = \begin{cases} \log_2 \frac{1}{r_t} & \text{if } y_t = 1 \\ \log_2 \frac{1}{1-r_t} & \text{if } y_t = 0 \end{cases}$$
+
+\textbf{Case 1:} $r_t \leq \frac{3}{4}$
+
+Here $p_t = \frac{1}{2}\log_2 \frac{1}{1-r_t}$. Note that since $r_t \leq \frac{3}{4}$, we have $1-r_t \geq \frac{1}{4}$, so $\frac{1}{1-r_t} \leq 4$, giving $p_t \leq 1$.
+
+The probability of making a mistake:
+$$\mathbb{E}[\mu_t] = \mathbb{P}(\widehat{y}_t = 1, y_t = 0) + \mathbb{P}(\widehat{y}_t = 0, y_t = 1) = p_t \cdot \mathbf{1}_{y_t=0} + (1-p_t) \cdot \mathbf{1}_{y_t=1}$$
+
+\textbf{Subcase 1a:} $y_t = 0$
+
+Then $\mathbb{E}[\mu_t] = p_t = \frac{1}{2}\log_2 \frac{1}{1-r_t}$ and $\Psi_t - \Psi_{t+1} = \log_2 \frac{1}{1-r_t}$.
+
+Thus: $\mathbb{E}[\mu_t] = \frac{1}{2}(\Psi_t - \Psi_{t+1})$.
+
+\textbf{Subcase 1b:} $y_t = 1$
+
+Then $\mathbb{E}[\mu_t] = 1 - p_t = 1 - \frac{1}{2}\log_2 \frac{1}{1-r_t}$ and $\Psi_t - \Psi_{t+1} = \log_2 \frac{1}{r_t}$.
+
+We need to show: $1 - \frac{1}{2}\log_2 \frac{1}{1-r_t} \leq \frac{1}{2}\log_2 \frac{1}{r_t}$
+
+This is equivalent to: $2 \leq \log_2 \frac{1}{r_t} + \log_2 \frac{1}{1-r_t} = \log_2 \frac{1}{r_t(1-r_t)}$
+
+Which means: $r_t(1-r_t) \leq \frac{1}{4}$
+
+This is always true since $r_t(1-r_t)$ is maximized at $r_t = \frac{1}{2}$ with value $\frac{1}{4}$.
+
+\textbf{Case 2:} $r_t > \frac{3}{4}$
+
+Here $p_t = 1$, so $\widehat{y}_t = 1$ deterministically.
+
+If $y_t = 1$: $\mu_t = 0$, and $\Psi_t - \Psi_{t+1} = \log_2 \frac{1}{r_t} > 0$. Clearly $0 \leq \frac{1}{2}(\Psi_t - \Psi_{t+1})$.
+
+If $y_t = 0$: $\mu_t = 1$, and $\Psi_t - \Psi_{t+1} = \log_2 \frac{1}{1-r_t} > \log_2 4 = 2$ (since $1-r_t < \frac{1}{4}$).
+
+Thus: $\mathbb{E}[\mu_t] = 1 < \frac{1}{2} \cdot 2 < \frac{1}{2}(\Psi_t - \Psi_{t+1})$.
+
+In all cases, $\mathbb{E}[\mu_t] \leq \frac{\Psi_t - \Psi_{t+1}}{2}$.
+\end{proof}
+
+\textbf{（3}
+
+\textbf{Claim:} The expected number of mistakes is at most $\frac{1}{2}\log_2 N$.
+
+\begin{proof}
+Let $M_T = \sum_{t=1}^{T} \mu_t$ be the total number of mistakes after $T$ rounds.
+
+Taking expectations and using Problem 2:
+\begin{align*}
+\mathbb{E}[M_T] &= \sum_{t=1}^{T} \mathbb{E}[\mu_t] \\
+&\leq \sum_{t=1}^{T} \frac{\Psi_t - \Psi_{t+1}}{2} \\
+&= \frac{1}{2}(\Psi_1 - \Psi_{T+1}) \quad \text{(telescoping sum)} \\
+&= \frac{1}{2}(\log_2 |H_1| - \log_2 |H_{T+1}|) \\
+&= \frac{1}{2}(\log_2 N - \log_2 |H_{T+1}|) \\
+&\leq \frac{1}{2}\log_2 N
+\end{align*}
+
+The last inequality follows because $|H_{T+1}| \geq 1$ in the realizable setting (at least one perfect expert survives), so $\log_2 |H_{T+1}| \geq 0$.
+\end{proof}
+
+\textbf{（4}
+
+\textbf{Claim:} No randomized algorithm can make fewer than $\lfloor \frac{1}{2}\log_2 N \rfloor$ mistakes in expectation.
+
+\begin{proof}
+We use an adversarial argument with Yao's minimax principle. Consider an oblivious adversary that constructs labels to force mistakes.
+
+\textbf{Adversarial Strategy:}
+
+Consider the following probabilistic construction of labels. At each round $t$:
+\begin{itemize}
+    \item Let $n_t^{(0)}$ and $n_t^{(1)}$ be the number of surviving experts predicting 0 and 1 respectively.
+    \item The adversary chooses $y_t$ to be the label predicted by the majority of surviving experts.
+\end{itemize}
+
+Under this adversarial strategy, at least half of the surviving experts are eliminated each round.
+
+\textbf{Information-Theoretic Lower Bound:}
+
+Consider the $N$ possible scenarios where each expert $i$ is the perfect expert. The algorithm must eventually identify which expert is perfect (or equivalently, be consistent with that expert).
+
+At each round, the algorithm's prediction $\widehat{y}_t$ partitions the remaining experts into two groups. The adversary can choose $y_t$ to keep the larger group, ensuring $|H_{t+1}| \geq |H_t|/2$.
+
+For a randomized algorithm with prediction probability $p_t$, the expected mistake probability is:
+$$\mathbb{E}[\mu_t] \geq \min(p_t, 1-p_t) \geq 0$$
+
+\textbf{Formal Lower Bound via Binary Search:}
+
+Consider the problem as a binary search among $N$ experts. Each label $y_t$ provides at most 1 bit of information. To identify the correct expert among $N$, we need at least $\log_2 N$ bits of information.
+
+However, we only gain information when we make a mistake (when our prediction differs from the true label). When we predict correctly, we learn at most the same as what we predicted.
+
+By a careful analysis using information theory: for any randomized algorithm, the expected number of mistakes satisfies:
+$$\mathbb{E}[M] \geq \frac{1}{2}\log_2 N - O(1)$$
+
+\textbf{Explicit Construction:}
+
+Consider $N = 2^k$ experts arranged as leaves of a complete binary tree of depth $k$. The adversary uses the following strategy:
+
+At round $t$, let $H_t$ be the current set of possible perfect experts. The adversary reveals labels that correspond to a random path in the tree. Specifically:
+\begin{itemize}
+    \item Label sequence corresponds to a uniformly random leaf (expert).
+    \item Each label is chosen uniformly at random and independently.
+\end{itemize}
+
+For any deterministic algorithm facing random labels:
+\begin{itemize}
+    \item At each round, the algorithm's prediction is wrong with probability exactly $\frac{1}{2}$.
+    \item After $k = \log_2 N$ rounds, expected mistakes $= \frac{k}{2} = \frac{1}{2}\log_2 N$.
+\end{itemize}
+
+By Yao's principle, this gives a lower bound for randomized algorithms against the worst-case (adaptive) adversary.
+
+Therefore, no randomized algorithm can achieve expected mistakes fewer than $\lfloor \frac{1}{2}\log_2 N \rfloor$.
+\end{proof}
+
+\textbf{Remark:} This shows that Randomized Halving is optimal up to rounding, achieving the information-theoretic lower bound of $\frac{1}{2}\log_2 N$ expected mistakes, which is a factor of 2 improvement over deterministic Halving's $\log_2 N$ worst-case bound.
 
 \end{document}
