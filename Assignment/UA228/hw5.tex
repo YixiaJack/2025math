@@ -1,0 +1,340 @@
+
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-UA 228 (Fundamental Dynamics of Earth’s Atmosphere and Climate) -- Homework 2}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+\begin{center}
+\Large\textbf{Homework 5} \\[0.5em]
+\large Earth's Atmosphere and Climate \\
+MATH-UA0228
+\end{center}
+
+\bigskip
+
+\begin{enumerate}
+
+\item Consider an airplane (or parcel of air) that leaves the equator with zero east-west velocity relative to the surface, that is, $u(0) = 0$, and travels northward towards the pole. Assume that the plane conserves its angular momentum,
+\[
+\text{angular momentum} = m u_a(\phi) r(\phi)
+\]
+where $m$ is its mass, $u_a(\phi) = \Omega r(\phi) + u(\phi)$ is its absolute velocity, which includes that from solid body rotation, $\Omega r(\phi)$, and that relative to the surface, $u(\phi)$. $\phi$ is the latitude.
+
+\begin{enumerate}[label=(\alph*)]
+\item Compute $u(\phi)$.
+\item In particular, at which latitude does the plane's east-west velocity reach the speed of sound (at surface pressure), 343 m/s.
+\item The fastest ``air breathing'' air plane (i.e, not a rocket) is the NASA X-43 hypersonic scram jet which goes Mach 9.6, or 3019 m/s. At which latitude does our air parcel's east-west velocity $u(\phi)$ equal that of the X-43?
+\end{enumerate}
+
+\item Obviously air parcels (or our plane) will not travel so fast. For one, friction will slow the plane down, but let's still neglect this (assume there is no viscosity) and focus on another force that will prevent this from happening. The meridional momentum equation with no viscosity is
+\[
+\frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z} + fu = -\frac{1}{\rho}\frac{\partial p}{\partial y}
+\]
+where the Coriolis parameter $f = 2\Omega\sin(\phi)$. Assume that $v$ is small, so we can neglect all the nonlinear terms, yielding:
+\[
+\frac{\partial v}{\partial t} + fu \approx -\frac{1}{\rho}\frac{\partial p}{\partial y} = C
+\]
+where the force that moves our plane forward is the pressure gradient term, $\frac{\partial p}{\partial y}$, which is fixed by the strength of our engines: that is, it is equal to some constant, $C$. Explain why our plane cannot keep moving towards the pole and will eventually stop moving northward, with $v = 0$.
+
+\item By considering the mass of air in a box of width $\delta x$ by $\delta y$ by $\delta z$ centered at the point $(x, y, z)$, derive the conservation of mass equation,
+\[
+\frac{\partial \rho}{\partial t} = -\frac{\partial(\rho u)}{\partial x} - \frac{\partial(\rho v)}{\partial y} - \frac{\partial(\rho w)}{\partial z} = -\nabla \cdot (\rho \mathbf{u})
+\]
+where $\mathbf{u} = (u, v, w)$ is the three dimensional velocity vector.
+
+\item This question will continue work with conservation of mass equation, help you to brush up on vector notation and make an inference about the divergence of the flow.
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that $\nabla \cdot (\rho\mathbf{u}) = \rho\nabla \cdot \mathbf{u} + \mathbf{u} \cdot \nabla\rho$
+\item Using the result from your last questions, show that
+\[
+\frac{D\rho}{Dt} = -\rho\nabla \cdot \mathbf{u}
+\]
+\item If the density does not change much (as with water, or air in geostrophic balance), $\frac{D\rho}{Dt} \approx 0$. Conclude the flow is non-divergent: $\nabla \cdot \mathbf{u} \approx 0$.
+\end{enumerate}
+
+\end{enumerate}
+
+\bigskip
+
+We will next consider the zonal momentum equation with viscosity for questions 5--9.
+\[
+\frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} + fv = -\frac{1}{\rho}\frac{\partial p}{\partial x} + \nu\frac{\partial^2 u}{\partial x^2}
+\]
+The goal is to non-dimensionalize the momentum equation and find the dominant terms.
+
+\begin{enumerate}[resume]
+
+\item First, let's focus on the nonlinear terms,
+\[
+u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z}
+\]
+Assume that $u$ and $v$ have the same scale, $u = U\hat{u}$ and $v = U\hat{v}$, and that they vary over the same length scale, $x = L\hat{x}$ and $y = L\hat{y}$. The vertical velocity is different, though: $w = W\hat{w}$ and $z = H\hat{z}$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that $u\frac{\partial u}{\partial x}$ and $v\frac{\partial u}{\partial y}$ scale as $U^2/L$.
+\item Show that $w\frac{\partial u}{\partial z}$ scales as $UW/H$.
+\item Assume that flow is non-divergent, as justified in problem 4(c), so that
+\[
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} = 0
+\]
+Scale this equation and conclude that $U/L \approx W/H$.
+\item Finally, show that all three of the nonlinear terms scale as $U^2/L$.
+\end{enumerate}
+
+\item Now we will compare the nonlinear terms to the strength of the viscosity term.
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that the viscous term $\nu\frac{\partial^2 u}{\partial x^2}$ scales as $\nu U/L^2$
+\item Based on the last problem, the nonlinear terms scale as $U^2/L$. Show that ratio of the nonlinear terms to the viscosity is
+\[
+\frac{UL}{\nu} \equiv Re
+\]
+This result is so important that we gave it a name, the Reynolds number $Re$.
+\item In the atmosphere, the strength of the wind $U \approx 10$ m/s and the length scale of a storm $L \approx 1000$ km $= 10^6$ m, and the kinematic viscosity of air is approximately $\nu \approx 1 \cdot 10^{-5}$. What is the Reynolds number $Re$ and what can you conclude about the importance of viscosity.
+\item Above you should have concluded that the viscous term is incredibly tiny compared to the nonlinear terms. We will ignore it in the later questions, but something does have to slow down the wind; otherwise it would keep growing! The key is that viscosity acts at smaller length scale $L$. Keeping $U \approx 10$ m/s and $\nu \approx 1 \cdot 10^{-5}$, for what length scale $L$ would the Reynolds number be approximately 1?
+\item This result shows that it is impossible to simulate the atmosphere with the molecular viscosity. You would need a grid that resolves the length scale you computed above, but is large enough to capture the whole world! To get a sense of how massive this would be, let's not worry about spherical geometry, but just imagine you want to simulate the wind in a box that is $10^7$ by $10^7$ by $10^4$, that is, 10,000 km horizontal and 10 km vertical. How many grid points would you need, if they have to be spaced out at the scale $L$ you determined in the last problem!
+\end{enumerate}
+
+\item Based on problem 6, we can now ignore the viscous term. We'd now like to compare the nonlinear terms to the Coriolis term, $fv$. In question 5, you showed that the nonlinear terms scale as $U^2/L$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Recall that $f = 2\Omega \sin \phi$, where $\Omega$ is the angular velocity of Earth, or 1 revolution every day: $2\pi/86400$ radians/s. Assuming $v$ scales as $U \approx 10$ m/s, as we did above, what is the scale of $fv$ at (i) the equator, (ii) $30^\circ$N $= \pi/6$ radians, (iii) $45^\circ$N $= \pi/4$ radians, and (iv) the pole.
+\item Show that ratio of the nonlinear terms to the Coriolis term is
+\[
+\frac{U}{fL} \equiv Ro
+\]
+where because this ratio is also so important, we gave it a name, the Rossby number $Ro$.
+\item What is the Rossby number at the latitudes you considered in part (a), namely (i) the equator, (ii) $30^\circ$N $= \pi/6$ radians, (iii) $45^\circ$N $= \pi/4$ radians, and (iv) the pole. Remember that we have chosen a length scale $L = 10^6$ m (1000 km).
+\item When the Rossby number is small, the nonlinear terms are dwarfed by the Coriolis term, and we can vote them off the island, too! For what latitudes is $Ro$ small?
+\end{enumerate}
+
+\item We are almost to the finish line, but what do we do with the first term in the momentum equation, $\frac{\partial u}{\partial t}$? We know that $u$ scales as $U$, but how does time $t$ scale? A reasonable way to make progress is to assume that time scales as $T$, the time it takes the a flow with speed $U$ to cross the characteristic length scale $L$, or
+\[
+T \approx \frac{L}{U}
+\]
+Using this scaling, show that $\frac{\partial u}{\partial t}$ scales the same as the nonlinear terms: $U^2/L$. This means that when the Rossby number is small, we can ignore the time derivative, too!
+
+\item From the big nasty nonlinear PDE that we started with, we are left with just:
+\[
+fv = -\frac{1}{\rho}\frac{\partial p}{\partial x}
+\]
+and if we did the same work for the meridional momentum equation, we would get
+\[
+-fu = -\frac{1}{\rho}\frac{\partial p}{\partial y}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+\item What is this balance called?
+\item Suppose there is a low pressure system (as with a nor'easter or typical winter storm). Sketch how the winds would blow about this low pressure.
+\item Suppose there is a high pressure system (as when there is a heat wave). Sketch how the winds would blow about this high pressure.
+\end{enumerate}
+
+\item A major winter storm can have a central pressure as low as 970 hPa and radius of 1000 km: $l = 1 \cdot 10^6$ m. We will very, very crudely assume that the pressure is
+\[
+p(x, y) = 10^5 - 3 \times 10^3 e^{-\frac{x^2+y^2}{l^2}},
+\]
+where we are using SI units of Pa. Here, the storm is centered around the point $(x, y) = (0, 0)$ where the pressure is $9.7 \cdot 10^4$ Pa. Assume that the storm is centered at 45 degrees, so $f = 2\Omega\sin(\pi/4)$. You are at the surface, so the density of air is approximately 1.2 kg/m$^3$
+
+\begin{enumerate}[label=(\alph*)]
+\item Using geostrophic balance, what would the meridional wind velocity $v(x)$ be along the line $y = 0$. (You would get a similar profile in other directions.)
+\item What is the maximum meridional wind? You can plot your function or use calculus to solve this. Note that by symmetry you will get this value and it's opposite on different sides of the storm.
+\end{enumerate}
+
+\item Now let's try something more exotic. A major hurricane can have a central pressure of 900 hPa. Hurricanes are also much smaller than winter storms, with radius of just 30 km: $l = 3 \cdot 10^4$ m. Crudely assume that the pressure is
+\[
+p(x, y) = 10^5 - 10^4 e^{-\frac{x^2+y^2}{l^2}}.
+\]
+As with the last problem, the hurricane is centered around the point $(x, y) = (0, 0)$. A massive storm like this will be in the tropics, so assume it is at 30 N: $f = 2\Omega\sin(\pi/6)$.
+
+\begin{enumerate}[label=(\alph*)]
+\item Following the last problem, use geostrophic balance to compute the meridional wind velocity $v(x)$ be along the line $y = 0$. (You shouldn't have to any more work from the last problem, other than changing the constants!)
+\item What is the maximum velocity now? If you have done this correctly, you will find that this velocity is excessively large. Now we really need that scram jet!
+\item At this point, you should be concerned that your professor has messed something up. To help save the day, check if the assumptions you had to make to get geostrophic balance are valid. Recall that in problem 7b, the key to eliminating the nonlinear terms is the Rossby number $Ro$. For the high winds we are predicting now, what is the Rossby number?
+\item It turns out that indeed hurricanes are not low Rossby number flows. Rather, you can re-write the momentum equations in cylindrical coordinates around the storm center and find that the appropriate balance is ``cyclostrophic balance'', where the pressure gradient balances the centrifugal forces that would tear the storm apart. Let $u$ be the tangential wind around the storm and $r$ your distance from the center. The balance is:
+\[
+\frac{u^2}{r} \approx -\frac{1}{\rho}\frac{\partial p}{\partial r}
+\]
+Assume the pressure $p(r) = 10^5 - 10^4 e^{-\frac{r^2}{l^2}}$ and compute the maximum wind.
+\item Your answer should be much more reasonable, though still dangerously high: this is a monster storm. Confirm that the Rossby number is not small, justifying the use of cyclostrophic balance.
+\end{enumerate}
+
+\item Finally, use the thermal wind relationship to explain why there are westerly jets in both hemispheres. Please be quantitative, relating an estimate of the equator-to-pole temperature gradient to the strength of the jets.
+
+\end{enumerate}
+
+\end{document}
