@@ -199,6 +199,85 @@ where $m$ is its mass, $u_a(\phi) = \Omega r(\phi) + u(\phi)$ is its absolute ve
 \item In particular, at which latitude does the plane's east-west velocity reach the speed of sound (at surface pressure), 343 m/s.
 \item The fastest ``air breathing'' air plane (i.e, not a rocket) is the NASA X-43 hypersonic scram jet which goes Mach 9.6, or 3019 m/s. At which latitude does our air parcel's east-west velocity $u(\phi)$ equal that of the X-43?
 \end{enumerate}
+\textbf{(a) Compute $u(\phi)$.}
+
+At the equator ($\phi = 0$), the radius from Earth's axis is $r(0) = R_E$ (Earth's radius), and $u(0) = 0$. The absolute velocity at the equator is:
+\[
+u_a(0) = \Omega R_E + 0 = \Omega R_E
+\]
+
+The angular momentum at the equator is:
+\[
+L = m \cdot u_a(0) \cdot r(0) = m \Omega R_E \cdot R_E = m \Omega R_E^2
+\]
+
+At latitude $\phi$, the distance from Earth's axis is $r(\phi) = R_E \cos\phi$. By conservation of angular momentum:
+\[
+m(\Omega r(\phi) + u(\phi)) r(\phi) = m \Omega R_E^2
+\]
+\[
+(\Omega R_E \cos\phi + u(\phi)) R_E \cos\phi = \Omega R_E^2
+\]
+\[
+\Omega R_E \cos\phi + u(\phi) = \frac{\Omega R_E}{\cos\phi}
+\]
+\[
+u(\phi) = \Omega R_E \left(\frac{1}{\cos\phi} - \cos\phi\right) = \Omega R_E \left(\frac{1 - \cos^2\phi}{\cos\phi}\right)
+\]
+\[
+{u(\phi) = \Omega R_E \frac{\sin^2\phi}{\cos\phi}}
+\]
+
+Using $\Omega = 7.292 \times 10^{-5}$ rad/s and $R_E = 6.371 \times 10^6$ m:
+\[
+\Omega R_E = 7.292 \times 10^{-5} \times 6.371 \times 10^6 \approx 464.5 \text{ m/s}
+\]
+
+\textbf{(b) Latitude where $u(\phi) = 343$ m/s (speed of sound):}
+
+\[
+343 = 464.5 \cdot \frac{\sin^2\phi}{\cos\phi}
+\]
+\[
+\frac{\sin^2\phi}{\cos\phi} = \frac{343}{464.5} \approx 0.7384
+\]
+
+Let $c = \cos\phi$, so $\sin^2\phi = 1 - c^2$:
+\[
+\frac{1 - c^2}{c} = 0.7384
+\]
+\[
+1 - c^2 = 0.7384c
+\]
+\[
+c^2 + 0.7384c - 1 = 0
+\]
+
+Using the quadratic formula:
+\[
+c = \frac{-0.7384 + \sqrt{0.7384^2 + 4}}{2} = \frac{-0.7384 + \sqrt{4.5452}}{2} = \frac{-0.7384 + 2.132}{2} \approx 0.697
+\]
+\[
+\phi = \cos^{-1}(0.697) \approx \boxed{45.8^\circ}
+\]
+
+\textbf{(c) Latitude where $u(\phi) = 3019$ m/s (Mach 9.6):}
+
+\[
+\frac{\sin^2\phi}{\cos\phi} = \frac{3019}{464.5} \approx 6.50
+\]
+\[
+1 - c^2 = 6.50c
+\]
+\[
+c^2 + 6.50c - 1 = 0
+\]
+\[
+c = \frac{-6.50 + \sqrt{42.25 + 4}}{2} = \frac{-6.50 + 6.80}{2} \approx 0.150
+\]
+\[
+\phi = \cos^{-1}(0.150) \approx \boxed{81.4^\circ}
+\]
 
 \item Obviously air parcels (or our plane) will not travel so fast. For one, friction will slow the plane down, but let's still neglect this (assume there is no viscosity) and focus on another force that will prevent this from happening. The meridional momentum equation with no viscosity is
 \[
@@ -210,11 +289,63 @@ where the Coriolis parameter $f = 2\Omega\sin(\phi)$. Assume that $v$ is small, 
 \]
 where the force that moves our plane forward is the pressure gradient term, $\frac{\partial p}{\partial y}$, which is fixed by the strength of our engines: that is, it is equal to some constant, $C$. Explain why our plane cannot keep moving towards the pole and will eventually stop moving northward, with $v = 0$.
 
+(2)
+From the simplified meridional momentum equation:
+\[
+\frac{\partial v}{\partial t} + fu = C
+\]
+
+As the plane moves northward, it gains eastward velocity $u$ (from Problem 1). The Coriolis term $fu$ grows as both $f = 2\Omega\sin\phi$ and $u(\phi)$ increase with latitude.
+
+The engine provides a constant northward acceleration $C$. However, the Coriolis term $fu$ acts to oppose the northward motion (it deflects eastward-moving air to the right in the Northern Hemisphere, which for a northward-moving parcel means opposing the northward motion).
+
+Eventually, when $fu = C$, we have:
+\[
+\frac{\partial v}{\partial t} = C - fu = 0
+\]
+
+At this point, the plane cannot accelerate northward anymore. As $u$ continues to grow (if the plane keeps moving north), $fu > C$, which means $\frac{\partial v}{\partial t} < 0$, and the plane decelerates until $v = 0$.
+
+\textbf{Conclusion:} The Coriolis force eventually balances the engine thrust, preventing further northward acceleration, and the plane stops moving northward.
+
 \item By considering the mass of air in a box of width $\delta x$ by $\delta y$ by $\delta z$ centered at the point $(x, y, z)$, derive the conservation of mass equation,
 \[
 \frac{\partial \rho}{\partial t} = -\frac{\partial(\rho u)}{\partial x} - \frac{\partial(\rho v)}{\partial y} - \frac{\partial(\rho w)}{\partial z} = -\nabla \cdot (\rho \mathbf{u})
 \]
 where $\mathbf{u} = (u, v, w)$ is the three dimensional velocity vector.
+
+(3)
+Consider a small box centered at $(x, y, z)$ with dimensions $\delta x \times \delta y \times \delta z$. The mass inside the box is:
+\[
+M = \rho \, \delta x \, \delta y \, \delta z
+\]
+
+The rate of change of mass equals the net mass flux into the box:
+\[
+\frac{\partial M}{\partial t} = \frac{\partial \rho}{\partial t} \delta x \, \delta y \, \delta z
+\]
+
+Mass flux through the $x$-faces:
+\[
+\text{In at } x - \frac{\delta x}{2}: \quad \rho u \Big|_{x-\frac{\delta x}{2}} \delta y \, \delta z
+\]
+\[
+\text{Out at } x + \frac{\delta x}{2}: \quad \rho u \Big|_{x+\frac{\delta x}{2}} \delta y \, \delta z
+\]
+
+Net flux in $x$-direction:
+\[
+\left(\rho u \Big|_{x-\frac{\delta x}{2}} - \rho u \Big|_{x+\frac{\delta x}{2}}\right) \delta y \, \delta z \approx -\frac{\partial(\rho u)}{\partial x} \delta x \, \delta y \, \delta z
+\]
+
+Similarly for $y$ and $z$ directions. Total:
+\[
+\frac{\partial \rho}{\partial t} \delta x \, \delta y \, \delta z = -\left(\frac{\partial(\rho u)}{\partial x} + \frac{\partial(\rho v)}{\partial y} + \frac{\partial(\rho w)}{\partial z}\right) \delta x \, \delta y \, \delta z
+\]
+
+\[
+\boxed{\frac{\partial \rho}{\partial t} = -\frac{\partial(\rho u)}{\partial x} - \frac{\partial(\rho v)}{\partial y} - \frac{\partial(\rho w)}{\partial z} = -\nabla \cdot (\rho \mathbf{u})}
+\]
 
 \item This question will continue work with conservation of mass equation, help you to brush up on vector notation and make an inference about the divergence of the flow.
 
@@ -237,6 +368,47 @@ We will next consider the zonal momentum equation with viscosity for questions 5
 \]
 The goal is to non-dimensionalize the momentum equation and find the dominant terms.
 
+(4)
+
+  \textbf{(a)} Using the product rule for divergence:
+\[
+\nabla \cdot (\rho \mathbf{u}) = \frac{\partial(\rho u)}{\partial x} + \frac{\partial(\rho v)}{\partial y} + \frac{\partial(\rho w)}{\partial z}
+\]
+\[
+= \rho\frac{\partial u}{\partial x} + u\frac{\partial \rho}{\partial x} + \rho\frac{\partial v}{\partial y} + v\frac{\partial \rho}{\partial y} + \rho\frac{\partial w}{\partial z} + w\frac{\partial \rho}{\partial z}
+\]
+\[
+= \rho\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}\right) + \left(u\frac{\partial \rho}{\partial x} + v\frac{\partial \rho}{\partial y} + w\frac{\partial \rho}{\partial z}\right)
+\]
+\[
+\boxed{\nabla \cdot (\rho \mathbf{u}) = \rho \nabla \cdot \mathbf{u} + \mathbf{u} \cdot \nabla \rho}
+\]
+
+\textbf{(b)} From the continuity equation:
+\[
+\frac{\partial \rho}{\partial t} = -\nabla \cdot (\rho \mathbf{u}) = -\rho \nabla \cdot \mathbf{u} - \mathbf{u} \cdot \nabla \rho
+\]
+\[
+\frac{\partial \rho}{\partial t} + \mathbf{u} \cdot \nabla \rho = -\rho \nabla \cdot \mathbf{u}
+\]
+
+The left side is the material derivative:
+\[
+\boxed{\frac{D\rho}{Dt} = -\rho \nabla \cdot \mathbf{u}}
+\]
+
+\textbf{(c)} If density doesn't change following the flow, $\frac{D\rho}{Dt} \approx 0$, then:
+\[
+0 = -\rho \nabla \cdot \mathbf{u}
+\]
+
+Since $\rho \neq 0$:
+\[
+\boxed{\nabla \cdot \mathbf{u} \approx 0}
+\]
+
+The flow is non-divergent (incompressible).
+
 \begin{enumerate}[resume]
 
 \item First, let's focus on the nonlinear terms,
@@ -254,6 +426,38 @@ Assume that $u$ and $v$ have the same scale, $u = U\hat{u}$ and $v = U\hat{v}$, 
 \]
 Scale this equation and conclude that $U/L \approx W/H$.
 \item Finally, show that all three of the nonlinear terms scale as $U^2/L$.
+
+(5)
+\textbf{(a)} With $u = U\hat{u}$, $x = L\hat{x}$:
+\[
+u\frac{\partial u}{\partial x} = U\hat{u} \cdot \frac{\partial(U\hat{u})}{\partial(L\hat{x})} = U\hat{u} \cdot \frac{U}{L}\frac{\partial \hat{u}}{\partial \hat{x}} \sim \frac{U^2}{L}
+\]
+
+Similarly, $v\frac{\partial u}{\partial y} \sim U \cdot \frac{U}{L} = \boxed{\frac{U^2}{L}}$
+
+\textbf{(b)} With $w = W\hat{w}$, $z = H\hat{z}$:
+\[
+w\frac{\partial u}{\partial z} = W\hat{w} \cdot \frac{\partial(U\hat{u})}{\partial(H\hat{z})} \sim W \cdot \frac{U}{H} = \boxed{\frac{UW}{H}}
+\]
+
+\textbf{(c)} Scaling the non-divergence condition:
+\[
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z} = 0
+\]
+\[
+\frac{U}{L} + \frac{U}{L} + \frac{W}{H} = 0
+\]
+
+For the terms to balance: $\boxed{\frac{U}{L} \sim \frac{W}{H}}$, so $W \sim \frac{UH}{L}$.
+
+\textbf{(d)} From part (c), $W \sim UH/L$, so:
+\[
+w\frac{\partial u}{\partial z} \sim \frac{UW}{H} = \frac{U \cdot (UH/L)}{H} = \frac{U^2}{L}
+\]
+
+All three nonlinear terms scale as $\boxed{\frac{U^2}{L}}$.
+
+
 \end{enumerate}
 
 \item Now we will compare the nonlinear terms to the strength of the viscosity term.
@@ -270,6 +474,37 @@ This result is so important that we gave it a name, the Reynolds number $Re$.
 \item This result shows that it is impossible to simulate the atmosphere with the molecular viscosity. You would need a grid that resolves the length scale you computed above, but is large enough to capture the whole world! To get a sense of how massive this would be, let's not worry about spherical geometry, but just imagine you want to simulate the wind in a box that is $10^7$ by $10^7$ by $10^4$, that is, 10,000 km horizontal and 10 km vertical. How many grid points would you need, if they have to be spaced out at the scale $L$ you determined in the last problem!
 \end{enumerate}
 
+(6)
+
+\textbf{(a)} 
+\[
+\nu\frac{\partial^2 u}{\partial x^2} \sim \nu \cdot \frac{U}{L^2} = \boxed{\frac{\nu U}{L^2}}
+\]
+
+\textbf{(b)} Ratio of nonlinear to viscous terms:
+\[
+\frac{U^2/L}{\nu U/L^2} = \frac{U^2}{L} \cdot \frac{L^2}{\nu U} = \boxed{\frac{UL}{\nu} \equiv Re}
+\]
+
+\textbf{(c)} With $U = 10$ m/s, $L = 10^6$ m, $\nu = 10^{-5}$ m$^2$/s:
+\[
+Re = \frac{10 \times 10^6}{10^{-5}} = \boxed{10^{12}}
+\]
+
+The Reynolds number is enormous, so viscosity is completely negligible compared to the nonlinear terms.
+
+\textbf{(d)} For $Re \approx 1$:
+\[
+L = \frac{\nu}{U} = \frac{10^{-5}}{10} = \boxed{10^{-6} \text{ m} = 1 \text{ micrometer}}
+\]
+
+\textbf{(e)} Number of grid points needed:
+\[
+N = \frac{10^7}{10^{-6}} \times \frac{10^7}{10^{-6}} \times \frac{10^4}{10^{-6}} = 10^{13} \times 10^{13} \times 10^{10} = \boxed{10^{36} \text{ grid points}}
+\]
+
+This is astronomically large and completely impossible to compute.
+
 \item Based on problem 6, we can now ignore the viscous term. We'd now like to compare the nonlinear terms to the Coriolis term, $fv$. In question 5, you showed that the nonlinear terms scale as $U^2/L$.
 
 \begin{enumerate}[label=(\alph*)]
@@ -283,11 +518,57 @@ where because this ratio is also so important, we gave it a name, the Rossby num
 \item When the Rossby number is small, the nonlinear terms are dwarfed by the Coriolis term, and we can vote them off the island, too! For what latitudes is $Ro$ small?
 \end{enumerate}
 
+(7)\textbf{(a)} With $\Omega = \frac{2\pi}{86400} \approx 7.27 \times 10^{-5}$ rad/s and $U = 10$ m/s:
+
+\begin{itemize}
+\item[(i)] Equator ($\phi = 0$): $f = 0$, so $fv = 0$
+\item[(ii)] $30^\circ$N: $f = 2\Omega\sin(30^\circ) = 2 \times 7.27 \times 10^{-5} \times 0.5 = 7.27 \times 10^{-5}$ s$^{-1}$
+\[
+fv \sim 7.27 \times 10^{-5} \times 10 = 7.27 \times 10^{-4} \text{ m/s}^2
+\]
+\item[(iii)] $45^\circ$N: $f = 2\Omega\sin(45^\circ) = 2 \times 7.27 \times 10^{-5} \times 0.707 = 1.03 \times 10^{-4}$ s$^{-1}$
+\[
+fv \sim 1.03 \times 10^{-4} \times 10 = 1.03 \times 10^{-3} \text{ m/s}^2
+\]
+\item[(iv)] Pole ($\phi = 90^\circ$): $f = 2\Omega = 1.45 \times 10^{-4}$ s$^{-1}$
+\[
+fv \sim 1.45 \times 10^{-4} \times 10 = 1.45 \times 10^{-3} \text{ m/s}^2
+\]
+\end{itemize}
+
+\textbf{(b)} 
+\[
+\frac{\text{Nonlinear}}{\text{Coriolis}} = \frac{U^2/L}{fU} = \boxed{\frac{U}{fL} \equiv Ro}
+\]
+
+\textbf{(c)} With $U = 10$ m/s, $L = 10^6$ m:
+
+\begin{itemize}
+\item[(i)] Equator: $f = 0$, so $Ro = \infty$ (undefined)
+\item[(ii)] $30^\circ$N: $Ro = \frac{10}{7.27 \times 10^{-5} \times 10^6} = \frac{10}{72.7} \approx 0.14$
+\item[(iii)] $45^\circ$N: $Ro = \frac{10}{1.03 \times 10^{-4} \times 10^6} = \frac{10}{103} \approx 0.097$
+\item[(iv)] Pole: $Ro = \frac{10}{1.45 \times 10^{-4} \times 10^6} = \frac{10}{145} \approx 0.069$
+\end{itemize}
+
+\textbf{(d)} The Rossby number is small ($Ro \ll 1$) for latitudes away from the equator, roughly for $\phi \gtrsim 30^\circ$. At these latitudes, the Coriolis force dominates over nonlinear terms.
+
 \item We are almost to the finish line, but what do we do with the first term in the momentum equation, $\frac{\partial u}{\partial t}$? We know that $u$ scales as $U$, but how does time $t$ scale? A reasonable way to make progress is to assume that time scales as $T$, the time it takes the a flow with speed $U$ to cross the characteristic length scale $L$, or
 \[
 T \approx \frac{L}{U}
 \]
 Using this scaling, show that $\frac{\partial u}{\partial t}$ scales the same as the nonlinear terms: $U^2/L$. This means that when the Rossby number is small, we can ignore the time derivative, too!
+
+
+(8)
+With $t = T\hat{t}$ and $T = L/U$:
+\[
+\frac{\partial u}{\partial t} \sim \frac{U}{T} = \frac{U}{L/U} = \frac{U^2}{L}
+\]
+
+This scales the same as the nonlinear terms: $\boxed{\frac{U^2}{L}}$.
+
+When $Ro \ll 1$, both the time derivative and nonlinear terms are negligible compared to the Coriolis term, leaving a steady balance.
+
 
 \item From the big nasty nonlinear PDE that we started with, we are left with just:
 \[
@@ -304,6 +585,23 @@ and if we did the same work for the meridional momentum equation, we would get
 \item Suppose there is a high pressure system (as when there is a heat wave). Sketch how the winds would blow about this high pressure.
 \end{enumerate}
 
+(9)
+
+\textbf{(a)} This is called \textbf{geostrophic balance}.
+
+\textbf{(b) Low pressure system (Northern Hemisphere):}
+
+From geostrophic balance:
+\[
+fv = -\frac{1}{\rho}\frac{\partial p}{\partial x}, \quad -fu = -\frac{1}{\rho}\frac{\partial p}{\partial y}
+\]
+
+The pressure gradient points inward toward the low center. The Coriolis force must balance this, requiring flow perpendicular to the pressure gradient. In the Northern Hemisphere, winds blow \textbf{counterclockwise} around a low pressure system, with the low on the left of the wind direction.
+
+\textbf{(c) High pressure system (Northern Hemisphere):}
+
+The pressure gradient points outward from the high center. Winds blow \textbf{clockwise} around a high pressure system, with the high on the right of the wind direction.
+
 \item A major winter storm can have a central pressure as low as 970 hPa and radius of 1000 km: $l = 1 \cdot 10^6$ m. We will very, very crudely assume that the pressure is
 \[
 p(x, y) = 10^5 - 3 \times 10^3 e^{-\frac{x^2+y^2}{l^2}},
@@ -313,6 +611,41 @@ where we are using SI units of Pa. Here, the storm is centered around the point 
 \begin{enumerate}[label=(\alph*)]
 \item Using geostrophic balance, what would the meridional wind velocity $v(x)$ be along the line $y = 0$. (You would get a similar profile in other directions.)
 \item What is the maximum meridional wind? You can plot your function or use calculus to solve this. Note that by symmetry you will get this value and it's opposite on different sides of the storm.
+
+(10)
+\textbf{(a)} Given:
+\[
+p(x, y) = 10^5 - 3 \times 10^3 e^{-\frac{x^2+y^2}{l^2}}, \quad l = 10^6 \text{ m}
+\]
+
+Along $y = 0$:
+\[
+\frac{\partial p}{\partial x} = -3 \times 10^3 \cdot e^{-\frac{x^2}{l^2}} \cdot \left(-\frac{2x}{l^2}\right) = \frac{6 \times 10^3 x}{l^2} e^{-\frac{x^2}{l^2}}
+\]
+
+From geostrophic balance $fv = -\frac{1}{\rho}\frac{\partial p}{\partial x}$:
+\[
+v(x) = -\frac{1}{\rho f}\frac{\partial p}{\partial x} = -\frac{6 \times 10^3 x}{\rho f l^2} e^{-\frac{x^2}{l^2}}
+\]
+
+With $f = 2\Omega\sin(45^\circ) = 1.03 \times 10^{-4}$ s$^{-1}$, $\rho = 1.2$ kg/m$^3$, $l = 10^6$ m:
+\[
+\boxed{v(x) = -\frac{6 \times 10^3 x}{1.2 \times 1.03 \times 10^{-4} \times 10^{12}} e^{-\frac{x^2}{l^2}} = -48.5 \cdot \frac{x}{l^2} \cdot l \cdot e^{-\frac{x^2}{l^2}} = -48.5 \frac{x}{l} e^{-\frac{x^2}{l^2}} \text{ m/s}}
+\]
+
+\textbf{(b)} To find maximum, set $\frac{dv}{dx} = 0$:
+\[
+\frac{d}{dx}\left(x e^{-x^2/l^2}\right) = e^{-x^2/l^2} - \frac{2x^2}{l^2}e^{-x^2/l^2} = 0
+\]
+\[
+1 - \frac{2x^2}{l^2} = 0 \implies x = \pm\frac{l}{\sqrt{2}}
+\]
+
+Maximum wind speed:
+\[
+|v|_{\max} = 48.5 \cdot \frac{1}{\sqrt{2}} \cdot e^{-1/2} = 48.5 \times 0.707 \times 0.606 \approx \boxed{20.8 \text{ m/s}}
+\]
+
 \end{enumerate}
 
 \item Now let's try something more exotic. A major hurricane can have a central pressure of 900 hPa. Hurricanes are also much smaller than winter storms, with radius of just 30 km: $l = 3 \cdot 10^4$ m. Crudely assume that the pressure is
@@ -333,8 +666,121 @@ Assume the pressure $p(r) = 10^5 - 10^4 e^{-\frac{r^2}{l^2}}$ and compute the ma
 \item Your answer should be much more reasonable, though still dangerously high: this is a monster storm. Confirm that the Rossby number is not small, justifying the use of cyclostrophic balance.
 \end{enumerate}
 
+(11)
+\textbf{(a)} With $l = 3 \times 10^4$ m, $f = 2\Omega\sin(30^\circ) = 7.27 \times 10^{-5}$ s$^{-1}$, and pressure drop $10^4$ Pa:
+\[
+v(x) = -\frac{2 \times 10^4 x}{\rho f l^2} e^{-\frac{x^2}{l^2}}
+\]
+\[
+v(x) = -\frac{2 \times 10^4 x}{1.2 \times 7.27 \times 10^{-5} \times (3 \times 10^4)^2} e^{-\frac{x^2}{l^2}}
+\]
+\[
+v(x) = -\frac{2 \times 10^4 x}{1.2 \times 7.27 \times 10^{-5} \times 9 \times 10^8} e^{-\frac{x^2}{l^2}} = -\frac{2 \times 10^4 x}{7.85 \times 10^4} e^{-\frac{x^2}{l^2}}
+\]
+
+\textbf{(b)} Maximum at $x = l/\sqrt{2}$:
+\[
+|v|_{\max} = \frac{2 \times 10^4}{7.85 \times 10^4} \cdot \frac{l}{\sqrt{2}} \cdot e^{-1/2} \cdot \frac{1}{l} \times l
+\]
+
+Let me recalculate:
+\[
+|v|_{\max} = \frac{2 \times 10^4 \times 3 \times 10^4}{1.2 \times 7.27 \times 10^{-5} \times 9 \times 10^8 \times \sqrt{2}} \cdot e^{-1/2}
+\]
+\[
+= \frac{6 \times 10^8}{7.85 \times 10^4 \times 1.414} \times 0.606 \approx \frac{6 \times 10^8}{1.11 \times 10^5} \times 0.606 \approx 3275 \text{ m/s}
+\]
+
+This is $\boxed{\approx 3300 \text{ m/s}}$, which is absurdly fast (Mach 10)!
+
+\textbf{(c)} Rossby number with $U \approx 3300$ m/s, $L = l = 3 \times 10^4$ m:
+\[
+Ro = \frac{U}{fL} = \frac{3300}{7.27 \times 10^{-5} \times 3 \times 10^4} = \frac{3300}{2.18} \approx \boxed{1500}
+\]
+
+$Ro \gg 1$, so geostrophic balance is NOT valid!
+
+\textbf{(d)} Using cyclostrophic balance:
+\[
+\frac{u^2}{r} = -\frac{1}{\rho}\frac{\partial p}{\partial r}
+\]
+
+With $p(r) = 10^5 - 10^4 e^{-r^2/l^2}$:
+\[
+\frac{\partial p}{\partial r} = 10^4 \cdot \frac{2r}{l^2} e^{-r^2/l^2}
+\]
+\[
+u^2 = -\frac{r}{\rho} \cdot \frac{\partial p}{\partial r} = \frac{2 \times 10^4 r^2}{\rho l^2} e^{-r^2/l^2}
+\]
+\[
+u = \sqrt{\frac{2 \times 10^4}{\rho l^2}} \cdot r \cdot e^{-r^2/(2l^2)}
+\]
+
+Maximum at $\frac{d}{dr}(r e^{-r^2/(2l^2)}) = 0$: $r = l$.
+\[
+u_{\max} = \sqrt{\frac{2 \times 10^4}{1.2 \times (3 \times 10^4)^2}} \cdot l \cdot e^{-1/2}
+\]
+\[
+= \sqrt{\frac{2 \times 10^4}{1.08 \times 10^9}} \times 3 \times 10^4 \times 0.606
+\]
+\[
+= \sqrt{1.85 \times 10^{-5}} \times 1.82 \times 10^4 = 4.3 \times 10^{-3} \times 1.82 \times 10^4 \approx \boxed{78 \text{ m/s}}
+\]
+
+This is about 175 mph—a Category 5 hurricane!
+
+\textbf{(e)} Rossby number with $U = 78$ m/s, $L = 3 \times 10^4$ m:
+\[
+Ro = \frac{78}{7.27 \times 10^{-5} \times 3 \times 10^4} = \frac{78}{2.18} \approx \boxed{36}
+\]
+
+Since $Ro \gg 1$, cyclostrophic balance is appropriate, not geostrophic balance.
 \item Finally, use the thermal wind relationship to explain why there are westerly jets in both hemispheres. Please be quantitative, relating an estimate of the equator-to-pole temperature gradient to the strength of the jets.
 
 \end{enumerate}
+(12)
+
+The thermal wind relationship relates vertical wind shear to horizontal temperature gradients:
+\[
+\frac{\partial u_g}{\partial z} = -\frac{g}{fT}\frac{\partial T}{\partial y}
+\]
+
+or in pressure coordinates:
+\[
+\frac{\partial u_g}{\partial \ln p} = \frac{R}{f}\frac{\partial T}{\partial y}
+\]
+
+\textbf{Quantitative estimate:}
+
+The equator-to-pole temperature difference is approximately $\Delta T \approx 50$ K over a distance $\Delta y \approx 10^7$ m (equator to pole).
+
+Temperature gradient:
+\[
+\frac{\partial T}{\partial y} \approx -\frac{50}{10^7} = -5 \times 10^{-6} \text{ K/m}
+\]
+(negative because temperature decreases poleward)
+
+At mid-latitudes ($\sim 45^\circ$), $f \approx 10^{-4}$ s$^{-1}$.
+
+Integrating from surface to tropopause (scale height $H \approx 8$ km):
+\[
+\Delta u \approx -\frac{R}{f}\frac{\partial T}{\partial y} \cdot \ln\left(\frac{p_{surface}}{p_{tropopause}}\right)
+\]
+\[
+\approx -\frac{287}{10^{-4}} \times (-5 \times 10^{-6}) \times \ln(10) \approx 2.87 \times 10^6 \times 5 \times 10^{-6} \times 2.3
+\]
+\[
+\approx 33 \text{ m/s}
+\]
+
+\textbf{Explanation:}
+
+In both hemispheres, temperature decreases from equator to pole. By thermal wind balance:
+\begin{itemize}
+\item Northern Hemisphere: $\frac{\partial T}{\partial y} < 0$ and $f > 0$, so $\frac{\partial u}{\partial z} > 0$ (westerly winds increase with height)
+\item Southern Hemisphere: $\frac{\partial T}{\partial y} > 0$ (temperature increases toward pole, i.e., toward larger $y$ if $y$ points poleward) and $f < 0$, so $\frac{\partial u}{\partial z} > 0$ (also westerly)
+\end{itemize}
+
+Starting from weak surface winds, integration upward produces strong westerly jets at the tropopause ($\sim 10$ km altitude) in both hemispheres, with speeds of $\boxed{30-50 \text{ m/s}}$.
 
 \end{document}

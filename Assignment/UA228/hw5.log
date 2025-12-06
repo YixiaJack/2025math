@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.9.18)  5 DEC 2025 00:00
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.9.18)  6 DEC 2025 01:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -446,8 +446,7 @@ LaTeX Font Info:    Overwriting math alphabet `\EuScript' in version `bold'
 (Font)                  U/eus/m/n --> U/eus/b/n on input line 33.
 )
 \c@theorem=\count338
-
-No file hw5.aux.
+ (./hw5.aux)
 \openout1 = `hw5.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 180.
@@ -479,16 +478,14 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count339
 LaTeX Encoding Info:    Undeclare text command \textquotesingle (encoding TU) on input line 180.
 LaTeX Encoding Info:    Redeclaring text symbol \textquotesingle (encoding TS1) on input line 180.
-(c:/texlive/2025/texmf-dist/tex/latex/upquote/upquote.sty
+ (c:/texlive/2025/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
 Package hyperref Info: Link coloring ON on input line 180.
+ (./hw5.out) (./hw5.out)
 \@outlinefile=\write3
 \openout3 = `hw5.out'.
 
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -587,28 +584,98 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
 
-[6] (./hw5.aux)
+[6]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[7]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[8]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[9]
+Overfull \hbox (14.6103pt too wide) detected at line 634
+[]
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[10]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[11]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[12]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[13]
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.89253pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.89253pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-13.89253pt}.
+
+[14] (./hw5.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
  ***********
-
-
-Package rerunfilecheck Warning: File `hw5.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `hw5.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package rerunfilecheck Info: File `hw5.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 15251 strings out of 468441
- 242048 string characters out of 5449220
- 683514 words of memory out of 5000000
- 43501 multiletter control sequences out of 15000+600000
- 632810 words of font info for 68 fonts, out of 8000000 for 9000
+ 15265 strings out of 468441
+ 242302 string characters out of 5449220
+ 680514 words of memory out of 5000000
+ 43507 multiletter control sequences out of 15000+600000
+ 632818 words of font info for 69 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 73i,12n,79p,625b,643s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,12n,79p,625b,655s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on hw5.pdf (6 pages).
+Output written on hw5.pdf (14 pages).
