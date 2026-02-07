@@ -499,17 +499,18 @@ Extra credit: predict the order of magnitude of the error in recomputing $p_0$ u
 import numpy as np
 import matplotlib.pyplot as plt
 
+c_val = 1.0 + np.sqrt(3.0) / 100.0
+eps_s = np.finfo(np.float32).eps
+eps_d = np.finfo(np.float64).eps
 n_max = 100
-c = 1.0 + np.sqrt(3.0)/100.0
 
 f_d = np.zeros(n_max+1, dtype=np.float64); f_d[0]=f_d[1]=1.0
 p_d = np.zeros(n_max+1, dtype=np.float64); p_d[0]=p_d[1]=1.0
 for k in range(2, n_max+1):
     f_d[k] = f_d[k-1] + f_d[k-2]
-    p_d[k] = c*p_d[k-1] + p_d[k-2]
+    p_d[k] = c_val*p_d[k-1] + p_d[k-2]
 
 ns = np.arange(n_max+1)
-eps_s, eps_d = np.finfo(np.float32).eps, np.finfo(np.float64).eps
 plt.semilogy(ns, f_d, 'b-', label='Fibonacci')
 plt.semilogy(ns, p_d, 'r-', label='Pib')
 plt.axhline(1/eps_s, color='g', ls='--', label=f'$1/\\varepsilon_{{mach}}$ single')
@@ -524,26 +525,36 @@ plt.savefig('problem8a_plot.png', dpi=150)
 \caption{Fibonacci and Pib on log scale. Horizontal lines: $1/\varepsilon_{\mathrm{mach}}$ for single ($\approx 8.4 \times 10^6$) and double ($\approx 4.5 \times 10^{15}$).}
 \end{figure}
 
-(b) The backward recurrence can be written as $f_{k-1} = f_{k+1} - f_k$. I implement this in both single and double precision by using \texttt{np.float32} and \texttt{np.float64} respectively:
+(b) The backward recurrence can be written as $f_{k-1} = f_{k+1} - f_k$. I implement this with separate functions for single and double precision:
 
 \begin{lstlisting}
-def backward_fib(n, dtype=np.float64):
-    f = np.zeros(n+1, dtype=dtype)
-    f[0] = f[1] = dtype(1.0)
+def backward_fib_double(n):
+    f = np.zeros(n+1, dtype=np.float64)
+    f[0] = f[1] = 1.0
     for k in range(2, n+1):
         f[k] = f[k-1] + f[k-2]
-    fk1, fk = dtype(f[n]), dtype(f[n-1])
+    fk1, fk = f[n], f[n-1]
     for k in range(n-2, -1, -1):
-        fk1, fk = fk, dtype(fk1 - fk)
+        fk1, fk = fk, fk1 - fk
+    return abs(fk - 1.0)
+
+def backward_fib_single(n):
+    f = np.zeros(n+1, dtype=np.float32)
+    f[0] = f[1] = np.float32(1.0)
+    for k in range(2, n+1):
+        f[k] = f[k-1] + f[k-2]
+    fk1, fk = np.float32(f[n]), np.float32(f[n-1])
+    for k in range(n-2, -1, -1):
+        fk1, fk = fk, np.float32(fk1 - fk)
     return abs(float(fk) - 1.0)
 
 ns_d = range(2, 95)
 ns_s = range(2, 50)
-err_d = [backward_fib(n, np.float64) for n in ns_d]
-err_s = [backward_fib(n, np.float32) for n in ns_s]
+err_fib_d = [backward_fib_double(n) for n in ns_d]
+err_fib_s = [backward_fib_single(n) for n in ns_s]
 
-plt.semilogy(list(ns_d), err_d, 'b.-', ms=3, label='Double')
-plt.semilogy(list(ns_s), err_s, 'r.-', ms=3, label='Single')
+plt.semilogy(list(ns_d), err_fib_d, 'b.-', ms=3, label='Double')
+plt.semilogy(list(ns_s), err_fib_s, 'r.-', ms=3, label='Single')
 plt.axhline(1.0, color='k', ls='--', lw=0.5, label='Complete loss')
 plt.xlabel('n'); plt.ylabel('|recomputed $f_0$ - 1|')
 plt.legend(); plt.savefig('problem8b_plot.png', dpi=150)
@@ -574,26 +585,34 @@ The behavior is qualitatively the same in both cases, exhibiting a sharp transit
 (c) The backward pib recurrence is $p_{k-1} = p_{k+1} - c \cdot p_k$. We repeat the same experiment in both precisions:
 
 \begin{lstlisting}
-c = 1.0 + np.sqrt(3.0)/100.0
-c32 = np.float32(c)
+c32 = np.float32(c_val)
 
-def backward_pib(n, dtype=np.float64):
-    cv = c32 if dtype == np.float32 else c
-    p = np.zeros(n+1, dtype=dtype)
-    p[0] = p[1] = dtype(1.0)
+def backward_pib_double(n):
+    p = np.zeros(n+1, dtype=np.float64)
+    p[0] = p[1] = 1.0
     for k in range(2, n+1):
-        p[k] = dtype(cv) * p[k-1] + p[k-2]
-    pk1, pk = dtype(p[n]), dtype(p[n-1])
+        p[k] = c_val * p[k-1] + p[k-2]
+    pk1, pk = p[n], p[n-1]
     for k in range(n-2, -1, -1):
-        pk1, pk = pk, dtype(pk1 - dtype(cv) * pk)
+        pk1, pk = pk, pk1 - c_val * pk
+    return abs(pk - 1.0)
+
+def backward_pib_single(n):
+    p = np.zeros(n+1, dtype=np.float32)
+    p[0] = p[1] = np.float32(1.0)
+    for k in range(2, n+1):
+        p[k] = c32 * p[k-1] + p[k-2]
+    pk1, pk = np.float32(p[n]), np.float32(p[n-1])
+    for k in range(n-2, -1, -1):
+        pk1, pk = pk, np.float32(pk1 - c32 * pk)
     return abs(float(pk) - 1.0)
 
-err_pib_d = [backward_pib(n, np.float64) for n in ns_d]
-err_pib_s = [backward_pib(n, np.float32) for n in ns_s]
+err_pib_d = [backward_pib_double(n) for n in ns_d]
+err_pib_s = [backward_pib_single(n) for n in ns_s]
 
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-axes[0].semilogy(list(ns_d), err_d, 'b.-', ms=3, label='Double')
-axes[0].semilogy(list(ns_s), err_s, 'r.-', ms=3, label='Single')
+axes[0].semilogy(list(ns_d), err_fib_d, 'b.-', ms=3, label='Double')
+axes[0].semilogy(list(ns_s), err_fib_s, 'r.-', ms=3, label='Single')
 axes[0].set_title('Fibonacci'); axes[0].legend()
 
 axes[1].semilogy(list(ns_d), err_pib_d, 'b.-', ms=3, label='Double')
@@ -654,6 +673,9 @@ For $n$ greater than approximately 130, the peak value $a_{n,\lfloor n/2 \rfloor
 
 \begin{lstlisting}
 import numpy as np
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 def binom_coeffs(n, dtype=np.float64):
     a = np.zeros(n+1, dtype=dtype)
@@ -662,53 +684,93 @@ def binom_coeffs(n, dtype=np.float64):
         a[k+1] = a[k] * dtype(n-k) / dtype(k+1)
     return a
 
-for n in [10, 50, 100, 130, 500, 1000]:
+for n in [10, 20, 30, 50, 100, 130, 150, 200, 500, 1000]:
     ad = binom_coeffs(n, np.float64)
     as_ = binom_coeffs(n, np.float32)
-    print(f"n={n:5d}  max(double)={np.max(ad):.3e}  "
-          f"a_nn(double)={ad[n]:.10e}  a_nn(single)={as_[n]:.10e}")
+    print(f"n={n:6d}  max(double)={np.max(ad):15.6e}  "
+          f"a_nn(double)={ad[n]:18.10e}  a_nn(single)={as_[n]:18.10e}")
 \end{lstlisting}
 
 \begin{center}
 \begin{tabular}{r|cc|cc}
 $n$ & $\max_k a_{n,k}$ (double) & $a_{n,n}$ (double) & $\max_k a_{n,k}$ (single) & $a_{n,n}$ (single) \\
 \hline
+10 & $2.52 \times 10^{2}$ & 1.0000000000 & $2.52 \times 10^{2}$ & 1.0000000000 \\
+20 & $1.85 \times 10^{5}$ & 1.0000000000 & $1.85 \times 10^{5}$ & 1.0000000000 \\
+30 & $1.55 \times 10^{8}$ & 1.0000000000 & $1.55 \times 10^{8}$ & 1.0000000000 \\
+50 & $1.26 \times 10^{14}$ & 1.0000000000 & $1.26 \times 10^{14}$ & 0.9999999404 \\
 100 & $1.01 \times 10^{29}$ & 1.0000000000 & $1.01 \times 10^{29}$ & 0.9999992251 \\
-130 & $5.45 \times 10^{37}$ & 1.0000000000 & \texttt{inf} & \texttt{inf} \\
+130 & $9.51 \times 10^{37}$ & 1.0000000000 & \texttt{inf} & \texttt{inf} \\
+150 & $9.28 \times 10^{43}$ & 1.0000000000 & \texttt{inf} & \texttt{inf} \\
+200 & $9.05 \times 10^{58}$ & 1.0000000000 & \texttt{inf} & \texttt{inf} \\
+500 & $1.17 \times 10^{149}$ & 1.0000000000 & \texttt{inf} & \texttt{inf} \\
 1000 & $2.70 \times 10^{299}$ & 1.0000000000 & \texttt{inf} & \texttt{inf}
 \end{tabular}
 \end{center}
 
 (b) All terms $k \cdot a_{n,k}$ are non-negative, which means the sum is monotonically increasing and there is no subtraction of large numbers. Therefore, cancellation is not a problem.
 
-For large $n$, the peak value $a_{n,n/2}$ is approximately $2^n/\sqrt{\pi n/2}$, which overflows and makes $M_n = \texttt{inf}$. When this happens, the sum also overflows and $E(k)$ becomes $\texttt{NaN}$ as a result of operations like $\texttt{inf}/\texttt{inf}$ or $\texttt{inf} - \texttt{inf}$.
-
-Double precision can handle much larger values of $n$ than single precision because it has a wider exponent range, allowing values up to approximately $10^{308}$ compared to $10^{38}$ for single precision.
-
 \begin{lstlisting}
-for n in [10, 100, 500, 1000, 1025]:
+for n in [10, 20, 50, 100, 200, 500, 1000, 1020, 1025, 1030]:
     a = binom_coeffs(n)
     Mn = np.max(a)
     ks = np.arange(n+1, dtype=np.float64)
-    Ek = np.sum(ks * a) / np.float64(2.0)**np.float64(n)
-    print(f"n={n:5d}  E(k)={Ek:15.6e}  n/2={n/2:.1f}  Mn={Mn:.3e}")
+    two_n = np.float64(2.0) ** np.float64(n)
+    Ek = np.sum(ks * a) / two_n
+    exact = n / 2.0
+    err = abs(Ek - exact) if np.isfinite(Ek) else float('inf')
+    print(f"n={n:6d}  E(k)={Ek:20.10e}  n/2={exact:10.1f}  "
+          f"|error|={err:15.6e}  Mn={Mn:20.6e}")
 \end{lstlisting}
+
+\begin{center}
+\begin{tabular}{r|cccc}
+$n$ & $E(k)$ & $n/2$ & $|\text{error}|$ & $M_n$ \\
+\hline
+10 & 5.000000e+00 & 5.0 & 0.000000e+00 & $2.52 \times 10^{2}$ \\
+20 & 1.000000e+01 & 10.0 & 0.000000e+00 & $1.85 \times 10^{5}$ \\
+50 & 2.500000e+01 & 25.0 & 0.000000e+00 & $1.26 \times 10^{14}$ \\
+100 & 5.000000e+01 & 50.0 & 7.105427e-15 & $1.01 \times 10^{29}$ \\
+200 & 1.000000e+02 & 100.0 & 0.000000e+00 & $9.05 \times 10^{58}$ \\
+500 & 2.500000e+02 & 250.0 & 1.421085e-13 & $1.17 \times 10^{149}$ \\
+1000 & 5.000000e+02 & 500.0 & 3.410605e-13 & $2.70 \times 10^{299}$ \\
+1020 & \texttt{inf} & 510.0 & \texttt{inf} & $2.81 \times 10^{305}$ \\
+1025 & \texttt{NaN} & 512.5 & \texttt{inf} & \texttt{inf} \\
+1030 & \texttt{NaN} & 515.0 & \texttt{inf} & \texttt{inf}
+\end{tabular}
+\end{center}
+
+For $n \leq 1000$, $E(k)$ matches $n/2$ to full double precision accuracy, even though intermediate values $a_{n,k}$ span hundreds of orders of magnitude. This works because all terms are non-negative, so no cancellation occurs.
+
+For $n = 1020$, $M_n$ is still finite but the sum $\sum k \cdot a_{n,k}$ overflows, making $E(k) = \texttt{inf}$. For $n = 1025$, the peak $a_{n,n/2}$ itself exceeds $10^{308}$ and overflows to \texttt{inf}, making $M_n = \texttt{inf}$. The sum then involves $\texttt{inf} - \texttt{inf}$ or $\texttt{inf}/\texttt{inf}$ operations, producing $E(k) = \texttt{NaN}$.
+
+Double precision handles much larger values of $n$ than single precision because it has a wider exponent range, allowing values up to approximately $10^{308}$ compared to $10^{38}$ for single precision.
 
 (c) When we plot the normalized values $a_{n,k}/M_n$ against the standardized variable $z = (k - n/2)/\sqrt{n/4}$, the distribution converges to a Gaussian curve $e^{-z^2/2}$ as predicted by the Central Limit Theorem.
 
 \begin{lstlisting}
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-for n, style in [(10,'b-'), (20,'r--'), (50,'g-.')]:
-    a = binom_coeffs(n); Mn = np.max(a); ks = np.arange(n+1)
-    axes[0].plot(ks, a/Mn, style, label=f'n={n}')
+for n, style in [(10, 'b-'), (20, 'r--'), (50, 'g-.')]:
+    a = binom_coeffs(n)
+    Mn = np.max(a)
+    ks = np.arange(n+1)
+    axes[0].plot(ks, a/Mn, style, linewidth=1.5, label=f'n = {n}')
     z = (ks - n/2.0) / np.sqrt(n/4.0)
-    axes[1].plot(z, a/Mn, style, label=f'n={n}')
+    axes[1].plot(z, a/Mn, style, linewidth=1.5, label=f'n = {n}')
 
 z_c = np.linspace(-4, 4, 200)
-axes[1].plot(z_c, np.exp(-z_c**2/2), 'k:', alpha=0.5, label='Gaussian')
-for ax in axes: ax.legend()
-axes[0].set_xlabel('k'); axes[1].set_xlabel('$(k-n/2)/\\sqrt{n/4}$')
-plt.tight_layout(); plt.savefig('problem9c_plot.png', dpi=150)
+axes[1].plot(z_c, np.exp(-z_c**2/2), 'k:', lw=1, alpha=0.5, label='Gaussian')
+
+axes[0].set_xlabel('k'); axes[0].set_ylabel(r'$a_{n,k}/M_n$')
+axes[0].set_title('Binomial Coefficients (raw k)')
+axes[0].legend(); axes[0].grid(True, alpha=0.3)
+
+axes[1].set_xlabel(r'$(k - n/2)/\sqrt{n/4}$'); axes[1].set_ylabel(r'$a_{n,k}/M_n$')
+axes[1].set_title('Standardized (approaching Gaussian)')
+axes[1].legend(); axes[1].grid(True, alpha=0.3); axes[1].set_xlim(-4, 4)
+
+plt.tight_layout()
+plt.savefig('problem9c_plot.png', dpi=150, bbox_inches='tight')
 \end{lstlisting}
 
 \begin{figure}[H]
@@ -716,5 +778,4 @@ plt.tight_layout(); plt.savefig('problem9c_plot.png', dpi=150)
 \includegraphics[width=0.95\textwidth]{problem9c_plot.png}
 \caption{Left: Raw $a_{n,k}/M_n$ vs.\ $k$. Right: Standardized curves collapse onto Gaussian.}
 \end{figure}
-
 \end{document}
