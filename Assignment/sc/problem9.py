@@ -69,3 +69,33 @@ axes[1].legend(); axes[1].grid(True, alpha=0.3); axes[1].set_xlim(-4, 4)
 plt.tight_layout()
 plt.savefig('problem9c_plot.png', dpi=150, bbox_inches='tight')
 plt.show()
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+for n, style in [(10, 'b-'), (20, 'r--'), (50, 'g-.')]:
+    a = binom_coeffs(n)
+    Mn = np.max(a)
+    ks = np.arange(n+1)
+    # Left: plot over chosen k range near n/2
+    mu = n / 2.0
+    sigma = np.sqrt(n / 4.0)
+    k_lo = max(0, int(mu - 4*sigma))
+    k_hi = min(n, int(mu + 4*sigma))
+    mask = (ks >= k_lo) & (ks <= k_hi)
+    axes[0].plot(ks[mask] - mu, a[mask]/Mn, style, linewidth=1.5, label=f'n = {n}')
+    # Right: standardized variable
+    z = (ks - mu) / sigma
+    axes[1].plot(z, a/Mn, style, linewidth=1.5, label=f'n = {n}')
+
+z_c = np.linspace(-4, 4, 200)
+axes[1].plot(z_c, np.exp(-z_c**2/2), 'k:', lw=1, alpha=0.5, label='Gaussian')
+
+axes[0].set_xlabel('$k - n/2$'); axes[0].set_ylabel(r'$a_{n,k}/M_n$')
+axes[0].set_title('Centered at $n/2$')
+axes[0].legend(); axes[0].grid(True, alpha=0.3)
+
+axes[1].set_xlabel(r'$(k - n/2)/\sqrt{n/4}$'); axes[1].set_ylabel(r'$a_{n,k}/M_n$')
+axes[1].set_title('Standardized (approaching Gaussian)')
+axes[1].legend(); axes[1].grid(True, alpha=0.3); axes[1].set_xlim(-4, 4)
+
+plt.tight_layout()
+plt.savefig('problem9c_plot.png', dpi=150, bbox_inches='tight')

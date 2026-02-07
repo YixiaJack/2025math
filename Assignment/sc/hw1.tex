@@ -574,12 +574,11 @@ Fibonacci numbers are integers. Integer addition and subtraction in floating poi
 
 Comparing single and double precision:
 \begin{itemize}[nosep]
-  \item Single precision has $2^{24} \approx 1.7 \times 10^7$, so error is exactly zero for $n \lesssim 35$, followed by sudden blowup.
-  \item Double precision has $2^{53} \approx 9 \times 10^{15}$, so error is exactly zero for $n \lesssim 75$, followed by sudden blowup.
+  \item Single precision has $2^{24} \approx 1.7 \times 10^7$, so error is exactly zero for $n \lesssim 35$ and reaches complete loss (error $\geq 1$) by $n \approx 40$.
+  \item Double precision has $2^{53} \approx 9 \times 10^{15}$, so error is exactly zero for $n \lesssim 75$ and reaches complete loss by $n \approx 80$.
 \end{itemize}
 
-The behavior is qualitatively the same in both cases, exhibiting a sharp transition from zero error to total loss. However, the transition point shifts later in double precision because the range where exact integer arithmetic is possible is much wider.
-
+The behavior is qualitatively the same: a sharp transition from zero error to total loss within just a few steps, due to the exponential amplification factor $\varphi^{2n}$. The transition simply shifts later in double precision because exact integer arithmetic extends to a much wider range.
 \medskip
 
 (c) The backward pib recurrence is $p_{k-1} = p_{k+1} - c \cdot p_k$. We repeat the same experiment in both precisions:
@@ -746,7 +745,13 @@ For $n = 1020$, $M_n$ is still finite but the sum $\sum k \cdot a_{n,k}$ overflo
 
 Double precision handles much larger values of $n$ than single precision because it has a wider exponent range, allowing values up to approximately $10^{308}$ compared to $10^{38}$ for single precision.
 
-(c) When we plot the normalized values $a_{n,k}/M_n$ against the standardized variable $z = (k - n/2)/\sqrt{n/4}$, the distribution converges to a Gaussian curve $e^{-z^2/2}$ as predicted by the Central Limit Theorem.
+(c) The bell-shaped peak of $a_{n,k}$ is centered at $k = n/2$ with width proportional to $\sqrt{n}$. To make the three curves overlap, we select $k \in [\,n/2 - 4\sqrt{n/4},\; n/2 + 4\sqrt{n/4}\,]$ for each $n$ and shift the horizontal axis to $k - n/2$. This gives:
+\begin{itemize}[nosep]
+  \item $n = 10$: $k \in [0, 10]$, i.e.\ all values
+  \item $n = 20$: $k \in [1, 19]$
+  \item $n = 50$: $k \in [11, 39]$
+\end{itemize}
+On the right, the fully standardized variable $z = (k - n/2)/\sqrt{n/4}$ collapses all three curves onto the Gaussian $e^{-z^2/2}$, confirming the Central Limit Theorem.
 
 \begin{lstlisting}
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -754,15 +759,22 @@ for n, style in [(10, 'b-'), (20, 'r--'), (50, 'g-.')]:
     a = binom_coeffs(n)
     Mn = np.max(a)
     ks = np.arange(n+1)
-    axes[0].plot(ks, a/Mn, style, linewidth=1.5, label=f'n = {n}')
-    z = (ks - n/2.0) / np.sqrt(n/4.0)
+    mu = n / 2.0
+    sigma = np.sqrt(n / 4.0)
+    # Left: chosen k range, shifted to center
+    k_lo = max(0, int(mu - 4*sigma))
+    k_hi = min(n, int(mu + 4*sigma))
+    mask = (ks >= k_lo) & (ks <= k_hi)
+    axes[0].plot(ks[mask] - mu, a[mask]/Mn, style, linewidth=1.5, label=f'n = {n}')
+    # Right: standardized variable
+    z = (ks - mu) / sigma
     axes[1].plot(z, a/Mn, style, linewidth=1.5, label=f'n = {n}')
 
 z_c = np.linspace(-4, 4, 200)
 axes[1].plot(z_c, np.exp(-z_c**2/2), 'k:', lw=1, alpha=0.5, label='Gaussian')
 
-axes[0].set_xlabel('k'); axes[0].set_ylabel(r'$a_{n,k}/M_n$')
-axes[0].set_title('Binomial Coefficients (raw k)')
+axes[0].set_xlabel('$k - n/2$'); axes[0].set_ylabel(r'$a_{n,k}/M_n$')
+axes[0].set_title('Centered at $n/2$')
 axes[0].legend(); axes[0].grid(True, alpha=0.3)
 
 axes[1].set_xlabel(r'$(k - n/2)/\sqrt{n/4}$'); axes[1].set_ylabel(r'$a_{n,k}/M_n$')
@@ -776,6 +788,6 @@ plt.savefig('problem9c_plot.png', dpi=150, bbox_inches='tight')
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{problem9c_plot.png}
-\caption{Left: Raw $a_{n,k}/M_n$ vs.\ $k$. Right: Standardized curves collapse onto Gaussian.}
+\caption{Left: $a_{n,k}/M_n$ vs.\ $k - n/2$ over chosen $k$ ranges. Right: Standardized curves collapse onto Gaussian $e^{-z^2/2}$.}
 \end{figure}
 \end{document}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  7 FEB 2026 11:41
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.3)  7 FEB 2026 12:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -449,7 +449,8 @@ File: l3backend-xetex.def 2024-02-20 L3 backend support: XeTeX
 \g__pdf_backend_object_int=\count316
 \g__pdf_backend_annotation_int=\count317
 \g__pdf_backend_link_int=\count318
-) (./hw1.aux)
+)
+No file hw1.aux.
 \openout1 = `hw1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 180.
@@ -462,7 +463,7 @@ LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 180.
 LaTeX Font Info:    ... okay on input line 180.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 180.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 180.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 180.
@@ -487,10 +488,12 @@ Package caption Info: End \AtBeginDocument code.
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
 Package hyperref Info: Link coloring ON on input line 180.
- (./hw1.out) (./hw1.out)
 \@outlinefile=\write3
 \openout3 = `hw1.out'.
 
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -681,7 +684,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[15] (./hw1.aux)
+[15]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[16] (./hw1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -690,16 +701,22 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `hw1.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+Package rerunfilecheck Warning: File `hw1.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `hw1.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 15602 strings out of 474773
- 247475 string characters out of 5757725
- 2210839 words of memory out of 5000000
- 37519 multiletter control sequences out of 15000+600000
+ 15624 strings out of 474773
+ 247663 string characters out of 5757725
+ 2222839 words of memory out of 5000000
+ 37547 multiletter control sequences out of 15000+600000
  565323 words of font info for 71 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  72i,17n,79p,710b,1738s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on hw1.pdf (15 pages).
+Output written on hw1.pdf (16 pages).
