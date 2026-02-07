@@ -187,17 +187,17 @@ It is common to think of $\pi^2 = 9.87$ as approximately ten. What are the absol
 
 \textbf{Solution.} The exact value is $\pi^2 = 9.8696044\ldots$
 
-Absolute error:
+The absolute error is given by:
 \[
 |10 - \pi^2| = |10 - 9.8696044\ldots| = 0.1304
 \]
 
-Relative error:
+The relative error is given by:
 \[
 \frac{|10 - \pi^2|}{|\pi^2|} = \frac{0.1304}{9.8696} = 0.01321 \approx 1.32\%
 \]
 
-The approximation is accurate to about 2 significant figures.
+This approximation is accurate to about 2 significant figures.
 
 %==============================================================================
 \section*{Problem 2}
@@ -206,14 +206,14 @@ If \texttt{x} and \texttt{y} have type \texttt{double}, and \texttt{(fabs(x - y)
 
 \medskip
 
-\textbf{Solution.} No. The condition \texttt{fabs(x - y) >= 10} only guarantees $|x-y| \geq 10$ (absolute error). This does not imply poor relative error.
+\textbf{Solution.} No, this does not mean the approximation is poor in terms of relative error. The condition \texttt{fabs(x - y) >= 10} only guarantees that the absolute error satisfies $|x-y| \geq 10$. This does not necessarily imply a poor relative error.
 
-Counterexample: let $x = 10^{15}$, $y = 10^{15} - 10$. Then:
+To see why, consider a counterexample where $x = 10^{15}$ and $y = 10^{15} - 10$. Then:
 \[
 |x - y| = 10 \geq 10 \quad \qquad \text{but} \qquad \frac{|x-y|}{|x|} = \frac{10}{10^{15}} = 10^{-14}
 \]
 
-A relative error of $10^{-14}$ means $y$ agrees with $x$ to an excellent approximation.
+A relative error of $10^{-14}$ indicates that $y$ agrees with $x$ to an excellent level of approximation.
 
 %==============================================================================
 \section*{Problem 3}
@@ -298,19 +298,19 @@ axes[1].set_xlabel('k'); axes[1].set_ylabel('$|e_k|$')
 axes[1].set_title('Log Scale'); axes[1].legend()
 plt.tight_layout(); plt.savefig('problem3_plots.png', dpi=150)
 \end{lstlisting}
-
-Observations:
-\begin{itemize}[nosep]
-  \item The errors $|e_k|$ are \textbf{not monotonically increasing} (oscillations due to sign changes in rounding errors).
-  \item On a linear scale, errors appear zero until $k \approx 50$ then explode suddenly.
-  \item On a log scale, $|e_k|$ grows roughly as $2^k \cdot \varepsilon_{\mathrm{mach}}$, confirming the bound.
-\end{itemize}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{problem3_plots.png}
 \caption{Left: $e_k$ on linear scale. Right: $|e_k|$ on log scale with comparison line $2^k \varepsilon_{\mathrm{mach}}$.}
 \end{figure}
+
+According to the plots, I have the observations:
+\begin{itemize}[nosep]
+  \item The errors $|e_k|$ are not monotonically increasing because oscillations occur when rounding errors change sign.
+  \item On a linear scale, errors appear zero until approximately $k \approx 50$, at which point they explode suddenly.
+  \item On a log scale, $|e_k|$ grows roughly as $2^k \cdot \varepsilon_{\mathrm{mach}}$, which confirms our theoretical bound.
+\end{itemize}
+
 
 %==============================================================================
 \section*{Problem 4}
@@ -326,16 +326,19 @@ for (float y = 0; y < x; y += dy)
 
 \medskip
 
-\textbf{Solution.} In exact arithmetic, $\texttt{dy} = x/20$ and the loop executes exactly 20 times. In floating point, $\fl(x/n)$ may differ from $x/n$ by $\mathcal{O}(\varepsilon_{\mathrm{mach}} \cdot x)$. After 20 cumulative additions of \texttt{dy}, the accumulated \texttt{y} may be slightly less than, equal to, or greater than \texttt{x}. The possible values are:
+\textbf{Solution.} In exact arithmetic, $\texttt{dy} = x/20$ and the loop executes exactly 20 times. In floating point, $\texttt{dy} = \fl(x/20) = (x/20)(1+\delta)$ where $|\delta| \lesssim \varepsilon_{\mathrm{mach}} \approx 1.2 \times 10^{-7}$.
+
+The possible values are:
 \[
-k \in \{19, \; 20, \; 21\}
+k \in \{20, \; 21\}
 \]
 
 \begin{itemize}[nosep]
-  \item $k = 20$: normal case, accumulated errors small enough.
-  \item $k = 21$: $\fl(x/n)$ rounds down $\Rightarrow$ $20 \cdot \fl(x/n) < x$, one extra iteration.
-  \item $k = 19$: $\fl(x/n)$ rounds up $\Rightarrow$ after 19 additions, $y \geq x$.
+  \item $k = 20$: when $\fl(x/n)$ rounds up or is exact, $20 \cdot \texttt{dy} \geq x$ and the loop exits normally.
+  \item $k = 21$: when $\fl(x/n)$ rounds down, $20 \cdot \texttt{dy} < x$ and one extra iteration occurs. The 21st iteration always exits because $y_{21} \approx 1.05x \gg x$.
 \end{itemize}
+
+$k = 19$ is not possible because it would require $19 \cdot \texttt{dy} \geq x$, i.e., $\texttt{dy} \geq x/19$. Since $\texttt{dy} \approx x/20$, this would need a relative error of about $20/19 - 1 \approx 5\%$, which far exceeds single-precision rounding error ($\sim 10^{-7}$). By the same argument, $k = 22$ is not possible because $21 \cdot \texttt{dy} < x$ would require $\texttt{dy}$ to be about $5\%$ smaller than $x/20$.
 
 
 %==============================================================================
@@ -345,22 +348,24 @@ We wish to evaluate the function $f(x)$ for $x$ values around $10^{-3}$. We expe
 
 \medskip
 
-\textbf{Solution.} The condition number is:
+\textbf{Solution.} The condition number is given by:
 \[
 \kappa = \left|\frac{x f'(x)}{f(x)}\right| \approx \frac{10^{-3} \cdot 10^{10}}{10^5} = \frac{10^7}{10^5} = 100
 \]
 
-A relative perturbation $\delta$ in $x$ produces relative change $\sim \kappa \cdot \delta$ in $f(x)$, losing $\log_{10}(\kappa) = 2$ decimal digits.
+A relative perturbation $\delta$ in $x$ produces a relative change of approximately $\kappa \cdot \delta$ in $f(x)$, which results in a loss of $\log_{10}(\kappa) = 2$ decimal digits.
 
-Single precision ($\varepsilon_{\mathrm{mach}} \approx 6 \times 10^{-8}$, $\sim 7$ digits):
+Single precision has $\varepsilon_{\mathrm{mach}} \approx 6 \times 10^{-8}$, which corresponds to approximately 7 decimal digits:
 \[
-\text{Relative error} \approx 100 \times 6 \times 10^{-8} = 6 \times 10^{-6} \quad \Rightarrow \quad \sim 5 \text{ digits retained. Not too ill-conditioned.}
+\text{Relative error} \approx 100 \times 6 \times 10^{-8} = 6 \times 10^{-6}
 \]
+This means we retain approximately 5 digits, so the problem is not too ill-conditioned for single precision.
 
-Double precision ($\varepsilon_{\mathrm{mach}} \approx 1.1 \times 10^{-16}$, $\sim 16$ digits):
+Double precision has $\varepsilon_{\mathrm{mach}} \approx 1.1 \times 10^{-16}$, which corresponds to approximately 16 decimal digits:
 \[
-\text{Relative error} \approx 100 \times 1.1 \times 10^{-16} = 1.1 \times 10^{-14} \quad \Rightarrow \quad \sim 14 \text{ digits retained. Excellent.}
+\text{Relative error} \approx 100 \times 1.1 \times 10^{-16} = 1.1 \times 10^{-14}
 \]
+This means we retain approximately 14 digits, which gives excellent accuracy for double precision.
 
 %==============================================================================
 \section*{Problem 6}
@@ -376,25 +381,36 @@ double compute_sum(double x[], int n) {
 \end{lstlisting}
 
 \medskip
+\textbf{Solution.} We prove by mathematical induction that the absolute error after summing $n$ numbers satisfies
+\[
+|\hat{S}_{n-1} - S_{n-1}| \leq (n-1)\varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-1}|x_i|.
+\]
 
-\textbf{Solution.} The floating point partial sums satisfy:
+(For $n = 1$).There is no addition, so $\hat{S}_0 = x_0 = S_0$ and the error is zero. The bound $0 \cdot \varepsilon_{\mathrm{mach}} \cdot |x_0| = 0$ holds trivially.
+
+(For $n = 2$). One floating point addition gives $\hat{S}_1 = (x_0 + x_1)(1 + \delta_1)$ with $|\delta_1| \leq \varepsilon_{\mathrm{mach}}$. Thus:
+\[
+|\hat{S}_1 - S_1| = |x_0 + x_1||\delta_1| \leq \varepsilon_{\mathrm{mach}}(|x_0| + |x_1|) = 1 \cdot \varepsilon_{\mathrm{mach}} \sum_{i=0}^{1}|x_i|.
+\]
+
+(Inductive step) Assume the bound holds for $n - 1$ terms:
+\[
+|\hat{S}_{n-2} - S_{n-2}| \leq (n-2)\varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-2}|x_i|.
+\]
+Adding the $n$-th element produces $\hat{S}_{n-1} = (\hat{S}_{n-2} + x_{n-1})(1 + \delta_{n-1})$ with $|\delta_{n-1}| \leq \varepsilon_{\mathrm{mach}}$. Expanding and subtracting the exact sum $S_{n-1} = S_{n-2} + x_{n-1}$:
+\[
+\hat{S}_{n-1} - S_{n-1} = (\hat{S}_{n-2} - S_{n-2}) + (\hat{S}_{n-2} + x_{n-1})\delta_{n-1}.
+\]
+Taking absolute values and applying the triangle inequality:
+\[
+|\hat{S}_{n-1} - S_{n-1}| \leq |\hat{S}_{n-2} - S_{n-2}| + |\hat{S}_{n-2} + x_{n-1}||\delta_{n-1}|.
+\]
+Since $|\hat{S}_{n-2} + x_{n-1}| \leq |S_{n-2} + x_{n-1}| + |\hat{S}_{n-2} - S_{n-2}| \leq \sum_{i=0}^{n-1}|x_i| + |\hat{S}_{n-2} - S_{n-2}|$, and since $(n-2)\varepsilon_{\mathrm{mach}} \ll 1$ for practical $n$, we have $|\hat{S}_{n-2} + x_{n-1}| \leq \sum_{i=0}^{n-1}|x_i|$ to first order. Substituting the inductive hypothesis:
 \begin{align*}
-\hat{S}_0 &= x_0, \\
-\hat{S}_i &= (\hat{S}_{i-1} + x_i)(1 + \delta_i), \quad |\delta_i| \leq \varepsilon_{\mathrm{mach}}, \quad i = 1, \ldots, n-1.
+|\hat{S}_{n-1} - S_{n-1}| &\leq (n-2)\varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-2}|x_i| + \varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-1}|x_i| \\
+&\leq (n-2)\varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-1}|x_i| + \varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-1}|x_i| \\
+&= (n-1)\varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-1}|x_i|. \qed
 \end{align*}
-
-Unrolling (first-order approximation, dropping $\Oh(\delta^2)$ terms):
-\[
-\hat{S}_{n-1} \approx \sum_{i=0}^{n-1} x_i \prod_{j=\max(1,i)}^{n-1}(1+\delta_j) \approx \sum_{i=0}^{n-1} x_i \Biggl(1 + \sum_{j=\max(1,i)}^{n-1} \delta_j\Biggr).
-\]
-
-Each $x_i$ is multiplied by at most $(n-1)$ of the $\delta_j$'s, so:
-\[
-|\hat{S}_{n-1} - S| \leq \sum_{i=0}^{n-1} |x_i| \cdot (n-1)\varepsilon_{\mathrm{mach}} = (n-1)\varepsilon_{\mathrm{mach}} \sum_{i=0}^{n-1}|x_i|. \qed
-\]
-
-The relative error $|\hat{S} - S|/|S| \leq (n-1)\varepsilon_{\mathrm{mach}} \cdot \bigl(\sum|x_i|\bigr)/\bigl|\sum x_i\bigr|$ can be large when cancellation occurs ($\sum|x_i| \gg |\sum x_i|$).
-
 %==============================================================================
 \section*{Problem 7}
 
@@ -418,38 +434,39 @@ we do lots of arithmetic on the variables \texttt{x, y, z, w}. In each case belo
 
 \textbf{Solution.}
 
-(a) Same .
-IEEE 754 multiplication is commutative: $\fl(x \cdot y) = \fl(y \cdot x)$ since $x \cdot y = y \cdot x$ mathematically, and rounding a unique value gives a unique result. Let $P = \fl(xy)$, $Q = \fl(z-w)$. Both expressions compute $\fl(P+Q) = \fl(Q+P)$ (addition is also commutative).
+(a) Same.
+IEEE 754 multiplication is commutative, which means $\fl(x \cdot y) = \fl(y \cdot x)$ since the mathematical product $x \cdot y = y \cdot x$ is unique and rounding a unique value gives a unique result. If we let $P = \fl(xy)$ and $Q = \fl(z-w)$, then both expressions compute $\fl(P+Q) = \fl(Q+P)$ since addition is also commutative.
 
 \medskip
 
-(b) Different .
+(b) Different.
 Floating point addition is not associative.
 
-Counterexample (single precision): $x = 1.0$, $y = 2^{-24}$, $z = -1.0$.
+Counterexample in single precision: Let $x = 1.0$, $y = 2^{-24}$, and $z = -1.0$. Then:
 \begin{align*}
-(x+y)+z &: \quad \fl(1.0 + 2^{-24}) = 1.0 \;\text{(absorption)}, \quad \fl(1.0 - 1.0) = 0.0 \\
+(x+y)+z &: \quad \fl(1.0 + 2^{-24}) = 1.0 \;\text{due to absorption}, \quad \fl(1.0 - 1.0) = 0.0 \\
 x+(y+z) &: \quad \fl(2^{-24} - 1.0) \approx -1.0 + 2^{-24}, \quad \fl(1.0 + (-1.0 + 2^{-24})) \approx 2^{-24}
 \end{align*}
 
 \medskip
 
-(c) Different .
-$\texttt{oneHalf} = 0.5 = 2^{-1}$ is exact, and multiplication by $0.5$ is exact (just exponent decrement).
+(c) Different.
+$\texttt{oneHalf} = 0.5 = 2^{-1}$ is exact, and multiplication by $0.5$ is exact since it only decrements the exponent.
 \begin{align*}
 \text{LHS} &= \fl\bigl(\underbrace{x/2}_{\text{exact}} + \underbrace{y/2}_{\text{exact}}\bigr) = \fl\!\left(\frac{x+y}{2}\right) \\
 \text{RHS} &= \underbrace{\fl(x+y)}_{\text{rounded}} \cdot 0.5 = \frac{\fl(x+y)}{2}
 \end{align*}
 
-These differ when $\fl\!\left(\frac{x+y}{2}\right) \neq \frac{\fl(x+y)}{2}$, which can happen because rounding then halving $\neq$ halving then rounding in general.
+These expressions differ when $\fl\!\left(\frac{x+y}{2}\right) \neq \frac{\fl(x+y)}{2}$, which can happen because first rounding the sum and then halving is not the same as first halving each term and then rounding the sum.
 
 \medskip
 
-(d) Different .
-$\texttt{oneThird} = \fl(1/3) \neq 1/3$ (since $1/3$ is a non-terminating binary fraction). Multiplication by \texttt{oneThird} is not exact, so the distributive law fails:
+(d) Different.
+$\texttt{oneThird} = \fl(1/3) \neq 1/3$ since $1/3$ has a non-terminating binary representation. Because multiplication by \texttt{oneThird} is not exact, the distributive law fails:
 \[
-\fl(x \cdot c) + \fl(y \cdot c) \neq \fl\bigl((x+y) \cdot c\bigr) \qquad \text{in general, especially when } c \text{ is inexact.}
+\fl(x \cdot c) + \fl(y \cdot c) \neq \fl\bigl((x+y) \cdot c\bigr)
 \]
+This inequality holds in general, particularly when the constant $c$ cannot be represented exactly in floating point.
 
 %==============================================================================
 \section*{Problem 8}
@@ -476,26 +493,27 @@ Extra credit: predict the order of magnitude of the error in recomputing $p_0$ u
 
 \textbf{Solution.}
 
-(a) Both grow exponentially: $f_n \sim \varphi^n/\sqrt{5}$ where $\varphi = (1+\sqrt{5})/2 \approx 1.618$, and $p_n \sim r_1^n$ where $r_1 \approx 1.635$.
+(a) Both sequences grow exponentially. The Fibonacci numbers grow as $f_n \sim \varphi^n/\sqrt{5}$ where $\varphi = (1+\sqrt{5})/2 \approx 1.618$, and the pib numbers grow as $p_n \sim r_1^n$ where $r_1 \approx 1.635$. We compute both sequences and plot them on a log scale, with horizontal lines showing $1/\varepsilon_{\mathrm{mach}}$ for each precision level.
 
 \begin{lstlisting}
 import numpy as np
 import matplotlib.pyplot as plt
 
 n_max = 100
-f = np.zeros(n_max+1); f[0]=f[1]=1.0
-p = np.zeros(n_max+1); p[0]=p[1]=1.0
 c = 1.0 + np.sqrt(3.0)/100.0
+
+f_d = np.zeros(n_max+1, dtype=np.float64); f_d[0]=f_d[1]=1.0
+p_d = np.zeros(n_max+1, dtype=np.float64); p_d[0]=p_d[1]=1.0
 for k in range(2, n_max+1):
-    f[k] = f[k-1] + f[k-2]
-    p[k] = c*p[k-1] + p[k-2]
+    f_d[k] = f_d[k-1] + f_d[k-2]
+    p_d[k] = c*p_d[k-1] + p_d[k-2]
 
 ns = np.arange(n_max+1)
 eps_s, eps_d = np.finfo(np.float32).eps, np.finfo(np.float64).eps
-plt.semilogy(ns, f, 'b-', label='Fibonacci')
-plt.semilogy(ns, p, 'r-', label='Pib')
-plt.axhline(1/eps_s, color='g', ls='--', label=f'$1/\\eps$ single')
-plt.axhline(1/eps_d, color='purple', ls='--', label=f'$1/\\eps$ double')
+plt.semilogy(ns, f_d, 'b-', label='Fibonacci')
+plt.semilogy(ns, p_d, 'r-', label='Pib')
+plt.axhline(1/eps_s, color='g', ls='--', label=f'$1/\\varepsilon_{{mach}}$ single')
+plt.axhline(1/eps_d, color='purple', ls='--', label=f'$1/\\varepsilon_{{mach}}$ double')
 plt.legend(); plt.xlabel('n'); plt.ylabel('Value')
 plt.savefig('problem8a_plot.png', dpi=150)
 \end{lstlisting}
@@ -506,48 +524,107 @@ plt.savefig('problem8a_plot.png', dpi=150)
 \caption{Fibonacci and Pib on log scale. Horizontal lines: $1/\varepsilon_{\mathrm{mach}}$ for single ($\approx 8.4 \times 10^6$) and double ($\approx 4.5 \times 10^{15}$).}
 \end{figure}
 
-(b) The backward recurrence is $f_{k-1} = f_{k+1} - f_k$.
-
-Fibonacci numbers are integers. Integer addition/subtraction in floating point is exact as long as all values $< 2^p$ ($2^{24}$ for single, $2^{53}$ for double). Therefore:
-\begin{itemize}[nosep]
-  \item For $n$ small enough that $f_n < 2^p$: error is exactly zero.
-  \item For $n$ large: once values exceed $2^p$, rounding errors appear and are amplified by the backward recurrence. The growing parasitic solution has growth rate $\varphi^n$, so errors amplify as $\sim \varphi^{2n} \cdot \varepsilon_{\mathrm{mach}}$.
-\end{itemize}
-
-Loss of all accuracy occurs at $n \approx 35$ (single) and $n \approx 75$ (double).
+(b) The backward recurrence can be written as $f_{k-1} = f_{k+1} - f_k$. I implement this in both single and double precision by using \texttt{np.float32} and \texttt{np.float64} respectively:
 
 \begin{lstlisting}
-def backward_fib(n):
-    f = np.zeros(n+1); f[0]=f[1]=1.0
-    for k in range(2,n+1): f[k]=f[k-1]+f[k-2]
-    fk1, fk = f[n], f[n-1]
-    for k in range(n-2,-1,-1):
-        fk1, fk = fk, fk1 - fk
-    return abs(fk - 1.0)
+def backward_fib(n, dtype=np.float64):
+    f = np.zeros(n+1, dtype=dtype)
+    f[0] = f[1] = dtype(1.0)
+    for k in range(2, n+1):
+        f[k] = f[k-1] + f[k-2]
+    fk1, fk = dtype(f[n]), dtype(f[n-1])
+    for k in range(n-2, -1, -1):
+        fk1, fk = fk, dtype(fk1 - fk)
+    return abs(float(fk) - 1.0)
 
-ns = range(2, 95)
-errors = [backward_fib(n) for n in ns]
-plt.semilogy(list(ns), errors)
+ns_d = range(2, 95)
+ns_s = range(2, 50)
+err_d = [backward_fib(n, np.float64) for n in ns_d]
+err_s = [backward_fib(n, np.float32) for n in ns_s]
+
+plt.semilogy(list(ns_d), err_d, 'b.-', ms=3, label='Double')
+plt.semilogy(list(ns_s), err_s, 'r.-', ms=3, label='Single')
+plt.axhline(1.0, color='k', ls='--', lw=0.5, label='Complete loss')
 plt.xlabel('n'); plt.ylabel('|recomputed $f_0$ - 1|')
-plt.savefig('problem8b_plot.png', dpi=150)
+plt.legend(); plt.savefig('problem8b_plot.png', dpi=150)
 \end{lstlisting}
 
-(c) The backward pib recurrence is $p_{k-1} = p_{k+1} - c \cdot p_k$.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{problem8b_plot.png}
+\caption{Fibonacci backward recomputation error. Red: single precision. Blue: double precision.}
+\end{figure}
 
-The pib numbers show gradual, continuous error growth from $n = 2$ onward, because $c = 1 + \sqrt{3}/100$ is irrational and $\fl(c) \neq c$. There is no ``safe zone'' of exact computation. This behavior is more typical of real-world recurrences.
+Fibonacci numbers are integers. Integer addition and subtraction in floating point is exact as long as all values are less than $2^p$, where $p = 24$ for single precision and $p = 53$ for double precision. Therefore:
+\begin{itemize}[nosep]
+  \item When $n$ is small enough that $f_n < 2^p$, the error is exactly zero.
+  \item When $n$ is large and values exceed $2^p$, rounding errors appear and are amplified by the backward recurrence. Since the growing parasitic solution has growth rate $\varphi^n$, errors amplify as approximately $\varphi^{2n} \cdot \varepsilon_{\mathrm{mach}}$.
+\end{itemize}
+
+Comparing single and double precision:
+\begin{itemize}[nosep]
+  \item Single precision has $2^{24} \approx 1.7 \times 10^7$, so error is exactly zero for $n \lesssim 35$, followed by sudden blowup.
+  \item Double precision has $2^{53} \approx 9 \times 10^{15}$, so error is exactly zero for $n \lesssim 75$, followed by sudden blowup.
+\end{itemize}
+
+The behavior is qualitatively the same in both cases, exhibiting a sharp transition from zero error to total loss. However, the transition point shifts later in double precision because the range where exact integer arithmetic is possible is much wider.
+
+\medskip
+
+(c) The backward pib recurrence is $p_{k-1} = p_{k+1} - c \cdot p_k$. We repeat the same experiment in both precisions:
+
+\begin{lstlisting}
+c = 1.0 + np.sqrt(3.0)/100.0
+c32 = np.float32(c)
+
+def backward_pib(n, dtype=np.float64):
+    cv = c32 if dtype == np.float32 else c
+    p = np.zeros(n+1, dtype=dtype)
+    p[0] = p[1] = dtype(1.0)
+    for k in range(2, n+1):
+        p[k] = dtype(cv) * p[k-1] + p[k-2]
+    pk1, pk = dtype(p[n]), dtype(p[n-1])
+    for k in range(n-2, -1, -1):
+        pk1, pk = pk, dtype(pk1 - dtype(cv) * pk)
+    return abs(float(pk) - 1.0)
+
+err_pib_d = [backward_pib(n, np.float64) for n in ns_d]
+err_pib_s = [backward_pib(n, np.float32) for n in ns_s]
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+axes[0].semilogy(list(ns_d), err_d, 'b.-', ms=3, label='Double')
+axes[0].semilogy(list(ns_s), err_s, 'r.-', ms=3, label='Single')
+axes[0].set_title('Fibonacci'); axes[0].legend()
+
+axes[1].semilogy(list(ns_d), err_pib_d, 'b.-', ms=3, label='Double')
+axes[1].semilogy(list(ns_s), err_pib_s, 'r.-', ms=3, label='Single')
+axes[1].set_title('Pib'); axes[1].legend()
+plt.savefig('problem8c_plot.png', dpi=150)
+\end{lstlisting}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{problem8c_plot.png}
-\caption{Left: Fibonacci backward error (sudden onset). Right: Pib backward error (gradual growth).}
+\caption{Left: Fibonacci backward error. Right: Pib backward error. Red: single. Blue: double.}
 \end{figure}
 
-Extra credit: the characteristic equation $r^2 - cr - 1 = 0$ has roots $r_1, r_2$ with $r_1 r_2 = -1$, so $|r_1/r_2| = r_1^2$. Backward error grows as $r_1^{2n}$. Combined with level-$n$ roundoff $\sim \varepsilon_{\mathrm{mach}} \cdot r_1^n$:
+The pib numbers show gradual, continuous error growth from $n = 2$ onward in both precisions. This occurs because $c = 1 + \sqrt{3}/100$ is irrational, which means $\fl(c) \neq c$ and there is no range where exact computation is possible.
+
+The striking difference between Fibonacci and pib:
+\begin{itemize}[nosep]
+  \item \textbf{Fibonacci:} Error is exactly zero until a sharp threshold is reached at approximately $n \approx 35$ for single precision and $n \approx 75$ for double precision, at which point sudden catastrophic blowup occurs. This phenomenon happens because Fibonacci numbers are integers and integer arithmetic is exact within the representable range.
+  \item \textbf{Pib:} Error grows continuously from $n = 2$ onward. Single precision loses all accuracy around $n \approx 20$, while double precision loses accuracy around $n \approx 37$. There is no abrupt transition.
+\end{itemize}
+
+The pib case is more typical of real-world recurrences since coefficients are rarely exact integers. In both cases, switching from single to double precision only delays the inevitable loss of accuracy. The growth rate of the error remains the same, and only $\varepsilon_{\mathrm{mach}}$ changes.
+
+\medskip
+
+Extra credit: The characteristic equation $r^2 - cr - 1 = 0$ has roots $r_1$ and $r_2$ satisfying $r_1 r_2 = -1$, which implies $|r_1/r_2| = r_1^2$. The backward error grows as $r_1^{2n}$. When we combine this with the level-$n$ roundoff error, which is approximately $\varepsilon_{\mathrm{mach}} \cdot r_1^n$, we obtain:
 \[
 \text{error} \sim \varepsilon_{\mathrm{mach}} \cdot r_1^{2n} \approx 10^{-16} \cdot 1.635^{2n} = 10^{-16} \cdot 2.673^n.
 \]
-Total loss when $2.673^n \approx 10^{16}$, i.e., $n \approx 16/\log_{10}(2.673) \approx 37$, matching observations.
-
+Total loss of accuracy occurs when $2.673^n \approx 10^{16}$, which gives $n \approx 16/\log_{10}(2.673) \approx 37$. This matches our observations. For single precision, we replace $10^{-16}$ with $10^{-7}$ and find total loss at $n \approx 7/0.427 \approx 16$, which is also consistent with our results.
 %==============================================================================
 \section*{Problem 9}
 
@@ -571,9 +648,9 @@ Write a program without any safeguards against overflow or zero divide (this tim
 
 \textbf{Solution.}
 
-(a) The recurrence $a_{n,k+1} = r_k \cdot a_{n,k}$ with $r_k = (n-k)/(k+1)$ is first-order (multiplicative). It has only one solution --- no parasitic growing mode. The ratio $r_k > 1$ for $k < (n-1)/2$ and $r_k < 1$ for $k > (n-1)/2$, so errors introduced during the growth phase get shrunk during the decay phase.
+(a) The recurrence $a_{n,k+1} = r_k \cdot a_{n,k}$ with $r_k = (n-k)/(k+1)$ is first-order and multiplicative. It has only one solution, which means there is no parasitic growing mode. The ratio $r_k$ is greater than 1 for $k < (n-1)/2$ and less than 1 for $k > (n-1)/2$. Therefore, errors introduced during the growth phase get shrunk during the decay phase.
 
-For $n \gtrsim 130$, the peak $a_{n,\lfloor n/2 \rfloor} > 3.4 \times 10^{38}$ (single max), causing overflow. Double precision (max $\sim 10^{308}$) handles $n$ up to $\sim 1020$. The issue is overflow (range), not roundoff (precision).
+For $n$ greater than approximately 130, the peak value $a_{n,\lfloor n/2 \rfloor}$ exceeds $3.4 \times 10^{38}$, which is the maximum representable value in single precision and causes overflow. Double precision can handle values up to approximately $10^{308}$, which allows $n$ values up to around 1020. The limiting factor is overflow, which is a range issue, not roundoff, which is a precision issue.
 
 \begin{lstlisting}
 import numpy as np
@@ -594,7 +671,7 @@ for n in [10, 50, 100, 130, 500, 1000]:
 
 \begin{center}
 \begin{tabular}{r|cc|cc}
-$n$ & $\max_k a_{n,k}$ (dbl) & $a_{n,n}$ (dbl) & $\max_k a_{n,k}$ (sgl) & $a_{n,n}$ (sgl) \\
+$n$ & $\max_k a_{n,k}$ (double) & $a_{n,n}$ (double) & $\max_k a_{n,k}$ (single) & $a_{n,n}$ (single) \\
 \hline
 100 & $1.01 \times 10^{29}$ & 1.0000000000 & $1.01 \times 10^{29}$ & 0.9999992251 \\
 130 & $5.45 \times 10^{37}$ & 1.0000000000 & \texttt{inf} & \texttt{inf} \\
@@ -602,11 +679,11 @@ $n$ & $\max_k a_{n,k}$ (dbl) & $a_{n,n}$ (dbl) & $\max_k a_{n,k}$ (sgl) & $a_{n,
 \end{tabular}
 \end{center}
 
-(b) All terms $k \cdot a_{n,k} \geq 0$, so the sum is monotonically increasing --- no subtraction of large numbers. Cancellation is not a problem.
+(b) All terms $k \cdot a_{n,k}$ are non-negative, which means the sum is monotonically increasing and there is no subtraction of large numbers. Therefore, cancellation is not a problem.
 
-For large $n$: the peak $a_{n,n/2} \sim 2^n/\sqrt{\pi n/2}$ overflows, making $M_n = \texttt{inf}$. Then the sum overflows and $E(k) = \texttt{NaN}$ from $\texttt{inf}/\texttt{inf}$ or $\texttt{inf} - \texttt{inf}$ operations.
+For large $n$, the peak value $a_{n,n/2}$ is approximately $2^n/\sqrt{\pi n/2}$, which overflows and makes $M_n = \texttt{inf}$. When this happens, the sum also overflows and $E(k)$ becomes $\texttt{NaN}$ as a result of operations like $\texttt{inf}/\texttt{inf}$ or $\texttt{inf} - \texttt{inf}$.
 
-Double precision handles much larger $n$ than single due to its wider exponent range ($10^{308}$ vs.\ $10^{38}$).
+Double precision can handle much larger values of $n$ than single precision because it has a wider exponent range, allowing values up to approximately $10^{308}$ compared to $10^{38}$ for single precision.
 
 \begin{lstlisting}
 for n in [10, 100, 500, 1000, 1025]:
@@ -617,7 +694,7 @@ for n in [10, 100, 500, 1000, 1025]:
     print(f"n={n:5d}  E(k)={Ek:15.6e}  n/2={n/2:.1f}  Mn={Mn:.3e}")
 \end{lstlisting}
 
-(c) The normalized $a_{n,k}/M_n$ vs.\ standardized variable $z = (k - n/2)/\sqrt{n/4}$ converges to a Gaussian $e^{-z^2/2}$ by the Central Limit Theorem.
+(c) When we plot the normalized values $a_{n,k}/M_n$ against the standardized variable $z = (k - n/2)/\sqrt{n/4}$, the distribution converges to a Gaussian curve $e^{-z^2/2}$ as predicted by the Central Limit Theorem.
 
 \begin{lstlisting}
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
