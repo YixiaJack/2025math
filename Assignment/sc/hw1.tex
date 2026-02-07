@@ -439,7 +439,7 @@ IEEE 754 multiplication is commutative, which means $\fl(x \cdot y) = \fl(y \cdo
 
 \medskip
 
-(b) Different.
+(b) Maybe Different.
 Floating point addition is not associative.
 
 Counterexample in single precision: Let $x = 1.0$, $y = 2^{-24}$, and $z = -1.0$. Then:
@@ -450,7 +450,7 @@ x+(y+z) &: \quad \fl(2^{-24} - 1.0) \approx -1.0 + 2^{-24}, \quad \fl(1.0 + (-1.
 
 \medskip
 
-(c) Different.
+(c) Maybe Different.
 $\texttt{oneHalf} = 0.5 = 2^{-1}$ is exact, and multiplication by $0.5$ is exact since it only decrements the exponent.
 \begin{align*}
 \text{LHS} &= \fl\bigl(\underbrace{x/2}_{\text{exact}} + \underbrace{y/2}_{\text{exact}}\bigr) = \fl\!\left(\frac{x+y}{2}\right) \\
@@ -461,7 +461,7 @@ These expressions differ when $\fl\!\left(\frac{x+y}{2}\right) \neq \frac{\fl(x+
 
 \medskip
 
-(d) Different.
+(d) Maybe Different.
 $\texttt{oneThird} = \fl(1/3) \neq 1/3$ since $1/3$ has a non-terminating binary representation. Because multiplication by \texttt{oneThird} is not exact, the distributive law fails:
 \[
 \fl(x \cdot c) + \fl(y \cdot c) \neq \fl\bigl((x+y) \cdot c\bigr)
