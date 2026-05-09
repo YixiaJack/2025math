@@ -1,0 +1,451 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+
+% --- Page layout settings ---
+
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+\newcommand{\fl}{\text{fl}}	% Floating point operation, e.g. $\fl(x+y)$
+\newcommand{\eps}{\varepsilon}	% Machine epsilon
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{MATH-GA 2048 -- Homework 2}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+\begin{document}
+%==============================================================================
+\section*{Problem 1}
+
+Let $V = \R^n$ and $M$ be an $n \times n$ real matrix. This exercise shows that $\|u\| = (u^*Mu)^{1/2}$ is a vector norm whenever $M$ is \textit{positive definite} (defined below).
+
+\begin{enumerate}[label=(\alph*)]
+\item Show that $u^*Mu = u^*M^*u = u^*\left(\frac{1}{2}(M + M^*)\right)u$ for all $u \in V$. This means that as long as we consider functions of the form $f(u) = u^*Mu$, we may assume $M$ is symmetric. For the rest of this question, assume $M$ is symmetric. Hint: $u^*Mu$ is a $1 \times 1$ matrix and therefore equal to its transpose.
+
+\item Show that the function $\|u\| = (u^*Mu)^{1/2}$ is homogeneous: $\|au\| = |a|\,\|u\|$.
+
+\item We say $M$ is positive definite if $u^*Mu > 0$ whenever $u \neq 0$. Show that if $M$ is positive definite, then $\|u\| \geq 0$ for all $u$ and $\|u\| = 0$ only for $u = 0$.
+
+\item Show that if $M$ is symmetric and positive definite (SPD), then $|u^*Mv| \leq \|u\|\,\|v\|$. This is the \textit{Cauchy--Schwarz inequality}. Hint (a famous old trick): $\phi(t) = (u + tv)^*M(u + tv)$ is a quadratic function of $t$ that is non-negative for all $t$ if $M$ is positive definite. The Cauchy--Schwarz inequality follows from requiring that the minimum value of $\phi$ is not negative, assuming $M^* = M$.
+
+\item Use the Cauchy--Schwarz inequality to verify the triangle inequality in its squared form $\|u + v\|^2 \leq \|u\|^2 + 2\,\|u\|\,\|v\| + \|v\|^2$.
+
+\item Show that if $M = I$ then $\|u\|$ is the $l^2$ norm of $u$.
+\end{enumerate}
+
+\medskip
+
+\textbf{Solution.}
+
+(a) Since $u^*Mu$ is a $1 \times 1$ matrix, it equals its own transpose:
+\[
+u^*Mu = (u^*Mu)^T = u^T M^T u = u^* M^* u.
+\]
+Adding this to the identity $u^*Mu = u^*Mu$ gives $2\,u^*Mu = u^*(M + M^*)u$, hence
+\[
+u^*Mu = u^*\!\left(\tfrac{1}{2}(M + M^*)\right)u.
+\]
+Since $\frac{1}{2}(M + M^*)$ is symmetric, any study of the quadratic form $f(u) = u^*Mu$ may assume $M$ is symmetric without loss of generality.
+
+\medskip
+
+(b) For any scalar $a \in \R$,
+\[
+\|au\| = \bigl((au)^* M (au)\bigr)^{1/2} = \bigl(a^2\, u^* M u\bigr)^{1/2} = |a|\,(u^*Mu)^{1/2} = |a|\,\|u\|.
+\]
+
+\medskip
+
+(c) If $M$ is positive definite, then $u^*Mu > 0$ for all $u \neq 0$, so $\|u\| = (u^*Mu)^{1/2} > 0$. For $u = 0$, we have $\|0\| = (0^T M \cdot 0)^{1/2} = 0$. Therefore $\|u\| \geq 0$ for all $u$, and $\|u\| = 0$ if and only if $u = 0$.
+
+\medskip
+
+(d) Define $\phi(t) = (u + tv)^* M(u + tv)$ for $t \in \R$. Since $M$ is positive definite, $\phi(t) \geq 0$ for all $t$. Expanding, and using $M = M^*$ so that $v^*Mu = (u^*Mv)^T = u^*Mv$:
+\[
+\phi(t) = u^*Mu + 2t\,(u^*Mv) + t^2\,v^*Mv = \|v\|^2 t^2 + 2(u^*Mv)\,t + \|u\|^2.
+\]
+This is a quadratic in $t$ with non-negative minimum, so the discriminant must satisfy
+\[
+4(u^*Mv)^2 - 4\,\|u\|^2\,\|v\|^2 \leq 0 \quad \Longrightarrow \quad |u^*Mv| \leq \|u\|\,\|v\|.
+\]
+
+\medskip
+
+(e) Expanding $\|u+v\|^2$ and using $M = M^*$:
+\[
+\|u + v\|^2 = (u+v)^*M(u+v) = u^*Mu + 2\,u^*Mv + v^*Mv = \|u\|^2 + 2\,u^*Mv + \|v\|^2.
+\]
+Applying the Cauchy--Schwarz inequality from part~(d), $u^*Mv \leq |u^*Mv| \leq \|u\|\,\|v\|$, so
+\[
+\|u+v\|^2 \leq \|u\|^2 + 2\,\|u\|\,\|v\| + \|v\|^2 = \bigl(\|u\| + \|v\|\bigr)^2.
+\]
+
+\medskip
+
+(f) If $M = I$, then $u^*Mu = u^*u = \sum_{i=1}^{n} u_i^2$, so
+\[
+\|u\| = \left(\sum_{i=1}^{n} u_i^2\right)^{1/2},
+\]
+which is the $l^2$ norm of $u$.
+%==============================================================================
+\section*{Problem 2}
+
+Suppose that $A$ is an $n \times n$ invertible matrix. Show that
+\[
+\|A^{-1}\| = \max_{u \neq 0} \frac{\|u\|}{\|Au\|} = \left(\min_{u \neq 0} \frac{\|Au\|}{\|u\|}\right)^{-1}.
+\]
+
+\medskip
+
+\textbf{Solution.}
+
+By definition of the operator norm,
+\[
+\|A^{-1}\| = \max_{v \neq 0} \frac{\|A^{-1}v\|}{\|v\|}.
+\]
+Since $A$ is invertible, the map $u \mapsto Au$ is a bijection on $\R^n \setminus \{0\}$. Substituting $v = Au$ (so $A^{-1}v = u$), as $v$ ranges over all nonzero vectors, so does $u$:
+\[
+\|A^{-1}\| = \max_{u \neq 0} \frac{\|u\|}{\|Au\|}.
+\]
+For the second equality, note that
+\[
+\max_{u \neq 0} \frac{\|u\|}{\|Au\|} = \max_{u \neq 0} \left(\frac{\|Au\|}{\|u\|}\right)^{-1} = \left(\min_{u \neq 0} \frac{\|Au\|}{\|u\|}\right)^{-1},
+\]
+where the last step uses the fact that the maximum of $1/g(u)$ equals the reciprocal of the minimum of $g(u)$, valid since $\|Au\|/\|u\| > 0$ for all $u \neq 0$ (by invertibility of $A$).
+%==============================================================================
+%==============================================================================
+\section*{Problem 3}
+
+The \textit{symmetric part} of the real $n \times n$ matrix is $M = \frac{1}{2}(A + A^*)$. Show that $\nabla\!\left(\frac{1}{2}x^*Ax\right) = Mx$.
+
+\medskip
+
+\textbf{Solution.}
+
+Define $f(x) = \frac{1}{2}x^*Ax$. This is $\frac{1}{2}$ times a product of the $1 \times n$ matrix $x^*$ with the $n \times n$ matrix $A$ with the $n \times 1$ matrix $x$. By the Leibniz (product) rule:
+\[
+\dot{f} = \tfrac{1}{2}\bigl(\dot{x}^* A x + x^* A \dot{x}\bigr).
+\]
+Since $\dot{x}^* A x$ is a $1 \times 1$ real matrix, it equals its own transpose:
+\[
+\dot{x}^* A x = (\dot{x}^* A x)^T = x^T A^T \dot{x} = x^* A^* \dot{x}.
+\]
+Therefore
+\[
+\dot{f} = \tfrac{1}{2}\bigl(x^* A^* \dot{x} + x^* A \dot{x}\bigr) = \tfrac{1}{2}\,x^*(A + A^*)\dot{x}.
+\]
+Since $\nabla f$ is defined by the relation $\dot{f} = (\nabla f)^* \dot{x}$ for all $\dot{x}$, we read off:
+\[
+\nabla f = \tfrac{1}{2}(A + A^*)x = Mx.
+\]
+%==============================================================================
+\section*{Problem 4}
+
+The \textit{informal} condition number of the problem of computing the action of $A$ is
+\[
+\kappa(A) = \max_{x \neq 0,\; \Delta x \neq 0} \frac{\|A(x + \Delta x) - Ax\|/\|Ax\|}{\|x + \Delta x\|/\|x\|}.
+\]
+Alternatively, it is the sharp constant in the estimate
+\[
+\frac{\|A(x + \Delta x) - Ax\|}{\|Ax\|} \leq C \cdot \frac{\|x + \Delta x\|}{\|x\|},
+\]
+which bounds the worst case relative change in the answer in terms of the relative change in the data. Show that for the $l^2$ norm,
+\[
+\kappa = \sigma_{\max}/\sigma_{\min},
+\]
+the ratio of the largest to smallest singular value of $A$. Show that this formula holds even when $A$ is not square.
+
+\medskip
+
+\textbf{Solution.}
+
+Since $A$ is linear, $A(x + \Delta x) - Ax = A\Delta x$. Maximizing over $\Delta x$ for a fixed $x$, we may replace $\Delta x$ by any nonzero vector independently of $x$. Writing the ratio as a product:
+\[
+\kappa(A) = \max_{\Delta x \neq 0} \frac{\|A\Delta x\|}{\|\Delta x\|} \cdot \max_{x \neq 0} \frac{\|x\|}{\|Ax\|} = \left(\max_{x \neq 0}\frac{\|Ax\|}{\|x\|}\right) \cdot \left(\min_{x \neq 0}\frac{\|Ax\|}{\|x\|}\right)^{-1}.
+\]
+Now let $A$ be $m \times n$ (not necessarily square) with full column rank, and let $A = U \Sigma V^*$ be its SVD, where $U$ is $m \times m$ orthogonal, $V$ is $n \times n$ orthogonal, and $\Sigma$ is $m \times n$ with diagonal entries $\sigma_1 \geq \cdots \geq \sigma_n > 0$. Substituting $y = V^* x$ (a bijection on $\R^n$ since $V$ is orthogonal), and using $\|Ux\|_2 = \|x\|_2$ for any orthogonal $U$:
+\[
+\frac{\|Ax\|_2}{\|x\|_2} = \frac{\|U\Sigma V^* x\|_2}{\|x\|_2} = \frac{\|\Sigma y\|_2}{\|y\|_2} = \frac{\left(\sum_{i=1}^n \sigma_i^2\, y_i^2\right)^{1/2}}{\left(\sum_{i=1}^n y_i^2\right)^{1/2}}.
+\]
+This is a weighted RMS average of the $\sigma_i$, which is maximized when all weight is on $\sigma_1$ (i.e.\ $y = e_1$) and minimized when all weight is on $\sigma_n$ (i.e.\ $y = e_n$). Therefore
+\[
+\max_{x \neq 0}\frac{\|Ax\|_2}{\|x\|_2} = \sigma_{\max}, \qquad \min_{x \neq 0}\frac{\|Ax\|_2}{\|x\|_2} = \sigma_{\min},
+\]
+and so $\kappa(A) = \sigma_{\max}/\sigma_{\min}$. This derivation uses only $V^*$ being a bijection on $\R^n$ and $U$ preserving the $l^2$ norm, both of which hold regardless of whether $A$ is square, so the formula is valid for non-square $A$ as well.
+%==============================================================================
+\section*{Problem 5}
+
+Show that a symmetric $n \times n$ real matrix is positive definite if and only if all its eigenvalues are positive. Hint: If $R$ is a right eigenvector matrix, then, for a symmetric matrix we may normalize so that $R^{-1} = R^*$ and $A = R\Lambda R^*$, where $\Lambda$ is a diagonal matrix containing the eigenvalues (Sections 4.2.5 and 4.2.7). Then $x^*Ax = x^*R\Lambda R^*x = (x^*R)\Lambda(R^*x) = y^*\Lambda y$, where $y = R^*x$. Show that $y^*\Lambda y > 0$ for all $y \neq 0$ if and only if all the diagonal entries of $\Lambda$ are positive. Show that if $A$ is positive definite, then there is a $C > 0$ so that $x^*Ax > C\,\|x\|_{l^2}^2$ for all $x$. (Hint: $\|x\|_{l^2} = \|x\|_{l^2}$, $C = \lambda_{\min}$.)
+
+\medskip
+
+\textbf{Solution.}
+
+Since $A$ is real symmetric, the spectral theorem guarantees an orthogonal eigenvector matrix $R$ with $R^{-1} = R^*$, so that $A = R\Lambda R^*$ with $\Lambda = \diag(\lambda_1, \ldots, \lambda_n)$. For any $x \in \R^n$, set $y = R^* x$. Since $R$ is orthogonal, $y = 0$ if and only if $x = 0$, and $\|y\|_{l^2} = \|x\|_{l^2}$. Then:
+\[
+x^*Ax = x^*R\Lambda R^*x = y^*\Lambda y = \sum_{i=1}^n \lambda_i\, y_i^2.
+\]
+
+$(\Leftarrow)$ If all $\lambda_i > 0$ and $x \neq 0$, then $y \neq 0$, so at least one $y_i \neq 0$. Every term $\lambda_i y_i^2 \geq 0$ and at least one is strictly positive, so $x^*Ax > 0$. Hence $A$ is positive definite.
+
+$(\Rightarrow)$ If $A$ is positive definite, then for each eigenvector $r_k$ (the $k$-th column of $R$), we have $0 < r_k^* A r_k = \lambda_k\, r_k^* r_k = \lambda_k$. So all eigenvalues are positive.
+
+For the lower bound, since each $\lambda_i \geq \lambda_{\min} > 0$:
+\[
+x^*Ax = \sum_{i=1}^n \lambda_i\, y_i^2 \geq \lambda_{\min}\sum_{i=1}^n y_i^2 = \lambda_{\min}\,\|y\|_{l^2}^2 = \lambda_{\min}\,\|x\|_{l^2}^2.
+\]
+Thus $x^*Ax \geq C\,\|x\|_{l^2}^2$ for all $x$ with $C = \lambda_{\min} > 0$.
+%==============================================================================
+\section*{Problem 6}
+
+Suppose $v_1, \ldots, v_m$ is an orthonormal basis for a vector space $V \subseteq \R^n$. Let $L$ be a linear transformation from $V$ to $V$. Let $A$ be the matrix that represents $L$ in this basis. Show that the entries of $A$ are given by
+\[
+a_{jk} = v_j^* L v_k. \tag{5.8}
+\]
+Hint: Show that if $y \in V$, the representation of $y$ in this basis is $y = \sum_j y_j v_j$, where $y_j = v_j^* y$. In physics and theoretical chemistry, inner products of the form (5.8) are called \textit{matrix elements}. For example, the eigenvalue perturbation formula (4.39) (in physicist terminology) simply says that the perturbation in an eigenvalue is (nearly) equal to the appropriate matrix element of the perturbation of the matrix.
+
+\textbf{Solution.}
+
+Since $\{v_1, \ldots, v_m\}$ is an orthonormal basis for $V$, any $y \in V$ can be written as $y = \sum_{j=1}^m y_j v_j$. To find the coefficient $y_j$, take the inner product with $v_j$:
+\[
+v_j^* y = v_j^* \sum_{i=1}^m y_i v_i = \sum_{i=1}^m y_i\, v_j^* v_i = \sum_{i=1}^m y_i\, \delta_{ji} = y_j,
+\]
+using orthonormality $v_j^* v_i = \delta_{ji}$.
+
+Now, $A$ represents $L$ in this basis, meaning that if $y = \sum_k y_k v_k$, then $Ly = \sum_j (Ay)_j\, v_j$ where $(Ay)_j = \sum_k a_{jk}\, y_k$. Apply $L$ to a basis vector $v_k$: since $v_k$ has representation $y_i = \delta_{ik}$, we get
+\[
+L v_k = \sum_{j=1}^m a_{jk}\, v_j.
+\]
+Taking the inner product of both sides with $v_j$:
+\[
+v_j^* L v_k = v_j^* \sum_{i=1}^m a_{ik}\, v_i = \sum_{i=1}^m a_{ik}\, \delta_{ji} = a_{jk}.
+\]
+%==============================================================================
+\section*{Problem 7}
+
+Suppose $A$ is an $n \times n$ symmetric matrix and $V \subset \R^n$ is an \textit{invariant subspace} for $A$ (i.e.\ $Ax \in V$ if $x \in V$). Show that $A$ defines a linear transformation from $V$ to $V$. Show that there is a basis for $V$ in which this linear transformation (called $A$ \textit{restricted to} $V$) is represented by a symmetric matrix. Hint: construct an orthonormal basis for $V$.
+
+\medskip
+
+\textbf{Solution.}
+
+\textit{$A$ defines a linear transformation from $V$ to $V$:} Let $L: V \to V$ be defined by $L(x) = Ax$. Since $V$ is an invariant subspace, $Ax \in V$ for all $x \in V$, so $L$ is well-defined. Linearity follows from $A$ being a matrix: $L(\alpha x + \beta y) = A(\alpha x + \beta y) = \alpha Ax + \beta Ay = \alpha L(x) + \beta L(y)$.
+
+\textit{The matrix representation is symmetric:} Let $v_1, \ldots, v_m$ be an orthonormal basis for $V$ (obtained, for example, by Gram--Schmidt). By the result of Problem~6 (eq.\ 5.8), the matrix $B$ representing $L$ in this basis has entries
+\[
+b_{jk} = v_j^* A v_k.
+\]
+Since $A$ is symmetric ($A = A^*$), we have
+\[
+b_{kj} = v_k^* A v_j = v_k^* A^* v_j = (A v_k)^* v_j = (v_j^* A v_k)^T = v_j^* A v_k = b_{jk},
+\]
+where the second-to-last equality uses the fact that $v_j^* A v_k$ is a $1 \times 1$ matrix and hence equals its own transpose. Therefore $B = B^*$, i.e., $B$ is symmetric.
+%==============================================================================
+\section*{Problem 8}
+
+If $Q$ is an $n \times n$ matrix, and $(Qx)^*Qy = x^*y$ for all $x$ and $y$, show that $Q$ is an orthogonal matrix. Hint: If $(Qx)^*Qy = x^*(Q^*Q)y = x^*y$, we can explore the entries of $Q^*Q$ by choosing particular vectors $x$ and $y$.
+
+\medskip
+
+\textbf{Solution.}
+
+The hypothesis $(Qx)^*Qy = x^*y$ for all $x, y$ can be rewritten as
+\[
+x^*(Q^*Q)\,y = x^*y \quad \text{for all } x, y \in \R^n.
+\]
+This means $x^*(Q^*Q - I)\,y = 0$ for all $x$ and $y$. Let $M = Q^*Q - I$. Choose $x = e_j$ and $y = e_k$ (the standard basis vectors):
+\[
+e_j^*\, M\, e_k = M_{jk} = 0 \quad \text{for all } j, k.
+\]
+Since every entry of $M$ is zero, $M = 0$, i.e.\ $Q^*Q = I$. This is the definition of an orthogonal matrix.
+%==============================================================================
+\section*{Problem 9}
+
+If $\|Qx\|_{l^2} = \|x\|_{l^2}$ for all $x$, show that $(Qx)^*Qy = x^*y$ for all $x$ and $y$. Hint (\textit{polarization}): If $\|Q(x+sy)\|_{l^2}^2 = \|x+sy\|_{l^2}^2$ for all $s$, then $(Qx)^*Qy = x^*y$.
+
+\medskip
+
+\textbf{Solution.}
+
+Since $\|Qx\|_{l^2} = \|x\|_{l^2}$ for all $x$, in particular it holds for $x$ replaced by $x + sy$ for any scalar $s$:
+\[
+\|Q(x+sy)\|_{l^2}^2 = \|x + sy\|_{l^2}^2.
+\]
+Expand the left side using linearity of $Q$:
+\[
+\|Q(x+sy)\|_{l^2}^2 = (Qx + sQy)^*(Qx + sQy) = (Qx)^*Qx + 2s\,(Qx)^*Qy + s^2\,(Qy)^*Qy.
+\]
+Expand the right side:
+\[
+\|x+sy\|_{l^2}^2 = (x+sy)^*(x+sy) = x^*x + 2s\,x^*y + s^2\,y^*y.
+\]
+By hypothesis, $\|Qx\|_{l^2}^2 = \|x\|_{l^2}^2$ and $\|Qy\|_{l^2}^2 = \|y\|_{l^2}^2$, so the $s^0$ and $s^2$ terms on both sides are equal. Matching the coefficient of $s$ (the linear term) gives:
+\[
+2\,(Qx)^*Qy = 2\,x^*y,
+\]
+and therefore $(Qx)^*Qy = x^*y$ for all $x$ and $y$.
+\end{document}
