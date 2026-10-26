@@ -1,0 +1,453 @@
+% --- LaTeX Homework Template - S. Venkatraman ---
+
+% --- Set document class and font size ---
+
+\documentclass[letterpaper, 11pt]{article}
+
+% --- Package imports ---
+
+\usepackage{
+  amsmath, amsthm, amssymb, mathtools, dsfont,	  % Math typesetting
+  graphicx, wrapfig, subfig, float,                  % Figures and graphics formatting
+  listings, color, inconsolata, pythonhighlight,     % Code formatting
+  fancyhdr, sectsty, hyperref, enumerate, enumitem } % Headers/footers, section fonts, links, lists
+\usepackage{booktabs}
+
+% --- Page layout settings ---
+\usepackage{bm}
+% Set page margins
+\usepackage[left=1.35in, right=1.35in, bottom=1in, top=1.1in, headsep=0.2in]{geometry}
+
+% Anchor footnotes to the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% Set line spacing
+\renewcommand{\baselinestretch}{1.2}
+
+% Set spacing between paragraphs
+\setlength{\parskip}{1.5mm}
+
+% Allow multi-line equations to break onto the next page
+\allowdisplaybreaks
+
+% Enumerated lists: make numbers flush left, with parentheses around them
+\setlist[enumerate]{wide=0pt, leftmargin=21pt, labelwidth=0pt, align=left}
+\setenumerate[1]{label={(\arabic*)}}
+
+% --- Page formatting settings ---
+
+% Set link colors for labeled items (blue) and citations (red)
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=red}
+
+% Make reference section title font smaller
+\renewcommand{\refname}{\large\bf{References}}
+
+% --- Settings for printing computer code ---
+
+% Define colors for green text (comments), grey text (line numbers),
+% and green frame around code
+\definecolor{greenText}{rgb}{0.5, 0.7, 0.5}
+\definecolor{greyText}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codeFrame}{rgb}{0.5, 0.7, 0.5}
+
+% Define code settings
+\lstdefinestyle{code} {
+  frame=single, rulecolor=\color{codeFrame},            % Include a green frame around the code
+  numbers=left,                                         % Include line numbers
+  numbersep=8pt,                                        % Add space between line numbers and frame
+  numberstyle=\tiny\color{greyText},                    % Line number font size (tiny) and color (grey)
+  commentstyle=\color{greenText},                       % Put comments in green text
+  basicstyle=\linespread{1.1}\ttfamily\footnotesize,    % Set code line spacing
+  keywordstyle=\ttfamily\footnotesize,                  % No special formatting for keywords
+  showstringspaces=false,                               % No marks for spaces
+  xleftmargin=1.95em,                                   % Align code frame with main text
+  framexleftmargin=1.6em,                               % Extend frame left margin to include line numbers
+  breaklines=true,                                      % Wrap long lines of code
+  postbreak=\mbox{\textcolor{greenText}{$\hookrightarrow$}\space} % Mark wrapped lines with an arrow
+}
+
+% Set all code listings to be styled with the above settings
+\lstset{style=code}
+
+% --- Math/Statistics commands ---
+
+% Add a reference number to a single line of a multi-line equation
+% Usage: "\numberthis\label{labelNameHere}" in an align or gather environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+% Shortcut for bold text in math mode, e.g. $\b{X}$
+\let\b\mathbf
+
+% Shortcut for bold Greek letters, e.g. $\bg{\beta}$
+\let\bg\boldsymbol
+
+% Shortcut for calligraphic script, e.g. %\mc{M}$
+\let\mc\mathcal
+
+% \mathscr{(letter here)} is sometimes used to denote vector spaces
+\usepackage[mathscr]{euscript}
+
+% Convergence: right arrow with optional text on top
+% E.g. $\converge[w]$ for weak convergence
+\newcommand{\converge}[1][]{\xrightarrow{#1}}
+
+% Normal distribution: arguments are the mean and variance
+% E.g. $\normal{\mu}{\sigma}$
+\newcommand{\normal}[2]{\mathcal{N}\left(#1,#2\right)}
+
+% Uniform distribution: arguments are the left and right endpoints
+% E.g. $\unif{0}{1}$
+\newcommand{\unif}[2]{\text{Uniform}(#1,#2)}
+
+% Independent and identically distributed random variables
+% E.g. $ X_1,...,X_n \iid \normal{0}{1}$
+\newcommand{\iid}{\stackrel{\smash{\text{iid}}}{\sim}}
+
+% Equality: equals sign with optional text on top
+% E.g. $X \equals[d] Y$ for equality in distribution
+\newcommand{\equals}[1][]{\stackrel{\smash{#1}}{=}}
+
+% Math mode symbols for common sets and spaces. Example usage: $\R$
+\newcommand{\R}{\mathbb{R}}   % Real numbers
+\newcommand{\C}{\mathbb{C}}   % Complex numbers
+\newcommand{\Q}{\mathbb{Q}}   % Rational numbers
+\newcommand{\Z}{\mathbb{Z}}   % Integers
+\newcommand{\N}{\mathbb{N}}   % Natural numbers
+\newcommand{\F}{\mathcal{F}}  % Calligraphic F for a sigma algebra
+\newcommand{\El}{\mathcal{L}} % Calligraphic L, e.g. for L^p spaces
+
+% Math mode symbols for probability
+\newcommand{\pr}{\mathbb{P}}    % Probability measure
+\newcommand{\E}{\mathbb{E}}     % Expectation, e.g. $\E(X)$
+\newcommand{\var}{\text{Var}}   % Variance, e.g. $\var(X)$
+\newcommand{\cov}{\text{Cov}}   % Covariance, e.g. $\cov(X,Y)$
+\newcommand{\corr}{\text{Corr}} % Correlation, e.g. $\corr(X,Y)$
+\newcommand{\B}{\mathcal{B}}    % Borel sigma-algebra
+
+% Other miscellaneous symbols
+\newcommand{\tth}{\text{th}}	% Non-italicized 'th', e.g. $n^\tth$
+\newcommand{\Oh}{\mathcal{O}}	% Big-O notation, e.g. $\O(n)$
+\newcommand{\1}{\mathds{1}}	% Indicator function, e.g. $\1_A$
+
+% Additional commands for math mode
+\DeclareMathOperator*{\argmax}{argmax}    % Argmax, e.g. $\argmax_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\argmin}{argmin}    % Argmin, e.g. $\argmin_{x\in[0,1]} f(x)$
+\DeclareMathOperator*{\spann}{Span}       % Span, e.g. $\spann\{X_1,...,X_n\}$
+\DeclareMathOperator*{\bias}{Bias}        % Bias, e.g. $\bias(\hat\theta)$
+\DeclareMathOperator*{\ran}{ran}          % Range of an operator, e.g. $\ran(T) 
+\DeclareMathOperator*{\dv}{d\!}           % Non-italicized 'with respect to', e.g. $\int f(x) \dv x$
+\DeclareMathOperator*{\diag}{diag}        % Diagonal of a matrix, e.g. $\diag(M)$
+\DeclareMathOperator*{\trace}{trace}      % Trace of a matrix, e.g. $\trace(M)$
+
+% Numbered theorem, lemma, etc. settings - e.g., a definition, lemma, and theorem appearing in that 
+% order in Section 2 will be numbered Definition 2.1, Lemma 2.2, Theorem 2.3. 
+% Example usage: \begin{theorem}[Name of theorem] Theorem statement \end{theorem}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+% Un-numbered theorem, lemma, etc. settings
+% Example usage: \begin{lemma*}[Name of lemma] Lemma statement \end{lemma*}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{example*}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{claim}{Claim}
+
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\Dkl}{\mathrm{D}}
+
+% --- Left/right header text (to appear on every page) ---
+
+% Include a line underneath the header, no footer line
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Left header text: course name/assignment number
+\lhead{Operating Systems -- Homework 4}
+
+% Right header text: your name
+\rhead{Yixia Yu (yy5091@nyu.edu)}
+
+% --- Document starts here ---
+
+\begin{document}
+
+\section*{Problem 1: Studying the anatomy of a semaphore}
+
+\subsection*{1.1 Code of P and V}
+
+I use the convention from the reminders: when the counter is negative, its absolute value is the number of tasks waiting in the queue. P first takes one access and blocks the caller if none was left; V gives the access back and, if a task was waiting, unblocks it.
+
+\begin{lstlisting}[language=C]
+void P(SEM *sem)
+{
+    TASK *t;
+    sem->count = sem->count - 1;
+    if (sem->count < 0) {          /* no access left: block the caller */
+        t = current();
+        t->state = BLOCKED;
+        insert(*t, &sem->queue);
+        sched();                   /* elect another task */
+    }
+}
+
+void V(SEM *sem)
+{
+    TASK *t;
+    sem->count = sem->count + 1;
+    if (sem->count <= 0) {         /* at least one task was waiting */
+        t = extract(&sem->queue);
+        t->state = READY;
+    }
+}
+\end{lstlisting}
+
+I assume \texttt{insert} records the task itself, not a copy, so \texttt{extract} later returns the same task. In V, the test $\texttt{count} \le 0$ after the increment means $\texttt{count} < 0$ before, which is exactly the case where the queue is not empty. The unblocked task does not test the counter again: when it is elected, it returns from \texttt{sched()} inside P and already owns the access. V does not call \texttt{sched()}; the unblocked task becomes READY and is elected later by the scheduler. With a priority scheduler, V could also call \texttt{sched()} so that a more urgent task runs at once.
+
+\subsection*{1.2 Why P and V must be indivisible}
+
+P and V read and modify shared data, the counter and the queue. If two calls are interleaved, the semaphore can become inconsistent. Two examples:
+\begin{itemize}
+  \item \textbf{Two P at the same time.} With $\texttt{count} = 1$, A reads the counter and is interrupted before writing $0$. B executes all of P: $\texttt{count} = 0$ and B enters its critical section. A resumes, writes $1 - 1 = 0$, finds $\texttt{count} \ge 0$, and also enters. Both tasks are in the critical section.
+  \item \textbf{Lost wake-up.} With $\texttt{count} = 0$, A executes \texttt{count - 1}, so $\texttt{count} = -1$, but is interrupted before \texttt{insert}. B, in the critical section, calls V: $\texttt{count} = 0 \le 0$, so it extracts from the queue, which is still empty. A then inserts itself and calls \texttt{sched()}: it stays blocked although the resource is free, and no V will wake it.
+\end{itemize}
+
+P and V are system calls, so their code runs in kernel mode.
+\begin{itemize}
+  \item On a uniprocessor, the kernel masks interrupts at the start of P and V and unmasks them at the end. No other task can then be elected in the middle of the code, except at the explicit \texttt{sched()} in P, where the new task restores its own interrupt state.
+  \item On a multiprocessor, masking interrupts only affects the local processor, and another processor can run P or V on the same semaphore. Each semaphore is then also protected by a spinlock built on an atomic instruction (test-and-set, compare-and-swap, exchange). This is busy waiting, but it is acceptable because P and V are only a few instructions long. A task that blocks in P must release the spinlock when it is switched out.
+\end{itemize}
+
+\subsection*{1.3 Masking interrupts in user mode}
+
+\begin{itemize}
+  \item Masking interrupts is a privileged instruction. If user code could do it, a process that never unmasks them (a bug, an infinite loop in the critical section, or malicious code) would also block the clock interrupt. It could no longer be preempted, and the OS would lose control of the CPU.
+  \item Device interrupts are delayed for the whole critical section. A user critical section can be long, unlike the few instructions of P and V.
+  \item It is too coarse: it stops every other process, including the ones that never use the resource. A semaphore only delays the processes that need the same resource.
+  \item It does not work on a multiprocessor: masking interrupts on one processor does not prevent a process on another processor from entering its critical section.
+\end{itemize}
+
+\subsection*{1.4 Interrupting a process in a critical section}
+
+Yes, it can be interrupted. A critical section protected by a semaphore runs in user mode with interrupts enabled. Indivisibility is only with respect to the resource: no other critical section on the same resource may interleave with it. The process can be interrupted by the clock at the end of its quantum, by an I/O completion, or because a task with higher priority becomes ready.
+
+When this happens, the kernel saves the context of the process and puts it back in the READY state. It still holds its access, and the counter of the semaphore does not change. The scheduler may then elect another process:
+\begin{itemize}
+  \item If that process does not use the resource, it runs normally.
+  \item If it tries to enter a critical section on the same resource, its P makes the counter negative. It is blocked in the semaphore queue, and another task is elected. It never enters the critical section.
+\end{itemize}
+Later, the interrupted process is elected again, continues its critical section where it stopped, and calls V, which unblocks one waiting process. Mutual exclusion is therefore preserved, but the waiting processes are delayed for as long as the holder is preempted. This is one reason to keep critical sections short.
+
+\section*{Problem 2: First steps with semaphores}
+
+I label the instructions as in the problem sheet. In each program the letters run from top to bottom in Process A, then B, then C. I assume each labeled instruction is executed indivisibly and the semaphore queues are FIFO. In the tables, r means ready, b means blocked, and end means the process has finished; -- marks an empty queue.
+
+\subsection*{2.1 Hand execution with Mutex}
+
+Process A is (a) \texttt{P(Mutex)}, (b) \texttt{x = x + 1}, (c) \texttt{V(Mutex)}; B is (d), (e) \texttt{x = x * 2}, (f); C is (g), (h) \texttt{x = x - 4}, (i). The counter of Mutex starts at 1, and $x_0$ is the initial value of $x$.
+
+\textbf{Sequence a d b g c e f h i.}
+
+\begin{center}
+\begin{tabular}{clcccccl}
+\toprule
+Step & Instruction & Counter & Queue & A & B & C & $x$ \\
+\midrule
+     & initial            & $1$  & --          & r & r & r & $x_0$ \\
+(a)  & A: \texttt{P(Mutex)} & $0$  & --          & r & r & r & $x_0$ \\
+(d)  & B: \texttt{P(Mutex)} & $-1$ & B           & r & b & r & $x_0$ \\
+(b)  & A: \texttt{x = x + 1} & $-1$ & B          & r & b & r & $x_0 + 1$ \\
+(g)  & C: \texttt{P(Mutex)} & $-2$ & B, C        & r & b & b & $x_0 + 1$ \\
+(c)  & A: \texttt{V(Mutex)} & $-1$ & C           & end & r & b & $x_0 + 1$ \\
+(e)  & B: \texttt{x = x * 2} & $-1$ & C          & end & r & b & $2x_0 + 2$ \\
+(f)  & B: \texttt{V(Mutex)} & $0$  & --          & end & end & r & $2x_0 + 2$ \\
+(h)  & C: \texttt{x = x - 4} & $0$ & --          & end & end & r & $2x_0 - 2$ \\
+(i)  & C: \texttt{V(Mutex)} & $1$  & --          & end & end & end & $2x_0 - 2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This sequence is valid. Each instruction is executed by a process that is not blocked, and the critical sections do not overlap: A is inside on $[a, c]$, B on $[c, f]$, and C on $[f, i]$. At (c), V unblocks B because B is at the head of the FIFO queue; with a policy that unblocked C first, (e) could not come next. The final value is $x = 2(x_0 + 1) - 4 = 2x_0 - 2$.
+
+\textbf{Sequence a d e b c f g h i.} After (a) the counter is $0$, and after (d) it is $-1$ with B blocked in the queue. Instruction (e) belongs to B, which is blocked in \texttt{P(Mutex)} and can only continue after a \texttt{V(Mutex)}. The first V is (c), so (e) cannot come before (c). This sequence is \textbf{not valid}: it would put A and B in their critical sections at the same time.
+
+\subsection*{2.2 Valid sequences of (b), (d), (g)}
+
+Now Process A is (a) \texttt{P(S1)}, (b) \texttt{a = a + 7}, (c) \texttt{V(S2)}; B is (d) \texttt{a = a - 5}; C is (e) \texttt{V(S1)}, (f) \texttt{P(S2)}, (g) \texttt{a = a * 3}. Initially $a = 6$, $S1 = 1$, and $S2 = 0$.
+\begin{itemize}
+  \item S1 starts at $1$, and the only \texttt{P(S1)} is (a), executed once. So (a) never blocks.
+  \item S2 starts at $0$, so (f) blocks C until A executes (c). Thus (g) comes after (c), hence after (b).
+  \item (d) is not synchronized.
+\end{itemize}
+The only constraint is that (b) comes before (g). Out of the $3! = 6$ orders, three are valid:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Order & Computation & Final value of $a$ \\
+\midrule
+b d g & $(6 + 7 - 5) \times 3$ & $24$ \\
+d b g & $(6 - 5 + 7) \times 3$ & $24$ \\
+b g d & $(6 + 7) \times 3 - 5$ & $34$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The orders g b d, g d b and d g b are not valid, because (g) would run before (c). So the final value of $a$ is either $24$ or $34$.
+
+\subsection*{2.3 Semaphore that can be deleted}
+
+S1 can be deleted. Its counter starts at $1$, the only \texttt{P(S1)} is (a), executed once, and \texttt{V(S1)} only increases the counter. So \texttt{P(S1)} never blocks, and S1 never changes which sequences are possible. Removing (a), (e) and the creation of S1 leaves the same valid sequences and values as in 2.2.
+
+S2 cannot be deleted, because it is what forces (g) after (b). Without it, the orders g b d, g d b and d g b become possible, and they give $6 \times 3 + 7 - 5 = 20$, $6 \times 3 - 5 + 7 = 20$, and $(6 - 5) \times 3 + 7 = 10$.
+
+\subsection*{2.4 Always obtaining $a = 34$}
+
+From 2.2, $a = 34$ only for the order b g d, so (d) must also wait for (g). I add \texttt{S3 = CS(0)}: C executes \texttt{V(S3)} after (g), and B executes \texttt{P(S3)} before (d).
+
+\begin{center}
+\texttt{int a = 6; S1 = CS(1); S2 = CS(0); S3 = CS(0);}
+
+\smallskip
+\begin{tabular}{lll}
+\toprule
+Process A & Process B & Process C \\
+\midrule
+\texttt{P(S1);}      & \texttt{P(S3);}      & \texttt{V(S1);} \\
+\texttt{a = a + 7;}  & \texttt{a = a - 5;}  & \texttt{P(S2);} \\
+\texttt{V(S2);}      &                      & \texttt{a = a * 3;} \\
+                     &                      & \texttt{V(S3);} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+S2 forces (b) before (g), and S3 forces (g) before (d). The only possible order is b g d, so $a = (6 + 7) \times 3 - 5 = 34$. There is no deadlock: A never blocks, C only waits for A, and B only waits for C.
+
+\subsection*{2.5 Always obtaining $a = 24$}
+
+From 2.2, $a = 24$ when (d) comes before (g), so (g) must also wait for (d). I add \texttt{S3 = CS(0)}: B executes \texttt{V(S3)} after (d), and C executes \texttt{P(S3)} before (g).
+
+\begin{center}
+\texttt{int a = 6; S1 = CS(1); S2 = CS(0); S3 = CS(0);}
+
+\smallskip
+\begin{tabular}{lll}
+\toprule
+Process A & Process B & Process C \\
+\midrule
+\texttt{P(S1);}      & \texttt{a = a - 5;}  & \texttt{V(S1);} \\
+\texttt{a = a + 7;}  & \texttt{V(S3);}      & \texttt{P(S2);} \\
+\texttt{V(S2);}      &                      & \texttt{P(S3);} \\
+                     &                      & \texttt{a = a * 3;} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Now (g) comes after both (b) and (d). The order of (b) and (d) does not matter, since $6 + 7 - 5 = 6 - 5 + 7 = 8$, so $a = 8 \times 3 = 24$. A and B never block, so C's two P operations are always eventually satisfied.
+
+\subsection*{2.6 A sequence leading to a deadlock}
+
+In the third program, Process A is (a) \texttt{P(S1)}, (b) \texttt{P(S2)}, (c) \texttt{a = a + 7}, (d) \texttt{V(S1)}, (e) \texttt{V(S2)}; B is (f) \texttt{P(S2)}, (g) \texttt{a = a - 5}, (h) \texttt{V(S2)}, (i) \texttt{V(S1)}; C is (j) \texttt{P(S2)}, (k) \texttt{P(S1)}, (l) \texttt{a = a * 3}, (m) \texttt{V(S2)}. Both semaphores start at $1$.
+
+A takes S1 then S2, while C takes them in the opposite order. The sequence \textbf{a j b k f} leads to a deadlock:
+
+\begin{center}
+\begin{tabular}{clccccccc}
+\toprule
+Step & Instruction & S1 & Queue S1 & S2 & Queue S2 & A & B & C \\
+\midrule
+     & initial         & $1$  & -- & $1$  & --   & r & r & r \\
+(a)  & A: \texttt{P(S1)} & $0$  & -- & $1$  & --   & r & r & r \\
+(j)  & C: \texttt{P(S2)} & $0$  & -- & $0$  & --   & r & r & r \\
+(b)  & A: \texttt{P(S2)} & $0$  & -- & $-1$ & A    & b & r & r \\
+(k)  & C: \texttt{P(S1)} & $-1$ & C  & $-1$ & A    & b & r & b \\
+(f)  & B: \texttt{P(S2)} & $-1$ & C  & $-2$ & A, B & b & b & b \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All three processes are blocked. A waits for S2, which C holds, and C waits for S1, which A holds: this is a circular wait. B also waits on S2. Only (d), (e), (i) or (m) could unblock someone, and they all belong to blocked processes, so no process can progress. B could have saved the situation with its \texttt{V(S1)} in (i), but it blocks at (f) before reaching it.
+
+\section*{Problem 3: Synchronization and deadlock}
+
+I assume \texttt{workworkwork()} always terminates, and the semaphore queues are FIFO.
+
+\subsection*{3.1 Maximum number of processes using a resource}
+
+The answer is $Y$. A process uses a resource between \texttt{P(R)} in the prologue and \texttt{V(R)} in the epilogue. Since R starts at $Y$, at most $Y$ processes can have passed \texttt{P(R)} without executing \texttt{V(R)}. This bound is reached: each process releases its server right after getting its resource, so $Y$ processes can pass the prologue one after another and work at the same time ($N > Y$). The servers do not limit this number, since a server is only held during the prologue and the epilogue, not during \texttt{workworkwork()}.
+
+\subsection*{3.2 Deadlock for $N = 2$ and $X = Y = 1$}
+
+Here \texttt{S = CS(1)} and \texttt{R = CS(1)}. Consider the following execution:
+
+\begin{center}
+\begin{tabular}{cclcccc}
+\toprule
+Step & Process & Operation & S & R & U1 & U2 \\
+\midrule
+  &    & initial                        & $1$  & $1$  & r & r \\
+1 & U1 & \texttt{P(S)}                  & $0$  & $1$  & r & r \\
+2 & U1 & \texttt{P(R)}                  & $0$  & $0$  & r & r \\
+3 & U1 & \texttt{V(S)}, starts working   & $1$  & $0$  & r & r \\
+4 & U2 & \texttt{P(S)}                  & $0$  & $0$  & r & r \\
+5 & U2 & \texttt{P(R)}                  & $0$  & $-1$ & r & b \\
+6 & U1 & ends working, \texttt{P(S)}    & $-1$ & $-1$ & b & b \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+U1 holds the resource and waits for the server, while U2 holds the server and waits for the resource. The \texttt{V(R)} that would unblock U2 comes after \texttt{P(S)} in U1's epilogue, and the \texttt{V(S)} that would unblock U1 comes after \texttt{P(R)} in U2's prologue. Neither can progress, so this is a deadlock.
+
+\subsection*{3.3 Minimum value of $N$ for a deadlock}
+
+The minimum is $N = X + Y$.
+
+\textbf{$N = X + Y$ can deadlock.} This generalizes 3.2:
+\begin{enumerate}
+  \item $Y$ processes pass the prologue one after another and start working: $R = 0$ and $S = X$.
+  \item $X$ other processes execute \texttt{P(S)}, then \texttt{P(R)}: $S = 0$, and they all block on R ($R = -X$), each holding a server.
+  \item The $Y$ working processes finish and execute \texttt{P(S)} in the epilogue: they all block ($S = -Y$).
+\end{enumerate}
+All $X + Y$ processes are blocked.
+
+\textbf{$N < X + Y$ cannot deadlock.} Suppose some process is blocked forever.
+\begin{itemize}
+  \item If it is blocked on \texttt{P(S)}, the counter of S stays $\le 0$, so all $X$ servers are held forever. A server holder in the epilogue only executes \texttt{V(R)} and \texttt{V(S)}, which never block, so it would release its server. So all $X$ server holders are in the prologue, blocked forever on \texttt{P(R)}.
+  \item If it is blocked on \texttt{P(R)}, all $Y$ resources are held forever. Their holders are past \texttt{P(R)} and before \texttt{V(R)}. Since \texttt{workworkwork()} terminates, they must be blocked forever on \texttt{P(S)} in the epilogue.
+\end{itemize}
+Either case leads to the other, so a deadlock needs $X$ processes blocked on \texttt{P(R)} while holding the servers, and $Y$ processes holding the resources. These are different processes, because the first group does not have a resource yet. A deadlock therefore needs at least $X + Y$ processes.
+
+\subsection*{3.4 Preventing the deadlock with a semaphore L}
+
+I take \texttt{L = CS(X + Y - 1)} and place \texttt{P(L)} at the start of the prologue and \texttt{V(L)} at the end of the epilogue:
+
+\begin{lstlisting}
+S = CS(X); R = CS(Y); L = CS(X + Y - 1);
+Begin loop
+  P(L); P(S); P(R); V(S);    /* Prologue */
+  workworkwork();            /* Resource usage */
+  P(S); V(R); V(S); V(L);    /* Epilogue */
+End loop
+\end{lstlisting}
+
+L counts the processes between the start of the prologue and the end of the epilogue, which are exactly the processes that can hold or wait for a server or a resource. At most $X + Y - 1$ of them are past \texttt{P(L)}, so by 3.3 they cannot deadlock among themselves. The processes waiting on \texttt{P(L)} hold nothing, and they are unblocked by \texttt{V(L)} as the others finish their epilogue.
+
+The positions matter:
+\begin{itemize}
+  \item \texttt{P(L)} must come before \texttt{P(S)}. Otherwise a process could hold a server while waiting on L, while a process in its epilogue, which holds an access to L, waits for that server. That would create a new deadlock.
+  \item \texttt{V(L)} must come after \texttt{V(R)}, since the processes in \texttt{workworkwork()} hold resources and are part of the deadlock in 3.3.
+\end{itemize}
+
+Any initial value $1 \le L \le X + Y - 1$ prevents the deadlock. For example, with $L = Y$ at most $Y$ processes compete for resources, so \texttt{P(R)} never blocks. I choose $X + Y - 1$ because it is the largest value and restricts concurrency the least. Since $X \ge 1$, we have $Y \le X + Y - 1$, so $Y$ processes can still use the resources at the same time as in 3.1.
+
+\end{document}
